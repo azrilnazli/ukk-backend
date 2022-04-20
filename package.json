@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.10.2",
+        "admin-lte": "^3.0",
+        "axios": "^0.21",
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.2",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "popper.js": "^1.12",
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.15.2",
+        "sass-loader": "^8.0.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.4",
+        "admin-lte": "^3.1.0",
+        "font-awesome": "^4.7.0",
+        "videojs-contrib-hls": "^5.15.0",
+        "videojs-hls-quality-selector": "^1.1.4"
+    }
+}
