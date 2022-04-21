@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Password;
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MovieController;
+use App\Http\Controllers\Api\CompanyController;
 
 
 /*
@@ -35,43 +36,32 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
         return auth()->user();
     });
 
-    Route::post('/user/update', [AuthController::class, 'update']);
-    Route::get('/user/my_account', [AuthController::class, 'my_account']);
 
+    // movies
     Route::get('/movies', [MovieController::class, 'index']);
     Route::post('/movies/statistics', [MovieController::class, 'store']);
-    Route::get('/user/statistics', [MovieController::class, 'statistics']);
-
+   
+    // user
+    Route::post('/user/update', [AuthController::class, 'update']);
+    Route::get('/user/my_account', [AuthController::class, 'my_account']);
     Route::post('/user/check_password', [AuthController::class, 'check_password']);
     Route::post('/user/new_password', [AuthController::class, 'new_password']);
+    Route::get('/user/statistics', [MovieController::class, 'statistics']);
 
+    // company
+    Route::get('/company/show_profile', [CompanyController::class, 'show_profile']);
+
+    // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);
+   
     
 });
 
-
-// Route::Route::middleware('auth:sanctum')
-//         ->post('/movies/statistics', [App\Http\Controllers\Api\MovieController::class, 'store']);
-
-
 Route::get('/movie/{id}/play', [MovieController::class, 'show']); //test
-
-//Route::get('/movies', [App\Http\Controllers\Api\MovieController::class, 'index']);
 
 // route for HLS playlist request
 Route::get('/movie/{video}/{playlist}/{token}', function (  $video, $playlist, $token ) {
 
-    //$header = Request::header('Authorization');
-    // Log::info($header);
-    // if(  Auth('sanctum')->check() )
-    // {
-    //     $message = 'logged_in | ' . $_SERVER['HTTP_REFERER'] . $token;
-    //     Log::info($message);
-   
-    // } else {
-    //     $message = 'guest it is ' . $token;
-    //     Log::info($message); 
-    // }
  
     return FFMpeg::dynamicHLSPlaylist()
 

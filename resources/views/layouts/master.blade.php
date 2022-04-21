@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>YOURflix | @yield('title')</title>
+  <title>VireStream @yield('title')</title>
 
   <!-- MIX CSS -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -39,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <ul class="navbar-nav ml-auto">
      
       <li class="nav-item">
-        <img style="height:40px" class="img-fluid" src="/images/logo.jfif" />
+        <img style="height:40px" class="img-fluid" src="/images/logo.png" />
       </li>
       <li class="nav-item">
 
@@ -154,10 +154,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      StreamDotMy Solutions
+      VireServe SDN BHD
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2021 <a href="http://stream.my">YOURflix</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2014-2021 <a href="http://vireserve.com">VireStream</a>.</strong> All rights reserved.
   </footer>
 
 
