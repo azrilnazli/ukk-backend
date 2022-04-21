@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Storage;
 use File;
 
+
 class CopyVideo extends Command
 {
     /**
@@ -39,7 +40,7 @@ class CopyVideo extends Command
      */
     public function handle()
     {
-        $videos = \App\Models\Video::all()->where('id','!=' , 3 );
+        $videos = \App\Models\Video::all()->where('id','!=' , 1 );
         foreach($videos as $video){
             echo 'Creating assets for : ' . $video->id . PHP_EOL;
             
@@ -63,31 +64,31 @@ class CopyVideo extends Command
 
         // copy master file
          
-        //$file = Storage::disk('assets')->path( '1/original.mp4');
-        $file = Storage::disk('public')->path('/src/original.mp4');
+        $file = Storage::disk('assets')->path( '1/original.mp4');
+        //$file = Storage::disk('public')->path('/src/original.mp4');
         $dest = Storage::disk('assets')->path($video->id . '/original.mp4');
         File::copy($file,$dest);
            
         // copy from video id =3
-        //$file = Storage::disk('streaming')->path('1/m3u8');
-        $file = Storage::disk('public')->path('/src/m3u8');
+        $file = Storage::disk('streaming')->path('1/m3u8');
+        //$file = Storage::disk('public')->path('/src/m3u8');
         $dest = Storage::disk('streaming')->path( $video->id .'/m3u8');
         File::copyDirectory($file,$dest);
 
         // copy thumbnails
-        //$file = Storage::disk('streaming')->path('1/thumbnails');
-        $image =  rand(1, 20) . '.jpg';
-        $file = Storage::disk('public')->path('/src/posters/' .  $image);
+        $file = Storage::disk('streaming')->path('1/thumbnails/potrait.jpg');
+        //$image =  rand(1, 20) . '.jpg';
+        //$file = Storage::disk('public')->path('/src/posters/' .  $image);
         $dest = Storage::disk('streaming')->path( $video->id . '/thumbnails/potrait.jpg');
         File::copy($file,$dest);
 
-        $file = Storage::disk('public')->path('/src/posters/landscape.jpg');
+        $file = Storage::disk('streaming')->path('1/thumbnails/poster.jpg');
         $dest = Storage::disk('streaming')->path( $video->id . '/thumbnails/poster.jpg');
         File::copy($file,$dest);
 
         // copy secret keys
         //$file = Storage::disk('assets')->path('1/secrets');
-        $file = Storage::disk('public')->path('/src/secrets');
+        $file = Storage::disk('assets')->path('1/secrets');
         $dest = Storage::disk('assets')->path( $video->id . '/secrets');
         File::copyDirectory($file,$dest);
 

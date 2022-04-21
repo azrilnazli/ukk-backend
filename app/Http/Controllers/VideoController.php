@@ -169,9 +169,9 @@ class VideoController extends Controller
 
         }
 
-        //return redirect()->route('videos.index')->with('success','Video updated.');
-        $url = $request->only('redirects_to');
-        return redirect()->to( $url['redirects_to'] );
+        return redirect()->route('videos.show', $video->id)->with('success','Video updated.');
+        //$url = $request->only('redirects_to');
+        //return redirect()->to( $url['redirects_to'] );
     }
 
     /**
