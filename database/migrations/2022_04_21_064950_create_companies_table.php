@@ -45,7 +45,10 @@ class CreateCompaniesTable extends Migration
             // finas
             $table->string('cert_finas_publisher')->nullable();
             $table->boolean('is_finas_publisher_cert_uploaded')->default(0);
+            $table->string('cert_finas_syndicated')->nullable();
+            $table->boolean('is_finas_syndicated_cert_uploaded')->default(0);
 
+            // bumiputera
             $table->boolean('is_bumiputera')->default(0);
             $table->boolean('is_bumiputera_cert_uploaded')->default(0);
 
