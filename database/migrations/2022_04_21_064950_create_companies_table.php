@@ -15,60 +15,75 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete(); // Company belongsTo User
+           // $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete(); // Company belongsTo User
+           $table->integer('user_id');
             
             // general info
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->integer('postcode')->nullable();
+            $table->string('postcode')->nullable();
             $table->string('city')->nullable();
             $table->string('states')->nullable();
             $table->date('registration_date')->nullable();
             
             // suruhanjaya syarikat malaysia
-            $table->string('cert_ssm')->nullable();
-            $table->boolean('is_ssm_uploaded')->default(0);
+            $table->string('ssm_registration_number')->nullable();
+            $table->boolean('is_ssm_cert_uploaded')->default(0);
+            $table->date('ssm_expiry_date')->nullable();
+            
 
             // ministry of finance
-            $table->string('cert_mof')->nullable();
-            $table->boolean('is_eperolehan_active')->default(0);
+            $table->string('mof_registration_number')->nullable();
+            $table->boolean('is_mof_active')->default(0);
             $table->boolean('is_mof_cert_uploaded')->default(0);
+            $table->date('mof_expiry_date')->nullable();
 
             // kementerian komunikasi
-            $table->string('cert_kkmm_publisher')->nullable();
-            $table->boolean('is_kkmm_publisher_cert_uploaded')->default(0);
-            $table->string('cert_kkmm_syndicated')->nullable();
-            $table->boolean('is_kkmm_syndicated_cert_uploaded')->default(0);
+            $table->string('kkmm_fp_registration_number')->nullable();
+            $table->boolean('is_kkmm_fp_cert_uploaded')->default(0);
+            $table->date('kkmm_fp_expiry_date')->nullable();
+
+            $table->string('kkmm_fd_registration_number')->nullable();
+            $table->boolean('is_kkmm_fd_cert_uploaded')->default(0);
+            $table->date('kkmm_fd_expiry_date')->nullable();
 
             // finas
-            $table->string('cert_finas_publisher')->nullable();
-            $table->boolean('is_finas_publisher_cert_uploaded')->default(0);
-            $table->string('cert_finas_syndicated')->nullable();
-            $table->boolean('is_finas_syndicated_cert_uploaded')->default(0);
+            $table->string('finas_fp_registration_number')->nullable();
+            $table->boolean('is_finas_fp_cert_uploaded')->default(0);
+            $table->date('finas_fp_expiry_date')->nullable();
+
+            $table->string('finas_fd_registration_number')->nullable();
+            $table->boolean('is_finas_fd_cert_uploaded')->default(0);
+            $table->date('finas_fd_expiry_date')->nullable();
 
             // bumiputera
             $table->boolean('is_bumiputera')->default(0);
+            $table->string('bumiputera_registration_number')->nullable();
             $table->boolean('is_bumiputera_cert_uploaded')->default(0);
+            $table->date('bumiputera_expiry_date')->nullable();
 
             // misc info
             $table->text('board_of_directors')->nullable();
             $table->text('experiences')->nullable();
-            $table->integer('paid_capital')->nullable();
 
-            // company audit
+            // kewangan
+            $table->float('paid_capital')->nullable();
             $table->string('current_audit_year')->nullable();
-            $table->boolean('is_current_audit_year_uploaded')->default(0);
+            $table->boolean('is_current_audit_year_cert_uploaded')->default(0);
 
             // company bank
             $table->string('bank_name')->nullable();
             $table->string('bank_branch')->nullable();
-            $table->string('bank_statement')->nullable();
+
+
+            $table->date('is_bank_cert_uploaded')->nullable();
             $table->date('bank_statement_date_start')->nullable();
             $table->date('bank_statement_date_end')->nullable();
-            $table->integer('bank_account_number')->nullable();
-            $table->boolean('is_bank_cert_uploaded')->default(0);    
+
+
+            $table->string('bank_account_number')->nullable();    
             $table->boolean('is_credit_cert_uploaded')->default(0);
 
             $table->timestamps();
