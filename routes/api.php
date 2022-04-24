@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
 
     // company
     Route::get('/company/show_profile', [CompanyController::class, 'show_profile']);
+    Route::post('/company/update_profile', [CompanyController::class, 'update_profile']);
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);

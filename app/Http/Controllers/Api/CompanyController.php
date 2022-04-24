@@ -27,15 +27,22 @@ class CompanyController extends Controller
         ->first();
 
         $company ?
-            $message = response([
-                'data' => $company
-            ])
+
+            $message = $this->success($company)
         : 
-            $message = response([
-                'message' => 'empty data' 
-            ]);    
-            
+            $message = $this->error([
+                'message' => 'error'
+            ]);
+                
         return $message;
+
+    }
+
+    function update_profile(Request $request){
+
+        return $this->success([
+            'company' => $request->all()
+        ]);
 
     }
 
