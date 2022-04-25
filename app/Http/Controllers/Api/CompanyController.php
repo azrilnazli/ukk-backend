@@ -23,27 +23,47 @@ class CompanyController extends Controller
     function show_profile(){
 
         $company = Company::query()
-        ->where('id', 1)
+        ->where('user_id', auth()->user()->id)
         ->first();
 
         $company ?
 
             $message = $this->success($company)
         : 
-            $message = $this->error([
-                'message' => 'error'
-            ]);
+            $message =  response([
+            'message' => 'no data',
+        ]);
                 
         return $message;
 
     }
 
-    function update_profile(Request $request){
+    // custom field validation
+    public function update_profile(Request $request){
 
-        return $this->success([
-            'company' => $request->all()
+
+        // company profile
+        //$company = Company::find(1);
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        //$company->fill($request->all());
+        
+        $company->mof_registration_number = $request->mof_registration_number;
+        $company->mof_expiry_date = $request->mof_expiry_date;
+        $company->is_mof_active = $request->is_mof_active;
+        $company->save();
+
+        // check directory based on $company->id, if null, create 
+
+        
+        // JSON response
+        return response([
+            'message' => $request->all(),
         ]);
+    }
 
+    // only accept PDF
+    public function upload(Request $request){
+        // create directory in public storage using company_id
     }
 
 }
