@@ -67,4 +67,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    /**
+     * User hasOne Company
+     */
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
 }

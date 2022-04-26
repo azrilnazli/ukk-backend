@@ -57,6 +57,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'companies' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/companies'),
+            'url' => env('APP_URL').'/storage/companies',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
