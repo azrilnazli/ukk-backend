@@ -131,6 +131,39 @@ class CompanyController extends Controller
         ]);
     }
 
+    function bumiputera(){
+
+        $company = Company::query()
+        ->select('id','is_bumiputera','bumiputera_registration_number','is_bumiputera_cert_uploaded','bumiputera_expiry_date')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_bumiputera(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->is_bumiputera = $request->is_bumiputera;
+        $company->bumiputera_registration_number = $request->bumiputera_registration_number;
+        $company->bumiputera_expiry_date = $request->bumiputera_expiry_date;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }
+
     function kkmm_syndicated(){
 
         $company = Company::query()
@@ -163,10 +196,10 @@ class CompanyController extends Controller
         ]);
     }    
 
-    function swasta(){
+    function kkmm_swasta(){
 
         $company = Company::query()
-        ->select('id','swasta_registration_number','is_swasta_cert_uploaded','swasta_expiry_date')
+        ->select('id','kkmm_swasta_registration_number','is_kkmm_swasta_cert_uploaded','kkmm_swasta_expiry_date')
         ->where('user_id', auth()->user()->id)
         ->first();
 
@@ -181,12 +214,12 @@ class CompanyController extends Controller
         return $message;
     }
     // custom field validation
-    public function update_swasta(CompanyRequest $request){
+    public function update_kkmm_swasta(CompanyRequest $request){
 
         // company profile
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
-        $company->swasta_registration_number = $request->swasta_registration_number;
-        $company->swasta_expiry_date = $request->swasta_expiry_date;
+        $company->kkmm_swasta_registration_number = $request->kkmm_swasta_registration_number;
+        $company->kkmm_swasta_expiry_date = $request->kkmm_swasta_expiry_date;
         $company->save();
     
         // JSON response
@@ -283,6 +316,139 @@ class CompanyController extends Controller
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->current_audit_year = $request->current_audit_year;
         $company->paid_capital = $request->paid_capital;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }      
+
+    function bank(){
+
+        $company = Company::query()
+        ->select('id','bank_name','bank_branch','bank_statement_date_start','bank_statement_date_end','bank_account_number')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_bank(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->bank_name = $request->bank_name;
+        $company->bank_branch = $request->bank_branch;
+        $company->bank_account_number = $request->bank_account_number;
+
+        $company->bank_statement_date_start = $request->bank_statement_date_start;
+        $company->bank_statement_date_end = $request->bank_statement_date_end;
+       
+
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }   
+
+    function board_of_directors(){
+
+        $company = Company::query()
+        ->select('id','board_of_directors')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_board_of_directors(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->board_of_directors = $request->board_of_directors;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }    
+    
+
+    function experiences(){
+
+        $company = Company::query()
+        ->select('id','experiences')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_experiences(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->experiences = $request->experiences;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }      
+
+
+    function credit(){
+
+        $company = Company::query()
+        ->select('id','is_credit_cert_uploaded')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_credit(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->is_credit_cert_uploaded = true;
         $company->save();
     
         // JSON response

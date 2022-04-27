@@ -27,7 +27,7 @@ class CompanyRequest extends FormRequest
 
             // company profile
             'name' => ['sometimes', 'string', 'max:255'],
-            'registration_date' => ['sometimes', 'date', 'max:255'],
+            'registration_date' => ['sometimes', 'date', 'before:today'],
             'email' => ['sometimes', 'string', 'email', 'max:255',  \Illuminate\Validation\Rule::unique('users')->ignore($this->user()->id) ],
             'phone' => ['sometimes','regex:/^([0-9\s\-\+\(\)]*)$/', 'string', 'max:15'],
             'address' => ['sometimes', 'string', 'max:500'],
@@ -39,32 +39,46 @@ class CompanyRequest extends FormRequest
 
             // mof
             'mof_registration_number' => ['sometimes', 'string', 'max:100'],
-            'mof_registration_date' => ['sometimes', 'date'],
+            'mof_expiry_date' => ['sometimes', 'date', 'after:today'],
             'is_mof_active' => ['sometimes', 'boolean'],
 
             // ssm
             'ssm_registration_number' => ['sometimes', 'string', 'max:100'],
-            'ssm_expiry_date' => ['sometimes', 'date'],
+            'ssm_expiry_date' => ['sometimes', 'date',  'after:today'],
 
             // finas_fp
             'finas_fp_registration_number' => ['sometimes', 'string', 'max:100'],
-            'finas_fp_expiry_date' => ['sometimes', 'date'],
+            'finas_fp_expiry_date' => ['sometimes', 'date',  'after:today'],
 
             // finas_fd
             'finas_fd_registration_number' => ['sometimes', 'string', 'max:100'],
-            'finas_fd_expiry_date' => ['sometimes', 'date'],            
+            'finas_fd_expiry_date' => ['sometimes', 'date',  'after:today'],            
 
             // KKMM Syndicated
             'kkmm_syndicated_registration_number' => ['sometimes', 'string', 'max:100'],
-            'kkmm_syndicated_expiry_date' => ['sometimes', 'date'],   
+            'kkmm_syndicated_expiry_date' => ['sometimes', 'date',  'after:today'],   
             
             // KKMM Swasta
             'kkmm_swasta_registration_number' => ['sometimes', 'string', 'max:100'],
-            'kkmm_swasta_expiry_date' => ['sometimes', 'date'],  
+            'kkmm_swasta_expiry_date' => ['sometimes', 'date',  'after:today'],  
 
             // audit data
             'current_audit_year' => ['sometimes', 'date'],
             'paid_capital' => ['sometimes', 'integer'],
+
+            // status bumiputera
+            'bumiputera_registration_number' => ['sometimes', 'string', 'max:100'],
+            'bumiputera_registration_date' => ['sometimes', 'date'],
+            'is_bumiputera' => ['sometimes', 'boolean'],
+            'bumiputera_expiry_date' => ['sometimes', 'date',  'after:today'],
+
+
+            // banking data
+            'bank_name' => ['sometimes', 'string', 'max:100'],
+            'bank_branch' => ['sometimes', 'string', 'max:100'],
+            'bank_account_number' => ['sometimes', 'string', 'max:100'],
+            'bank_statement_date_start' => ['sometimes', 'date'],
+            'bank_statement_date_end' => ['sometimes', 'date', 'after:bank_statement_date_start'],
             
 
             // file upload

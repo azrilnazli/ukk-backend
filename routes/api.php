@@ -53,8 +53,26 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
    
     Route::post('/company/upload', [CompanyController::class, 'upload']);
 
+    
+    Route::get('/company/board_of_directors', [CompanyController::class, 'board_of_directors']);
+    Route::post('/company/update_board_of_directors', [CompanyController::class, 'update_board_of_directors']);
+
+    Route::get('/company/experiences', [CompanyController::class, 'experiences']);
+    Route::post('/company/update_experiences', [CompanyController::class, 'update_experiences']);
+
     Route::get('/company/audit', [CompanyController::class, 'audit']);
     Route::post('/company/update_audit', [CompanyController::class, 'update_audit']);
+
+    
+    Route::get('/company/credit', [CompanyController::class, 'credit']);
+    Route::post('/company/update_credit', [CompanyController::class, 'update_credit']);
+
+    Route::get('/company/bumiputera', [CompanyController::class, 'bumiputera']);
+    Route::post('/company/update_bumiputera', [CompanyController::class, 'update_bumiputera']);
+
+    
+    Route::get('/company/bank', [CompanyController::class, 'bank']);
+    Route::post('/company/update_bank', [CompanyController::class, 'update_bank']);
 
     Route::get('/company/profile', [CompanyController::class, 'profile']);
     Route::post('/company/update_profile', [CompanyController::class, 'update_profile']);

@@ -78,10 +78,12 @@ class CreateCompaniesTable extends Migration
             // banking data
             $table->string('bank_name')->nullable();
             $table->string('bank_branch')->nullable();
-            $table->date('is_bank_cert_uploaded')->nullable();
             $table->date('bank_statement_date_start')->nullable();
             $table->date('bank_statement_date_end')->nullable();
-            $table->string('bank_account_number')->nullable();    
+            $table->string('bank_account_number')->nullable();   
+            $table->boolean('is_bank_cert_uploaded')->default(0)->nullable();
+            
+            // credit
             $table->boolean('is_credit_cert_uploaded')->nullable()->default(0);
 
             $table->timestamps();
