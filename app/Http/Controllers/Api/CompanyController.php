@@ -99,8 +99,40 @@ class CompanyController extends Controller
         ]);
     }
 
+    function ssm(){
+
+        $company = Company::query()
+        ->select('id','ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_ssm(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->ssm_registration_number = $request->ssm_registration_number;
+        $company->ssm_expiry_date = $request->ssm_expiry_date;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }
+
     // only accept PDF
-    public function upload(Request $request){
+    public function upload(CompanyRequest $request){
         // log to laravel.log
         //Log::info($request);
         $uploaded = false;
@@ -132,15 +164,14 @@ class CompanyController extends Controller
                 Log::info('file exists');
                 $uploaded = true;
 
-                // update to DB    
-                $db = Company::find($company->id);
-                $db->is_mof_cert_uploaded = TRUE;
-                $db->save();
+                DB::table('companies')
+                ->where('id', $company->id)
+                ->update([$request->field => true]);
             }
         }
 
         return response([
-            'is_mof_cert_uploaded' => $uploaded ? 'true' : 'false',
+            $request->field => $uploaded ? 'true' : 'false',
         ]);
     }
 

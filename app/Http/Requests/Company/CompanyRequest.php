@@ -42,6 +42,13 @@ class CompanyRequest extends FormRequest
             'mof_registration_number' => ['sometimes', 'string', 'max:100'],
             'mof_registration_date' => ['sometimes', 'date'],
             'is_mof_active' => ['sometimes', 'boolean'],
+
+            // ssm
+            'ssm_registration_number' => ['sometimes', 'string', 'max:100'],
+            'ssm_expiry_date' => ['sometimes', 'date'],
+
+            // file upload
+            "selectedFile" => "sometimes|mimes:pdf|max:10000",
         ];
     }
 
