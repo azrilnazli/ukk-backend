@@ -131,6 +131,134 @@ class CompanyController extends Controller
         ]);
     }
 
+    function kkmm_syndicated(){
+
+        $company = Company::query()
+        ->select('id','kkmm_syndicated_registration_number','is_kkmm_syndicated_cert_uploaded','kkmm_syndicated_expiry_date')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_kkmm_syndicated(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->kkmm_syndicated_registration_number = $request->kkmm_syndicated_registration_number;
+        $company->kkmm_syndicated_expiry_date = $request->kkmm_syndicated_expiry_date;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }    
+
+    function swasta(){
+
+        $company = Company::query()
+        ->select('id','swasta_registration_number','is_swasta_cert_uploaded','swasta_expiry_date')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_swasta(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->swasta_registration_number = $request->swasta_registration_number;
+        $company->swasta_expiry_date = $request->swasta_expiry_date;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }    
+
+    function finas_fp(){
+
+        $company = Company::query()
+        ->select('id','finas_fp_registration_number','is_finas_fp_cert_uploaded','finas_fp_expiry_date')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_finas_fp(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->finas_fp_registration_number = $request->finas_fp_registration_number;
+        $company->finas_fp_expiry_date = $request->ssm_expiry_date;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }    
+
+    function finas_fd(){
+
+        $company = Company::query()
+        ->select('id','finas_fd_registration_number','is_finas_fd_cert_uploaded','finas_fd_expiry_date')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_finas_fd(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->finas_fd_registration_number = $request->finas_fd_registration_number;
+        $company->finas_fd_expiry_date = $request->ssm_expiry_date;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }      
+
     // only accept PDF
     public function upload(CompanyRequest $request){
         // log to laravel.log

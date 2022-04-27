@@ -47,6 +47,23 @@ class CompanyRequest extends FormRequest
             'ssm_registration_number' => ['sometimes', 'string', 'max:100'],
             'ssm_expiry_date' => ['sometimes', 'date'],
 
+            // finas_fp
+            'finas_fp_registration_number' => ['sometimes', 'string', 'max:100'],
+            'finas_fp_expiry_date' => ['sometimes', 'date'],
+
+            // finas_fd
+            'finas_fd_registration_number' => ['sometimes', 'string', 'max:100'],
+            'finas_fd_expiry_date' => ['sometimes', 'date'],            
+
+            // KKMM Syndicated
+            'kkmm_syndicated_registration_number' => ['sometimes', 'string', 'max:100'],
+            'kkmm_syndicated_expiry_date' => ['sometimes', 'date'],   
+            
+            // KKMM Swasta
+            'kkmm_swasta_registration_number' => ['sometimes', 'string', 'max:100'],
+            'kkmm_swasta_expiry_date' => ['sometimes', 'date'],  
+            
+
             // file upload
             "selectedFile" => "sometimes|mimes:pdf|max:10000",
         ];

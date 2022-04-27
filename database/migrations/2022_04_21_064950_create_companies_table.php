@@ -40,20 +40,22 @@ class CreateCompaniesTable extends Migration
             $table->boolean('is_mof_cert_uploaded')->nullable()->default(0);
             $table->date('mof_expiry_date')->nullable();
 
-            // kementerian komunikasi
-            $table->string('kkmm_fp_registration_number')->nullable();
-            $table->boolean('is_kkmm_fp_cert_uploaded')->nullable()->default(0);
-            $table->date('kkmm_fp_expiry_date')->nullable();
+            // kementerian komunikasi - syndicated
+            $table->string('kkmm_syndicated_registration_number')->nullable();
+            $table->boolean('is_kkmm_syndicated_cert_uploaded')->nullable()->default(0);
+            $table->date('kkmm_syndicated_expiry_date')->nullable();
 
-            $table->string('kkmm_fd_registration_number')->nullable();
-            $table->boolean('is_kkmm_fd_cert_uploaded')->nullable()->default(0);
-            $table->date('kkmm_fd_expiry_date')->nullable();
+            // kementerian komunikasi - swasta
+            $table->string('kkmm_swasta_registration_number')->nullable();
+            $table->boolean('is_kkmm_swasta_cert_uploaded')->nullable()->default(0);
+            $table->date('kkmm_swasta_expiry_date')->nullable();
 
-            // finas
+            // finas fp
             $table->string('finas_fp_registration_number')->nullable();
             $table->boolean('is_finas_fp_cert_uploaded')->nullable()->default(0);
             $table->date('finas_fp_expiry_date')->nullable();
 
+            // finas fd
             $table->string('finas_fd_registration_number')->nullable();
             $table->boolean('is_finas_fd_cert_uploaded')->nullable()->default(0);
             $table->date('finas_fd_expiry_date')->nullable();

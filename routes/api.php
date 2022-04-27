@@ -59,8 +59,20 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/mof', [CompanyController::class, 'mof']);
     Route::post('/company/update_mof', [CompanyController::class, 'update_mof']);
 
+    Route::get('/company/finas_fp', [CompanyController::class, 'finas_fp']);
+    Route::post('/company/update_finas_fp', [CompanyController::class, 'update_finas_fp']);
+
+    Route::get('/company/finas_fd', [CompanyController::class, 'finas_fd']);
+    Route::post('/company/update_finas_fd', [CompanyController::class, 'update_finas_fd']);
+
     Route::get('/company/ssm', [CompanyController::class, 'ssm']);
     Route::post('/company/update_ssm', [CompanyController::class, 'update_ssm']);
+
+    Route::get('/company/kkmm_syndicated', [CompanyController::class, 'kkmm_syndicated']);
+    Route::post('/company/update_kkmm_syndicated', [CompanyController::class, 'update_kkmm_syndicated']);
+
+    Route::get('/company/kkmm_swasta', [CompanyController::class, 'kkmm_swasta']);
+    Route::post('/company/update_kkmm_swasta', [CompanyController::class, 'update_kkmm_swasta']);
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);
