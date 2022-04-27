@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 // Form Validation
-//use App\Http\Requests\Company\RegisterRequest;
+use App\Http\Requests\Company\CompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -22,9 +22,10 @@ class CompanyController extends Controller
     function __construct(){
     }
 
-    function show_profile(){
+    function profile(){
 
         $company = Company::query()
+        ->select('id','name','registration_date','email','phone','address','postcode','city','states','board_of_directors','paid_capital','experiences')
         ->where('user_id', auth()->user()->id)
         ->first();
 
@@ -37,11 +38,53 @@ class CompanyController extends Controller
         ]);
                 
         return $message;
+    }
 
+    public function update_profile(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->name = $request->name;
+        $company->registration_date = $request->registration_date;
+        $company->email = $request->email;
+        $company->phone = $request->phone;
+        $company->address = $request->address;
+        $company->postcode = $request->postcode;
+        $company->city = $request->city;
+        $company->states = $request->states;
+        $company->board_of_directors = $request->board_of_directors;
+        $company->paid_capital = $request->paid_capital;
+        $company->experiences = $request->experiences;
+
+        $company->save();
+ 
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }
+
+
+    function mof(){
+
+        $company = Company::query()
+        ->select('id','mof_registration_number','is_mof_active','is_mof_cert_uploaded','mof_expiry_date')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
     }
 
     // custom field validation
-    public function update_profile(Request $request){
+    public function update_mof(CompanyRequest $request){
 
         // company profile
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);

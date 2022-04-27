@@ -36,32 +36,32 @@ class CreateCompaniesTable extends Migration
 
             // ministry of finance
             $table->string('mof_registration_number')->nullable();
-            $table->boolean('is_mof_active')->default(0);
-            $table->boolean('is_mof_cert_uploaded')->default(0);
+            $table->boolean('is_mof_active')->nullable()->default(0);
+            $table->boolean('is_mof_cert_uploaded')->nullable()->default(0);
             $table->date('mof_expiry_date')->nullable();
 
             // kementerian komunikasi
             $table->string('kkmm_fp_registration_number')->nullable();
-            $table->boolean('is_kkmm_fp_cert_uploaded')->default(0);
+            $table->boolean('is_kkmm_fp_cert_uploaded')->nullable()->default(0);
             $table->date('kkmm_fp_expiry_date')->nullable();
 
             $table->string('kkmm_fd_registration_number')->nullable();
-            $table->boolean('is_kkmm_fd_cert_uploaded')->default(0);
+            $table->boolean('is_kkmm_fd_cert_uploaded')->nullable()->default(0);
             $table->date('kkmm_fd_expiry_date')->nullable();
 
             // finas
             $table->string('finas_fp_registration_number')->nullable();
-            $table->boolean('is_finas_fp_cert_uploaded')->default(0);
+            $table->boolean('is_finas_fp_cert_uploaded')->nullable()->default(0);
             $table->date('finas_fp_expiry_date')->nullable();
 
             $table->string('finas_fd_registration_number')->nullable();
-            $table->boolean('is_finas_fd_cert_uploaded')->default(0);
+            $table->boolean('is_finas_fd_cert_uploaded')->nullable()->default(0);
             $table->date('finas_fd_expiry_date')->nullable();
 
             // bumiputera
-            $table->boolean('is_bumiputera')->default(0);
+            $table->boolean('is_bumiputera')->nullable()->default(0);
             $table->string('bumiputera_registration_number')->nullable();
-            $table->boolean('is_bumiputera_cert_uploaded')->default(0);
+            $table->boolean('is_bumiputera_cert_uploaded')->nullable()->default(0);
             $table->date('bumiputera_expiry_date')->nullable();
 
             // misc info
@@ -71,7 +71,7 @@ class CreateCompaniesTable extends Migration
             // kewangan
             $table->float('paid_capital')->nullable();
             $table->string('current_audit_year')->nullable();
-            $table->boolean('is_current_audit_year_cert_uploaded')->default(0);
+            $table->boolean('is_current_audit_year_cert_uploaded')->nullable()->default(0);
 
             // company bank
             $table->string('bank_name')->nullable();
@@ -84,7 +84,7 @@ class CreateCompaniesTable extends Migration
 
 
             $table->string('bank_account_number')->nullable();    
-            $table->boolean('is_credit_cert_uploaded')->default(0);
+            $table->boolean('is_credit_cert_uploaded')->nullable()->default(0);
 
             $table->timestamps();
         });

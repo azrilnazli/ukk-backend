@@ -49,9 +49,15 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/user/statistics', [MovieController::class, 'statistics']);
 
     // company
-    Route::get('/company/show_profile', [CompanyController::class, 'show_profile']);
-    Route::post('/company/update_profile', [CompanyController::class, 'update_profile']);
+    
+   
     Route::post('/company/upload', [CompanyController::class, 'upload']);
+
+    Route::get('/company/profile', [CompanyController::class, 'profile']);
+    Route::post('/company/update_profile', [CompanyController::class, 'update_profile']);
+
+    Route::get('/company/mof', [CompanyController::class, 'mof']);
+    Route::post('/company/update_mof', [CompanyController::class, 'update_mof']);
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);
