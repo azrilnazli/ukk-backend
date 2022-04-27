@@ -259,6 +259,38 @@ class CompanyController extends Controller
         ]);
     }      
 
+    function audit(){
+
+        $company = Company::query()
+        ->select('id','current_audit_year','is_current_audit_year_cert_uploaded','paid_capital')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        : 
+            $message =  response([
+            'message' => 'no data',
+        ]);
+                
+        return $message;
+    }
+    // custom field validation
+    public function update_audit(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->current_audit_year = $request->current_audit_year;
+        $company->paid_capital = $request->paid_capital;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }      
+
     // only accept PDF
     public function upload(CompanyRequest $request){
         // log to laravel.log

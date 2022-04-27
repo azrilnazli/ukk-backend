@@ -35,7 +35,6 @@ class CompanyRequest extends FormRequest
             'city' => ['sometimes', 'string', 'max:100'],
             'states' => ['sometimes', 'string', 'max:100'],
             'board_of_directors' => ['sometimes', 'string', 'max:1000'],
-            'paid_capital' => ['sometimes', 'integer'],
             'experiences' => ['sometimes', 'string', 'max:1000'],
 
             // mof
@@ -62,6 +61,10 @@ class CompanyRequest extends FormRequest
             // KKMM Swasta
             'kkmm_swasta_registration_number' => ['sometimes', 'string', 'max:100'],
             'kkmm_swasta_expiry_date' => ['sometimes', 'date'],  
+
+            // audit data
+            'current_audit_year' => ['sometimes', 'date'],
+            'paid_capital' => ['sometimes', 'integer'],
             
 
             // file upload

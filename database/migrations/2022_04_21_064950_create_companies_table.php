@@ -70,21 +70,17 @@ class CreateCompaniesTable extends Migration
             $table->text('board_of_directors')->nullable();
             $table->text('experiences')->nullable();
 
-            // kewangan
+            // audit data
             $table->float('paid_capital')->nullable();
             $table->string('current_audit_year')->nullable();
             $table->boolean('is_current_audit_year_cert_uploaded')->nullable()->default(0);
 
-            // company bank
+            // banking data
             $table->string('bank_name')->nullable();
             $table->string('bank_branch')->nullable();
-
-
             $table->date('is_bank_cert_uploaded')->nullable();
             $table->date('bank_statement_date_start')->nullable();
             $table->date('bank_statement_date_end')->nullable();
-
-
             $table->string('bank_account_number')->nullable();    
             $table->boolean('is_credit_cert_uploaded')->nullable()->default(0);
 

@@ -53,6 +53,9 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
    
     Route::post('/company/upload', [CompanyController::class, 'upload']);
 
+    Route::get('/company/audit', [CompanyController::class, 'audit']);
+    Route::post('/company/update_audit', [CompanyController::class, 'update_audit']);
+
     Route::get('/company/profile', [CompanyController::class, 'profile']);
     Route::post('/company/update_profile', [CompanyController::class, 'update_profile']);
 
