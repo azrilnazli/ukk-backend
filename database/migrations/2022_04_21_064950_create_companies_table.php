@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->id();
            // $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete(); // Company belongsTo User
            $table->integer('user_id');
+
             
             // general info
             $table->string('name')->nullable();
@@ -30,7 +31,7 @@ class CreateCompaniesTable extends Migration
             
             // suruhanjaya syarikat malaysia
             $table->string('ssm_registration_number')->nullable();
-            $table->boolean('is_ssm_cert_uploaded')->default(0);
+            $table->boolean('is_ssm_cert_uploaded')->default(0)->nullable();
             $table->date('ssm_expiry_date')->nullable();
             
 
@@ -85,6 +86,11 @@ class CreateCompaniesTable extends Migration
             
             // credit
             $table->boolean('is_credit_cert_uploaded')->nullable()->default(0);
+
+            // administration
+            $table->boolean('is_completed')->default(0)->nullable(); // default is incomplete
+            $table->boolean('is_approved')->default(0)->nullable();  // default is rejected
+
 
             $table->timestamps();
         });
