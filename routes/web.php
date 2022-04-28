@@ -28,6 +28,7 @@ Route::resources([
     'users'   =>  App\Http\Controllers\UserController::class,
     'videos'  =>  App\Http\Controllers\VideoController::class,
     'categories'  =>  App\Http\Controllers\CategoryController::class,
+    'companies'  =>  App\Http\Controllers\CompanyController::class,
 ]);
 
 Route::resource('profile', App\Http\Controllers\ProfileController::class )->except([ 'create','destroy']);

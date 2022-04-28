@@ -23,9 +23,9 @@
 <div class="card card-dark">
     <div class="card-header">
       <h3 class="card-title">Update existing video</h3>
-      <div class="card-tools">
+      {{-- <div class="card-tools">
         <a id="submit" class="btn-sm btn-success" href="#" role="button"><i class="fas fa-edit"></i> Update</a>
-      </div>
+      </div> --}}
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -70,6 +70,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                     @enderror
+                    
                     
                 </div>
             </div>
@@ -128,12 +129,29 @@
                 </div>
 
             </div>
-        </div>
+        
 
+        </div>
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label text-md-right text-uppercase "></label>
+            <div class="col-2">
+
+              
+                <div class="mt-3">
+                    <button id="submit" class="btn btn-primary" >Submit</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/videos'">
+                        Cancel 
+                    </button>
+                  </div>
+                
+            </div>
+        </div>
 
     
         </div>
+        
     </div>
+    
 </form>    
 <script>
     $( document ).ready(function() {

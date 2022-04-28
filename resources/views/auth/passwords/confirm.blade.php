@@ -3,15 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Confirm Password') }}</div>
-                <div class="row mb-5">
-                          
-                    <img src='/images/studio.jpg' class="img-fluid w-100 rounded" />
-           
-                </div>
+    
                 <div class="card-body">
+                    <div class="row mb-5">
+                          
+                        <img src='/images/studio.jpg' class="img-fluid w-100 rounded" />
+               
+                    </div>
                     {{ __('Please confirm your password before continuing.') }}
 
                     <form method="POST" action="{{ route('password.confirm') }}">

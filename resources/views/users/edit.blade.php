@@ -20,9 +20,9 @@
 <div class="card card-dark">
     <div class="card-header">
       <h3 class="card-title">Update existing user</h3>
-      <div class="card-tools">
+      {{-- <div class="card-tools">
         <a id="submit" class="btn-sm btn-success" href="#" role="button"><i class="fas fa-edit"></i> Update</a>
-      </div>
+      </div> --}}
     </div>
     <!-- /.card-header -->
 
@@ -32,7 +32,7 @@
        
     
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label text-md-right text-uppercase">{{ __('Role') }} <i class="fas fa-group"></i></label>
+                    <label for="name" class="col-sm-2 col-form-label text-md-right">{{ __('Role') }} </label>
                     <div class="col-sm-10">
                         @php
                         $current_role = $user->getRoleNames()->first();
@@ -55,7 +55,7 @@
                 </div>
     
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label text-md-right text-uppercase">{{ __('Name') }} <i class="fas fa-user"></i></label>
+                    <label for="name" class="col-sm-2 col-form-label text-md-right">{{ __('Name') }} </label>
     
                     <div class="col-sm-10">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user['name'] ?$user['name'] : old('name')   }}" required autocomplete="name" autofocus>
@@ -69,7 +69,7 @@
                 </div>
     
                 <div class="form-group row">
-                    <label for="email" class="col-sm-2 col-form-label text-md-right text-uppercase">{{ __('E-Mail Address') }} <i class="fas fa-envelope"></i></label>
+                    <label for="email" class="col-sm-2 col-form-label text-md-right">{{ __('E-Mail Address') }} </label>
     
                     <div class="col-sm-10">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user['email'] ?  $user['email'] : old('email')  }}" required autocomplete="email">
@@ -84,7 +84,7 @@
     
 
                 <div class="form-group row">
-                    <label for="email" class="col-sm-2 col-form-label text-md-right text-uppercase">{{ __('Reset Password') }} <i class="fas fa-lock"></i></label>
+                    <label for="email" class="col-sm-2 col-form-label text-md-right">{{ __('Reset Password') }}</label>
 
                     <div class="col-sm-10">
                         <input id="password"  type="password" class="form-control @error('password') is-invalid @enderror" name="password">
@@ -94,6 +94,12 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                        <div class="mt-3">
+                            <button id="submit" class="btn btn-primary" >Submit</button>
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='/users'">
+                                Cancel 
+                            </button>
+                          </div>
                     </div>
                 </div>
             </div>

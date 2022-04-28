@@ -16,7 +16,7 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-         $controllers = ['user','video','dashboard','category'];
+         $controllers = ['user','video','dashboard','category','company']; // add controller name
          $actions = ['list','create','edit','delete'];
 
          // create permissions

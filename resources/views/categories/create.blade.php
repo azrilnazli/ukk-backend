@@ -22,9 +22,9 @@
 
         <h3 class="card-title">Create Category</h3>
     
-        <div class="card-tools">
+        {{-- <div class="card-tools">
           <a id="submit" class="btn-sm btn-primary" href="#" role="button"><i class="fas fa-plus"></i> Create</a>
-        </div>
+        </div> --}}
   
     </div><!-- /.card-header -->
 
@@ -55,6 +55,12 @@
                           <strong>{{ $message }}</strong>
                       </span>
                   @enderror
+                  <div class="mt-3">
+                    <button id="submit" class="btn btn-primary" >Submit</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/categories'">
+                        Cancel 
+                    </button>
+                  </div>
               </div>
           </div>
     </div><!-- /.card-body -->

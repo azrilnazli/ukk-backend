@@ -30,7 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <span class="h3 text-secondary"> <i class="fas fa-video text-danger"></i> Video Management System</span>
+        {{-- <span class="h3 text-secondary"> <i class="fas fa-video text-danger"></i> Video Management System</span> --}}
       </li>
 
     </ul>
@@ -38,9 +38,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
      
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <img style="height:40px" class="img-fluid" src="/images/logo.png" />
-      </li>
+      </li> --}}
       <li class="nav-item">
 
         <a class="nav-link"  

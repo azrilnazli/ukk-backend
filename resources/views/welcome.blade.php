@@ -16,7 +16,7 @@
 <div class="login-box">
 
       <div class="lockscreen-logo">
-        <a href="/home"><b>YOUR</b>flix <i class="fas fa-sign-in-alt"></i></a>
+        <a href="/home"><b>TVCMS</b> Administration <i class="fas fa-sign-in-alt"></i></a>
     </div>
      
 </div>

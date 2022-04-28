@@ -38,14 +38,14 @@ class CompanyFactory extends Factory
             'mof_expiry_date' => $this->faker->date(),
 
             // // kkmm fp
-            'kkmm_fp_registration_number' => $this->faker->numerify('kkmm-fp-#####'),
-            'is_kkmm_fp_cert_uploaded' => $this->faker->boolean(),
-            'kkmm_fp_expiry_date' => $this->faker->date(),
+            'kkmm_syndicated_registration_number' => $this->faker->numerify('kkmm-syndicated-#####'),
+            'is_kkmm_syndicated_cert_uploaded' => $this->faker->boolean(),
+            'kkmm_syndicated_expiry_date' => $this->faker->date(),
 
             // // kkmm fd
-            'kkmm_fd_registration_number' => $this->faker->numerify('kkmm-fd-#####'),
-            'is_kkmm_fd_cert_uploaded' => $this->faker->boolean(),
-            'kkmm_fd_expiry_date' => $this->faker->date(),
+            'kkmm_swasta_registration_number' => $this->faker->numerify('kkmm-swasta-#####'),
+            'is_kkmm_swasta_cert_uploaded' => $this->faker->boolean(),
+            'kkmm_swasta_expiry_date' => $this->faker->date(),
 
             // // finas fp
             'finas_fp_registration_number' => $this->faker->numerify('finas-fp-#####'),

@@ -23,7 +23,7 @@
         <div class="card-header">
         <h3 class="card-title">Create New Video</h3>
         <div class="card-tools">
-            <a id="submit" class="btn-sm btn-primary" href="#" role="button"><i class="fas fa-plus"></i> Create</a>
+            {{-- <a id="submit" class="btn-sm btn-primary" href="#" role="button"><i class="fas fa-plus"></i> Create</a> --}}
 
             <button  id="upload_progress" class="btn-sm btn-primary disabled">
                 <i class="fa fa-cog fa-lg fa-spin"></i> <span id="progress"></span>
@@ -93,7 +93,14 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                    <div class="mt-3">
+                        <button id="submit" class="btn btn-primary" >Submit</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='/videos'">
+                            Cancel 
+                        </button>
+                      </div>
                 </div>
+       
             </div>
 
 

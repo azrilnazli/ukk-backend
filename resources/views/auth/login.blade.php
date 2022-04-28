@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
 
                 <div class="card-body">
@@ -11,11 +11,11 @@
                         @csrf
                         <div class="row mb-5">
                           
-                            <img src='/images/studio.jpg' class="img-fluid w-100 rounded" />
+                            <img src='/images/studio.jpg' class="img-fluid w-100  rounded" />
                    
                         </div>
                         <div class="row mb-3 ">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail ') }}  <i class="fas fa-envelope"></i></label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail ') }} </label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}  <i class="fas fa-lock"></i></label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }} </label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -57,11 +57,11 @@
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Sign In ') }} <i class="fas fa-door-open"></i>
+                                    {{ __('Sign In ') }} 
                                 </button>
-                                <button type="button" class="btn btn-warning" onclick="window.location.href='/register'">
-                                    {{ __('Sign Up ') }} <i class="fas fa-handshake"></i>
-                                </button>
+                                {{-- <button type="button" class="btn btn-warning" onclick="window.location.href='/register'">
+                                    {{ __('Sign Up ') }} 
+                                </button> --}}
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
