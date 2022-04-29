@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::post('/company/update_bank', [CompanyController::class, 'update_bank']);
 
     Route::get('/company/profile', [CompanyController::class, 'profile']);
+    Route::get('/company/check_profile', [CompanyController::class, 'check_profile']);
     Route::post('/company/update_profile', [CompanyController::class, 'update_profile']);
 
     Route::get('/company/mof', [CompanyController::class, 'mof']);

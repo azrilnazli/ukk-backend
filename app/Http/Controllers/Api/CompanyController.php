@@ -502,4 +502,35 @@ class CompanyController extends Controller
         ]);
     }
 
+
+    public function check_profile() {
+        $company = Company::query()
+            ->select('name','registration_date','email','phone','address','postcode','city','states','board_of_directors','paid_capital','experiences')
+            ->where('user_id', auth()->user()->id)
+            
+            ->first();
+
+        $completed = 'azril';
+        //Log::info('check profile');
+        $profile = collect($company);
+     
+        $completed = $profile->filter(function($item, $key) use ($completed) {
+            //Log::info($item);
+            $completed = 'nazli';
+            $forget = [ 'created_at','updated_at'];
+            if(!in_array($item, $forget)){
+
+                if(is_null($item)){
+                    return false;
+                }
+                
+            }
+        });
+
+        Log::info($completed);
+        return response([
+            'status' => $completed
+        ]);
+    }
+
 }
