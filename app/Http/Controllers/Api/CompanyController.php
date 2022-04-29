@@ -510,7 +510,7 @@ class CompanyController extends Controller
             
             ->first();
 
-        $completed = 'azril';
+        $completed = true;
         //Log::info('check profile');
         $profile = collect($company);
      
