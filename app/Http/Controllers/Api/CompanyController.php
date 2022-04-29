@@ -498,6 +498,7 @@ class CompanyController extends Controller
 
         return response([
             $request->field => $uploaded ? 'true' : 'false',
+            'id' => $company->id,
         ]);
     }
 
