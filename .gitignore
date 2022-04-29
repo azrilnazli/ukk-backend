@@ -16,8 +16,5 @@ yarn-error.log
 /.idea
 /.vscode
 /public/uploads
-storage/logs/laravel.log
-storage/uploads
-resources/views/videos/show.blade.php
-/storage/logs
-storage/logs/laravel.log
+/storage/logs/laravel.log
+
