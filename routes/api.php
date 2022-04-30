@@ -55,9 +55,11 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
 
     
     Route::get('/company/board_of_directors', [CompanyController::class, 'board_of_directors']);
+    Route::get('/company/check_board_of_directors', [CompanyController::class, 'check_board_of_directors']);
     Route::post('/company/update_board_of_directors', [CompanyController::class, 'update_board_of_directors']);
 
     Route::get('/company/experiences', [CompanyController::class, 'experiences']);
+    Route::get('/company/check_experiences', [CompanyController::class, 'check_experiences']);
     Route::post('/company/update_experiences', [CompanyController::class, 'update_experiences']);
 
     Route::get('/company/audit', [CompanyController::class, 'audit']);
@@ -65,13 +67,16 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
 
     
     Route::get('/company/credit', [CompanyController::class, 'credit']);
+    Route::get('/company/check_credit', [CompanyController::class, 'check_credit']);
     Route::post('/company/update_credit', [CompanyController::class, 'update_credit']);
 
     Route::get('/company/bumiputera', [CompanyController::class, 'bumiputera']);
+    Route::get('/company/check_bumiputera', [CompanyController::class, 'check_bumiputera']);
     Route::post('/company/update_bumiputera', [CompanyController::class, 'update_bumiputera']);
 
     
     Route::get('/company/bank', [CompanyController::class, 'bank']);
+    Route::get('/company/check_bank', [CompanyController::class, 'check_bank']);
     Route::post('/company/update_bank', [CompanyController::class, 'update_bank']);
 
     Route::get('/company/profile', [CompanyController::class, 'profile']);
@@ -83,18 +88,23 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::post('/company/update_mof', [CompanyController::class, 'update_mof']);
 
     Route::get('/company/finas_fp', [CompanyController::class, 'finas_fp']);
+    Route::get('/company/check_finas_fp', [CompanyController::class, 'check_finas_fp']);
     Route::post('/company/update_finas_fp', [CompanyController::class, 'update_finas_fp']);
 
     Route::get('/company/finas_fd', [CompanyController::class, 'finas_fd']);
+    Route::get('/company/check_finas_fd', [CompanyController::class, 'check_finas_fd']);
     Route::post('/company/update_finas_fd', [CompanyController::class, 'update_finas_fd']);
 
     Route::get('/company/ssm', [CompanyController::class, 'ssm']);
+    Route::get('/company/check_ssm', [CompanyController::class, 'check_ssm']);
     Route::post('/company/update_ssm', [CompanyController::class, 'update_ssm']);
 
     Route::get('/company/kkmm_syndicated', [CompanyController::class, 'kkmm_syndicated']);
+    Route::get('/company/check_kkmm_swasta', [CompanyController::class, 'check_kkmm_swasta']);
     Route::post('/company/update_kkmm_syndicated', [CompanyController::class, 'update_kkmm_syndicated']);
 
     Route::get('/company/kkmm_swasta', [CompanyController::class, 'kkmm_swasta']);
+    Route::get('/company/check_kkmm_syndicated', [CompanyController::class, 'check_kkmm_syndicated']);
     Route::post('/company/update_kkmm_swasta', [CompanyController::class, 'update_kkmm_swasta']);
 
     // system

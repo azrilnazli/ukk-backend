@@ -502,11 +502,105 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function check_ssm(){
+        $fields = ['ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_kkmm_syndicated(){
+        $fields = ['kkmm_syndicated_registration_number','is_kkmm_syndicated_cert_uploaded','kkmm_syndicated_expiry_date'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_kkmm_swasta(){
+        $fields = ['kkmm_swasta_registration_number','is_kkmm_swasta_cert_uploaded','kkmm_swasta_expiry_date'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_finas_fp(){
+        $fields = ['finas_fp_registration_number','is_finas_fp_cert_uploaded','finas_fp_expiry_date'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_finas_fd(){
+        $fields = ['finas_fd_registration_number','is_finas_fd_cert_uploaded','finas_fd_expiry_date'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_credit(){
+        $fields = ['is_credit_cert_uploaded'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_audit(){
+        $fields = ['current_audit_year','is_current_audit_year_cert_uploaded','paid_capital'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_bank(){
+        $fields = ['bank_name','bank_branch','bank_statement_date_start','bank_statement_date_end','bank_account_number'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_bumiputera(){
+        $fields = ['is_bumiputera','bumiputera_registration_number','is_bumiputera_cert_uploaded','bumiputera_expiry_date'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_experiences(){
+        $fields = ['experiences'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_board_of_directors(){
+        $fields = ['board_of_directors'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    // public function check_ssm(){
+    //     $fields = ['ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date'];
+    //     $status = $this->check($fields);
+    //     return response([
+    //         'status' => $status
+    //     ]);
+    // }
 
     public function check_profile(){
         $fields = ['name','email','phone','address','postcode','city','states'];
         $status = $this->check($fields);
-        //Log::info($completed);
         return response([
             'status' => $status
         ]);
@@ -515,7 +609,6 @@ class CompanyController extends Controller
     public function check_mof(){
         $fields = ['mof_registration_number','is_mof_active','is_mof_cert_uploaded','mof_expiry_date'];
         $status = $this->check($fields);
-
         return response([
             'status' => $status
         ]);
