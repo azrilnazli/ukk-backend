@@ -503,34 +503,55 @@ class CompanyController extends Controller
     }
 
 
-    public function check_profile() {
+    public function check_profile(){
+        $fields = ['name','email','phone','address','postcode','city','states'];
+        $status = $this->check($fields);
+        //Log::info($completed);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_mof(){
+        $fields = ['mof_registration_number','is_mof_active','is_mof_cert_uploaded','mof_expiry_date'];
+        $status = $this->check($fields);
+
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check($fields) {
+        //$fields = implode(',', $fields);
         $company = Company::query()
-            ->select('name','registration_date','email','phone','address','postcode','city','states','board_of_directors','paid_capital','experiences')
+            //->select('name','email','phone','address','postcode','city','states','board_of_directors','paid_capital','experiences')
+            ->select($fields)
             ->where('user_id', auth()->user()->id)
             
             ->first();
 
-        $completed = true;
-        //Log::info('check profile');
+        //$completed = true;
+        Log::info('check profile 223');
         $profile = collect($company);
      
-        $completed = $profile->filter(function($item, $key) use ($completed) {
-            //Log::info($item);
-            $completed = 'nazli';
+        $is_empty = null;
+        $is_empty = $profile->filter(function($item, $key)  {
+           // Log::info($item . '->' . $key);
             $forget = [ 'created_at','updated_at'];
-            if(!in_array($item, $forget)){
-
+            if(!in_array($key, $forget)){
+                //Log::info("check" . $item);
                 if(is_null($item)){
-                    return false;
+                    Log::info("is-null " . $key);
+                    return true;
                 }
-                
             }
+            return false;
+        
         });
 
-        Log::info($completed);
-        return response([
-            'status' => $completed
-        ]);
+        return collect($is_empty)->isEmpty();
+  
+        
     }
 
 }
