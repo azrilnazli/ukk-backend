@@ -45,20 +45,56 @@
         <a href="/companies" class="nav-link {{ active('companies') }}">
           <i class="nav-icon fas fa-newspaper"></i>
           <p>
-            Companies
+            Registered Vendor
           </p>
         </a>
+
+        <a href="/companies" class="nav-link {{ active('companies requested') }}">
+          <i class="nav-icon fas fa-newspaper"></i>
+          <p>
+            Request for Approval
+          </p>
+        </a>
+
+        
+
+
+        {{-- <li class="nav-item has-treeview menu-close">
+          <a href="#" class="nav-link {{ active('companies') }}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Vendor Management
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="/companies" class="nav-link {{ active('companies') }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Registered Vendor</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Submit for Approval</p>
+              </a>
+            </li>
+          </ul>
+        </li> --}}
+
+
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="/categories" class="nav-link {{ active('categories') }}">
           <i class="nav-icon fas fa-list"></i>
           <p>
             Categories
           </p>
         </a>
-      </li>
-
+      </li> --}}
+{{-- 
     <li class="nav-item">
       <a href="/videos" class="nav-link {{ active('videos') }}">
         <i class="nav-icon fas fa-video"></i>
@@ -66,6 +102,6 @@
           Video
         </p>
       </a>
-    </li>
+    </li> --}}
 
   </ul>

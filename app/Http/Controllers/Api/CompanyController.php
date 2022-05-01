@@ -590,17 +590,11 @@ class CompanyController extends Controller
         ]);
     }
 
-    // public function check_ssm(){
-    //     $fields = ['ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date'];
-    //     $status = $this->check($fields);
-    //     return response([
-    //         'status' => $status
-    //     ]);
-    // }
 
     public function check_profile(){
         $fields = ['name','email','phone','address','postcode','city','states'];
         $status = $this->check($fields);
+       // Log::info('check profile 223' . $status);
         return response([
             'status' => $status
         ]);
@@ -624,7 +618,7 @@ class CompanyController extends Controller
             ->first();
 
         //$completed = true;
-        Log::info('check profile 223');
+      
         $profile = collect($company);
      
         $is_empty = null;
@@ -633,7 +627,7 @@ class CompanyController extends Controller
             $forget = [ 'created_at','updated_at'];
             if(!in_array($key, $forget)){
                 //Log::info("check" . $item);
-                if(is_null($item)){
+                if(is_null($item) || $item == '' || empty($item)){
                     Log::info("is-null " . $key);
                     return true;
                 }
@@ -646,5 +640,27 @@ class CompanyController extends Controller
   
         
     }
+
+    // to check request for approval
+    public function check_is_completed(){
+        $fields = ['is_completed'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function request_for_approval(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->is_completed = true;
+        $company->save();
+    
+        // JSON response
+        return response([
+            'message' => $company->is_completed,
+        ]);
+    } 
 
 }

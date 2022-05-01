@@ -83,6 +83,11 @@ class CompanyRequest extends FormRequest
 
             // file upload
             "selectedFile" => "sometimes|mimes:pdf|max:10000",
+
+            // Administration
+            'is_approved' => ['sometimes', 'boolean'],
+            'is_uploaded' => ['sometimes', 'boolean'],
+            
         ];
     }
 
