@@ -417,10 +417,9 @@
 
 
           <div class="form-group row">
-                  <label>Comment to Vendor </label>
-                  <!--<input id="experiences" type="experiences" class="form-control @error('experiences') is-invalid @enderror" name="experiences" value="{{ old('experiences') }}" required autocomplete="experiences"> -->
-                  <textarea class="form-control @error('experiences') is-invalid @enderror" rows="8" id="experiences" name="experiences" style="resize:none" required autocomplete="experiences">{{ $company->experiences }}</textarea>
-                  @error('experiences')
+                  <label>Message to Vendor </label>
+                  <textarea class="form-control @error('message') is-invalid @enderror" rows="8" id="message" name="message" style="resize:none"  autocomplete="message"></textarea>
+                  @error('message')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                       </span>

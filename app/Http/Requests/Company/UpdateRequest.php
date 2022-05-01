@@ -35,6 +35,7 @@ class UpdateRequest extends FormRequest
             // 'description' => ['required', 'string', 'max:2000'],
 
             'is_approved' => ['required', 'boolean'],
+            'message' => ['required', 'string', 'max:1000'],
             
         ];
     }

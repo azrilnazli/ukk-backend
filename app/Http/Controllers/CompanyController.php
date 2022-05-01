@@ -76,7 +76,10 @@ class CompanyController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        $data = $this->company->update($request, $id);
+
+        //dd($request);
+        $this->company->update($request, $id); // approval
+        $this->company->add_comment($request, $id); // comment
         return redirect()->route('companies.index', $id)->with('success','Company updated.');
     }
 

@@ -60,6 +60,15 @@ class User extends Authenticatable
         return $this->hasMany(Video::class);
     }
 
+
+    /**
+     * User hasMany Comment
+     */
+    public function comments()
+    {
+        return $this->hasMany(Video::class);
+    }
+
     /**
      * User hasOne Profile
      */

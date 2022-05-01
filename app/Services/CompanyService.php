@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Company;
+use App\Models\Comment;
 use Auth;
 
 class CompanyService {
@@ -52,6 +53,15 @@ class CompanyService {
             'is_approved' => $request['is_approved'],
          
         ]); 
+    }
+
+    public function add_comment($request, $id){
+        return Comment::query()
+                ->create([
+                    'user_id' => Auth::user()->id,
+                    'company_id' => $id,
+                    'message' => $request['message']
+                ]);
     }
 
     public function destroy($id){

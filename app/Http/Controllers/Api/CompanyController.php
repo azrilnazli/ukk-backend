@@ -620,13 +620,19 @@ class CompanyController extends Controller
         //$completed = true;
       
         $profile = collect($company);
-     
+
+        if(collect($profile)->isEmpty() == TRUE){
+            return false;
+        }
+
+
+        Log::info("is-null " . $profile);
         $is_empty = null;
         $is_empty = $profile->filter(function($item, $key)  {
-           // Log::info($item . '->' . $key);
+            Log::info($item . '->' . $key);
             $forget = [ 'created_at','updated_at'];
             if(!in_array($key, $forget)){
-                //Log::info("check" . $item);
+                Log::info("check" . $item);
                 if(is_null($item) || $item == '' || empty($item)){
                     Log::info("is-null " . $key);
                     return true;

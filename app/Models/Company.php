@@ -17,4 +17,12 @@ class Company extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Company hasMany Comment
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
