@@ -107,9 +107,10 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/check_kkmm_syndicated', [CompanyController::class, 'check_kkmm_syndicated']);
     Route::post('/company/update_kkmm_swasta', [CompanyController::class, 'update_kkmm_swasta']);
 
-    // approval
+    // administration
     Route::post('/company/request_for_approval', [CompanyController::class, 'request_for_approval']);
     Route::get('/company/check_is_completed', [CompanyController::class, 'check_is_completed']);
+    Route::get('/company/get_comments', [CompanyController::class, 'get_comments']);
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);

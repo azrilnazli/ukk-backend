@@ -5,6 +5,7 @@ use DB;
 use Auth;
 use Log;
 use App\Models\Company;
+use App\Models\Comment;
 use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\Storage;
 
@@ -626,15 +627,15 @@ class CompanyController extends Controller
         }
 
 
-        Log::info("is-null " . $profile);
+        //Log::info("is-null " . $profile);
         $is_empty = null;
         $is_empty = $profile->filter(function($item, $key)  {
-            Log::info($item . '->' . $key);
+           // Log::info($item . '->' . $key);
             $forget = [ 'created_at','updated_at'];
             if(!in_array($key, $forget)){
-                Log::info("check" . $item);
+                //Log::info("check" . $item);
                 if(is_null($item) || $item == '' || empty($item)){
-                    Log::info("is-null " . $key);
+                    //Log::info("is-null " . $key);
                     return true;
                 }
             }
@@ -668,5 +669,33 @@ class CompanyController extends Controller
             'status' => $company->is_completed,
         ]);
     } 
+
+    public function get_comments(){
+
+        // get company id
+        $company = Company::query()
+                    ->where('user_id', auth()->user()->id )
+                    ->first();
+
+        if($company) {            
+            // get comments
+            $comment = Comment::query()
+                        ->where('user_id', auth()->user()->id )
+                        ->where('company_id', $company->id )
+                        ->orderBy('id','desc')
+                        ->first();
+
+            if($comment) {
+                // JSON response
+                return response([
+                    'messages' => $comment->message ,
+                ]);
+            }
+        }
+
+        return response([
+            'messages' => null,
+        ]);
+    }
 
 }
