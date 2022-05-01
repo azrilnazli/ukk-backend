@@ -33,6 +33,9 @@ class UpdateRequest extends FormRequest
             //     Rule::unique('categories')->ignore($this->category)
             // ],
             // 'description' => ['required', 'string', 'max:2000'],
+
+            'is_approved' => ['required', 'boolean'],
+            
         ];
     }
 }

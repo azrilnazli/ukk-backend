@@ -12,7 +12,19 @@ class CompanyService {
     }
 
     public function paginate($items = 50){
-        return Company::orderBy('id','desc')->paginate($items)->setPath('companies');
+        return Company::query()
+            ->orderBy('id','desc')
+            ->paginate($items)
+            ->setPath('companies');
+    }
+
+    // for requested company
+    public function requested($items = 50){
+        return Company::query()
+            ->orderBy('updated_at','desc')
+            ->where('is_completed', 1) // submmitted for approval
+            ->paginate($items)
+            ->setPath('companies');
     }
 
     public function search($request)
@@ -37,8 +49,8 @@ class CompanyService {
     
     public function update($request, $id){
         return Company::where('id',$id)->update([
-            'name' => $request['name'],
-            'experiences' => $request['experiences'],
+            'is_approved' => $request['is_approved'],
+         
         ]); 
     }
 

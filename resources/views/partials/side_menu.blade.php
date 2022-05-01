@@ -2,6 +2,7 @@
   
   function active($menu){
     $route = Route::currentRouteName();
+    $route;
     if(preg_match("/{$menu}/i", $route)) {
       return "active";
       } else{
@@ -22,7 +23,7 @@
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
    
-    <li class="nav-header"></li>
+    <li class="nav-header">{{ Route::currentRouteName()   }}</li>
     <li class="nav-item">
       <a href="/home" class="nav-link {{ active('home') }}">
         <i class="nav-icon fas fa-home"></i>
@@ -45,18 +46,18 @@
         <a href="/companies" class="nav-link {{ active('companies') }}">
           <i class="nav-icon fas fa-newspaper"></i>
           <p>
-            Registered Vendor
+            Vendor
           </p>
         </a>
-
-        <a href="/companies" class="nav-link {{ active('companies requested') }}">
+{{-- 
+        <a href="/companies/requested" class="nav-link {{ active('requested') }}">
           <i class="nav-icon fas fa-newspaper"></i>
           <p>
             Request for Approval
           </p>
         </a>
 
-        
+         --}}
 
 
         {{-- <li class="nav-item has-treeview menu-close">

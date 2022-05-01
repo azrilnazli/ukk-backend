@@ -15,7 +15,7 @@ class CompanyController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:company-list|company-create|company-edit|company-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:company-list|company-create|company-edit|company-delete', ['only' => ['requested','index','show']]);
          $this->middleware('permission:company-create', ['only' => ['create','store']]);
          $this->middleware('permission:company-edit',   ['only' => ['edit','update']]);
          $this->middleware('permission:company-delete', ['only' => ['destroy']]);
@@ -29,7 +29,22 @@ class CompanyController extends Controller
         return view('companies.index')->with(compact('data'));
     }
 
+    
+    public function requested()
+    {
+        $data = $this->company->requested();
+
+
+        return view('companies.index')->with(compact('data'));
+    }
+
+
     public function create()
+    {
+        return view('companies.create');
+    }
+
+    public function show()
     {
         return view('companies.create');
     }
@@ -43,7 +58,20 @@ class CompanyController extends Controller
 
     public function edit(Company $company)
     {
-        return view('companies.edit',compact(['company']));
+        $documents = [
+            'ssm',
+            'mof',
+            'finas_fp',
+            'finas_fd',
+            'kkmm_swasta',
+            'kkmm_syndicated',
+            'bank',
+            'audit',
+            'credit',
+            'bumiputera'
+
+        ];
+        return view('companies.edit',compact(['company','documents']));
     }
 
     public function update(UpdateRequest $request, $id)

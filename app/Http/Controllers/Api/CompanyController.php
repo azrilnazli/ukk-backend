@@ -659,7 +659,7 @@ class CompanyController extends Controller
     
         // JSON response
         return response([
-            'message' => $company->is_completed,
+            'status' => $company->is_completed,
         ]);
     } 
 

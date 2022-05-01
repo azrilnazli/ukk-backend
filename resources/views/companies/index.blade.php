@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 
-@section('title', 'Video List')
+@section('title', 'Company Management')
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
@@ -20,9 +20,9 @@
     <div class="card-header clearfix">
       <h3 class="card-title">List of companies</h3>
   
-      <div class="card-tools">
+      {{-- <div class="card-tools">
         <a class="btn-sm btn-primary " href="{{ route('companies.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
-      </div>
+      </div> --}}
   
     </div>
     <!-- /.card-header -->
@@ -36,6 +36,7 @@
                 <th width="1%">ID</th>
                 <th width="20%">Name</th>
                 <th width="*">E-Mail</th>
+                <th width="*">Status</th>
                 <th width="12%"></th>
   
             </thead>
@@ -46,6 +47,13 @@
                     <td><span class="badge badge-dark">{{$row->id }}</span></td>
                     <td>{{$row->name }}</td>
                     <td><strong>{{$row->email }}</strong> on <span class="small"><em>{{ $row->created_at }}</em></span></td>
+                    <td>
+                      @if($row->is_approved == 1 )
+                      Approved 
+                      @else 
+                      Pending 
+                      @endif
+                    </td>
                     <td>       
                       <form action="{{ route('companies.destroy', $row->id)}}" method="post">
                         @csrf @method('DELETE')
@@ -53,11 +61,12 @@
                           
                       </a>
                       <a class="btn btn-success btn-sm" href="{{ route('companies.edit', $row->id) }}">
-                          <i class="fas fa-pencil-alt">
-                          </i>
+                          <i class="fas fa-search"></i> VIEW
                           
                       </a>
-                        <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+
+                          {{-- <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button> --}}
+
                       </form>
                     </td>
 

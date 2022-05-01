@@ -18,11 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/companies/requested', function () {
+//     return view('welcome');
+// });
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route::resource('users', UserController::class);
+Route::get('/companies/requested', [App\Http\Controllers\CompanyController::class, 'requested'])->name('requested');
 
 Route::resources([
     'users'   =>  App\Http\Controllers\UserController::class,
@@ -30,6 +35,9 @@ Route::resources([
     'categories'  =>  App\Http\Controllers\CategoryController::class,
     'companies'  =>  App\Http\Controllers\CompanyController::class,
 ]);
+
+// companies
+
 
 Route::resource('profile', App\Http\Controllers\ProfileController::class )->except([ 'create','destroy']);
 
