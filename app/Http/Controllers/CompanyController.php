@@ -71,7 +71,10 @@ class CompanyController extends Controller
             'bumiputera'
 
         ];
-        return view('companies.edit',compact(['company','documents']));
+
+        // previous comments
+        $messages = $this->company->get_messages($company->id);
+        return view('companies.edit',compact(['company','documents','messages']));
     }
 
     public function update(UpdateRequest $request, $id)

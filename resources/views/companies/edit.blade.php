@@ -377,20 +377,23 @@
     <div class="card-header">
         Administration
     </div><!-- /.card-header -->
-    <div class="card-body p-5">
 
-
-     
-            {{-- <dl class="row">
-                <dt class="col-sm-2">Current Status</dt>
-                <dd class="col-sm-9">{{ $company->is_approved == 1 ? 'Approved' : 'Pending' }}</dd>
+    <div class="card-body pl-5 pr-5">
+        <label>Previous Conversation </label>
+        @foreach($messages as $comment)
+        <div class="alert alert-success" role="alert">
+            <dl class="row">
+                <dt class="col-1"><span class="badge badge-light">{{$comment->user->name }}</span></dt>
+                <dd class="col-11">{{$comment->message}}</dd>
             </dl>
+            <small><i>{{$comment->created_at->diffForHumans() }}</i></small>
+        </div>  
+        @endForeach  
+    </div>
 
-         --}}
-    
+    <div class="card-body pl-5 pr-5">
 
         <div class="form-group row">
-          
                  
             <dl class="row">
                 <dt class="col-sm-6">Update Status</dt>
@@ -409,10 +412,6 @@
                       </div>
                 </dd>
             </dl>
-
-
-     
-        
       </div>
 
 

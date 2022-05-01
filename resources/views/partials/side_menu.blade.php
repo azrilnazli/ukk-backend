@@ -23,7 +23,7 @@
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
    
-    <li class="nav-header">{{ Route::currentRouteName()   }}</li>
+    <li class="nav-header"></li>
     <li class="nav-item">
       <a href="/home" class="nav-link {{ active('home') }}">
         <i class="nav-icon fas fa-home"></i>

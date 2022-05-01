@@ -55,6 +55,13 @@ class CompanyService {
         ]); 
     }
 
+    public function get_messages($id){
+        return Comment::query()
+                ->where('company_id', $id)
+                ->orderBy('id', 'desc')
+                ->get();
+    }
+
     public function add_comment($request, $id){
         return Comment::query()
                 ->create([
