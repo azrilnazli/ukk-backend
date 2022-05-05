@@ -657,6 +657,55 @@ class CompanyController extends Controller
         ]);
     }
 
+    // approval status check
+    public function check_is_approved(){
+        $fields = ['is_approved'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);     
+    }
+
+    // approval status check
+    public function check_is_rejected(){
+        $fields = ['is_rejected'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);     
+    }
+
+    public function check_approval_status(){
+
+        
+        // waiting or pending
+        $fields = ['is_completed'];
+        $result = $this->check($fields);
+        if($result == true){
+            return response([
+                'status' => 'pending',
+            ]);
+        }
+
+        // rejected
+        $fields = ['is_rejected'];
+        $result = $this->check($fields);
+        if($result == true){
+            return response([
+                'status' => 'rejected',
+            ]);
+        }
+
+        // approved
+        $fields = ['is_approved'];
+        $result = $this->check($fields);
+        if($result == true){
+            return response([
+                'status' => 'approved',
+            ]);
+        }
+    }
+
     public function request_for_approval(CompanyRequest $request){
 
         // company profile

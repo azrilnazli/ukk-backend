@@ -111,6 +111,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::post('/company/request_for_approval', [CompanyController::class, 'request_for_approval']);
     Route::get('/company/check_is_completed', [CompanyController::class, 'check_is_completed']);
     Route::get('/company/get_comments', [CompanyController::class, 'get_comments']);
+    Route::get('/company/check_approval_status', [CompanyController::class, 'check_approval_status']);
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);
