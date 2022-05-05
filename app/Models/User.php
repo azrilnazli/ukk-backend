@@ -66,7 +66,7 @@ class User extends Authenticatable
      */
     public function comments()
     {
-        return $this->hasMany(Video::class);
+        return $this->hasMany(Comment::class);
     }
 
     /**

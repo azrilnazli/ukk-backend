@@ -81,7 +81,7 @@ class CompanyController extends Controller
     {
 
         //dd($request);
-        $this->company->update($request, $id); // approval
+        $this->company->update($request, $id); // approval ( approve or reject)
         $this->company->add_comment($request, $id); // comment
         return redirect()->route('companies.index', $id)->with('success','Company updated.');
     }

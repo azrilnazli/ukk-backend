@@ -48,10 +48,14 @@
                     <td>{{$row->name }}</td>
                     <td><strong>{{$row->email }}</strong> on <span class="small"><em>{{ $row->created_at }}</em></span></td>
                     <td>
-                      @if($row->is_approved == 1 )
-                      Approved 
+                      @if($row->is_completed == 1 )
+                        @if($row->is_approved == 1 )
+                        <span class="badge badge-success">Approved</span>
+                        @else 
+                        <span class="badge badge-danger">Rejected</span> 
+                        @endif
                       @else 
-                      Pending 
+                      <span class="badge badge-info">Pending</span
                       @endif
                     </td>
                     <td>       

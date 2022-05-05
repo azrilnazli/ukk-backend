@@ -50,8 +50,8 @@ class CompanyService {
     
     public function update($request, $id){
         return Company::where('id',$id)->update([
-            'is_approved' => $request['is_approved'],
-         
+            'is_approved' => $request['is_approved'], // approve or reject
+            'is_completed' => $request['is_approved'], // approve or reject
         ]); 
     }
 

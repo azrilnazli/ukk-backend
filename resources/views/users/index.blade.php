@@ -14,27 +14,21 @@
 @section('content')
 
 <div class="card card-dark">
-  
   <div class="card-header clearfix">
     <h3 class="card-title">List of Users</h3>
-
     <div class="card-tools">
       <a class="btn-sm btn-primary " href="{{ route('users.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
     </div>
 
   </div>
   <!-- /.card-header -->
-
-
   <div class="card-body p-0">
-
     <div class="table-responsive">
       <table class="table table-condensed table-striped">
         <thead>
           <tr>
             <th width="2%">ID</th>
-            <th width="50%">Name</th>
-            <th width="10%">E-Mail</th>
+            <th width="50%">E-Mail</th>
             <th width="8%">Role</th>
             <th width="12%"></th>
           </tr>
@@ -44,7 +38,6 @@
         @foreach($data as $row)
           <tr>
             <td><span class="badge badge-dark">{{ $row->id }}</span></td>
-            <td>{{ $row->name }}</td>
             <td>{{ $row->email }}</td>
             <td>
             @if(!empty($row->getRoleNames()))
@@ -73,7 +66,6 @@
               <a class="btn btn-primary btn-sm" href="{{ route('users.show', $row->id) }} ">
                   <i class="fas fa-info">
                   </i>
-                  
               </a>
               <a class="btn btn-success btn-sm" href="{{ route('users.edit', $row->id) }}">
                   <i class="fas fa-pencil-alt">

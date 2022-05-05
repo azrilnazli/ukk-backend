@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Video;
+use App\Models\User;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Facades\DB;
 use App\Models\VideoLog;
 use App\Actions\Stats;
 use App\Actions\Logger;
+
+use App\Models\Company;
+use App\Models\Comment;
 
 class CollectionsController extends Controller
 {
@@ -889,7 +893,7 @@ class CollectionsController extends Controller
             DB::raw('profiles.address'),
             DB::raw('profiles.postcode'),
             DB::raw('profiles.city'),
-            DB::raw('profiles.state'),
+            DB::raw('profiles.states'),
         )
         // belongs to who ?
         ->where('users.id', '17') // user_id
@@ -899,6 +903,47 @@ class CollectionsController extends Controller
      
         dd($user);
 
+    }
+
+
+    function get_company(){
+
+        // company() & comments() methods in app/Models/User.php
+        $user = User::query()->with('company','comments')->where('id',2)->first(); // hardcode user.id = 2
+       
+        echo $user->name; // user's name
+        echo $user->company->name; // company name ( Company belongsTo User)
+
+        // all comments ( Comment belongsTo User )
+        foreach($user->comments as $comment){
+            echo $comment->message; // list of comments
+        }
+    }
+
+
+    function get_comments(){
+        $user_id = 2; // sanctum user_id
+        $companies = Company::query()->with('comments')->get();
+       
+        foreach($companies as $company){
+            foreach($company->comments as $comment){
+                echo $company->id;
+                echo $comment->message;
+            }
+        }
+    }
+
+
+    function latest_comment(){
+        $user_id = 2; // sanctum user_id
+        $companies = Company::query()->with('comments')->get();
+       
+        foreach($companies as $company){
+            foreach($company->comments as $comment){
+                echo $company->id;
+                echo $comment->message;
+            }
+        }
     }
         
         
