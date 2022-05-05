@@ -90,6 +90,7 @@ class CreateCompaniesTable extends Migration
             // administration
             $table->boolean('is_completed')->default(0)->nullable(); // default is incomplete
             $table->boolean('is_approved')->default(0)->nullable();  // default is rejected
+            $table->boolean('is_rejected')->default(0)->nullable();  // default is rejected
 
 
             $table->timestamps();

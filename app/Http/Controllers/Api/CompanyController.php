@@ -676,15 +676,15 @@ class CompanyController extends Controller
         $company = Company::query()
                     ->where('user_id', auth()->user()->id )
                     ->first();
-
+         Log::info($company);
         if($company) {            
             // get comments
             $comment = Comment::query()
-                        ->where('user_id', auth()->user()->id )
+                        //->where('user_id', auth()->user()->id )
                         ->where('company_id', $company->id )
                         ->orderBy('id','desc')
                         ->first();
-
+            Log::info(auth()->user()->id);
             if($comment) {
                 // JSON response
                 return response([

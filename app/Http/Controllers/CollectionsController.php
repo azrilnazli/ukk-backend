@@ -912,7 +912,7 @@ class CollectionsController extends Controller
         $user = User::query()->with('company','comments')->where('id',2)->first(); // hardcode user.id = 2
        
         echo $user->name; // user's name
-        echo $user->company->name; // company name ( Company belongsTo User)
+        //echo $user->company->name; // company name ( Company belongsTo User)
 
         // all comments ( Comment belongsTo User )
         foreach($user->comments as $comment){

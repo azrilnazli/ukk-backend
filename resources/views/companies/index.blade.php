@@ -48,15 +48,18 @@
                     <td>{{$row->name }}</td>
                     <td><strong>{{$row->email }}</strong> on <span class="small"><em>{{ $row->created_at }}</em></span></td>
                     <td>
-                      @if($row->is_completed == 1 )
+             
                         @if($row->is_approved == 1 )
                         <span class="badge badge-success">Approved</span>
-                        @else 
+                        @endif 
+                        @if($row->is_rejected == 1 ) 
                         <span class="badge badge-danger">Rejected</span> 
                         @endif
-                      @else 
-                      <span class="badge badge-info">Pending</span
-                      @endif
+
+                        @if($row->is_rejected == 0 && $row->is_approved == 0 ) 
+                          <span class="badge badge-info">Pending</span
+                        @endif
+                
                     </td>
                     <td>       
                       <form action="{{ route('companies.destroy', $row->id)}}" method="post">

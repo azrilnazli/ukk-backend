@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Models\User;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Storage;
 use Hash;
@@ -30,12 +31,30 @@ class HomeController extends Controller
 
         $users = null;
         $users = User::query()
-                ->orderBy('id','desc')
-                ->limit(10)
-                ->get();
+        ->orderBy('id','desc')
+        ->limit(5)
+        ->get();
 
-        // $users = User::all();
+        $requested = Company::query()
+        ->orderBy('id','desc')
+        ->where('is_completed', true)
+        ->limit(5)
+        ->get();
 
-        return view('home')->with(['users' => $users]);
+        $rejected = Company::query()
+        ->orderBy('id','desc')
+        ->where('is_completed', false)
+        ->where('is_rejected', true)
+        ->limit(5)
+        ->get();
+
+        $approved = Company::query()
+        ->orderBy('id','desc')
+        ->where('is_completed', true)
+        ->where('is_approved', true)
+        ->limit(5)
+        ->get();
+
+        return view('home')->with(compact('users','requested','rejected','approved'));
     }
 }

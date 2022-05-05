@@ -26,6 +26,7 @@ class CompanyController extends Controller
     public function index()
     {
         $data = $this->company->paginate();
+        //$data = $this->company->requested();
         return view('companies.index')->with(compact('data'));
     }
 

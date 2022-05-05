@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->integer('user_id');
             $table->integer('company_id');
             $table->text('message');
-            $table->boolean('is_case_closed')->default(1)->nullable(); // 0 is open, 1 is closed
+            $table->boolean('is_case_closed')->default(0)->nullable(); // 0 is open, 1 is closed
             
             $table->timestamps();
         });

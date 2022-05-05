@@ -49,10 +49,18 @@ class CompanyService {
     }
     
     public function update($request, $id){
-        return Company::where('id',$id)->update([
-            'is_approved' => $request['is_approved'], // approve or reject
-            'is_completed' => $request['is_approved'], // approve or reject
-        ]); 
+
+        if($request->is_approved == 1 ){
+            return Company::where('id',$id)->update([
+                'is_approved' => true, // approve or reject
+                'is_completed' => true, // approve or reject
+            ]);
+        } else {
+            return Company::where('id',$id)->update([
+                'is_rejected' => true, // approve or reject
+                'is_completed' => false, // approve or reject
+            ]);
+        } 
     }
 
     public function get_messages($id){
