@@ -40,7 +40,7 @@
         <h5>Rejected</h5>
         @foreach($rejected as $user)
             <div class="alert alert-danger" role="alert">
-                {{$user->name}} requested {{$user->created_at->diffForHumans()}}.
+                {{$user->name}} request was rejected {{$user->created_at->diffForHumans()}}.
             </div>
         @endForeach
     </div> 
