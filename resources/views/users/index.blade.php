@@ -72,7 +72,11 @@
                   </i>
                   
               </a>
+                @if(!in_array($row->id,[1,2,3,4]))
                 <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                @else
+                <button disabled class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                @endif
               </form>
             </td>            
           </tr>
