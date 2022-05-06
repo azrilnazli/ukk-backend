@@ -252,7 +252,7 @@ class CompanyController extends Controller
         // company profile
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->finas_fp_registration_number = $request->finas_fp_registration_number;
-        $company->finas_fp_expiry_date = $request->ssm_expiry_date;
+        $company->finas_fp_expiry_date = $request->finas_fp_expiry_date;
         $company->save();
     
         // JSON response
@@ -284,7 +284,7 @@ class CompanyController extends Controller
         // company profile
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->finas_fd_registration_number = $request->finas_fd_registration_number;
-        $company->finas_fd_expiry_date = $request->ssm_expiry_date;
+        $company->finas_fd_expiry_date = $request->finas_fd_expiry_date;
         $company->save();
     
         // JSON response
@@ -724,7 +724,47 @@ class CompanyController extends Controller
     } 
 
     public function check_for_approval(){
-        $fields = ['name','email','phone'];
+
+        // skip check if is_completed == true
+        $this->check_is_completed();
+
+        $fields = [
+            // profile
+            'name','email','phone','address','postcode','city', 'states',
+
+            // board of directors
+            'board_of_directors',
+
+            // experiences
+            'experiences',
+        
+            // ssm
+            'ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date',
+
+            // mof
+            'mof_registration_number','is_mof_active','is_mof_cert_uploaded','mof_expiry_date',
+
+            // finas fp
+            'finas_fp_registration_number','is_finas_fp_cert_uploaded','finas_fp_expiry_date',
+
+            // kkmm swasta
+            'kkmm_swasta_registration_number','is_kkmm_swasta_cert_uploaded','kkmm_swasta_expiry_date',
+
+            // status bumi
+            'is_bumiputera',
+            //'bumiputera_registration_number','is_bumiputera_cert_uploaded','bumiputera_expiry_date',
+
+            // audit data
+            'paid_capital','current_audit_year','is_current_audit_year_cert_uploaded',
+
+            // bank data
+            'bank_name','bank_branch','bank_statement_date_start','bank_statement_date_end','bank_account_number','is_bank_cert_uploaded',
+
+            // credit data
+            //'is_credit_cert_uploaded'
+            
+        ];
+
         $result = $this->check($fields);
         if($result == true){
             return response([
