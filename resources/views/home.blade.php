@@ -21,7 +21,7 @@
         <h5>Request for Approval</h5>
         @foreach($requested as $user)
             <div class="alert alert-info" role="alert">
-                {{$user->name}} requested {{$user->created_at->diffForHumans()}}.
+                {{ $user->name ? $user->name : $user->email }} requested {{$user->created_at->diffForHumans()}}.
             </div>
         @endForeach
     </div> 
@@ -32,7 +32,7 @@
       <h5>Approved</h5>
         @foreach($approved as $user)
             <div class="alert alert-success" role="alert">
-                {{$user->name}} was approved {{$user->created_at->diffForHumans()}}.
+                {{ $user->name ? $user->name : $user->email }} was approved {{$user->created_at->diffForHumans()}}.
             </div>
         @endForeach
     </div>
@@ -40,16 +40,11 @@
         <h5>Rejected</h5>
         @foreach($rejected as $user)
             <div class="alert alert-danger" role="alert">
-                {{$user->name}} request was rejected {{$user->created_at->diffForHumans()}}.
+                {{ $user->name ? $user->name : $user->email }} request was rejected {{$user->created_at->diffForHumans()}}.
             </div>
         @endForeach
     </div> 
   </div>
-
-
-
-
-
 @endsection
 
 

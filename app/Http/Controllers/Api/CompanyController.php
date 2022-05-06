@@ -677,7 +677,6 @@ class CompanyController extends Controller
 
     public function check_approval_status(){
 
-        
         // waiting or pending
         $fields = ['is_completed'];
         $result = $this->check($fields);

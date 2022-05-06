@@ -45,7 +45,7 @@
                 @foreach($data as $row)
                 <tr>
                     <td><span class="badge badge-dark">{{$row->id }}</span></td>
-                    <td>{{$row->name }}</td>
+                    <td>{{ $row->name  }}</td>
                     <td><strong>{{$row->email }}</strong> on <span class="small"><em>{{ $row->created_at }}</em></span></td>
                     <td>
              
