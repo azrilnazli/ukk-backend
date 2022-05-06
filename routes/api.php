@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::post('/company/update_experiences', [CompanyController::class, 'update_experiences']);
 
     Route::get('/company/audit', [CompanyController::class, 'audit']);
+    Route::get('/company/check_audit', [CompanyController::class, 'check_audit']);
     Route::post('/company/update_audit', [CompanyController::class, 'update_audit']);
 
     
@@ -112,6 +113,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/check_is_completed', [CompanyController::class, 'check_is_completed']);
     Route::get('/company/get_comments', [CompanyController::class, 'get_comments']);
     Route::get('/company/check_approval_status', [CompanyController::class, 'check_approval_status']);
+    Route::post('/company/request_for_approval', [CompanyController::class, 'request_for_approval']);
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);

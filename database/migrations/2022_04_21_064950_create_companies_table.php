@@ -72,7 +72,7 @@ class CreateCompaniesTable extends Migration
             $table->text('experiences')->nullable();
 
             // audit data
-            $table->integer('paid_capital')->nullable();
+            $table->bigInteger('paid_capital')->nullable();
             $table->string('current_audit_year')->nullable();
             $table->boolean('is_current_audit_year_cert_uploaded')->nullable()->default(0);
 

@@ -504,7 +504,15 @@ class CompanyController extends Controller
     }
 
     public function check_ssm(){
-        $fields = ['ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date'];
+        $fields = ['ssm_registration_number','is_mof_active','is_ssm_cert_uploaded','ssm_expiry_date'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_mof(){
+        $fields = ['mof_registration_number','is_mof_cert_uploaded','mof_expiry_date'];
         $status = $this->check($fields);
         return response([
             'status' => $status
@@ -601,13 +609,7 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function check_mof(){
-        $fields = ['mof_registration_number','is_mof_active','is_mof_cert_uploaded','mof_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
+
 
     public function check($fields) {
         //$fields = implode(',', $fields);
@@ -751,7 +753,7 @@ class CompanyController extends Controller
             'kkmm_swasta_registration_number','is_kkmm_swasta_cert_uploaded','kkmm_swasta_expiry_date',
 
             // status bumi
-            'is_bumiputera',
+            //'is_bumiputera',
             //'bumiputera_registration_number','is_bumiputera_cert_uploaded','bumiputera_expiry_date',
 
             // audit data
@@ -760,8 +762,8 @@ class CompanyController extends Controller
             // bank data
             'bank_name','bank_branch','bank_statement_date_start','bank_statement_date_end','bank_account_number','is_bank_cert_uploaded',
 
-            // credit data
-            //'is_credit_cert_uploaded'
+            // // credit data
+            // //'is_credit_cert_uploaded'
             
         ];
 
