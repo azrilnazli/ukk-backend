@@ -49,10 +49,11 @@
                     <td><strong>{{$row->email }}</strong> on <span class="small"><em>{{ $row->created_at }}</em></span></td>
                     <td>
              
-                        @if($row->is_approved == 1 )
+                        @if($row->is_approved == 1 && $row->is_completed == 1 )
                         <span class="badge badge-success">Approved</span>
                         @endif 
-                        @if($row->is_rejected == 1 ) 
+                        
+                        @if($row->is_rejected == 1  && $row->is_completed == 0 ) 
                         <span class="badge badge-danger">Rejected</span> 
                         @endif
 

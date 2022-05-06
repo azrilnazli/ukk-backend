@@ -54,11 +54,13 @@ class CompanyService {
             return Company::where('id',$id)->update([
                 'is_approved' => true, // approve or reject
                 'is_completed' => true, // approve or reject
+                'is_rejected' => false,
             ]);
         } else {
             return Company::where('id',$id)->update([
                 'is_rejected' => true, // approve or reject
                 'is_completed' => false, // approve or reject
+                'is_approved' => false,
             ]);
         } 
     }

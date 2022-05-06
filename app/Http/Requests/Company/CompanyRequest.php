@@ -28,7 +28,7 @@ class CompanyRequest extends FormRequest
             // company profile
             'name' => ['sometimes', 'string', 'max:255'],
             'registration_date' => ['sometimes', 'date', 'before:today'],
-            'email' => ['sometimes', 'string', 'email', 'max:255',  \Illuminate\Validation\Rule::unique('users')->ignore($this->user()->id) ],
+            'email' => ['sometimes', 'string', 'email', 'max:255',  \Illuminate\Validation\Rule::unique('companies')->ignore($this->user()->id) ],
             'phone' => ['sometimes','regex:/^([0-9\s\-\+\(\)]*)$/', 'string', 'max:15'],
             'address' => ['sometimes', 'string', 'max:500'],
             'postcode' => ['sometimes', 'integer' ],

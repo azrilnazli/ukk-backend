@@ -201,7 +201,7 @@
 
   <div class="card card-secondary">
     <div class="card-header">
-      <strong>KKMM (SYNDICATED(</strong>
+      <strong>KKMM (SYNDICATED)</strong>
     </div>
     <div class="card-body">
         <dl class="row">
@@ -230,7 +230,7 @@
 
   <div class="card card-secondary">
     <div class="card-header">
-      <strong>KKMM (SWasta)</strong>
+      <strong>KKMM (Swasta)</strong>
     </div>
     <div class="card-body">
         <dl class="row">

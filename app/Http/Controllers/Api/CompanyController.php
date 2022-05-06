@@ -648,6 +648,8 @@ class CompanyController extends Controller
         
     }
 
+
+
     // to check request for approval
     public function check_is_completed(){
         $fields = ['is_completed'];
@@ -707,6 +709,9 @@ class CompanyController extends Controller
 
     public function request_for_approval(CompanyRequest $request){
 
+        // check first
+        $this->check_for_approval();
+
         // company profile
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->is_completed = true;
@@ -717,6 +722,20 @@ class CompanyController extends Controller
             'status' => $company->is_completed,
         ]);
     } 
+
+    public function check_for_approval(){
+        $fields = ['name','email','phone'];
+        $result = $this->check($fields);
+        if($result == true){
+            return response([
+                'status' => true,
+            ]);
+        }
+
+        return response([
+            'status' => false,
+        ]);
+    }
 
     public function get_comments(){
 
