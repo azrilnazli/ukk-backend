@@ -768,9 +768,13 @@ class CompanyController extends Controller
         ];
 
         $result = $this->check($fields);
+
+        $is_completed = $this->check(['is_completed']);
+
         if($result == true){
             return response([
                 'status' => true,
+                'is_completed' => $is_completed,
             ]);
         }
 

@@ -36,20 +36,20 @@ class HomeController extends Controller
         ->get();
 
         $requested = Company::query()
-        ->orderBy('id','desc')
+        ->orderBy('updated_at','desc')
         ->where('is_completed', true)
         ->limit(5)
         ->get();
 
         $rejected = Company::query()
-        ->orderBy('id','desc')
+        ->orderBy('updated_at','desc')
         ->where('is_completed', false)
         ->where('is_rejected', true)
         ->limit(5)
         ->get();
 
         $approved = Company::query()
-        ->orderBy('id','desc')
+        ->orderBy('updated_at','desc')
         ->where('is_completed', true)
         ->where('is_approved', true)
         ->limit(5)
