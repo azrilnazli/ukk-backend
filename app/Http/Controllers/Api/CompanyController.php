@@ -681,14 +681,7 @@ class CompanyController extends Controller
 
     public function check_approval_status(){
 
-        // waiting or pending
-        $fields = ['is_completed'];
-        $result = $this->check($fields);
-        if($result == true){
-            return response([
-                'status' => 'pending',
-            ]);
-        }
+  
 
         // rejected
         $fields = ['is_rejected'];
@@ -705,6 +698,15 @@ class CompanyController extends Controller
         if($result == true){
             return response([
                 'status' => 'approved',
+            ]);
+        }
+
+        // waiting or pending
+        $fields = ['is_completed'];
+        $result = $this->check($fields);
+        if($result == true){
+            return response([
+                'status' => 'pending',
             ]);
         }
     }
