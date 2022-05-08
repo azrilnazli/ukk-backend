@@ -14,7 +14,7 @@ class CompanyService {
 
     public function paginate($items = 50){
         return Company::query()
-            ->orderBy('id','desc')
+            ->orderBy('updated_at','desc')
             ->paginate($items)
             ->setPath('companies');
     }
