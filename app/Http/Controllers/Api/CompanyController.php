@@ -504,7 +504,7 @@ class CompanyController extends Controller
     }
 
     public function check_ssm(){
-        $fields = ['ssm_registration_number','is_mof_active','is_ssm_cert_uploaded','ssm_expiry_date'];
+        $fields = ['ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date'];
         $status = $this->check($fields);
         return response([
             'status' => $status
