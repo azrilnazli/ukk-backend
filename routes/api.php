@@ -115,6 +115,9 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/check_approval_status', [CompanyController::class, 'check_approval_status']);
     Route::post('/company/request_for_approval', [CompanyController::class, 'request_for_approval']);
 
+    // company proposals
+    Route::post('/company/upload_proposal_video', [CompanyController::class, 'upload_proposal_video']);
+
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);
    
@@ -128,7 +131,6 @@ Route::get('/movie/{video}/{playlist}/{token}', function (  $video, $playlist, $
 
  
     return FFMpeg::dynamicHLSPlaylist()
-
         // http://admin.test/storage/streaming/15/m3u8/playlist.m3u8 --> master playlist
         ->fromDisk("streaming") // public storage for m3u8
         ->open("$video/m3u8/$playlist") 

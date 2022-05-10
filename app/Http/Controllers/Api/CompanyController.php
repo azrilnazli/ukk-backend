@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 
 // Form Validation
 use App\Http\Requests\Company\CompanyRequest;
+use App\Http\Requests\Company\StoreVideoRequest;
 
 class CompanyController extends Controller
 {
@@ -810,6 +811,42 @@ class CompanyController extends Controller
 
         return response([
             'messages' => null,
+        ]);
+    }
+
+     // only accept PDF
+     public function upload_proposal_video(StoreVideoRequest $request){
+        // log to laravel.log
+        //Log::info($request);
+
+        // get folder ID ( User hasOne Company)
+        $company = DB::table('companies')
+
+        // select required fields
+        ->select(       
+            DB::raw('companies.id'),
+        )
+        // belongs to who ?
+        ->where('user_id', auth()->user()->id) // user_id
+        // get the Collection
+        ->first();
+
+        //Log::info($company->id);
+        if($request->hasFile('file')){ // if exists
+         
+            // move to folder
+            $request->file('file')
+            ->storeAs(
+                $company->id, // path within disk's root
+                'input.mp4', // filename
+                'companies' // disk
+            );
+
+        }
+
+        return response([
+            'uploaded' => true,
+            'id' => $company->id,
         ]);
     }
 
