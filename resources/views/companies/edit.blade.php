@@ -58,7 +58,7 @@
       <strong>Board of Directors</strong>
     </div>
     <div class="card-body">
-    {{ $company->board_of_directors }}
+    {!! nl2br( $company->board_of_directors) !!}
     </div>
 </div>
 
@@ -67,7 +67,7 @@
       <strong>Experiences</strong>
     </div>
     <div class="card-body">
-    {{ $company->experiences}}
+    {!! nl2br( $company->experiences) !!}
     </div>
 </div>
 
