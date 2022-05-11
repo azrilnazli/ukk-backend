@@ -33,9 +33,9 @@
         <table class="table table-condensed table-striped">
             <thead>
 
-                <th width="1%">@sortablelink('id')</th>
-                <th width="20%">@sortablelink('name')</th>
-                <th width="*">@sortablelink('email')</th>
+                <th width="1%">@sortablelink('id', 'ID')</th>
+                <th width="20%">@sortablelink('name','Company Name')</th>
+                <th width="*">@sortablelink('email','E-Mail')</th>
                 <th width="*">Status</th>
                 <th width="12%"></th>
   
@@ -95,7 +95,8 @@
   
     <div class="card-footer clearfix">
       <div class="card-tools">
-        {{ $data->links() }}
+        {{-- {{ $data->links() }} --}}
+        {!! $data->appends(\Request::except('page'))->render() !!}
       </div>
     </div>
   
