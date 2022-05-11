@@ -28,6 +28,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Route::resource('users', UserController::class);
 Route::get('/companies/requested', [App\Http\Controllers\CompanyController::class, 'requested'])->name('requested');
+Route::get('/companies/is_approved', [App\Http\Controllers\CompanyController::class, 'is_approved'])->name('is_approved');
+Route::get('/companies/is_pending', [App\Http\Controllers\CompanyController::class, 'is_pending'])->name('is_pending');
+Route::get('/companies/is_rejected', [App\Http\Controllers\CompanyController::class, 'is_rejected'])->name('is_rejected');
+Route::get('/companies/is_new', [App\Http\Controllers\CompanyController::class, 'is_new'])->name('is_new');
 
 Route::resources([
     'users'   =>  App\Http\Controllers\UserController::class,

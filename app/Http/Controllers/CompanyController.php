@@ -30,12 +30,50 @@ class CompanyController extends Controller
         return view('companies.index')->with(compact('data'));
     }
 
+    public function is_new()
+    {
+        $companies = Company::query()
+                        ->sortable()
+                        ->where('is_completed', false )
+                        ->where('is_approved', false )
+                        ->where('is_rejected', false )
+                        ->get();
+        return view('companies.all')->withCompanies($companies);
+    }
+
+
+    public function is_pending()
+    {
+        $companies = Company::query()
+                        ->sortable()
+                        ->where('is_completed', true )
+                        ->where('is_approved', false )
+                        ->where('is_rejected', false )
+                        ->get();
+        return view('companies.all')->withCompanies($companies);
+    }
+
+    public function is_approved()
+    {
+        $companies = Company::query()
+                        ->sortable()
+                        ->where('is_approved', true)
+                        ->get();
+        return view('companies.all')->withCompanies($companies);
+    }
+
+    public function is_rejected()
+    {
+        $companies = Company::query()
+                        ->sortable()
+                        ->where('is_rejected', true)
+                        ->get();
+        return view('companies.all')->withCompanies($companies);
+    }
     
     public function requested()
     {
         $data = $this->company->requested();
-
-
         return view('companies.index')->with(compact('data'));
     }
 
