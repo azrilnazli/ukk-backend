@@ -8,6 +8,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Storage;
 use Hash;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -29,6 +30,13 @@ class HomeController extends Controller
     public function index()
     {
 
+        if(Auth::user()->hasRole('subscriber'))
+        {
+            // do something
+            return redirect()->to('https://ukk.rtm.gov.my');
+        }
+        
+       
         $users = null;
 
         $users = User::query()
