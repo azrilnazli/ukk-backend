@@ -97,7 +97,8 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        $extra['format'] =  $this->video->ffprobe($video->id,'format_long_name'); 
+        //$extra['format'] =  $this->video->ffprobe($video->id,'format_long_name'); 
+        $extra['format'] =  null; 
         return view('videos.show',compact(['video','extra']));
     }
 
