@@ -13,8 +13,10 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'UKK TVCMS'),
     'frontend_url' => 'https://ukk.rtm.gov.my',
+
+
 
     /*
     |--------------------------------------------------------------------------
