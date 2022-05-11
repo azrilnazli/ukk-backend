@@ -56,6 +56,10 @@
                         @if($row->is_rejected == 1  && $row->is_completed == 0 ) 
                         <span class="badge badge-danger">Rejected</span> 
                         @endif
+                        
+                        @if($row->is_rejected == 1  && $row->is_completed == 1 ) 
+                        <span class="badge badge-warning">Resubmission</span> 
+                        @endif
 
                         @if($row->is_rejected == 0 && $row->is_approved == 0 ) 
                           <span class="badge badge-info">Pending</span
