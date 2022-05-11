@@ -36,7 +36,7 @@
                 <th width="1%">@sortablelink('id')</th>
                 <th width="20%">@sortablelink('name')</th>
                 <th width="*">@sortablelink('email')</th>
-                <th width="*">@sortablelink('status')</th>
+                <th width="*">@sortablelink('is_approved')</th>
                 <th width="12%"></th>
   
             </thead>
