@@ -14,7 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'frontend_url' => 'http://localhost:3000',
+    'frontend_url' => 'https://ukk.rtm.gov.my',
 
     /*
     |--------------------------------------------------------------------------
