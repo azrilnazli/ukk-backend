@@ -32,7 +32,7 @@ Route::get('/companies/is_approved', [App\Http\Controllers\CompanyController::cl
 Route::get('/companies/is_pending', [App\Http\Controllers\CompanyController::class, 'is_pending'])->name('is_pending');
 Route::get('/companies/is_rejected', [App\Http\Controllers\CompanyController::class, 'is_rejected'])->name('is_rejected');
 Route::get('/companies/is_new', [App\Http\Controllers\CompanyController::class, 'is_new'])->name('is_new');
-Route::get('/companies/is_resubmit', [App\Http\Controllers\CompanyController::class, 'is_new'])->name('is_resubmit');
+Route::get('/companies/is_resubmit', [App\Http\Controllers\CompanyController::class, 'is_resubmit'])->name('is_resubmit');
 
 Route::resources([
     'users'   =>  App\Http\Controllers\UserController::class,
