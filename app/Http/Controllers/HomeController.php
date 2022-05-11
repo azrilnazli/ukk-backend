@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Storage;
 use Hash;
 use Auth;
+use Session;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,8 @@ class HomeController extends Controller
         if(Auth::user()->hasRole('subscriber'))
         {
             // do something
+            Auth::logout();
+            Session::flush();
             return redirect()->to('https://ukk.rtm.gov.my');
         }
         
