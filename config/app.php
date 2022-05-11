@@ -164,7 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class, // FFMPEG
         Intervention\Image\ImageServiceProvider::class, // Image
-        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class, // Paginate sortable
+        //Kyslik\ColumnSortable\ColumnSortableServiceProvider::class, // Paginate sortable
 
         /*
          * Package Service Providers...
