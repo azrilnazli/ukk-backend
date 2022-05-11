@@ -30,6 +30,7 @@ class HomeController extends Controller
     {
 
         $users = null;
+
         $users = User::query()
         ->orderBy('id','desc')
         ->limit(5)
@@ -62,6 +63,35 @@ class HomeController extends Controller
         ->limit(5)
         ->get();
 
-        return view('home')->with(compact('users','requested','rejected','approved','resubmit'));
+        $total['registered'] = Company::query()->count();
+
+        $total['pending'] = Company::query()
+        ->orderBy('updated_at','desc')
+        ->where('is_completed', true)
+        ->where('is_rejected', false)
+        ->where('is_approved', false)
+        ->count();
+
+        $total['rejected'] = Company::query()
+        ->orderBy('updated_at','desc')
+        ->where('is_completed', false)
+        ->where('is_rejected', true)
+        ->count();
+
+        $total['approved'] = Company::query()
+        ->orderBy('updated_at','desc')
+        ->where('is_completed', true)
+        ->where('is_approved', true)
+        ->count();
+
+        $total['resubmit'] = Company::query()
+        ->orderBy('updated_at','desc')
+        ->where('is_completed', true)
+        ->where('is_rejected', true)
+        ->count();
+
+        //dd($total);
+
+        return view('home')->with(compact('users','requested','rejected','approved','resubmit','total'));
     }
 }

@@ -3,6 +3,61 @@
 @section('name', 'Dashboard')
 @section('content')
 
+<div class="row">
+    <div class="col-md-2">
+            <div class="info-box bg-secondary">
+                    <span class="info-box-icon"><i class="far fa-user"></i></span>
+                    <div class="info-box-content">
+                            <span class="info-box-text">Registered Vendor</span>
+                            <span class="info-box-number">{{ $total['registered'] }}</span>
+                    </div>
+
+            </div>
+    </div>
+
+    <div class="col-md-2">
+            <div class="info-box bg-info">
+                    <span class="info-box-icon"><i class="far fa-user"></i></span>
+                    <div class="info-box-content">
+                            <span class="info-box-text">Pending</span>
+                            <span class="info-box-number">{{ $total['pending'] }}</span>
+                    </div>
+
+            </div>
+    </div>
+    <div class="col-md-2">
+        <div class="info-box bg-success">
+                <span class="info-box-icon"><i class="far fa-user"></i></span>
+                <div class="info-box-content">
+                        <span class="info-box-text">Approved</span>
+                        <span class="info-box-number">{{ $total['approved'] }}</span>
+                </div>
+
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="info-box bg-danger">
+                <span class="info-box-icon"><i class="far fa-user"></i></span>
+                <div class="info-box-content">
+                        <span class="info-box-text">Rejected</span>
+                        <span class="info-box-number">{{ $total['rejected'] }}</span>
+                </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="info-box bg-warning">
+                <span class="info-box-icon"><i class="far fa-user"></i></span>
+                <div class="info-box-content">
+                        <span class="info-box-text">Resubmit</span>
+                        <span class="info-box-number">{{ $total['resubmit'] }}</span>
+                </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="alert alert-light" role="alert">
     <h4 class="alert-heading">TVCMS Admin</h4>
     <p>This is TVCMS Administration System. Main navigation is using Side Menu on the left.</p>
