@@ -46,7 +46,6 @@ class CompanyController extends Controller
         $companies = Company::query()
                         ->sortable()
                         ->where('is_completed', true )
-                        ->where('is_approved', false )
                         ->where('is_rejected', true )
                         ->get();
         return view('companies.all')->withCompanies($companies);
