@@ -68,10 +68,10 @@ class CompanyRequest extends FormRequest
             'paid_capital' => ['sometimes', 'integer'],
 
             // status bumiputera
-            'bumiputera_registration_number' => ['sometimes', 'string', 'max:100'],
-            'bumiputera_registration_date' => ['sometimes', 'date'],
+            //'bumiputera_registration_number' => ['sometimes', 'string', 'max:100'],
+            //'bumiputera_registration_date' => ['sometimes', 'date'],
             'is_bumiputera' => ['sometimes', 'boolean'],
-            'bumiputera_expiry_date' => ['sometimes', 'date',  'after:today'],
+            //'bumiputera_expiry_date' => ['sometimes', 'date',  'after:today'],
 
 
             // banking data
