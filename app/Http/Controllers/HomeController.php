@@ -55,6 +55,13 @@ class HomeController extends Controller
         ->limit(5)
         ->get();
 
-        return view('home')->with(compact('users','requested','rejected','approved'));
+        $resubmit = Company::query()
+        ->orderBy('updated_at','desc')
+        ->where('is_completed', true)
+        ->where('is_rejected', true)
+        ->limit(5)
+        ->get();
+
+        return view('home')->with(compact('users','requested','rejected','approved','resubmit'));
     }
 }
