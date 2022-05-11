@@ -52,7 +52,7 @@
       <h5>Resubmit  <a href="{{ route('is_resubmit') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
         @foreach($resubmit as $user)
             <div class="alert alert-warning" role="alert">
-                {{ $user->name ? $user->name : $user->email }} was approved {{$user->updated_at->diffForHumans()}}.
+                {{ $user->name ? $user->name : $user->email }} was resubmit {{$user->updated_at->diffForHumans()}}.
             </div>
         @endForeach
     </div>

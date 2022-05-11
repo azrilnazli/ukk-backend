@@ -78,6 +78,7 @@ class CompanyController extends Controller
         $companies = Company::query()
                         ->sortable()
                         ->orderBy('updated_at','desc')
+                        ->where('is_completed', false )
                         ->where('is_rejected', true)
                         ->get();
         return view('companies.all')->withCompanies($companies);
