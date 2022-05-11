@@ -44,9 +44,9 @@ class CompanyController extends Controller
     public function is_resubmit()
     {
         $companies = Company::query()
-                        ->sortable()
-                        ->where('is_completed', true )
-                        ->where('is_rejected', true )
+               
+                        ->where('is_completed', true)
+                        ->where('is_rejected', true)
                         ->get();
         return view('companies.all')->withCompanies($companies);
     }
