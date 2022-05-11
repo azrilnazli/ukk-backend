@@ -46,7 +46,7 @@
                 <tr>
                     <td><span class="badge badge-dark">{{$row->id }}</span></td>
                     <td>{{ $row->name  }}</td>
-                    <td><strong>{{$row->email }}</strong> on <span class="small"><em>{{ $row->created_at }}</em></span></td>
+                    <td><strong>{{$row->email }}</strong> on <span class="small"><em>{{$row->created_at->diffForHumans()}}</em></span></td>
                     <td>
              
                         @if($row->is_approved == 1 && $row->is_completed == 1 )
