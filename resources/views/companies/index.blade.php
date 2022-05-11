@@ -33,10 +33,10 @@
         <table class="table table-condensed table-striped">
             <thead>
 
-                <th width="1%">ID</th>
-                <th width="20%">Name</th>
-                <th width="*">E-Mail</th>
-                <th width="*">Status</th>
+                <th width="1%">@sortablelink('id')</th>
+                <th width="20%">@sortablelink('name')</th>
+                <th width="*">@sortablelink('email')</th>
+                <th width="*">@sortablelink('status')</th>
                 <th width="12%"></th>
   
             </thead>
