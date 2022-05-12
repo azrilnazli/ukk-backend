@@ -31,6 +31,13 @@ class CompanyController extends Controller
         $data = Company::query()
                     ->where('name', 'LIKE', '%' . $q . '%')
                     ->orWhere('email', 'LIKE', '%' . $q . '%')
+                    ->orWhere('phone', 'LIKE', '%' . $q . '%')
+                    ->orWhere('address', 'LIKE', '%' . $q . '%')
+                    ->orWhere('postcode', 'LIKE', '%' . $q . '%')
+                    ->orWhere('city', 'LIKE', '%' . $q . '%')
+                    ->orWhere('state', 'LIKE', '%' . $q . '%')
+                    ->orWhere('board_of_directors', 'LIKE', '%' . $q . '%')
+                    ->orWhere('experiences', 'LIKE', '%' . $q . '%')
                     ->paginate(50);
 
         $data->appends(['search' => $q]);
