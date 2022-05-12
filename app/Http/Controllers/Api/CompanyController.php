@@ -841,8 +841,9 @@ class CompanyController extends Controller
                 'input.mp4', // filename
                 'companies' // disk
             );
-
         }
+
+        // dispatch to worker
 
         return response([
             'uploaded' => true,

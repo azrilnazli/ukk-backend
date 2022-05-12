@@ -97,6 +97,20 @@ class VideoService {
         ]);
     }
 
+    public function api_store($request, $user_id)
+    {
+        return Video::create([
+            'user_id'       => $user_id,
+            'category_id'   => $request['category_id'],
+            'title'     => $request['title'],
+            'synopsis'  => $request['synopsis'],
+            'filesize'  => $request['filesize'],
+            'original_filename'  => $request['original_filename'],
+            'uploading_duration' => $request['uploading_duration'],
+            'processing' => 1 // mark as start processing
+        ]);
+    }
+
     public function createProgressFile($id)
     {
         // conversion progress file
@@ -131,6 +145,13 @@ class VideoService {
     public function moveVideoToStorage($request, $id)
     {
         $file = Storage::disk('uploads')->path($request->session()->pull('uploaded_video'));
+        $dest = Storage::disk('assets')->path($id . '/original.mp4');
+        File::move($file,$dest);
+    }
+
+    public function api_moveVideoToStorage($path, $id)
+    {
+        $file = Storage::disk('uploads')->path($path);
         $dest = Storage::disk('assets')->path($id . '/original.mp4');
         File::move($file,$dest);
     }

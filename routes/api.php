@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\CompanyProposalController;
 
 
 /*
@@ -116,7 +117,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::post('/company/request_for_approval', [CompanyController::class, 'request_for_approval']);
 
     // company proposals
-    Route::post('/company/upload_proposal_video', [CompanyController::class, 'upload_proposal_video']);
+    Route::post('/proposal/upload_video', [CompanyProposalController::class, 'upload_video']);
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);
