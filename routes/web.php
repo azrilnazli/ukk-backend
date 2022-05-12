@@ -35,6 +35,9 @@ Route::get('/companies/is_rejected', [App\Http\Controllers\CompanyController::cl
 Route::get('/companies/is_new', [App\Http\Controllers\CompanyController::class, 'is_new'])->name('is_new');
 Route::get('/companies/is_resubmit', [App\Http\Controllers\CompanyController::class, 'is_resubmit'])->name('is_resubmit');
 
+
+Route::get('/users/search', [App\Http\Controllers\UserController::class, 'search'])->name('user.search');
+
 Route::resources([
     'users'   =>  App\Http\Controllers\UserController::class,
     'videos'  =>  App\Http\Controllers\VideoController::class,

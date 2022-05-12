@@ -13,7 +13,20 @@
 
 @section('content')
 
-<div class="card card-dark">
+<form method="GET"  action="{{ route('user.search') }}">
+  @csrf
+  <div class="row mt-5">
+    <div class="col-3">
+      <input required type="text" name="query" class="form-control" placeholder="Search">
+    </div>
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
+
+
+<div class="card card-dark mt-5">
   <div class="card-header clearfix">
     <h3 class="card-title">List of Users</h3>
     <div class="card-tools">

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
+use Illuminate\Http\Request;
 
 
 class UserController extends Controller
@@ -33,6 +34,21 @@ class UserController extends Controller
     {
         $data = $this->user->paginate(10);
         return view('users.index',compact(['data']));
+    }
+
+    public function search(Request $request){
+        //$q = $request['query'];
+        $q = $request->input('query');
+        
+        $data = User::query()
+                    ->where('email', 'LIKE', '%' . $q . '%')
+                    ->orWhere('firstname', 'LIKE', '%' . $q . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $q . '%')
+                    ->paginate(50);
+
+        $data->appends(['search' => $q]);
+
+        return view('users.index')->with(compact('data'));
     }
 
     /**

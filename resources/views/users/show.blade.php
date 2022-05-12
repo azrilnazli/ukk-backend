@@ -56,16 +56,21 @@
             <table class="table table-bordered table-striped">
                 <tbody>
                 <tr>
-                  <th style="width:10%">Name</th>
-                  <th>{{ $user->name }} </th>
+                  <th style="width:10%">First Name</th>
+                  <th>{{ $user->firstname }} </th>
                 </tr>
+
+                <tr>
+                    <th style="width:10%">Last Name</th>
+                    <th>{{ $user->firstname }} </th>
+                  </tr>
                 <tr>
                     <th style="width:10%">Email</th>
                     <th>{{ $user->email }} </th>
                 </tr>
                 <tr>
-                    <th style="width:10%">Created</th>
-                    <th>{{ $user->created_at }} </th>
+                    <th style="width:10%">Joined</th>
+                    <th>{{ $user->created_at->diffForhumans() }} </th>
                 </tr>
                 <tr>
                     <th style="width:10%">Roles</th>
