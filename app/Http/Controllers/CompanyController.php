@@ -35,7 +35,7 @@ class CompanyController extends Controller
                     ->orWhere('address', 'LIKE', '%' . $q . '%')
                     ->orWhere('postcode', 'LIKE', '%' . $q . '%')
                     ->orWhere('city', 'LIKE', '%' . $q . '%')
-                    ->orWhere('state', 'LIKE', '%' . $q . '%')
+                    ->orWhere('states', 'LIKE', '%' . $q . '%')
                     ->orWhere('board_of_directors', 'LIKE', '%' . $q . '%')
                     ->orWhere('experiences', 'LIKE', '%' . $q . '%')
                     ->paginate(50);
