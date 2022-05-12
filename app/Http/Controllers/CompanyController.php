@@ -23,6 +23,21 @@ class CompanyController extends Controller
          $this->company = new CompanyService;
     }
 
+
+    public function search(Request $request){
+        //$q = $request['query'];
+        $q = $request->input('query');
+        
+        $data = Company::query()
+                    ->where('name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('email', 'LIKE', '%' . $q . '%')
+                    ->paginate(50);
+
+        $data->appends(['search' => $q]);
+
+        return view('companies.index')->with(compact('data'));
+    }
+
     public function index()
     {
         $data = $this->company->paginate();

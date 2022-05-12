@@ -27,6 +27,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route::resource('users', UserController::class);
+Route::get('/companies/search', [App\Http\Controllers\CompanyController::class, 'search'])->name('company.search');
 Route::get('/companies/requested', [App\Http\Controllers\CompanyController::class, 'requested'])->name('requested');
 Route::get('/companies/is_approved', [App\Http\Controllers\CompanyController::class, 'is_approved'])->name('is_approved');
 Route::get('/companies/is_pending', [App\Http\Controllers\CompanyController::class, 'is_pending'])->name('is_pending');

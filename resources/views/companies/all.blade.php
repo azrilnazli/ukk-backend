@@ -15,30 +15,21 @@
 
 @section('content')
 
+
 <div class="card card-dark">
-  
     <div class="card-header clearfix">
       <h3 class="card-title">List of companies</h3>
-  
-      {{-- <div class="card-tools">
-        <a class="btn-sm btn-primary " href="{{ route('companies.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
-      </div> --}}
-  
     </div>
-    <!-- /.card-header -->
-  
-  
+
     <div class="card-body p-0">
       <div class="table-responsive">
         <table class="table table-condensed table-striped">
             <thead>
-
                 <th width="5%">@sortablelink('id', 'ID')</th>
                 <th width="20%">@sortablelink('name','Company Name')</th>
                 <th width="*">@sortablelink('email','E-Mail')</th>
                 <th width="*">Status</th>
                 <th width="12%"></th>
-  
             </thead>
 
             <tbody>
