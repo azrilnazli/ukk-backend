@@ -291,6 +291,16 @@ class VideoController extends Controller
         return response()->json($data);
     }
 
+    public function conversion_progress(Video $video)
+    {
+        $progress = Storage::disk('assets')->get( $video->id . "/progress_all.txt" );
+       //eturn response()->json($progress);
+        return response([
+            'converting' => true,
+            'progress' => $progress,
+        ]);
+    }
+
     public function delayed_redirect(Video $video){
         sleep(3);
         return redirect()->route('videos.edit', $video->id);

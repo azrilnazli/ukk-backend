@@ -55,10 +55,19 @@ class User extends Authenticatable
     /**
      * User hasMany Video
      */
-    public function videos()
+    // public function videos()
+    // {
+    //     return $this->hasMany(Video::class);
+    // }
+
+    /**
+     * User hasOne Video
+     */
+    public function video()
     {
-        return $this->hasMany(Video::class);
+        return $this->hasOne(Video::class);
     }
+
 
 
     /**

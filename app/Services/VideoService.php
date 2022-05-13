@@ -99,30 +99,46 @@ class VideoService {
 
     public function api_store($request, $user_id)
     {
-        return Video::create([
-            'user_id'       => $user_id,
-            'category_id'   => $request['category_id'],
-            'title'     => $request['title'],
-            'synopsis'  => $request['synopsis'],
-            'filesize'  => $request['filesize'],
-            'original_filename'  => $request['original_filename'],
-            'uploading_duration' => $request['uploading_duration'],
-            'processing' => 1 // mark as start processing
-        ]);
+        // return Video::create([
+        //     'user_id'       => $user_id,
+        //     'category_id'   => $request['category_id'],
+        //     'title'     => $request['title'],
+        //     'synopsis'  => $request['synopsis'],
+        //     'filesize'  => $request['filesize'],
+        //     'original_filename'  => $request['original_filename'],
+        //     'uploading_duration' => $request['uploading_duration'],
+        //     'processing' => 1 // mark as start processing
+        // ]);
+
+        
+        $video = Video::firstOrNew(['user_id' =>  $user_id ]);
+ 
+        $video->title = 'test 123';
+        $video->category_id = 6;
+        $video->original_filename = 'test.mp4';
+        $video->synopsis = 'test.mp4';
+  
+        
+        $video->save();
+ 
     }
 
     public function createProgressFile($id)
     {
+        
         // conversion progress file
         $profiles = collect(Config::get('laravel-ffmpeg.profiles'));
         $profiles->each( function($item, $key) use ($id){
             Storage::disk('assets')->put( $id . "/progress_$key.txt" , 0);
         });
+
+        // progress_all.txt starts woth 0
+        Storage::disk('assets')->put( $id . "/progress_all.txt" , 0);
     }
 
     public function createDirectory($id)
     {
-
+       
         // create folder for handling assets for private and public
         $collection = collect([
             ['disk' => 'assets',    'folders' => ['mp4','secrets'] ],

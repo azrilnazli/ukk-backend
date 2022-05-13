@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use DB;
 use Auth;
 use Log;
+use App\Models\Video;
 use App\Models\Company;
 use App\Models\Comment;
 use App\Traits\ApiResponser;
@@ -80,7 +81,10 @@ class CompanyProposalController extends Controller
       
              ];
 
-            $video = $this->video->api_store($data, Auth::user()->id );
+            $this->video->api_store($data, Auth::user()->id );
+
+            $video = Video::firstOrNew(['user_id' =>  Auth::user()->id ]);
+     
             $this->video->createProgressFile($video->id);
             $this->video->createDirectory($video->id);
 
@@ -99,8 +103,27 @@ class CompanyProposalController extends Controller
 
         return response([
             'uploaded' => true,
-            'id' => $company->id,
+            'video_id' => $video->id,
         ]);
+    }
+
+    function get_video(){
+        $video = Video::query()
+                ->where(['user_id' =>  Auth::user()->id ])
+                ->first();
+
+        if( $video->exists() ){
+            $message = [
+                'exists' => true,
+                'video_id' => $video->id,
+            ];
+ 
+        } else {          
+            $message = [
+                'exists' => false,
+            ];
+        }
+        return response($message);
     }
 
 }
