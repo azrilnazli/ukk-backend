@@ -39,7 +39,7 @@ class TenderController extends Controller
     public function create()
     {
         $types = Tender::types(); // tender types
-        $languages = Tender::languages();
+        $languages = Tender::get_languages();
         $channels = Tender::channels();
         return view('tenders.create', compact('languages','channels','types'));
     }
@@ -54,7 +54,7 @@ class TenderController extends Controller
     {
 
         $types = Tender::types(); // tender types
-        $languages = Tender::languages();
+        $languages = Tender::get_languages();
         $channels = Tender::channels();
         return view('tenders.edit',compact('tender','languages','channels','types'));
     }

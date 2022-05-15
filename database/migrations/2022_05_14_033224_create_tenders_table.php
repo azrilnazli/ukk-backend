@@ -27,6 +27,7 @@ class CreateTendersTable extends Migration
             $table->integer('tender_category_id')->nullable(); // belongsTo TenderCategory
             $table->integer('programme_code_id')->nullable(); // belongsTo ProgrammeCode
             
+            $table->string('languages')->nullable();
             $table->string('programme_code')->nullable();
             $table->string('tender_category')->nullable();
 
