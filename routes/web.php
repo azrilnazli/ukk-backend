@@ -24,37 +24,43 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
 
 //Route::resource('users', UserController::class);
-Route::get('/companies/search', [App\Http\Controllers\CompanyController::class, 'search'])->name('company.search');
-Route::get('/companies/requested', [App\Http\Controllers\CompanyController::class, 'requested'])->name('requested');
-Route::get('/companies/is_approved', [App\Http\Controllers\CompanyController::class, 'is_approved'])->name('is_approved');
-Route::get('/companies/is_pending', [App\Http\Controllers\CompanyController::class, 'is_pending'])->name('is_pending');
-Route::get('/companies/is_rejected', [App\Http\Controllers\CompanyController::class, 'is_rejected'])->name('is_rejected');
-Route::get('/companies/is_new', [App\Http\Controllers\CompanyController::class, 'is_new'])->name('is_new');
-Route::get('/companies/is_resubmit', [App\Http\Controllers\CompanyController::class, 'is_resubmit'])->name('is_resubmit');
+Route::get('/companies/search', [App\Http\Controllers\Company\CompanyController::class, 'search'])->name('companies.search');
+Route::get('/companies/requested', [App\Http\Controllers\Company\CompanyController::class, 'requested'])->name('companies.requested');
+Route::get('/companies/is_approved', [App\Http\Controllers\Company\CompanyController::class, 'is_approved'])->name('companies.is_approved');
+Route::get('/companies/is_pending', [App\Http\Controllers\Company\CompanyController::class, 'is_pending'])->name('companies.is_pending');
+Route::get('/companies/is_rejected', [App\Http\Controllers\Company\CompanyController::class, 'is_rejected'])->name('companies.is_rejected');
+Route::get('/companies/is_new', [App\Http\Controllers\Company\CompanyController::class, 'is_new'])->name('companies.is_new');
+Route::get('/companies/is_resubmit', [App\Http\Controllers\Company\CompanyController::class, 'is_resubmit'])->name('companies.is_resubmit');
 
 
-Route::get('/users/search', [App\Http\Controllers\UserController::class, 'search'])->name('user.search');
+// tender
+Route::get('/tenders/search', [App\Http\Controllers\Tender\TenderController::class, 'search'])->name('tenders.search');
+
+
+
+Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('user.search');
 
 Route::resources([
-    'users'   =>  App\Http\Controllers\UserController::class,
-    'videos'  =>  App\Http\Controllers\VideoController::class,
-    'categories'  =>  App\Http\Controllers\CategoryController::class,
-    'companies'  =>  App\Http\Controllers\CompanyController::class,
+    'users'   =>  App\Http\Controllers\User\UserController::class,
+    'videos'  =>  App\Http\Controllers\Video\VideoController::class,
+    'categories'  =>  App\Http\Controllers\Category\CategoryController::class,
+    'companies'  =>  App\Http\Controllers\Company\CompanyController::class,
+    'tenders'  =>  App\Http\Controllers\Tender\TenderController::class,
 ]);
 
 // companies
 
 
-Route::resource('profile', App\Http\Controllers\ProfileController::class )->except([ 'create','destroy']);
+Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);
 
-Route::post('/videos/store_video', [App\Http\Controllers\VideoController::class, 'store_video'])->name('videos.store_video');
-Route::get('/videos/{video}/progress', [App\Http\Controllers\VideoController::class, 'progress'])->name('videos.progress');
-Route::get('/videos/{video}/status', [App\Http\Controllers\VideoController::class, 'status'])->name('videos.status');
-Route::get('/videos/{video}/delayed_redirect', [App\Http\Controllers\VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
-Route::get('/videos/{video}/conversion_progress', [App\Http\Controllers\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
+Route::post('/videos/store_video', [App\Http\Controllers\Video\VideoController::class, 'store_video'])->name('videos.store_video');
+Route::get('/videos/{video}/progress', [App\Http\Controllers\Video\VideoController::class, 'progress'])->name('videos.progress');
+Route::get('/videos/{video}/status', [App\Http\Controllers\Video\VideoController::class, 'status'])->name('videos.status');
+Route::get('/videos/{video}/delayed_redirect', [App\Http\Controllers\Video\VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
+Route::get('/videos/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
 
 // User Profiles
 //Route::get('/profile', [App])
@@ -98,6 +104,6 @@ Route::get('/storage/streaming/{video}/m3u8/{key}', function($video,$key){
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
 
 

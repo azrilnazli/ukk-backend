@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Tender extends Migration
+class CreateTenderProgrammeCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,12 @@ class Tender extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('tender_programme_codes', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class Tender extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tender_programme_codes');
     }
 }

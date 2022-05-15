@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tender;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVideoRequest extends FormRequest
+class StoreTenderCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreVideoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,10 +23,8 @@ class StoreVideoRequest extends FormRequest
      */
     public function rules()
     {
-        
         return [
-            'title'    => ['required',  'max:255'], 
-            'synopsis' => ['required'],
-        ];    
+            //
+        ];
     }
 }

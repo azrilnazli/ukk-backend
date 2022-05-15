@@ -1,11 +1,12 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Video;
 
+use App\Http\Controllers\Controller;
 use App\Models\Video;
 use App\Models\FailedJob;
 use App\Models\Category;
-use App\Http\Requests\StoreVideoRequest;
-use App\Http\Requests\UpdateVideoRequest;
+use App\Http\Requests\Video\StoreVideoRequest;
+use App\Http\Requests\Video\UpdateVideoRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

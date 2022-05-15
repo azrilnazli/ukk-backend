@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Company;
 
 use Auth;
 use App\Models\Company;
@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\CompanyService;
 use App\Http\Requests\Company\StoreRequest;
 use App\Http\Requests\Company\UpdateRequest;
+use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
@@ -30,6 +31,7 @@ class CompanyController extends Controller
         
         $data = Company::query()
                     ->where('name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('id', 'LIKE', '%' . $q . '%')
                     ->orWhere('email', 'LIKE', '%' . $q . '%')
                     ->orWhere('phone', 'LIKE', '%' . $q . '%')
                     ->orWhere('address', 'LIKE', '%' . $q . '%')

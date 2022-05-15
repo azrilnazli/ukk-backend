@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
 
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Profile\StoreProfileRequest;
+use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;

@@ -1,10 +1,11 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use Illuminate\Http\Request;
