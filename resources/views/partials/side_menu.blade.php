@@ -44,9 +44,16 @@
 
       <li class="nav-item">
         <a href="/companies" class="nav-link {{ active('companies') }}">
-          <i class="nav-icon fas fa-newspaper"></i>
+          <i class="nav-icon fa fa-users"></i>
           <p>
             Vendor
+          </p>
+        </a>
+
+        <a href="/tenders" class="nav-link {{ active('tenders') }}">
+          <i class="nav-icon fas fa-book"></i>
+          <p>
+            Tender
           </p>
         </a>
 {{-- 

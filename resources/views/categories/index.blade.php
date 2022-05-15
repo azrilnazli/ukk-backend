@@ -1,14 +1,14 @@
 
 @extends('layouts.master')
 
-@section('title', 'Video List')
+@section('title', 'Category List')
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="/videos">{{ __('Video Management') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Video List</li>
+        <li class="breadcrumb-item"><a href="/videos">{{ __('Category Management') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Category List</li>
     </ol>
 </nav>
 @stop

@@ -8,7 +8,7 @@
             <div class="info-box bg-secondary">
                     <span class="info-box-icon"><i class="far fa-user"></i></span>
                     <div class="info-box-content">
-                            <span class="info-box-text">Registered Vendor</span>
+                            <span class="info-box-text">New Register</span>
                             <span class="info-box-number">{{ $total['registered'] }}</span>
                     </div>
 
@@ -65,7 +65,7 @@
 
 <div class="row">
     <div class="col-sm-6 first-column">
-      <h5>Newly registered vendor <a href="{{ route('is_new') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
+      <h5>Newly registered vendor <a href="{{ route('companies.is_new') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
         @foreach($users as $user)
             <div class="alert alert-secondary" role="alert">
                 {{$user->email}} just signed up {{$user->created_at->diffForHumans()}}.
@@ -73,7 +73,7 @@
         @endForeach
     </div>
     <div class="col-sm-6 second-column">
-        <h5>Request for Approval <a href="{{ route('is_pending') }}" class="btn btn-sm btn-primary">VIEW</a></h5>  
+        <h5>Request for Approval <a href="{{ route('companies.is_pending') }}" class="btn btn-sm btn-primary">VIEW</a></h5>  
         @foreach($requested as $user)
             <div class="alert alert-info" role="alert">
                 {{ $user->name ? $user->name : $user->email }} requested {{$user->updated_at->diffForHumans()}}.
@@ -84,7 +84,7 @@
 
   <div class="row mt-5">
     <div class="col-sm-6 first-column">
-      <h5>Approved <a href="{{ route('is_approved') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
+      <h5>Approved <a href="{{ route('companies.is_approved') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
         @foreach($approved as $user)
             <div class="alert alert-success" role="alert">
                 {{ $user->name ? $user->name : $user->email }} was approved {{$user->updated_at->diffForHumans()}}.
@@ -92,7 +92,7 @@
         @endForeach
     </div>
     <div class="col-sm-6 second-column">
-        <h5>Rejected <a href="{{ route('is_rejected') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
+        <h5>Rejected <a href="{{ route('companies.is_rejected') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
         @foreach($rejected as $user)
             <div class="alert alert-danger" role="alert">
                 {{ $user->name ? $user->name : $user->email }} request was rejected {{$user->updated_at->diffForHumans()}}.
@@ -104,7 +104,7 @@
   
   <div class="row mt-5">
     <div class="col-sm-6 first-column">
-      <h5>Resubmit  <a href="{{ route('is_resubmit') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
+      <h5>Resubmit  <a href="{{ route('companies.is_resubmit') }}" class="btn btn-sm btn-primary">VIEW</a></h5>
         @foreach($resubmit as $user)
             <div class="alert alert-warning" role="alert">
                 {{ $user->name ? $user->name : $user->email }} was resubmit {{$user->updated_at->diffForHumans()}}.

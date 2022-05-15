@@ -40,5 +40,7 @@ class PermissionTableSeeder extends Seeder
         User::find(2)->assignRole('admin');
         User::find(3)->assignRole('user');
         User::find(4)->assignRole('subscriber');
+
+        // manual
     }
 }

@@ -945,6 +945,28 @@ class CollectionsController extends Controller
             }
         }
     }
+
+    function proposal(){
+
+        $video = Video::firstOrNew(['user_id' =>  2 ]);
+ 
+        $video->title = 'test 123';
+        $video->category_id = 6;
+        $video->original_filename = 'test.mp4';
+        $video->synopsis = 'test.mp4';
+  
+        
+        $video->save();
+        // $video = User::query()->find(1)->video;
+        dd($video->id);
+    }
+
+    function get_video(){
+        $video = Video::query()
+        ->where('user_id', 3)
+        ->first();
+        dd($video);
+    }
         
         
 
