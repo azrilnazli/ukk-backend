@@ -24,6 +24,7 @@
          with font-awesome or any other icon font library -->
    
     <li class="nav-header"></li>
+
     <li class="nav-item">
       <a href="/home" class="nav-link {{ active('home') }}">
         <i class="nav-icon fas fa-home"></i>
@@ -40,7 +41,7 @@
             User
           </p>
         </a>
-      </li>
+    </li>
 
       <li class="nav-item">
         <a href="/companies" class="nav-link {{ active('companies') }}">
@@ -49,22 +50,17 @@
             Vendor
           </p>
         </a>
+      </li>
 
+        <li class="nav-item">
         <a href="/tenders" class="nav-link {{ active('tenders') }}">
           <i class="nav-icon fas fa-book"></i>
           <p>
             Tender
           </p>
         </a>
-{{-- 
-        <a href="/companies/requested" class="nav-link {{ active('requested') }}">
-          <i class="nav-icon fas fa-newspaper"></i>
-          <p>
-            Request for Approval
-          </p>
-        </a>
+      </li>
 
-         --}}
 
 
         {{-- <li class="nav-item has-treeview menu-close">
@@ -92,7 +88,7 @@
         </li> --}}
 
 
-      </li>
+      {{-- </li> --}}
 
       {{-- <li class="nav-item">
         <a href="/categories" class="nav-link {{ active('categories') }}">
