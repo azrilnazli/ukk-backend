@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label for="classification" class="col-md-4 col-form-label text-md-right">{{ __('Language') }}</label>
 
             <div class="col-md-6">
@@ -88,7 +88,18 @@
                     </span>
                 @enderror
             </div>
-        </div>
+        </div> --}}
+
+        <div class="form-group row">
+      
+            <label for="classification" class="col-md-4 col-form-label text-md-right">{{ __('Language') }}</label>
+            <div class="col-md-6">
+                @foreach($languages as $key => $language)
+                <input type="checkbox" name="languages[]" value="{{$language}}"> {{$language}} <br />
+            @endforeach
+
+            </div>
+        </div> 
 
         <div class="form-group row">
             <label for="programme_code" class="col-md-4 col-form-label text-md-right">{{ __('Programme Code') }}</label>

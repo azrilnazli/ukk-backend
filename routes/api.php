@@ -121,7 +121,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/proposal/get_video', [CompanyProposalController::class, 'get_video']);
 
     // video
-    Route::get('/video/{video}/conversion_progress', [App\Http\Controllers\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
+    Route::get('/video/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
 
 
     // system

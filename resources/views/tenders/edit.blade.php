@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label for="classification" class="col-md-4 col-form-label text-md-right">{{ __('Language') }}</label>
 
             <div class="col-md-6">
@@ -91,7 +91,31 @@
                     </span>
                 @enderror
             </div>
-        </div>
+        </div> --}}
+
+        <div class="form-group row">
+      
+            <label for="classification" class="col-md-4 col-form-label text-md-right">{{ __('Language') }}</label>
+            <div class="col-md-6">
+
+                @php 
+                foreach($tender->languages as $language){
+                    $selected[] = $language;
+                }
+                @endphp
+
+                @foreach($languages as $key => $language)
+                    @php 
+                    $checked = null;
+                    if(in_array($language , $selected)){
+                        $checked = true;
+                    }
+                    @endphp
+                    <input  {{ $checked ? 'checked' : null }} type="checkbox" name="languages[]" value="{{$language}}"> {{$language}} <br />
+            @endforeach
+
+            </div>
+        </div> 
      
         <div class="form-group row">
             <label for="programme_code" class="col-md-4 col-form-label text-md-right">{{ __('Programme Code') }}</label>

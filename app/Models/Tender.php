@@ -50,7 +50,7 @@ class Tender extends Model
         } 
 
     // enum | language
-    public static function languages(){
+    public static function get_languages(){
         
         $name = 'language';
         $instance = new Tender; // create an instance of the model to be able to get the table name
@@ -78,4 +78,14 @@ class Tender extends Model
         }
         return $enum;
     } 
+
+    public function setLanguagesAttribute($value)
+    {
+        $this->attributes['languages'] = json_encode($value);
+    }
+
+    public function getLanguagesAttribute($value)
+    {
+        return $this->attributes['languages'] = json_decode($value);
+    }
 }

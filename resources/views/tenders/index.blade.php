@@ -48,10 +48,11 @@
                 <th width="5%">ID</th>
                 <th>Channel</th>
                 <th>Type</th>
-                <th>Duration</th>
+             
                 <th>Category</th>
-                <th>Programme Code</th>
-                <th>Number of Episode</th>
+                <th>Code</th>
+                <th>Duration</th>
+                <th>Episode</th>
                 <th>Language</th>
          
                 {{-- <th width="*">Added by</th> --}}
@@ -65,11 +66,17 @@
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td>{{$row->channel }}</td>
                     <td>{{$row->type }}</td>
-                    <td>{{$row->duration }}</td>
+                    
                     <td>{{$row->tender_category }}</td>
                     <td>{{$row->programme_code }}</td>
+                    <td>{{$row->duration }}</td>
                     <td>{{$row->number_of_episode }}</td>
-                    <td>{{$row->language }}</td>
+                    <td>
+                      @foreach( $row->languages as $lang )
+                      <span class="badge badge-warning">{{$lang}}</span>
+                      @endforeach
+
+                    </td>
                     <td>       
                       <form action="{{ route('tenders.destroy', $row->id)}}" method="post">
                         @csrf @method('DELETE')
@@ -82,8 +89,10 @@
                 </tr>
                 
                 <tr>
-                  <td colspan=9><div class="alert alert-light" role="alert">
-                    {!! nl2br($row->description) !!}</div>
+                  <td colspan=9>
+                    <div class="alert alert-light" role="alert">
+                    {!! nl2br($row->description) !!}
+                    </div>
                   </td>
               </tr>
            
