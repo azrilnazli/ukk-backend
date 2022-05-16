@@ -15,7 +15,7 @@ class UserService {
         //return User::role('subscriber')->get();
         //$users = User::role('user')->get(); 
         //$data = User::orderBy('id','asc')->paginate(10)->setPath('users');
-        return User::orderBy('id','asc')->paginate($perPage)->setPath('users');
+        return User::orderBy('id','desc')->paginate($perPage)->setPath('users');
     }
 
     public function store($request)

@@ -26,8 +26,7 @@ class UploadPDFRequest extends FormRequest
         return [
 
             // file upload
-            "file" => "sometimes|mimes:pdf|max:1000000",
-
+            "file" => "sometimes|mimes:pdf|max:100000", // 100MB
      
         ];
     }
