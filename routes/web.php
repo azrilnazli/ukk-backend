@@ -60,7 +60,7 @@ Route::post('/videos/store_video', [App\Http\Controllers\Video\VideoController::
 Route::get('/videos/{video}/progress', [App\Http\Controllers\Video\VideoController::class, 'progress'])->name('videos.progress');
 Route::get('/videos/{video}/status', [App\Http\Controllers\Video\VideoController::class, 'status'])->name('videos.status');
 Route::get('/videos/{video}/delayed_redirect', [App\Http\Controllers\Video\VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
-Route::get('/videos/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
+//  Route::get('/videos/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
 
 // User Profiles
 //Route::get('/profile', [App])

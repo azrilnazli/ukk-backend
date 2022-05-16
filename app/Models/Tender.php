@@ -88,4 +88,9 @@ class Tender extends Model
     {
         return $this->attributes['languages'] = json_decode($value);
     }
+
+    // public function getDescriptionAttribute($value)
+    // {
+    //     return $this->attributes['description'] =nl2br($value);
+    // }
 }

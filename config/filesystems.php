@@ -64,6 +64,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'proposals' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposals'),
+            'url' => env('APP_URL').'/storage/proposals',
+            'visibility' => 'public',
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
