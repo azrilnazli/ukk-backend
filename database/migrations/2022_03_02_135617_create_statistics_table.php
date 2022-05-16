@@ -15,8 +15,8 @@ class CreateStatisticsTable extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete(); // Profile belongsTo User
-            $table->foreignId('video_id')->index()->constrained()->cascadeOnDelete(); // Profile belongsTo Video
+            $table->foreignId('user_id')->index(); // Profile belongsTo User
+            $table->foreignId('video_id')->index(); // Profile belongsTo Video
             $table->integer('duration')->nullable()->default(0); // watched video in seconds
             $table->string('timestamp')->nullable(); // user token
             $table->timestamps();

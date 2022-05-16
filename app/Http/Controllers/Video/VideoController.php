@@ -296,10 +296,26 @@ class VideoController extends Controller
     public function conversion_progress(Video $video)
     {
         $progress = Storage::disk('assets')->get( $video->id . "/progress_all.txt" );
-       //eturn response()->json($progress);
+     
+        $status = true;
+        if($progress == 100){
+            $status = false;
+        }
         return response([
-            'converting' => true,
+            'converting' => $status,
             'progress' => $progress,
+        ]);
+    }
+
+    public function is_playable(Video $video)
+    {
+
+        $status = false;
+        if($video->is_ready == TRUE){
+            $status = true;
+        }
+        return response([
+            'is_playable' => $status,
         ]);
     }
 

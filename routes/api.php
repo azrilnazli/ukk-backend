@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CompanyProposalController;
+use App\Http\Controllers\Api\TenderController;
 
 
 /*
@@ -37,6 +38,12 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
         return auth()->user();
     });
 
+    // tenders
+    Route::get('/tenders/sambung_siri', [TenderController::class, 'sambung_siri']);
+    Route::get('/tenders/swasta', [TenderController::class, 'swasta']);
+    Route::get('/tender/{id}', [TenderController::class, 'show']);
+    Route::get('/proposal/show/{tender_id}', [TenderController::class, 'show_proposal']);
+    Route::post('/tender/update_proposal', [TenderController::class, 'update_proposal']);
 
     // movies
     Route::get('/movies', [MovieController::class, 'index']);
@@ -50,11 +57,8 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/user/statistics', [MovieController::class, 'statistics']);
 
     // company
-    
-   
     Route::post('/company/upload', [CompanyController::class, 'upload']);
 
-    
     Route::get('/company/board_of_directors', [CompanyController::class, 'board_of_directors']);
     Route::get('/company/check_board_of_directors', [CompanyController::class, 'check_board_of_directors']);
     Route::post('/company/update_board_of_directors', [CompanyController::class, 'update_board_of_directors']);
@@ -118,10 +122,14 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
 
     // company proposals
     Route::post('/proposal/upload_video', [CompanyProposalController::class, 'upload_video']);
-    Route::get('/proposal/get_video', [CompanyProposalController::class, 'get_video']);
+    Route::get('/proposal/{proposal_id}/get_video', [CompanyProposalController::class, 'get_video']);
+    Route::post('/proposal/upload_pdf', [CompanyProposalController::class, 'upload_pdf']);
+    Route::get('/proposal/{proposal_id}/get_pdf', [CompanyProposalController::class, 'get_pdf']);
+
 
     // video
     Route::get('/video/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
+    Route::get('/video/{video}/is_playable', [App\Http\Controllers\Video\VideoController::class, 'is_playable'])->name('videos.is_playable');
 
 
     // system

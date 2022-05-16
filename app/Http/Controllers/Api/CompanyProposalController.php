@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Api;
 use DB;
 use Auth;
 use Log;
+
+
 use App\Models\Video;
 use App\Models\Company;
 use App\Models\Comment;
+use App\Models\TenderSubmission;
+
+
 use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +21,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 // Form Validation
+use App\Http\Requests\Company\UploadPDFRequest;
 use App\Http\Requests\Company\CompanyRequest;
 use App\Http\Requests\Company\StoreVideoRequest;
 use App\Services\VideoService;
@@ -72,12 +78,12 @@ class CompanyProposalController extends Controller
 
             $data = [
                 'user_id'       => Auth::user()->id,
-                'category_id'   => 6, // proposal sambung siri
-                'title'     => 'Proposal Video',
-                'synopsis'  => 'Video Synopsis',
+                'tender_id'       => $request->tender_id,
+                'tender_submission_id'  => $request->proposal_id,
                 'filesize'  => $request->file('file')->getSize(),
                 'original_filename'  => $request->file('file')->getClientOriginalName(),
                 'uploading_duration' => $uploading_duration,
+                'is_processing' => true,
       
              ];
 
@@ -95,6 +101,11 @@ class CompanyProposalController extends Controller
             // save max height to db    
             $video->max_resolution =  $this->video->getMaxResolution($video->id);
             $video->save();
+
+            // save video_id in TenderSubmission
+            $proposal =   TenderSubmission::find($request->proposal_id);
+            $proposal->video_id = $video->id;
+            $proposal->save();
     
             // send video for processing
             $this->dispatch(new ConvertVideoQueue($video));
@@ -107,20 +118,74 @@ class CompanyProposalController extends Controller
         ]);
     }
 
-    function get_video(){
-        $video = Video::query()
-                ->where(['user_id' =>  Auth::user()->id ])
-                ->first();
+    function get_video($proposal_id){
+       
+        $proposal = TenderSubmission::query()
+                    ->where(['id' =>  $proposal_id ])
+                    ->first();
 
-        if( $video->exists() ){
+        if( $proposal->video_id ){
             $message = [
                 'exists' => true,
-                'video_id' => $video->id,
+                'video_id' => $proposal->video_id,
             ];
  
         } else {          
             $message = [
-                'exists' => false,
+                'exists' => 'false',
+            ];
+        }
+        return response($message);
+    }
+
+    function upload_pdf(UploadPDFRequest $request){
+        if($request->hasFile('file')){ // if exists
+         
+            // move to folder
+            $request->file('file')
+            ->storeAs(
+                $request->proposal_id, // path within disk's root
+                'proposal.pdf', // filename
+                'proposals' // disk
+            );
+
+            $message = [
+                'exists' => 'false',
+            ];
+
+            if(Storage::disk('proposals')->exists($request->proposal_id) .'/proposal.pdf'){
+                Log::info('file exists');
+                $uploaded = true;
+
+                DB::table('tender_submissions')
+                ->where('id', $request->proposal_id)
+                ->update(['is_pdf_cert_uploaded' => true]);
+
+                $message = [
+                    'exists' => true,
+                ];
+            }
+
+            return response($message);
+        }
+
+    }
+
+    function get_pdf($proposal_id){
+       
+        $proposal = TenderSubmission::query()
+                    ->where(['id' =>  $proposal_id ])
+                    ->first();
+
+        if( $proposal->is_pdf_cert_uploaded == TRUE ){
+            $message = [
+                'exists' => true,
+                'path' => "/storage/proposals/" . $proposal_id . "/proposal.pdf"
+            ];
+ 
+        } else {          
+            $message = [
+                'exists' => 'false',
             ];
         }
         return response($message);

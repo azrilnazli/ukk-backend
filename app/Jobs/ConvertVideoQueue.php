@@ -4,6 +4,7 @@ namespace App\Jobs;
 use App\Models\Video;
 use Config;
 use File;
+use Log;
 
 use FFMpeg;
 use FFMpeg\Coordinate\Dimension;
@@ -100,11 +101,14 @@ class ConvertVideoQueue implements ShouldQueue
         $processing_duration = ($end_time - $this->startTime); 
 
         // duration & processing
-        $this->video->update([
+        Log::info('should update is_ready == 1');
+        $video =  Video::find($this->video->id);
+        $video->update([
             'duration' =>$duration,
             'width' => $width,
             'height' => $height,
-            'processing' => 0,
+            'is_processing' => false, // done processing
+            'is_ready' => true, // ready to stream
             'processing_duration' => $processing_duration,
             'bitrate' => $bitrate,
             'format' => $format,

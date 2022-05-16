@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TenderSubmission;
 use App\Models\Video;
 use App\Models\User;
 use Illuminate\Support\LazyCollection;
@@ -966,6 +967,12 @@ class CollectionsController extends Controller
         ->where('user_id', 3)
         ->first();
         dd($video);
+    }
+
+    function save_video(){
+        $proposal =   TenderSubmission::firstOrNew(['id' =>  1 ]);
+        $proposal->video_id =12;
+        $proposal->save();
     }
         
         
