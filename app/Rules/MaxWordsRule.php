@@ -15,7 +15,7 @@ class MaxWordsRule implements Rule
      *
      * @return void
      */
-    public function __construct($max_words = 2)
+    public function __construct($max_words = 1000)
     {
         $this->max_words = $max_words;
     }
