@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Tender;
 
+use App\Rules\MaxWordsRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTenderSubmissionRequest extends FormRequest
@@ -29,7 +30,7 @@ class StoreTenderSubmissionRequest extends FormRequest
             'theme' => ['sometimes', 'string', 'max:255'],
             'genre' => ['sometimes', 'string', 'max:255'],
             'concept' => ['sometimes', 'string', 'max:20000'],
-            'synopsis' => ['sometimes', 'string', 'max:20000'],
+            'synopsis' => ['sometimes', 'string', new MaxWordsRule()],
           
             "selectedFile" => "sometimes|mimes:pdf|max:1000000",
         ];
