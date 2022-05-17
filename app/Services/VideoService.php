@@ -123,6 +123,8 @@ class VideoService {
         $video->filesize =  $request['filesize'];
 
         $video->save();
+
+        return $video;
  
     }
 
@@ -135,7 +137,7 @@ class VideoService {
             Storage::disk('assets')->put( $id . "/progress_$key.txt" , 0);
         });
 
-        // progress_all.txt starts woth 0
+        // progress_all.txt starts with 0
         Storage::disk('assets')->put( $id . "/progress_all.txt" , 0);
     }
 
