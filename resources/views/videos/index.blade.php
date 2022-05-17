@@ -20,10 +20,10 @@
     <div class="card-header clearfix">
       <h3 class="card-title">List of Videos</h3>
   
-      <div class="card-tools">
+      {{-- <div class="card-tools">
         <a class="btn-sm btn-primary " href="{{ route('videos.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
       </div>
-  
+   --}}
     </div>
     <!-- /.card-header -->
   

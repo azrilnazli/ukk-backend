@@ -60,7 +60,7 @@
           </p>
         </a>
       </li>
-
+{{-- 
       <li class="nav-item">
         <a href="/videos" class="nav-link {{ active('videos') }}">
           <i class="nav-icon fas fa-book"></i>
@@ -68,7 +68,7 @@
             Video
           </p>
         </a>
-      </li>
+      </li> --}}
 
 
       <li class="nav-item">
@@ -82,29 +82,29 @@
 
 
 
-        {{-- <li class="nav-item has-treeview menu-close">
-          <a href="#" class="nav-link {{ active('companies') }}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+        <li class="nav-item has-treeview menu-close">
+          <a href="#" class="nav-link {{ active('videos') }}">
+            <i class="nav-icon fas fa-video"></i>
             <p>
-              Vendor Management
+              Video
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/companies" class="nav-link {{ active('companies') }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Registered Vendor</p>
+              <a href="/videos" class="nav-link ">
+                <i class="nav-icon fas fa-check"></i>
+                <p>Video</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Submit for Approval</p>
+              <a href="/videos/failed" class="nav-link">
+                <i class="fas fa-times nav-icon"></i>
+                <p>Failed</p>
               </a>
             </li>
           </ul>
-        </li> --}}
+        </li>
 
 
       {{-- </li> --}}

@@ -45,6 +45,8 @@ Route::get('/tenders/search', [App\Http\Controllers\Tender\TenderController::cla
 
 Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('user.search');
 
+Route::get('/videos/failed', [App\Http\Controllers\Video\VideoController::class, 'failed'])->name('videos.failed');
+
 Route::resources([
     'users'   =>  App\Http\Controllers\User\UserController::class,
     'videos'  =>  App\Http\Controllers\Video\VideoController::class,
@@ -59,6 +61,8 @@ Route::resources([
 Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);
 
 Route::post('/videos/store_video', [App\Http\Controllers\Video\VideoController::class, 'store_video'])->name('videos.store_video');
+
+
 Route::get('/videos/{video}/progress', [App\Http\Controllers\Video\VideoController::class, 'progress'])->name('videos.progress');
 Route::get('/videos/{video}/status', [App\Http\Controllers\Video\VideoController::class, 'status'])->name('videos.status');
 Route::get('/videos/{video}/delayed_redirect', [App\Http\Controllers\Video\VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
