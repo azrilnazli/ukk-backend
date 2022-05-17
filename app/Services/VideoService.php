@@ -33,8 +33,7 @@ class VideoService {
     public function paginate($item = null)
     {
         return Video::query()
-            ->whereNull('duration')
-            ->orWhereNull('filesize')
+            ->where('duration','!=', 0)
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath('videos');
