@@ -36,8 +36,8 @@
             <tr>
               <th width="2%">ID</th>
               <th width="5%">Snapshot</th>
-              <th width="40%">Company</th>
-              <th width="40%">Details</th>
+              <th width="30%">Company</th>
+              <th width="30%">Details</th>
       
               <th width="25%"></th>
             </tr>
