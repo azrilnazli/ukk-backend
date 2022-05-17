@@ -792,7 +792,7 @@ class CompanyController extends Controller
         $company = Company::query()
                     ->where('user_id', auth()->user()->id )
                     ->first();
-         Log::info($company);
+         //Log::info($company);
         if($company) {            
             // get comments
             $comment = Comment::query()
@@ -800,7 +800,7 @@ class CompanyController extends Controller
                         ->where('company_id', $company->id )
                         ->orderBy('id','desc')
                         ->first();
-            Log::info(auth()->user()->id);
+            //Log::info(auth()->user()->id);
             if($comment) {
                 // JSON response
                 return response([
