@@ -132,7 +132,7 @@ class VideoService {
         $video->tender_submission_id =  $request['tender_submission_id'];
         $video->tender_id =  $request['tender_id'];
         $video->original_filename = $request['original_filename'];
-        $video->uploading_duration=  $request['uploading_duration'];
+        $video->uploading_duration =  $request['uploading_duration'];
         $video->filesize =  $request['filesize'];
 
         $video->save();
