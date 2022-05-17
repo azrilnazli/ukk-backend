@@ -108,16 +108,24 @@ class CompanyProposalController extends Controller
 
         return response([
             'uploaded' => true,
-            'id' => $company->id,
+            'video_id' => $video->id,
         ]);
     }
 
     function get_video($proposal_id){
        
         $proposal = TenderSubmission::query()
+                    ->with('video')
                     ->where(['id' =>  $proposal_id ])
                     ->first();
+        // check if video was uploaded
+                    
+        // get video_id
 
+        // check if video is_ready
+        Log::info($proposal);
+
+        // by default video_is is null 
         if( $proposal->video_id ){
             $message = [
                 'exists' => true,
