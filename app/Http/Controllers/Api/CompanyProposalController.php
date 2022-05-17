@@ -70,9 +70,16 @@ class CompanyProposalController extends Controller
             $file =  $request['file']; // uploaded video
                 
             // upload to temp dir
-            $uploading_duration = $this->video->upload($request['file']);
-            
+            $this->video->upload($request['file']);
 
+            Log::info($request);
+            Log::info(gmdate("Y-m-d H:i:s"));
+            $start_time = strtotime($request['start_time']);
+            $end_time =   strtotime(gmdate("Y-m-d H:i:s"));
+        
+            $uploading_duration =  round($end_time - $start_time); // in microtime
+            Log::info($end_time);            
+            Log::info($start_time);   
             $data = [
                 'user_id'       => Auth::user()->id,
                 'tender_id'       => $request->tender_id,
