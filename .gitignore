@@ -17,4 +17,4 @@ yarn-error.log
 /.vscode
 /public/uploads
 /storage/logs/laravel.log
-
+/storage/app
