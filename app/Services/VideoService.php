@@ -45,7 +45,7 @@ class VideoService {
             ->where('duration','=', 0)
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath('videos');
+            ->setPath(route('videos.failed'));
     }
 
     public function getCategories()
