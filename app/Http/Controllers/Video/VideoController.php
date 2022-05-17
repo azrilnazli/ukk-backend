@@ -50,9 +50,17 @@ class VideoController extends Controller
     public function index()
     {
         //$data = Video::orderBy('id','desc')->paginate(7)->setPath('videos');
-        $data = $this->video->paginate(10);
+        $data = $this->video->paginate(25);
         return view('videos.index',compact(['data']));  
     }
+
+    public function failed()
+    {
+        //$data = Video::orderBy('id','desc')->paginate(7)->setPath('videos');
+        $data = $this->video->failed(25);
+        return view('videos.index',compact(['data']));  
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -39,6 +39,15 @@ class VideoService {
             ->setPath('videos');
     }
 
+    public function failed($item = null)
+    {
+        return Video::query()
+            ->where('duration','=', 0)
+            ->orderBy('id','desc')
+            ->paginate($item)
+            ->setPath('videos');
+    }
+
     public function getCategories()
     {
         return Category::orderBy('title','ASC')->pluck('title', 'id');
