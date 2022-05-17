@@ -35,7 +35,7 @@ class Logger {
             $stat->duration = $request['duration'];
             $stat->user_id =  $request->user()->id;
             $stat->video_id = $request['video_id'];
-            Log::info("Stored in DB for user " . $request->user()->id . " updated duration " . $request['duration'] . " for video " .  $request['video_id'] );
+            //Log::info("Stored in DB for user " . $request->user()->id . " updated duration " . $request['duration'] . " for video " .  $request['video_id'] );
             return $stat->save();
             
         }

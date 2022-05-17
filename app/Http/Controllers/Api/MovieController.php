@@ -37,12 +37,12 @@ class MovieController extends Controller
         if(  Auth('sanctum')->check() )
         {
             $message = 'authenticated user';
-            Log::info($message);
-            Log::info($header);
+            //Log::info($message);
+            //Log::info($header);
         } else {
             $message = 'guest';
-            Log::info($message);
-            Log::info($header);
+           // Log::info($message);
+            //Log::info($header);
         }
 
         return response()->json($message);

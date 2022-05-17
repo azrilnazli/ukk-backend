@@ -154,7 +154,7 @@ class CompanyProposalController extends Controller
             ];
 
             if(Storage::disk('proposals')->exists($request->proposal_id) .'/proposal.pdf'){
-                Log::info('file exists');
+                //Log::info('file exists');
                 $uploaded = true;
 
                 DB::table('tender_submissions')
