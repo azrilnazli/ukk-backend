@@ -33,6 +33,21 @@ class Video extends Model
     }
 
     /**
+     * Get the Category that owns the Tender.
+     */
+    public function tender()
+    {
+        return $this->belongsTo(Tender::class);
+    }
+    /**
+     * Get the Category that owns the Video.
+     */
+    public function proposal()
+    {
+        return $this->belongsTo(TenderSubmission::class);
+    }
+
+    /**
      * Get the Statistics belongs to that Video     */
     public function statistics()
     {

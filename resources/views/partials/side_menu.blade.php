@@ -62,7 +62,17 @@
       </li>
 
       <li class="nav-item">
-        <a href="/videos/jobs" class="nav-link {{ active('videos') }}">
+        <a href="/videos" class="nav-link {{ active('videos') }}">
+          <i class="nav-icon fas fa-book"></i>
+          <p>
+            Video
+          </p>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a href="/queue/jobs" class="nav-link {{ active('queue') }}">
           <i class="nav-icon fas fa-cog"></i>
           <p>
             Queue

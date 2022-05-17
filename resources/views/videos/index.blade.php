@@ -35,9 +35,9 @@
           <thead>
             <tr>
               <th width="2%">ID</th>
-              <th width="5%">Landscape</th>
-              <th width="5%">Portrait</th>
-              <th width="40%">Title</th>
+              <th width="5%">Snapshot</th>
+              <th width="40%">Company</th>
+              <th width="40%">Details</th>
       
               <th width="25%"></th>
             </tr>
@@ -52,52 +52,39 @@
               <td class="text-center">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <img 
+                        <a href="{{ route('videos.show', $row->id) }}"><img 
                         class="" 
                         
                         @if($row->processing == 0)
-                        style="height:150px"
-                        src="{{ Storage::disk('streaming')->url( $row->id . '/thumbnails/poster.jpg')}}?{{rand()}}"
+                          style="height:150px"
+                          src="{{ Storage::disk('streaming')->url( $row->id . '/thumbnails/poster.jpg')}}?{{rand()}}"
                         @else 
-                        style="width:100px"
-                        src="{{ asset( 'images/loader.gif' )}}"
+                          style="width:100px"
+                          src="{{ asset( 'images/loader.gif' )}}"
                        
                         @endif
-                        />
+                        /></a>
                       
                     </li>
           
                 </ul>
               </td>
-              <td class="text-center">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <img 
-                        class="" 
-                        
-                        @if($row->processing == 0)
-                        style="height:150px"
-                        src="{{ Storage::disk('streaming')->url( $row->id . '/thumbnails/potrait.jpg')}}?{{rand()}}"
-                        @else 
-                        style="width:100px"
-                        src="{{ asset( 'images/loader.gif' )}}"
-                       
-                        @endif
-                        />
-                      
-                    </li>
-          
-                </ul>
+              <td>
+                Company: <strong>{{ $row->user->company->name }}</strong> <br />
+                Email: <strong>{{ $row->user->company->email }}</strong> <br />
+                Phone: <strong>{{ $row->user->company->phone }}</strong> <br />
               </td>
 
               <td>
-                <span class="lead">{{ $row->title }}</span>
+                <span class="lead">{{ $row->tender->channel }} : {{ $row->tender->tender_category }} ( {{ $row->tender->programme_code }} )</span>
                 <br />
                 <small>
-                    Category <strong>{{ $row->category->title }}</strong> <br />
-                    Created by <strong>{{ $row->user->name }}</strong> <br />
-                    Date :  <strong>{{ $row->created_at }}</strong> <br />
-                    Duration:  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->duration)->cascade()->forHumans() }}</strong> @endif<br />  
+              
+                    Duration: <strong>{{ $row->tender->number_of_episode }} X {{ $row->tender->duration }}'</strong> <br />
+                    Language: <strong>{{ implode(',', $row->tender->languages) }}</strong> <br />
+                   
+                    Date:  <strong>{{ $row->created_at  }}</strong> <i>{{ $row->created_at->diffForHumans() }}</i> <br />
+                    Length:  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->duration)->cascade()->forHumans() }}</strong> @endif<br />  
                     Proccesed in :  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->processing_duration)->cascade()->forHumans() }}</strong> @endif<br />
                    
                 </small>

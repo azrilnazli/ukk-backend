@@ -93,4 +93,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class);
     }
+
+    /**
+     * User hasOne Company
+     */
+    public function proposal()
+    {
+        return $this->hasOne(TenderSubmission::class);
+    }
 }
