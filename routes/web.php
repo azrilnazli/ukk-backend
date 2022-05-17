@@ -26,6 +26,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
 
+Route::get('/videos/jobs', [App\Http\Controllers\Home\HomeController::class, 'jobs'])->name('videos.jobs');
+
 //Route::resource('users', UserController::class);
 Route::get('/companies/search', [App\Http\Controllers\Company\CompanyController::class, 'search'])->name('companies.search');
 Route::get('/companies/requested', [App\Http\Controllers\Company\CompanyController::class, 'requested'])->name('companies.requested');

@@ -52,11 +52,20 @@
         </a>
       </li>
 
-        <li class="nav-item">
+      <li class="nav-item">
         <a href="/tenders" class="nav-link {{ active('tenders') }}">
           <i class="nav-icon fas fa-book"></i>
           <p>
             Tender
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/videos/jobs" class="nav-link {{ active('videos') }}">
+          <i class="nav-icon fas fa-cog"></i>
+          <p>
+            Queue
           </p>
         </a>
       </li>

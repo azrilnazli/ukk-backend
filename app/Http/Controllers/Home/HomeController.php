@@ -106,4 +106,9 @@ class HomeController extends Controller
 
         return view('home')->with(compact('users','requested','rejected','approved','resubmit','total'));
     }
+
+
+    function jobs(){
+        return view('home.jobs');
+    }
 }
