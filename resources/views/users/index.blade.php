@@ -51,7 +51,7 @@
         @foreach($data as $row)
           <tr>
             <td><span class="badge badge-dark">{{ $row->id }}</span></td>
-            <td>{{ $row->email }}</td>
+            <td><strong>{{ $row->email }}</strong> <small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small></td>
             <td>
             @if(!empty($row->getRoleNames()))
               @foreach($row->getRoleNames() as $v)

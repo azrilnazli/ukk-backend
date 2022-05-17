@@ -14,25 +14,7 @@ class Video extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'user_id',
-        'category_id',
-        'title',
-        'original_filename',
-        'synopsis',
-        'duration',
-        'downloadable',
-        'processing',
-        'processing_duration',
-        'uploading_duration',
-        'public',
-        'filesize',
-        'width',
-        'height',
-        'bitrate',
-        'job_id',
-        'asset_size',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * Video belongsTo User

@@ -16,7 +16,7 @@ class Company extends Model
     public $sortable = ['id', 'name', 'email', 'status','created_at', 'updated_at'];
 
     /**
-     * Profile belongsTo User
+     * Company belongsTo User
      */
     public function user()
     {

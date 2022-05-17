@@ -15,7 +15,7 @@
 
 @section('content')
 
-<form method="GET"  action="{{ route('company.search') }}">
+<form method="GET"  action="{{ route('companies.search') }}">
   @csrf
   <div class="row mt-5">
     <div class="col-3">

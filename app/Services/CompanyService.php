@@ -46,7 +46,7 @@ class CompanyService {
     }
 
     public function find($id){
-        return Company::find($id);
+        return Company::query()->find($id);
     }
     
     public function update($request, $id){

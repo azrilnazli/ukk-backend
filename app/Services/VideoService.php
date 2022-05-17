@@ -111,14 +111,17 @@ class VideoService {
         // ]);
 
         
-        $video = Video::firstOrNew(['user_id' =>  $user_id ]);
+        $video = Video::firstOrNew([
+            'user_id' =>  $user_id ,
+            'tender_submission_id' => $request['tender_submission_id']
+        ]);
  
-        $video->title = 'test 123';
-        $video->category_id = 6;
-        $video->original_filename = 'test.mp4';
-        $video->synopsis = 'test.mp4';
-  
-        
+        $video->tender_submission_id =  $request['tender_submission_id'];
+        $video->tender_id =  $request['tender_id'];
+        $video->original_filename = $request['original_filename'];
+        $video->uploading_duration=  $request['uploading_duration'];
+        $video->filesize =  $request['filesize'];
+
         $video->save();
  
     }

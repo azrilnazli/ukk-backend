@@ -47,6 +47,9 @@
             <dt class="col-sm-2">State</dt>
             <dd class="col-sm-9">{{ $company->states }}</dd>
 
+            <dt class="col-sm-2">Registered On</dt>
+            <dd class="col-sm-9">{{ $company->user->created_at }} , {{ $company->user->created_at->diffForHumans() }}</dd>
+
         </dl>
     </div>
   </div>
