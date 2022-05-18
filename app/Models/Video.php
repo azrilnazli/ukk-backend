@@ -21,9 +21,9 @@ class Video extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
-                // ->with('company')
-                // ->whereRelation('company','is_approved', 1);
+        return $this->belongsTo(User::class)
+                ->with('company')
+                ->whereRelation('company','is_approved', 1);
     }
 
 
