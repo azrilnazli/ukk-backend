@@ -16,6 +16,7 @@ use File;
 use Auth;
 use DB;
 use Config;
+use Log;
 
 use App\Jobs\ConvertVideo;
 use App\Jobs\ConvertVideoQueue;
@@ -303,16 +304,26 @@ class VideoController extends Controller
 
     public function conversion_progress(Video $video)
     {
-        $progress = Storage::disk('assets')->get( $video->id . "/progress_all.txt" );
-     
-        $status = true;
-        if($progress == 100){
+        Log::info($video);
+
+        if($video->duration != 0){
+            // check video status
+            $progress = Storage::disk('assets')->get( $video->id . "/progress_all.txt" );
+        
+            $status = true;
+            if($progress == 100){
+                $status = false;
+            }
+        } else {
+            $progress = 0;
             $status = false;
         }
+
         return response([
             'converting' => $status,
             'progress' => $progress,
         ]);
+
     }
 
     public function is_playable(Video $video)
