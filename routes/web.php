@@ -41,7 +41,8 @@ Route::get('/companies/is_resubmit', [App\Http\Controllers\Company\CompanyContro
 // tender
 Route::get('/tenders/search', [App\Http\Controllers\Tender\TenderController::class, 'search'])->name('tenders.search');
 
-
+// tender submission
+Route::get('/tender_submissions/search', [App\Http\Controllers\Tender\TenderController::class, 'search'])->name('tender_submissions.search');
 
 Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('user.search');
 
@@ -53,6 +54,7 @@ Route::resources([
     'categories'  =>  App\Http\Controllers\Category\CategoryController::class,
     'companies'  =>  App\Http\Controllers\Company\CompanyController::class,
     'tenders'  =>  App\Http\Controllers\Tender\TenderController::class,
+    'tender_submissions'  =>  App\Http\Controllers\Tender\TenderSubmissionController::class,
 ]);
 
 // companies

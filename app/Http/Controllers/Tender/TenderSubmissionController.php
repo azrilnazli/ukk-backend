@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Tender;
 
 use App\Http\Controllers\Controller;
 use Auth;
-use App\Models\Tender;
 use Illuminate\Http\Request;
-use App\Services\TenderService;
-use App\Http\Requests\Tender\StoreTenderRequest;
-use App\Http\Requests\Tender\UpdateTenderRequest;
+use App\Services\TenderSubmissionService;
+
 
 class TenderSubmissionController extends Controller
 {
@@ -26,48 +24,21 @@ class TenderSubmissionController extends Controller
 
     public function index()
     {
-        $tenders = $this->tender->paginate();
-        return view('tenders.index')->with(compact('tenders'));
+        $proposals = $this->tender->paginate();
+        return view('tender_submissions.index')->with(compact('proposals'));
     }
 
     public function search(Request $request){
    
-        $tenders = $this->tender->search($request);
-        return view('tenders.index')->with(compact('tenders'));
+        $proposals = $this->tender->search($request);
+        return view('tender_submissions.index')->with(compact('proposals'));
     }
 
-    public function create()
-    {
-        $types = Tender::types(); // tender types
-        $languages = Tender::get_languages();
-        $channels = Tender::channels();
-        return view('tenders.create', compact('languages','channels','types'));
-    }
-
-    public function store(StoreTenderRequest $request)
-    {
-        $this->tender->create($request);
-        return redirect('tenders')->with('success','Tender created successfully');
-    }
-
-    public function edit(Tender $tender)
-    {
-
-        $types = Tender::types(); // tender types
-        $languages = Tender::get_languages();
-        $channels = Tender::channels();
-        return view('tenders.edit',compact('tender','languages','channels','types'));
-    }
-
-    public function update(UpdateTenderRequest $request, $id)
+    public function show(Proposalsubmisison $tender_submission)
     {
         $this->tender->update($request, $id);
-        return redirect()->route('tenders.index', $id)->with('success','Tender updated.');
+        return view('tender_submissions.show')->with(compact('proposals'));
     }
 
-    public function destroy($id)
-    {
-        $this->tender->destroy($id);
-        return redirect()->back()->with('success','Tender deleted.');
-    }
+  
 }
