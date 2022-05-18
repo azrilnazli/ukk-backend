@@ -58,7 +58,7 @@ class VideoController extends Controller
     {
         //$data = Video::orderBy('id','desc')->paginate(7)->setPath('videos');
         $data = $this->video->failed(25);
-        return view('videos.index',compact(['data']));  
+        return view('videos.failed',compact(['data']));  
     }
 
 

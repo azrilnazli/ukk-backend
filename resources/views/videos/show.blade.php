@@ -50,17 +50,35 @@
     <div class=" col-12">
     <div class="card card-info">
       <div class="card-header">
-        <h3 class="card-title">{{ $video->title }}</h3>
+        <h3 class="card-title"><label class="badge badge-warning p-2 text-uppercase ">{{$video->user->company->id}}</label> Proposal by {{ $video->user->company->name }} </h3>
       </div>
       <div class="card-body">
-        {{ $video->synopsis }}
+        <h2>Theme</h2>
+        {{ $video->user->proposal->theme }}
+      </div>
+      <hr />
+      <div class="card-body">
+        <h2>Genre</h2>
+        {{ $video->user->proposal->genre }}
+      </div>
+      <hr />
+      <div class="card-body">
+        <h2>Concept</h2>
+        {{ $video->user->proposal->concept }}
+      </div>
+      <hr />
+      <div class="card-body">
+        <h2>Synopsis</h2>
+        {{ $video->user->proposal->synopsis }}
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-        Created at : <span class="badge badge-dark"><strong>{{ $video->created_at }}</span></strong>
+
+        Created at : <strong>{{ $video->created_at }}</strong> around {{ $video->created_at->diffForHumans() }}
         <br />
- 
-        Playback URL  : <span class="badge badge-dark"><strong>{{ route('assets', ['video' => $video->id, 'playlist' => 'playlist.m3u8']) }}</span></strong>
+        Updated at : <strong>{{ $video->updated_at }}</strong> around {{ $video->updated_at->diffForHumans() }}
+        <br />
+        Playback URL  : <strong>{{ route('assets', ['video' => $video->id, 'playlist' => 'playlist.m3u8']) }}</strong>
       </div>
     </div>
     <!-- /.card -->
@@ -89,14 +107,21 @@
       <span class="info-box-icon bg-success"><i class="fas fa-database"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Original Filesize</span>
-        <span class="info-box-number">{{ round($video->filesize/1000000) }} MB</span>
+        <span class="info-box-text">Filename : <strong>{{ $video->original_filename }}</strong>
+        
+        <span class="info-box-text">Size : <strong>{{ round($video->filesize/1000000) }} MB</strong></span>
+       </span>
       </div>
+
+
       <!-- /.info-box-content -->
     </div>
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
+
+
+
   <div class="col-md-3 col-sm-6 col-12">
     <div class="info-box">
       <span class="info-box-icon bg-warning"><i class="fas fa-cog"></i></span>
