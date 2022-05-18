@@ -44,7 +44,7 @@
   
   
           @foreach($data as $row)
-          @if (  $row->user->company  )
+          @if (  isset($row->user->company) &&  $row->user->company->is_approved == TRUE )
           <tbody>
             <tr>
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
