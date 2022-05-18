@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Video;
+use App\Models\TenderSubmission;
 use App\Models\FailedJob;
 use App\Models\Category;
 use App\Http\Requests\StoreVideoRequest;
@@ -224,6 +225,15 @@ class VideoService {
 
     public function delete($id)
     {
+
+        // $video->user->proposal->synopsis 
+        // set video_id = 0 in TenderSubmission
+        $video = Video::find($id)->first();
+        $proposal_id = $video->tender_submission_id;
+        $proposal = TenderSubmission::find($proposal_id);
+        $proposal->video_id = 0;
+        $proposal->save();
+        
         if( Video::where('id',$id)->delete() ){
             Storage::disk('assets')->deleteDirectory( $id ); // private dir
             Storage::disk('streaming')->deleteDirectory( $id ); // public dir
