@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tender;
 
+use App\Models\TenderSubmission;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
@@ -34,10 +35,10 @@ class TenderSubmissionController extends Controller
         return view('tender_submissions.index')->with(compact('proposals'));
     }
 
-    public function show(Proposalsubmisison $tender_submission)
+    // TenderProgrammeCode $tenderProgrammeCode
+    public function show(TenderSubmission $tenderSubmission)
     {
-        $this->tender->update($request, $id);
-        return view('tender_submissions.show')->with(compact('proposals'));
+        return view('tender_submissions.show')->with(compact('tenderSubmission'));
     }
 
   

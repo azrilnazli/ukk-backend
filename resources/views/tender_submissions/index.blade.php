@@ -65,9 +65,9 @@
                     <td>{!! $row->video->is_ready ? '<span class="text-success"><i class="fas fa-check"></i></span>' : '<span class="text-danger"><i class="fas fa-times"></span></i>' !!} </td>     
                      
                     <td class="text-center">
-                      {{-- <a class="btn btn-success btn-sm" href="{{ route('tender_submissions.show', $row->id) }}">
-                          <i class="fas fa-pencil-alt"></i>
-                      </a> --}}
+                      <a class="btn btn-success btn-sm" href="{{ route('tender_submissions.show', $row->id) }}">
+                          <i class="fas fa-search"></i>
+                      </a>
 
                     </td>
                 </tr>
