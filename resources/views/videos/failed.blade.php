@@ -35,10 +35,10 @@
           <thead>
             <tr>
               <th width="2%">ID</th>
-              <th width="30%">Company</th>
-              <th width="30%">Details</th>
+              <th width="50%">Company</th>
+              <th width="50%">Details</th>
       
-              <th width="25%" class="text-center">Actions</th>
+              {{-- <th width="25%" class="text-center">Actions</th> --}}
             </tr>
           </thead>
   
@@ -73,13 +73,13 @@
               </td>
      
      
-              <td class="text-center">
+              {{-- <td class="text-center">
                 
-                {{-- <form action="{{ route('videos.destroy', $row->id)}}" method="post">
+                <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
                   <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
-                </form> --}}
-              </td>            
+                </form>
+              </td>             --}}
             </tr>
           </tbody>
           {{-- @endif --}}
