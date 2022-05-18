@@ -23,7 +23,7 @@ class Video extends Model
     {
         return $this->belongsTo(User::class)
                 ->with('company')
-                ->where('is_approved','=', 1);
+                ->whereRelation('company','is_approved','=', 1);
     }
 
 
