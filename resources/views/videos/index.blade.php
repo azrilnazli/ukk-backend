@@ -97,16 +97,15 @@
                 <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
                 <a class="btn btn-primary btn-sm " href="{{ route('videos.show', $row->id) }} ">
-                    <i class="fas fa-info">
-                    </i>
-                    
+                    <i class="fas fa-search"></i> VIEW
+{{--                     
                 </a>
                 <a class="btn btn-success btn-sm  @if($row->processing == 1) disabled  @endif " href="{{ route('videos.edit', $row->id) }}">
                     <i class="fas fa-pencil-alt">
                     </i>
                     
                 </a>
-                  <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button> --}}
                 </form>
               </td>            
             </tr>
