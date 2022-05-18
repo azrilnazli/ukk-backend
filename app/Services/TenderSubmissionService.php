@@ -32,11 +32,15 @@ class TenderSubmissionService {
         // return Tender::where([['title', 'like', "{$query}%"]])
         //                 ->paginate(10)->setPath('tenders');
         $tenders = TenderSubmission::query()
-                        ->whereHas('user.company', fn($query) =>   
+                        // ->whereHas('user.company', fn($query) => 
+                        //     $query->where('is_approved', true)
+                        // )
+                        ->orWhereHas('user.company', fn($query) =>   
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
                             ->orWhere('id', 'LIKE', '%' . $q . '%') 
                             ->orWhere('phone', 'LIKE', '%' . $q . '%')   
+ 
                         )
                         ->orWhereHas('tender', fn($query) =>   
                             $query->where('tender_category', 'LIKE', '%' . $q . '%')
