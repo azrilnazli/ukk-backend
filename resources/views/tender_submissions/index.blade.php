@@ -55,7 +55,7 @@
 
             <tbody>
                 @foreach($proposals as $row)
-       
+                @if(isset($row->user->company))
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
@@ -74,7 +74,7 @@
                     </td>
                 </tr>
                 
-           
+                @endif
                 @endforeach
             </tbody>
 
