@@ -1,7 +1,7 @@
 <?php 
 namespace App\Services;
 
-use App\Models\TenderSubmisison;
+use App\Models\TenderSubmission;
 use Auth;
 
 class TenderSubmissionService {
