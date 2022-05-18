@@ -12,7 +12,7 @@ class TenderSubmissionService {
     }
 
     public function paginate($items = 50){
-        return TenderSubmission::orderBy('id','desc')->paginate($items)->setPath('tenders');
+        return TenderSubmission::orderBy('id','desc')->paginate($items)->setPath('tender_submissions');
     }
 
     public function search($request)
