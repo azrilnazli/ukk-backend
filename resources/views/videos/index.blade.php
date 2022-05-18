@@ -85,7 +85,8 @@
                     Duration: <strong>{{ $row->tender->number_of_episode }} X {{ $row->tender->duration }}'</strong> <br />
                     Language: <strong>{{ implode(',', $row->tender->languages) }}</strong> <br />
                    
-                    Date:  <strong>{{ $row->created_at  }}</strong> <i>{{ $row->created_at->diffForHumans() }}</i> <br />
+                    Updated:  <strong>{{ $row->created_at  }}</strong> <i>{{ $row->updated_at->diffForHumans() }}</i> <br />
+                   
                     Length:  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->duration)->cascade()->forHumans() }}</strong> @endif<br />  
                     Proccesed in :  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->processing_duration)->cascade()->forHumans() }}</strong> @endif<br />
                    
