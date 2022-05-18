@@ -43,6 +43,9 @@ class VideoService {
     public function failed($item = null)
     {
         return Video::query()
+            ->whereHas('user.company', fn($query) => 
+                $query->where('is_approved', true)
+                )
             ->where('duration','=', 0)
             ->orderBy('id','desc')
             ->paginate($item)
