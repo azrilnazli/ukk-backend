@@ -44,17 +44,18 @@
   
   
           @foreach($data as $row)
-  
+          @if (  $row->user->company  )
           <tbody>
             <tr>
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
               <td>
  
-                {{ $row->user->company ? 'exists' : 'no' }} 
-                {{-- Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
-                Company Name: <strong>{{ $row->user->company->name }}</strong> <br />
-                Email: <strong>{{ $row->user->company->email }}</strong> <br />
-                Phone: <strong>{{ $row->user->company->phone }}</strong> <br />  --}}
+             
+                  Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
+                  Company Name: <strong>{{ $row->user->company->name }}</strong> <br />
+                  Email: <strong>{{ $row->user->company->email }}</strong> <br />
+                  Phone: <strong>{{ $row->user->company->phone }}</strong> <br /> 
+
               </td>
 
               <td>
@@ -80,6 +81,7 @@
               </td>            
             </tr>
           </tbody>
+          @endif
           @endforeach
   
   
