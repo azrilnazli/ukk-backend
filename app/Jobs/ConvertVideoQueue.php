@@ -94,6 +94,8 @@ class ConvertVideoQueue implements ShouldQueue
         $format = $ffprobe
             ->format($file) // extracts file informations
             ->get('format_long_name');  
+        
+        Log::info($format);
           
         // Calculate the script execution time 
         // End the clock time in seconds 
