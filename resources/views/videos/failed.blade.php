@@ -50,7 +50,6 @@
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
               <td>
 
-                {{ $row->user->email }}<br />
                 {{ $row->user->company ? 'exists' : 'no' }}
                 {{-- Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
                 Company Name: <strong>{{ $row->user->company->name }}</strong> <br />
