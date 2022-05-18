@@ -11,8 +11,19 @@ class TenderSubmissionService {
        
     }
 
-    public function paginate($items = 50){
-        return TenderSubmission::orderBy('id','desc')->paginate($items)->setPath('tender_submissions');
+    // public function paginate($items = 50){
+    //     return TenderSubmission::orderBy('id','desc')->paginate($items)->setPath('tender_submissions');
+    // }
+
+    public function paginate($item = 50)
+    {
+        return TenderSubmission::query()
+            ->whereHas('user.company', fn($query) => 
+                $query->where('is_approved', true)
+                )
+            ->orderBy('id','desc')
+            ->paginate($item)
+            ->setPath(route('tender_submissions.index'));
     }
 
     public function search($request)
