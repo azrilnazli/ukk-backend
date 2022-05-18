@@ -974,6 +974,10 @@ class CollectionsController extends Controller
         $proposal->video_id =12;
         $proposal->save();
     }
+
+    function delete_video_id(){
+       
+    }
         
         
 

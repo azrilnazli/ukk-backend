@@ -2,7 +2,7 @@
   
   function active($menu){
     $route = Route::currentRouteName();
-    $route;
+
     if(preg_match("/{$menu}/i", $route)) {
       return "active";
       } else{
@@ -71,19 +71,11 @@
       </li> --}}
 
 
-      <li class="nav-item">
-        <a href="/queue/jobs" class="nav-link {{ active('queue') }}">
-          <i class="nav-icon fas fa-cog"></i>
-          <p>
-            Queue
-          </p>
-        </a>
-      </li>
-
+ 
 
 
         <li class="nav-item has-treeview menu-close">
-          <a href="#" class="nav-link {{ active('videos') }}">
+          <a href="#" class="nav-link {{ active('videos')  }}">
             <i class="nav-icon fas fa-video"></i>
             <p>
               Video
@@ -92,15 +84,22 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/videos" class="nav-link ">
+              <a href="/videos" class="nav-link  {{ active('index') }}">
                 <i class="nav-icon fas fa-check"></i>
-                <p>Video</p>
+                <p>Success</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/videos/failed" class="nav-link">
+              <a href="/videos/failed" class="nav-link  {{ active('failed') }}">
                 <i class="fas fa-times nav-icon"></i>
                 <p>Failed</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="/queue/jobs" class="nav-link  {{ active('jobs') }}">
+                <i class="fas fa-cog nav-icon"></i>
+                <p>Queue Monitor</p>
               </a>
             </li>
           </ul>
