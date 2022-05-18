@@ -75,10 +75,10 @@
      
               <td class="text-center">
                 
-                <form action="{{ route('videos.destroy', $row->id)}}" method="post">
+                {{-- <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
                   <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
-                </form>
+                </form> --}}
               </td>            
             </tr>
           </tbody>
