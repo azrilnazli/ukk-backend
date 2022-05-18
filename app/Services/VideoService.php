@@ -43,7 +43,7 @@ class VideoService {
     public function failed($item = null)
     {
         return Video::query()
-            ->with(['user'])
+            ->with('user')
             ->where('duration','=', 0)
             ->orderBy('id','desc')
             ->paginate($item)
