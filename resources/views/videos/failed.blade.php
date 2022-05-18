@@ -52,6 +52,7 @@
  
              
                   Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
+                  Company Status: <span class="badge badge-info">{{ $row->user->company->is_approved ?  'Approved' : 'Rejected'}}</span><br />
                   Company Name: <strong>{{ $row->user->company->name }}</strong> <br />
                   Email: <strong>{{ $row->user->company->email }}</strong> <br />
                   Phone: <strong>{{ $row->user->company->phone }}</strong> <br /> 
