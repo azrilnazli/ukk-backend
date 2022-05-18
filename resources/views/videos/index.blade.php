@@ -71,6 +71,7 @@
               </td>
               <td>
                 ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
+                Status: {!! $row->user->company->is_approved ? '<span class="badge badge-success">Approved</span>' : '<span class="badge badge-danger">Rejected</span>' !!}</span><br />
                 Company: <strong>{{ $row->user->company->name }}</strong> <br />
                 Email: <strong>{{ $row->user->company->email }}</strong> <br />
                 Phone: <strong>{{ $row->user->company->phone }}</strong> <br />
