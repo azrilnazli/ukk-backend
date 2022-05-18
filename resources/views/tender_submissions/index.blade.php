@@ -58,7 +58,7 @@
        
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
-                    <td><span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}</td>
+                    <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
                     <td>{{ $row->tender->programme_code }}</td>
                     <td>{!! $row->is_pdf_cert_uploaded ? '<span class="text-success"><i class="fas fa-check"></i></span>' : '<span class="text-danger"><i class="fas fa-times"></span></i>' !!} </td>     
