@@ -35,11 +35,10 @@
           <thead>
             <tr>
               <th width="2%">ID</th>
-              <th width="5%">Snapshot</th>
               <th width="30%">Company</th>
               <th width="30%">Details</th>
       
-              <th width="25%"></th>
+              <th width="25%" class="text-center">Actions</th>
             </tr>
           </thead>
   
@@ -49,29 +48,9 @@
           <tbody>
             <tr>
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
-              <td class="text-center">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <a href="{{ route('videos.show', $row->id) }}"><img 
-                        class="" 
-                        
-                        @if($row->processing == 0)
-                          style="height:150px"
-                          src="{{ Storage::disk('streaming')->url( $row->id . '/thumbnails/poster.jpg')}}?{{rand()}}"
-                        @else 
-                          style="width:100px"
-                          src="{{ asset( 'images/loader.gif' )}}"
-                       
-                        @endif
-                        /></a>
-                      
-                    </li>
-          
-                </ul>
-              </td>
               <td>
-                ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
-                Company: <strong>{{ $row->user->company->name }}</strong> <br />
+                Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
+                Company Name: <strong>{{ $row->user->company->name }}</strong> <br />
                 Email: <strong>{{ $row->user->company->email }}</strong> <br />
                 Phone: <strong>{{ $row->user->company->phone }}</strong> <br />
               </td>
@@ -85,27 +64,17 @@
                     Language: <strong>{{ implode(',', $row->tender->languages) }}</strong> <br />
                    
                     Date:  <strong>{{ $row->created_at  }}</strong> <i>{{ $row->created_at->diffForHumans() }}</i> <br />
-                    Length:  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->duration)->cascade()->forHumans() }}</strong> @endif<br />  
-                    Proccesed in :  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->processing_duration)->cascade()->forHumans() }}</strong> @endif<br />
                    
                 </small>
               </td>
      
      
-              <td class="float-right">
+              <td class="text-center">
                 
                 <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
-                <a class="btn btn-primary btn-sm " href="{{ route('videos.show', $row->id) }} ">
-                    <i class="fas fa-info">
-                    </i>
-                    
-                </a>
-                <a class="btn btn-success btn-sm  @if($row->processing == 1) disabled  @endif " href="{{ route('videos.edit', $row->id) }}">
-                    <i class="fas fa-pencil-alt">
-                    </i>
-                    
-                </a>
+    
+         
                   <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
                 </form>
               </td>            
