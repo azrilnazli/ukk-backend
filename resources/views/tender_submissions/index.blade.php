@@ -62,8 +62,10 @@
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
                     <td>{{ $row->tender->programme_code }}</td>
                     <td>{!! $row->is_pdf_cert_uploaded ? '<span class="text-success"><i class="fas fa-check"></i></span>' : '<span class="text-danger"><i class="fas fa-times"></span></i>' !!} </td>     
-                    <td>{!! $row->video->is_ready ? '<span class="text-success"><i class="fas fa-check"></i></span>' : '<span class="text-danger"><i class="fas fa-times"></span></i>' !!} </td>     
-                     
+                    <td>
+                      @if(isset($row->video))
+                      {!! $row->video->is_ready ? '<span class="text-success"><i class="fas fa-check"></i></span>' : '<span class="text-danger"><i class="fas fa-times"></span></i>' !!} </td>     
+                      @endif
                     <td class="text-center">
                       <a class="btn btn-success btn-sm" href="{{ route('tender_submissions.show', $row->id) }}">
                           <i class="fas fa-search"></i>
