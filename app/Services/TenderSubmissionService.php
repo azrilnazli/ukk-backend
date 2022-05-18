@@ -5,6 +5,7 @@ use App\Models\TenderSubmission;
 use Auth;
 
 class TenderSubmissionService {
+    
 
     // contstructor
     public function __construct(){
@@ -18,6 +19,7 @@ class TenderSubmissionService {
     public function paginate($item = 50)
     {
         return TenderSubmission::query()
+            ->sortable()
             ->whereHas('user.company', fn($query) => 
                 $query->where('is_approved', true)
                 )
@@ -28,10 +30,12 @@ class TenderSubmissionService {
 
     public function search($request)
     {
-        $q = $request->input('query');        
+        $q = $request->input('query'); 
+               
         // return Tender::where([['title', 'like', "{$query}%"]])
         //                 ->paginate(10)->setPath('tenders');
         $tenders = TenderSubmission::query()
+                        ->sortable()
                         // ->whereHas('user.company', fn($query) => 
                         //     $query->where('is_approved', true)
                         // )

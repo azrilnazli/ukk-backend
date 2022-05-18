@@ -39,16 +39,16 @@
         <table class="table table-condensed table-striped">
             <thead>
 
-                <th width="5%">ID</th>
+                <th width="5%">@sortablelink('id', 'ID')</th>
      
                 <th width="*">Company</th>
                 
-                <th width="*">Category</th>
+                <th width="*">@sortablelink('tender.tender_category', 'Category')</th>
 
-                <th width="*">Programme Code</th>
+                <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
 
-                <th>PDF</th>
-                <th>VIDEO</th>
+                <th>@sortablelink('is_pdf_cert_uploaded', 'PDF')</th>
+                <th>@sortablelink('video.is_ready', 'VIDEO')</th>
                 {{-- <th width="*">Added by</th> --}}
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>

@@ -5,10 +5,13 @@ namespace App\Models;
 use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Tender extends Model
 {
     use HasFactory;
+    use Sortable;
+    public $sortable = ['id','tender_category','programme_code', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
 
     /**
