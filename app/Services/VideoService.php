@@ -35,6 +35,7 @@ class VideoService {
     {
         return Video::query()
             ->where('duration','!=', 0)
+            ->orderBy('updated_at','desc')
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath('videos');
