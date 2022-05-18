@@ -49,10 +49,10 @@
             <tr>
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
               <td>
-                Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
+                {{-- Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
                 Company Name: <strong>{{ $row->user->company->name }}</strong> <br />
                 Email: <strong>{{ $row->user->company->email }}</strong> <br />
-                Phone: <strong>{{ $row->user->company->phone }}</strong> <br />
+                Phone: <strong>{{ $row->user->company->phone }}</strong> <br /> --}}
               </td>
 
               <td>
@@ -73,8 +73,6 @@
                 
                 <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
-    
-         
                   <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
                 </form>
               </td>            
