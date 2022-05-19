@@ -42,7 +42,7 @@ Route::get('/companies/is_resubmit', [App\Http\Controllers\Company\CompanyContro
 Route::get('/tenders/search', [App\Http\Controllers\Tender\TenderController::class, 'search'])->name('tenders.search');
 
 // tender submission
-Route::get('/tender_submissions/search', [App\Http\Controllers\Tender\TenderController::class, 'search'])->name('tender_submissions.search');
+Route::get('/tender_submissions/search', [App\Http\Controllers\Tender\TenderSubmissionController::class, 'search'])->name('tender_submissions.search');
 
 Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('user.search');
 
