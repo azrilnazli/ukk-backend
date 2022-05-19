@@ -6,6 +6,7 @@ use DB;
 use Auth;
 use Log;
 use App\Models\Video;
+use App\Models\Company;
 use App\Models\Tender;
 use App\Models\TenderSubmission;
 
@@ -93,11 +94,14 @@ class TenderController extends Controller
     function sambung_siri(){
 
         // check if user.company.is_approved = TRUE
-        $is_approved =  auth()->user()->company->is_approved;
-        $message = [
-            'exists' => false,
-        ];
-        if($is_approved == FALSE) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+       
+        $company = Company::query()
+                    ->where('user_id' , auth()->user()->id)
+                    ->first();
+
+        
+  
+        if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
 
 
         // display tender
@@ -108,7 +112,6 @@ class TenderController extends Controller
         if( !$tenders->isEmpty() ){
             $message = [
                 'exists' => true,
-                'is_approved' => $is_approved,
                 'tenders' => $tenders,
             ];
  
@@ -122,14 +125,13 @@ class TenderController extends Controller
 
     function swasta(){
         // check if user.company.is_approved = TRUE
-        $is_approved =  auth()->user()->company->is_approved;
-        $message = [
-            'exists' => false,
-        ];
-        if($is_approved == FALSE) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+        $company = Company::query()
+        ->where('user_id' , auth()->user()->id)
+        ->first();
 
 
-                
+        if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+    
         $tenders = Tender::query()
                     ->where(['type' =>  "SWASTA" ])
                     ->get();
