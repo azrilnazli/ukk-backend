@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     // movies
     Route::get('/movies', [MovieController::class, 'index']);
     Route::post('/movies/statistics', [MovieController::class, 'store']);
-   
+
     // user
     Route::post('/user/update', [AuthController::class, 'update']);
     Route::get('/user/my_account', [AuthController::class, 'my_account']);
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/check_audit', [CompanyController::class, 'check_audit']);
     Route::post('/company/update_audit', [CompanyController::class, 'update_audit']);
 
-    
+
     Route::get('/company/credit', [CompanyController::class, 'credit']);
     Route::get('/company/check_credit', [CompanyController::class, 'check_credit']);
     Route::post('/company/update_credit', [CompanyController::class, 'update_credit']);
@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/check_bumiputera', [CompanyController::class, 'check_bumiputera']);
     Route::post('/company/update_bumiputera', [CompanyController::class, 'update_bumiputera']);
 
-    
+
     Route::get('/company/bank', [CompanyController::class, 'bank']);
     Route::get('/company/check_bank', [CompanyController::class, 'check_bank']);
     Route::post('/company/update_bank', [CompanyController::class, 'update_bank']);
@@ -125,7 +125,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/proposal/{proposal_id}/get_video', [CompanyProposalController::class, 'get_video']);
     Route::post('/proposal/upload_pdf', [CompanyProposalController::class, 'upload_pdf']);
     Route::get('/proposal/{proposal_id}/get_pdf', [CompanyProposalController::class, 'get_pdf']);
-
+    Route::get('/proposal/my_proposal', [CompanyProposalController::class, 'my_proposal']);
 
     // video
     Route::get('/video/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
@@ -134,8 +134,8 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
 
     // system
     Route::post('/auth/logout', [AuthController::class, 'logout']);
-   
-    
+
+
 });
 
 Route::get('/movie/{id}/play', [MovieController::class, 'show']); //test
@@ -143,18 +143,18 @@ Route::get('/movie/{id}/play', [MovieController::class, 'show']); //test
 // route for HLS playlist request
 Route::get('/movie/{video}/{playlist}/{token}', function (  $video, $playlist, $token ) {
 
- 
+
     return FFMpeg::dynamicHLSPlaylist()
         // http://admin.test/storage/streaming/15/m3u8/playlist.m3u8 --> master playlist
         ->fromDisk("streaming") // public storage for m3u8
-        ->open("$video/m3u8/$playlist") 
+        ->open("$video/m3u8/$playlist")
 
         // secret key resolver
         ->setKeyUrlResolver( function($key) use ($video, $token) {
             return route('api.secret.key',['video' => $video, 'key' => $key, 'access_token' => $token]);
         })
         // requeste will look for referenced playlist
-        // eg playlist_0_400.m3u8 , playlist_0_500.m3u8 
+        // eg playlist_0_400.m3u8 , playlist_0_500.m3u8
         ->setPlaylistUrlResolver( function($playlist) use ($video, $token) {
             return route('api.movie', ['video' => $video, 'playlist' => $playlist, 'token' => $token, 'access_token' => $token]);
         })
