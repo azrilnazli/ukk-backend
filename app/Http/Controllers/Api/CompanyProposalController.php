@@ -42,9 +42,36 @@ class CompanyProposalController extends Controller
     {
         $this->video = new VideoService;
     }
-    
-     // only accept PDF
-     public function upload_video(StoreVideoRequest $request){
+
+    public function my_proposal(){
+        // list all proposals by user
+        $proposals = TenderSubmission::query()
+                        ->with('tender')
+                        ->where('user_id' , auth()->user()->id)
+                        ->get();
+
+
+
+
+
+
+
+        if (!$proposals->isEmpty()) {
+            return response([
+                'uploaded' => true,
+                'proposals' => $proposals,
+            ]);
+        } else {
+            return response([
+                'uploaded' => false,
+            ]);
+        }
+
+
+    }
+
+    // only accept PDF
+    public function upload_video(StoreVideoRequest $request){
         // log to laravel.log
         //Log::info($request);
 
@@ -52,7 +79,7 @@ class CompanyProposalController extends Controller
         $company = DB::table('companies')
 
         // select required fields
-        ->select(       
+        ->select(
             DB::raw('companies.id'),
         )
         // belongs to who ?
@@ -62,13 +89,13 @@ class CompanyProposalController extends Controller
 
         //Log::info($company->id);
         if($request->hasFile('file')){ // if exists
-         
+
             //  // upload to temp dir disk('uploads')
             // $uploading_duration = $this->video->upload($request->file('file')); // tested OK
 
-            
+
             $file =  $request['file']; // uploaded video
-                
+
             // upload to temp dir
             $this->video->upload($request['file']);
 
@@ -76,10 +103,10 @@ class CompanyProposalController extends Controller
             Log::info(gmdate("Y-m-d H:i:s"));
             $start_time = strtotime($request['start_time']);
             $end_time =   strtotime(gmdate("Y-m-d H:i:s"));
-        
+
             $uploading_duration =  round($end_time - $start_time); // in microtime
-            Log::info($end_time);            
-            Log::info($start_time);   
+            Log::info($end_time);
+            Log::info($start_time);
             $data = [
                 'user_id'       => Auth::user()->id,
                 'tender_id'       => $request->tender_id,
@@ -88,7 +115,7 @@ class CompanyProposalController extends Controller
                 'original_filename'  => $request->file('file')->getClientOriginalName(),
                 'uploading_duration' => $uploading_duration,
                 'is_processing' => true,
-      
+
              ];
 
             $video = $this->video->api_store($data, Auth::user()->id );
@@ -98,8 +125,8 @@ class CompanyProposalController extends Controller
             $path = basename($request->file('file')->getPathName() );
             //Log::info($path);
             $this->video->api_moveVideoToStorage($path,$video->id);
-    
-            // save max height to db    
+
+            // save max height to db
             $video->max_resolution =  $this->video->getMaxResolution($video->id);
             $video->save();
 
@@ -107,7 +134,7 @@ class CompanyProposalController extends Controller
             $proposal =   TenderSubmission::find($request->proposal_id);
             $proposal->video_id = $video->id;
             $proposal->save();
-    
+
             // send video for processing
             $this->dispatch(new ConvertVideoQueue($video));
         }
@@ -120,26 +147,26 @@ class CompanyProposalController extends Controller
     }
 
     function get_video($proposal_id){
-       
+
         $proposal = TenderSubmission::query()
                     ->with('video')
                     ->where(['id' =>  $proposal_id ])
                     ->first();
         // check if video was uploaded
-                    
+
         // get video_id
 
         // check if video is_ready
         Log::info($proposal);
 
-        // by default video_is is null 
+        // by default video_is is null
         if( $proposal->video_id ){
             $message = [
                 'exists' => true,
                 'video_id' => $proposal->video_id,
             ];
- 
-        } else {          
+
+        } else {
             $message = [
                 'exists' => 'false',
             ];
@@ -149,7 +176,7 @@ class CompanyProposalController extends Controller
 
     function upload_pdf(UploadPDFRequest $request){
         if($request->hasFile('file')){ // if exists
-         
+
             // move to folder
             $request->file('file')
             ->storeAs(
@@ -181,7 +208,7 @@ class CompanyProposalController extends Controller
     }
 
     function get_pdf($proposal_id){
-       
+
         $proposal = TenderSubmission::query()
                     ->where(['id' =>  $proposal_id ])
                     ->first();
@@ -191,8 +218,8 @@ class CompanyProposalController extends Controller
                 'exists' => true,
                 'path' => "/storage/proposals/" . $proposal_id . "/proposal.pdf"
             ];
- 
-        } else {          
+
+        } else {
             $message = [
                 'exists' => 'false',
             ];
