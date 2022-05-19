@@ -93,11 +93,11 @@ class TenderController extends Controller
     function sambung_siri(){
 
         // check if user.company.is_approved = TRUE
-        // $is_approved =  auth()->user()->company->is_approved;
-        // $message = [
-        //     'exists' => false,
-        // ];
-        // if($is_approved == FALSE) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+        $is_approved =  auth()->user()->company->is_approved;
+        $message = [
+            'exists' => false,
+        ];
+        if($is_approved == FALSE) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
 
  
 
