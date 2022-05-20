@@ -43,18 +43,14 @@ class CompanyProposalController extends Controller
         $this->video = new VideoService;
     }
 
-    function checkIsApproved(){
+
+
+    public function my_proposal(){
         $company = Company::query()
         ->where('user_id' , auth()->user()->id)
         ->first();
 
         if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
-    
-    }
-
-
-    public function my_proposal(){
-        return $this->checkIsApproved();
         
         // list all proposals by user
         $proposals = TenderSubmission::query()
