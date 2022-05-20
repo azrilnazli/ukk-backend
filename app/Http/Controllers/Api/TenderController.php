@@ -40,15 +40,15 @@ class TenderController extends Controller
                 'exists' => true,
                 'proposal' => $proposal,
             ];
- 
-        } else {          
+
+        } else {
             $message = [
                 'exists' => false,
             ];
         }
-        return response($message); 
+        return response($message);
     }
-    
+
     function update_proposal(StoreTenderSubmissionRequest $request){
 
         // tender submission
@@ -73,17 +73,17 @@ class TenderController extends Controller
             'tender_id' =>  $request->tender_id,
             'tender_submission_id' => $proposal->id
         ]);
- 
+
         $video->user_id = auth()->user()->id;
         $video->tender_submission_id =  $proposal->id;
         $video->tender_id =  $request->tender_id;
-        
+
         $video->save();
 
         //save video->id to Proposal
         $proposal->video_id =  $video->id;
         $proposal->save();
- 
+
         // JSON response
         return response([
             'id' => $proposal->id,
@@ -91,32 +91,37 @@ class TenderController extends Controller
         ]);
     }
 
- 
+
     function get_tenders($type){
         $company = Company::query()
         ->where('user_id' , auth()->user()->id)
         ->first();
+        Log::info($company->is_approved);
+        if($company->is_approved){
 
-        if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
-    
-
-        // display tender
-        $tenders = Tender::query()
+                    // display tender
+                    $tenders = Tender::query()
                     ->where(['type' =>  $type ])
                     ->get();
 
-        if( !$tenders->isEmpty() ){
-            $message = [
-                'exists' => true,
-                'tenders' => $tenders,
-            ];
+                    if( !$tenders->isEmpty() ){
+                        $message = [
+                            'exists' => true,
+                            'tenders' => $tenders,
+                        ];
 
-        } else {          
-            $message = [
-                'exists' => false,
-            ];
-        }
-        return response($message);
+                    } else {
+                        $message = [
+                            'exists' => false,
+                        ];
+                    }
+                    return response($message);
+
+                } else {
+                    return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+                }
+
+
     }
 
     // function sambung_siri(){
@@ -134,8 +139,8 @@ class TenderController extends Controller
     //             'exists' => true,
     //             'tenders' => $tenders,
     //         ];
- 
-    //     } else {          
+
+    //     } else {
     //         $message = [
     //             'exists' => false,
     //         ];
@@ -146,9 +151,9 @@ class TenderController extends Controller
     // function swasta(){
     //     // check if user.company.is_approved = TRUE
     //     return $this->checkIsApproved();
-        
+
     //     if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
-    
+
     //     $tenders = Tender::query()
     //                 ->where(['type' =>  "SWASTA" ])
     //                 ->get();
@@ -158,8 +163,8 @@ class TenderController extends Controller
     //             'exists' => true,
     //             'tenders' => $tenders,
     //         ];
- 
-    //     } else {          
+
+    //     } else {
     //         $message = [
     //             'exists' => false,
     //         ];
@@ -183,7 +188,7 @@ class TenderController extends Controller
                 'exists' => false,
             ];
         }
-                
+
         return response($message);
     }
 

@@ -25,14 +25,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'firstname',
-        'lastname',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'firstname',
+    //     'lastname',
+    //     'email',
+    //     'password',
+    // ];
 
+    protected $guarded = ['id'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -91,14 +92,15 @@ class User extends Authenticatable
      */
     public function company()
     {
-        return $this->hasOne(Company::class)->where('is_approved','=', 1);
+       // return $this->hasOne(Company::class)->where('is_approved','=', 1);
+        return $this->hasOne(Company::class);
     }
 
     /**
-     * User hasOne Company
+     * User hasMany Proposal
      */
-    public function proposal()
+    public function proposals()
     {
-        return $this->hasOne(TenderSubmission::class);
+        return $this->hasMany(TenderSubmission::class);
     }
 }

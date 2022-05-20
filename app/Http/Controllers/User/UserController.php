@@ -9,6 +9,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -40,7 +41,7 @@ class UserController extends Controller
     public function search(Request $request){
         //$q = $request['query'];
         $q = $request->input('query');
-        
+
         $data = User::query()
                     ->where('email', 'LIKE', '%' . $q . '%')
                     ->orWhere('firstname', 'LIKE', '%' . $q . '%')
@@ -83,6 +84,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        // $user = User::where('id', $user->id)
+        //         ->with('company')
+        //         ->first();
+
+        // $company = \App\Models\Company::query()
+        //             ->where('user_id', $user->id)
+        //             ->first();
+        //dd($user->company->name);
         return view('users.show',compact(['user']));
     }
 
@@ -108,7 +117,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->user->update($request, $user);
-        return redirect('users')->with('success','User ' . $request['name'] . ' successfully updated.');          
+        return redirect('users')->with('success','User ' . $request['name'] . ' successfully updated.');
     }
 
     /**

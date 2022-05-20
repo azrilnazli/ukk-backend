@@ -50,24 +50,32 @@ class CompanyProposalController extends Controller
         ->where('user_id' , auth()->user()->id)
         ->first();
 
-        if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
-        
-        // list all proposals by user
-        $proposals = TenderSubmission::query()
+        Log::info($company->is_approved);
+        if($company->is_approved ){
+
+                    // list all proposals by user
+             $proposals = TenderSubmission::query()
                         ->with('tender')
                         ->where('user_id' , auth()->user()->id)
                         ->get();
 
-        if (!$proposals->isEmpty()) {
-            return response([
-                'uploaded' => true,
-                'proposals' => $proposals,
-            ]);
+            if (!$proposals->isEmpty()) {
+                return response([
+                    'uploaded' => true,
+                    'proposals' => $proposals,
+                ]);
+            } else {
+                return response([
+                    'uploaded' => false,
+                ]);
+            }
+
         } else {
-            return response([
-                'uploaded' => false,
-            ]);
+            return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+
         }
+
+
 
 
     }
