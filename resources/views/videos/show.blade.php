@@ -52,25 +52,7 @@
       <div class="card-header">
         <h3 class="card-title"><label class="badge badge-warning p-2 text-uppercase ">{{$video->user->company->id}}</label> Proposal by {{ $video->user->company->name }} </h3>
       </div>
-      <div class="card-body">
-        <h2>Theme</h2>
-        {{ $video->user->proposal->theme }}
-      </div>
-      <hr />
-      <div class="card-body">
-        <h2>Genre</h2>
-        {{ $video->user->proposal->genre }}
-      </div>
-      <hr />
-      <div class="card-body">
-        <h2>Concept</h2>
-        {{ $video->user->proposal->concept }}
-      </div>
-      <hr />
-      <div class="card-body">
-        <h2>Synopsis</h2>
-        {{ $video->user->proposal->synopsis }}
-      </div>
+
       <!-- /.card-body -->
       <div class="card-footer">
 
