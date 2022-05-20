@@ -91,19 +91,14 @@ class TenderController extends Controller
         ]);
     }
 
-    function checkIsApproved(){
+ 
+    function get_tenders($type){
         $company = Company::query()
         ->where('user_id' , auth()->user()->id)
         ->first();
-        //Log::info($company->is_approved);
 
         if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
     
-    }
-
-    function get_tenders($type){
-        // check if user.company.is_approved = TRUE
-        return $this->checkIsApproved();
 
         // display tender
         $tenders = Tender::query()
@@ -124,6 +119,53 @@ class TenderController extends Controller
         return response($message);
     }
 
+    // function sambung_siri(){
+
+    //     // check if user.company.is_approved = TRUE
+    //     //return $this->checkIsApproved();
+
+    //     // display tender
+    //     $tenders = Tender::query()
+    //                 ->where(['type' =>  "SAMBUNG SIRI" ])
+    //                 ->get();
+
+    //     if( !$tenders->isEmpty() ){
+    //         $message = [
+    //             'exists' => true,
+    //             'tenders' => $tenders,
+    //         ];
+ 
+    //     } else {          
+    //         $message = [
+    //             'exists' => false,
+    //         ];
+    //     }
+    //     return response($message);
+    // }
+
+    // function swasta(){
+    //     // check if user.company.is_approved = TRUE
+    //     return $this->checkIsApproved();
+        
+    //     if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+    
+    //     $tenders = Tender::query()
+    //                 ->where(['type' =>  "SWASTA" ])
+    //                 ->get();
+
+    //     if( !$tenders->isEmpty() ){
+    //         $message = [
+    //             'exists' => true,
+    //             'tenders' => $tenders,
+    //         ];
+ 
+    //     } else {          
+    //         $message = [
+    //             'exists' => false,
+    //         ];
+    //     }
+    //     return response($message);
+    // }
 
     function show($id){
         $tender = Tender::query()
