@@ -87,10 +87,10 @@ class Tender extends Model
         $this->attributes['languages'] = json_encode($value);
     }
 
-    // public function getLanguagesAttribute($value)
-    // {
-    //     return $this->attributes['languages'] = json_decode($value);
-    // }
+    public function getLanguagesAttribute($value)
+    {
+        return $this->attributes['languages'] = json_decode($value);
+    }
 
     // public function getDescriptionAttribute($value)
     // {
