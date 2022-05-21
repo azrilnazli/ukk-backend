@@ -254,7 +254,7 @@
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
                                         <span class="info-box-text">Uploaded Size</span>
-                                        <span class="info-box-number">{{ number_format( $video['filesize'] / 1048576,2)  }} MB</span>
+                                        <span class="info-box-number">{{ number_format( round($video['filesize'] / 1048576,2))  }} MB</span>
                                 </div>
                         </div>
                     </div>
@@ -265,7 +265,7 @@
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
                                         <span class="info-box-text">Processed Size</span>
-                                        <span class="info-box-number">{{ $video['asset_size'] }} MB</span>
+                                        <span class="info-box-number">{{ number_format(round($video['asset_size'])) }} MB</span>
                                 </div>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
                                         <span class="info-box-text">Duration</span>
-                                        <span class="info-box-number">{{ round($video['duration']/60) }} minutes</span>
+                                        <span class="info-box-number">{{ number_format(round($video['duration']/60)) }} minutes</span>
                                 </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
                                         <span class="info-box-text">Cloud Processing</span>
-                                        <span class="info-box-number">{{ round($video['processing']/60) }} minutes</span>
+                                        <span class="info-box-number">{{ number_format(round($video['processing']/60)) }} minutes</span>
                                 </div>
                         </div>
                     </div>
