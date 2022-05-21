@@ -14,6 +14,10 @@ class Tender extends Model
     public $sortable = ['id','tender_category','programme_code', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'languages' => 'array',
+    ];
+
     /**
      * Category belongsTo User
      */
@@ -87,10 +91,10 @@ class Tender extends Model
         $this->attributes['languages'] = json_encode($value);
     }
 
-    public function getLanguagesAttribute($value)
-    {
-        return $this->attributes['languages'] = json_decode($value);
-    }
+    // public function getLanguagesAttribute($value)
+    // {
+    //     return $this->attributes['languages'] = json_decode($value);
+    // }
 
     // public function getDescriptionAttribute($value)
     // {
