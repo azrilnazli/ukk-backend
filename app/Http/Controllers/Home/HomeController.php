@@ -102,9 +102,22 @@ class HomeController extends Controller
 
         // proposal related
         $proposal['total'] = TenderSubmission::query()->count();
-        $proposal['pdf_only'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', true)->count();
-        $proposal['video_only'] = TenderSubmission::query()->where('video_id','!=', 0)->count();
+        //$proposal['pdf_only'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', true)->count();
+        //$proposal['video_only'] = TenderSubmission::query()->where('video_id','!=', 0)->count();
         $proposal['both'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', 1)->where('video_id','!=', 0)->count();
+
+        $proposal['pdf_only'] = TenderSubmission::query()
+        ->where('is_pdf_cert_uploaded','=', true)
+        ->whereHas('video', fn($query) =>
+            $query->where('is_ready', false)
+        )
+        ->count();
+
+        $proposal['video_only'] = TenderSubmission::query()
+        ->whereHas('video', fn($query) =>
+            $query->where('is_ready', true)
+        )
+        ->count();
 
         $proposal['sambung_siri'] = TenderSubmission::query()
         ->whereHas('tender', fn($query) =>
