@@ -41,7 +41,9 @@
         <thead>
           <tr>
             <th width="2%">ID</th>
-            <th width="50%">E-Mail</th>
+            <th width="40%">E-Mail</th>
+            <th class="text-center" width="10%">Comments</th>
+            <th class="text-center" width="10%">Proposal</th>
             <th width="8%">Role</th>
             <th width="12%"></th>
           </tr>
@@ -73,7 +75,23 @@
                     @endif
                 @endif
                 <br /><small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small></td>
-            <td>
+                <td class="text-center">
+                    @php $comments = 0 @endphp
+                    @if($row->company)
+                        @if($row->company->comments)
+                            @php $comments = count($row->company->comments)  @endphp
+                        @endif
+                    @endif
+                    {{ $comments }}
+                </td>
+                <td class="text-center">
+                    @if($row->proposals)
+
+                            {{count($row->proposals) }}
+
+                    @endif
+                </td>
+                <td>
             @if(!empty($row->getRoleNames()))
               @foreach($row->getRoleNames() as $v)
                 @switch($v)
