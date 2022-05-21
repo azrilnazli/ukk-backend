@@ -40,7 +40,10 @@
                 </dl>
 
             </div>
-            <div class="card-footer text-muted ">Registered <span>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</span></div>
+            <div class="card-footer text-muted ">
+                @if ($user->created_at)
+                Registered <span>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</span></div>
+                @endif
         </div>
     </div>
 </div>
