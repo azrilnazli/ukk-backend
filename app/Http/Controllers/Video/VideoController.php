@@ -105,6 +105,7 @@ class VideoController extends Controller
      * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function show(Video $video)
     {
 <<<<<<< HEAD
@@ -115,6 +116,13 @@ class VideoController extends Controller
 >>>>>>> d3960edcd2a477e3058de3bb6936262b165c6a3e
         return view('videos.show',compact(['video','extra']));
     }
+=======
+    // public function show(Video $video)
+    // {
+    //     $extra['format'] =  $this->video->ffprobe($video->id,'format_long_name');
+    //     return view('videos.show',compact(['video','extra']));
+    // }
+>>>>>>> 367ee55de48c0e09e908f19b86f267d15c8075ca
 
     /**
      * Show the form for editing the specified resource.
