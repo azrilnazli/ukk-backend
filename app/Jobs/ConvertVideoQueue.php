@@ -20,7 +20,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 
-use romanzipp\QueueMonitor\Traits\IsMonitored; 
+use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 
 class ConvertVideoQueue implements ShouldQueue
@@ -45,12 +45,18 @@ class ConvertVideoQueue implements ShouldQueue
     public function handle()
     {
 
+       // echo $this->job->getJobId();
+       echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]\n";
+       $this->video->is_processing = true;
+       $this->video->is_ready = false;
+       $this->video->save();
+
         // encode video to multibitrate
         $this->createMultiBitrate($this->video->id);
 
         // create master playlist.m3u8
-        $this->createMasterPlaylist($this->video->id);   
-       
+        $this->createMasterPlaylist($this->video->id);
+
         // thumbnails
         $this->createThumbnail($this->video->id);
 
@@ -65,8 +71,8 @@ class ConvertVideoQueue implements ShouldQueue
 
         // iterate each item and encode
         $profiles->each(function($item, $key) use ($id) {
-            $this->encode($id, $key,$item['bitrate'],$item['width'],$item['height']);             
-        });        
+            $this->encode($id, $key,$item['bitrate'],$item['width'],$item['height']);
+        });
     }
 
     function updateMetadata($id){
@@ -87,25 +93,26 @@ class ConvertVideoQueue implements ShouldQueue
         $ffprobe = FFMpeg\FFProbe::create();
         $bitrate = $ffprobe
             ->format($file) // extracts file informations
-            ->get('bit_rate');  
+            ->get('bit_rate');
 
         $file = Storage::disk('assets')->path( $id .'/original.mp4');
         $ffprobe = FFMpeg\FFProbe::create();
         $format = $ffprobe
             ->format($file) // extracts file informations
-            ->get('format_long_name');  
-        
+            ->get('format_long_name');
+
         Log::info($format);
-          
-        // Calculate the script execution time 
-        // End the clock time in seconds 
-        $end_time = microtime(true); 
-        $processing_duration = ($end_time - $this->startTime); 
+
+        // Calculate the script execution time
+        // End the clock time in seconds
+        $end_time = microtime(true);
+        $processing_duration = ($end_time - $this->startTime);
 
         // duration & processing
-        Log::info('should update is_ready == 1');
-        $video =  Video::find($this->video->id);
-        $video->update([
+
+        //$video =  Video::find($this->video->id);
+
+        $this->video->update([
             'duration' =>$duration,
             'width' => $width,
             'height' => $height,
@@ -114,7 +121,8 @@ class ConvertVideoQueue implements ShouldQueue
             'processing_duration' => $processing_duration,
             'bitrate' => $bitrate,
             'format' => $format,
-            'asset_size' => $this->getFolderSize($id)
+            'asset_size' => $this->getFolderSize($id),
+            'job_id' =>$this->job->uuid() // to match with failed jobs
         ]);
     }
 
@@ -129,7 +137,7 @@ class ConvertVideoQueue implements ShouldQueue
     }
 
     function createThumbnail($id){
-        
+
         $media = FFMpeg::fromDisk('assets')->open( $id . '/original.mp4');
         $media->getFrameFromSeconds(2)
             ->export()
@@ -146,10 +154,10 @@ class ConvertVideoQueue implements ShouldQueue
         $conn = Storage::disk('streaming');//configured in the file filesystems.php
         $stream = $conn->readStream($file);
 
-        while (($line = fgets($stream, 4096)) !== false) 
+        while (($line = fgets($stream, 4096)) !== false)
         {
-            //$line is the string var of your line from your file 
-            $rows[] = $line; 
+            //$line is the string var of your line from your file
+            $rows[] = $line;
         }
 
         array_unshift($rows, $header); // put $header on top of the collection
@@ -162,11 +170,11 @@ class ConvertVideoQueue implements ShouldQueue
     function createMasterPlaylist($id){
         $header = "#EXTM3U";
         $footer = "#EXT-X-ENDLIST";
- 
+
         $file = $id ."/m3u8/playlist.m3u8"; //playlist.m3u8 path
         $conn = Storage::disk('streaming'); //which disk
         $stream = $conn->readStream($file);
- 
+
         $collection = collect(); // initialize empty collection
         // put $header on top of the collection
         $collection->prepend($header);
@@ -176,16 +184,16 @@ class ConvertVideoQueue implements ShouldQueue
         }
         // put $footer on bottom of the collection
         $collection->push($footer);
- 
+
         // write to file
-        Storage::disk('streaming')->put( 
-            $location = $id . "/m3u8/playlist.m3u8" , 
+        Storage::disk('streaming')->put(
+            $location = $id . "/m3u8/playlist.m3u8" ,
             $contents = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n",  $collection->implode("\n")
-        )); 
+        ));
     }
 
     function encode($id, $quality,$bitrate,$width,$height){
-        
+
         $this->quality  = $quality;
         $this->bitrate  = $bitrate;
         $this->width    = $width;
@@ -193,11 +201,9 @@ class ConvertVideoQueue implements ShouldQueue
 
         // HLS 5
         $media = FFMpeg::fromDisk('assets')->open( $id . '/original.mp4');
-        
+
         $quality = (new X264)->setKiloBitrate($this->bitrate);
 
-
-        echo "Job id is : " .  $this->job->uuid() . "\n";
         $media->exportForHLS()
         //->withEncryptionKey($encryptionKey)
 
@@ -206,7 +212,7 @@ class ConvertVideoQueue implements ShouldQueue
             function( $filename, $contents) use ($id)
             {
                 $path =  $id . '/secrets/' . $filename;
-                Storage::disk('assets')->put( $path, $contents);   
+                Storage::disk('assets')->put( $path, $contents);
             }
         )
 
@@ -223,56 +229,56 @@ class ConvertVideoQueue implements ShouldQueue
 
             // store to db
             $quality = $this->quality;
-            
+
 
             // 5 profiles each is 20%
             $previous = 0;
             if($quality == '240p'){
-               
+
                 $total = ($percentage/5);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                
+
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
-            
+
             if($quality == '360p'){
-               
+
                 $previous = 20;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                
+
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
 
             if($quality == '480p'){
-               
+
                 $previous = 40;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                
+
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
 
             if($quality == '720p'){
-               
+
                 $previous = 60;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                
+
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
 
             if($quality == '1080p'){
-               
+
                 $previous = 80;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                
+
                 //echo "PROGRESS {$id} :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
             }
 
             echo "VIDEO ID ({$id}) :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
-    
+
 
             // write to progress_all.txt
            // Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
@@ -283,22 +289,22 @@ class ConvertVideoQueue implements ShouldQueue
 
         $header = "#EXTM3U";
         $footer = "#EXT-X-ENDLIST";
-        
+
         $file = $id ."/m3u8/playlist_$this->quality.m3u8";//the path of your file
         $conn = Storage::disk('streaming');//configured in the file filesystems.php
         $stream = $conn->readStream($file);
-        
-        while (($line = fgets($stream, 4096)) !== false) 
+
+        while (($line = fgets($stream, 4096)) !== false)
         {
             //$line is the string var of your line from your file
             $line = str_replace("#EXTM3U", "", $line);
             $line = str_replace("#EXT-X-ENDLIST", "", $line);
-            
-            $rows[] = $line; 
+
+            $rows[] = $line;
         }
 
         // create new playlist based on quality
         $playlist = implode("\n", $rows);
-        Storage::disk('streaming')->append( $id . "/m3u8/playlist.m3u8" , $playlist);    
+        Storage::disk('streaming')->append( $id . "/m3u8/playlist.m3u8" , $playlist);
     }
 }

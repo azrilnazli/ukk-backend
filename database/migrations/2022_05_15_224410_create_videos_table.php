@@ -17,27 +17,33 @@ class CreateVideosTable extends Migration
      */
     public function up()
     {
+<<<<<<< HEAD
 	    Schema::dropIfExists('videos');    
 
 	    Schema::create('videos', function (Blueprint $table) {
  
+=======
+        Schema::create('videos', function (Blueprint $table) {
+
+>>>>>>> e3bb1b02e60a7617f3c30142ee9a3355011547f4
             $table->id();
 
             // relationship
-            $table->foreignIdFor(User::class); // user 
+            $table->foreignIdFor(User::class); // user
             $table->foreignIdFor(TenderSubmission::class)->nullable(); // video
             $table->foreignIdFor(Tender::class); // Tender
+            $table->string('job_id')->nullable(); // Job
 
-            $table->string('original_filename')->nullable();      
+            $table->string('original_filename')->nullable();
             $table->boolean('is_processing')->default(0); // true for processing
             $table->boolean('is_ready')->default(0); // true for ready
             $table->bigInteger('processing_duration')->nullable()->default(0); // processing duration in seconds
             $table->bigIinteger('uploading_duration')->nullable()->default(0); // upload duration in seconds
-          
+
 
             // ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration,bit_rate -of default=noprint_wrappers=1 input.mp4
             $table->integer('duration')->nullable()->default(0); // video length in seconds
-            $table->biginteger('filesize')->nullable()->default(0); // video size
+            $table->string('filesize')->nullable()->default(0); // video size
             $table->integer('width')->nullable()->default(0); // video width
             $table->integer('height')->nullable()->default(0); // video height
             $table->integer('bitrate')->nullable()->default(0); // video bitrate in bps
@@ -49,7 +55,7 @@ class CreateVideosTable extends Migration
         });
 
 
-     
+
     }
 
 
