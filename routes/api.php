@@ -127,6 +127,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::post('/proposal/upload_pdf', [CompanyProposalController::class, 'upload_pdf']);
     Route::get('/proposal/{proposal_id}/get_pdf', [CompanyProposalController::class, 'get_pdf']);
     Route::get('/proposal/my_proposal', [CompanyProposalController::class, 'my_proposal']);
+    Route::post('/proposal/destroy', [CompanyProposalController::class, 'destroy']);
 
     // video
     Route::get('/video/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');

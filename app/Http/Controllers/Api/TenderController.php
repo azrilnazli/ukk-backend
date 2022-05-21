@@ -96,7 +96,7 @@ class TenderController extends Controller
         $company = Company::query()
         ->where('user_id' , auth()->user()->id)
         ->first();
-        Log::info($company->is_approved);
+        //Log::info($company->is_approved);
         if($company->is_approved){
 
                     // display tender

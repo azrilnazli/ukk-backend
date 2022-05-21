@@ -33,6 +33,7 @@ use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Format\Video\X264;
 use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
+use File;
 
 
 class CompanyProposalController extends Controller
@@ -44,13 +45,41 @@ class CompanyProposalController extends Controller
     }
 
 
+    public function destroy(Request $request){
+
+        // get collection
+        $proposal = TenderSubmission::query()->where('id',$request->proposal_id)->where('user_id', auth()->user()->id)->first();
+
+        // check ownership
+        if($proposal == null ) return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
+
+        // destroy video DB
+        if($proposal->video->is_ready == true){
+            $video = new VideoService;
+            $video->delete($proposal->video->id);
+        }
+
+
+        // destroy folder
+        Storage::disk('proposals')->deleteDirectory( $request->proposal_id ); // proposal dir
+        //$file = new Filesystem;
+        //$file->cleanDirectory('storage/app/public/proposals/' . $request->proposal_id);
+
+        // destroy proposal
+        $proposal->delete();
+
+        return response([
+            'proposal_id' => $request->proposal_id,
+            'destroyed' => true,
+        ]);
+    }
 
     public function my_proposal(){
         $company = Company::query()
         ->where('user_id' , auth()->user()->id)
         ->first();
 
-        Log::info($company->is_approved);
+        //Log::info($company->is_approved);
         if($company->is_approved ){
 
                     // list all proposals by user
@@ -72,12 +101,7 @@ class CompanyProposalController extends Controller
 
         } else {
             return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
-
         }
-
-
-
-
     }
 
     // only accept PDF
