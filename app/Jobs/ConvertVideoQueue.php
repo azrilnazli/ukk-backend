@@ -47,9 +47,9 @@ class ConvertVideoQueue implements ShouldQueue
 
        // echo $this->job->getJobId();
        echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]\n";
-       $this->video->is_processing = true;
-       $this->video->is_ready = false;
-       $this->video->save();
+        //    $this->video->is_processing = true;
+        //    $this->video->is_ready = false;
+        //    $this->video->save();
 
         // encode video to multibitrate
         $this->createMultiBitrate($this->video->id);
@@ -124,6 +124,10 @@ class ConvertVideoQueue implements ShouldQueue
             'asset_size' => $this->getFolderSize($id),
             'job_id' =>$this->job->uuid() // to match with failed jobs
         ]);
+
+        // $this->video->proposal->update([
+        //     'is_video' => 1,
+        // ]);
     }
 
     function getFolderSize($id){
@@ -226,6 +230,7 @@ class ConvertVideoQueue implements ShouldQueue
             // write to file
            // echo "Exporting to encrypted HLS for $this->quality at  {$percentage}%  \n";
             Storage::disk('assets')->put( $id . "/progress_$this->quality.txt" , $percentage);
+            Storage::disk('streaming')->put( $id . "/progress_$this->quality.txt" , $percentage);
 
             // store to db
             $quality = $this->quality;
@@ -237,6 +242,7 @@ class ConvertVideoQueue implements ShouldQueue
 
                 $total = ($percentage/5);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
 
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
@@ -246,6 +252,7 @@ class ConvertVideoQueue implements ShouldQueue
                 $previous = 20;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
 
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
@@ -255,6 +262,7 @@ class ConvertVideoQueue implements ShouldQueue
                 $previous = 40;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
 
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
@@ -264,6 +272,7 @@ class ConvertVideoQueue implements ShouldQueue
                 $previous = 60;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
 
                 //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
@@ -273,6 +282,7 @@ class ConvertVideoQueue implements ShouldQueue
                 $previous = 80;
                 $total = (($percentage/5) + $previous);
                 Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
 
                 //echo "PROGRESS {$id} :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
             }
