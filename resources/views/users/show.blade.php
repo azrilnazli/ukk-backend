@@ -231,7 +231,7 @@
 @endif
 
 <!-- Comment -->
-
+@if($user->messages)
 <div class="row">
     <div class="col">
         <div class="card card-info">
@@ -255,6 +255,7 @@
         </div>
     </div>
 </div>
+@endif
 <!-- ./Comment -->
 
 @stop
