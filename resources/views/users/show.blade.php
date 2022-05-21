@@ -157,8 +157,8 @@
                                             </div>
                                             <div class="modal-body">
                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js" integrity="sha512-g16L6hyoieygYYZrtuzScNFXrrbJo/lj9+1AYsw+0CYYYZ6lx5J3x9Yyzsm+D37/7jMIGh0fDqdvyYkNWbuYuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                                                <div style="height:500px" id="document"></div>
-                                                <script>PDFObject.embed("/storage/proposals/{{$proposal->id}}/proposal.pdf", "#document");</script>
+                                                <div style="height:500px" id="document_{{$proposal->id}}"></div>
+                                                <script>PDFObject.embed("/storage/proposals/{{$proposal->id}}/proposal.pdf", "#document_{{$proposal->id}}");</script>
                                             </div>
                                             <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
