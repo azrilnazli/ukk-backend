@@ -40,15 +40,18 @@ class UserController extends Controller
 
     public function search(Request $request){
         //$q = $request['query'];
-        $q = $request->input('query');
+        // $q = $request->input('query');
 
-        $data = User::query()
-                    ->where('email', 'LIKE', '%' . $q . '%')
-                    ->orWhere('firstname', 'LIKE', '%' . $q . '%')
-                    ->orWhere('lastname', 'LIKE', '%' . $q . '%')
-                    ->paginate(50);
+        // $data = User::query()
+        //             ->where('email', 'LIKE', '%' . $q . '%')
+        //             ->orWhere('firstname', 'LIKE', '%' . $q . '%')
+        //             ->orWhere('lastname', 'LIKE', '%' . $q . '%')
+        //             ->paginate(50);
 
-        $data->appends(['search' => $q]);
+
+        // $data->appends(['search' => $q]);
+
+        $data = $this->user->search($request);
 
         return view('users.index')->with(compact('data'));
     }
