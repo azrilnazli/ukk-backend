@@ -28,7 +28,7 @@
 
 <div class="card card-dark mt-3">
   <div class="card-header clearfix">
-    <h3 class="card-title">List of Users</h3>
+    <h3 class="card-title">Total Users ( {{ $data->total() }} )</h3>
     <div class="card-tools">
       <a class="btn-sm btn-primary " href="{{ route('users.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
     </div>
@@ -96,16 +96,16 @@
               @foreach($row->getRoleNames() as $v)
                 @switch($v)
                   @case('super-admin')
-                  <label class="badge badge-danger p-2 text-uppercase ">{{ $v }}</label>
+                  <span class="badge badge-danger  text-uppercase ">{{ $v }}</span>
                   @break
                   @case('admin')
-                  <label class="badge badge-warning p-2 text-uppercase">{{ $v }}</label>
+                  <span class="badge badge-warning  text-uppercase">{{ $v }}</span>
                   @break
                   @case('user')
-                  <label class="badge badge-primary p-2 text-uppercase">{{ $v }}</label>
+                  <span class="badge badge-primary  text-uppercase">{{ $v }}</span>
                   @break
                   @case('subscriber')
-                  <label class="badge badge-success p-2 text-uppercase">vendor</label>
+                  <span class="badge badge-success  text-uppercase">vendor</span>
                   @break
                 @endswitch
               @endforeach

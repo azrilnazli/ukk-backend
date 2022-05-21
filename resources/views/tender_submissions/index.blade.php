@@ -30,7 +30,7 @@
 <div class="card card-dark mt-3">
 
     <div class="card-header clearfix">
-      <h3 class="card-title">List of Proposals</h3>
+      <h3 class="card-title">Total Proposals ( {{ $proposals->total() }} )</h3>
     </div>
     <!-- /.card-header -->
 
