@@ -164,6 +164,7 @@ class VideoController extends Controller
             $poster = Image::make($file);
             $poster->resize(185,278);
             $poster->save($dest);
+            //
         }
 
         // user upload poster landscape
