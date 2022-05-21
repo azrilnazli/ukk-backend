@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Models\User;
 use App\Models\QueueMonitor;
+use App\Models\Statistics;
 use App\Models\Company;
 use App\Models\Comment;
 use App\Models\Tender;
@@ -179,6 +180,10 @@ class HomeController extends Controller
         $video['processing'] = QueueMonitor::query()
         //->where('is_ready', true)
         ->sum('time_elapsed');
+
+        $video['playback'] = Statistics::query()
+        //->where('is_ready', true)
+        ->sum('duration');
 
        //dd($video);
 
