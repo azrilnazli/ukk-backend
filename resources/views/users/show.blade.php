@@ -118,7 +118,7 @@
 <div class="row">
     <div class="col">
         <div class="card card-info">
-            <div class="card-header">PROPOSAL</div>
+            <div class="card-header">Proposal</div>
             <div class="card-body">
                 <table class="table">
                     <tr>
@@ -245,14 +245,14 @@
 
 <!-- Comment -->
 
-@if(count($user->messages) > 0 )
+@if(count($user->company->comments) > 0 )
 <div class="row">
     <div class="col">
         <div class="card card-info">
             <div class="card-header">Comment</div>
             <div class="card-body pl-5 pr-5">
                 <label>Comments </label>
-                @foreach($user->messages as $comment)
+                @foreach($user->company->comments as $comment)
                 <div class="alert alert-secondary" role="alert">
                     <dl class="row">
                         <dt class="col-lg-3"><span class="badge badge-light">{{$comment->user->name }}</span></dt>
