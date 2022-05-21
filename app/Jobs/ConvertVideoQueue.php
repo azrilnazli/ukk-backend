@@ -130,10 +130,10 @@ class ConvertVideoQueue implements ShouldQueue
         $file_size = 0;
         foreach( File::allFiles(public_path('/storage/streaming/' . $id )) as $file)
         {
-            $file_size += $file->getSize();
+            $file_size += $file->getSize(); // KB
         }
 
-        return $file_size = number_format($file_size / 1048576,2);
+        return $file_size = number_format($file_size / 1048576,2); // MB
     }
 
     function createThumbnail($id){

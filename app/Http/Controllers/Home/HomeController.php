@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Models\User;
+use App\Models\QueueMonitor;
 use App\Models\Company;
 use App\Models\Comment;
 use App\Models\Tender;
@@ -122,7 +123,6 @@ class HomeController extends Controller
         $company['total'] = Company::query()->count();
 
         $company['pending'] = Company::query()
-        ->orderBy('updated_at','desc')
         ->where('is_completed', true)
         ->where('is_rejected', false)
         ->where('is_approved', false)
@@ -135,25 +135,47 @@ class HomeController extends Controller
         ->count();
 
         $company['approved'] = Company::query()
-        ->orderBy('updated_at','desc')
         ->where('is_completed', true)
         ->where('is_approved', true)
         ->count();
 
         $company['resubmit'] = Company::query()
-        ->orderBy('updated_at','desc')
         ->where('is_completed', true)
         ->where('is_rejected', true)
         ->count();
 
         //dd($total);
 
+        // video related
+        $video['total'] = Video::query()
+        ->where('is_ready', true)
+        ->count();
+
+        $video['filesize'] = Video::query()
+        ->where('is_ready', true)
+        ->sum('filesize');
+
+        $video['asset_size'] = Video::query()
+        ->where('is_ready', true)
+        ->sum('asset_size');
+
+        $video['duration'] = Video::query()
+        ->where('is_ready', true)
+        ->sum('duration');
+
+        $video['processing'] = QueueMonitor::query()
+        //->where('is_ready', true)
+        ->sum('time_elapsed');
+
+       //dd($video);
+
         return view('home')->with(compact(
             'user',
             'company',
             'proposal',
             'comment',
-            'resubmit'
+            'resubmit',
+            'video'
         ));
     }
 
