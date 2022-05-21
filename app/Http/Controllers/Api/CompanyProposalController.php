@@ -148,13 +148,13 @@ class CompanyProposalController extends Controller
                 'filesize'  => $request->file('file')->getSize(),
                 'original_filename'  => $request->file('file')->getClientOriginalName(),
                 'uploading_duration' => $uploading_duration,
-                'is_processing' => 0,
+
 
              ];
 
             $video = $this->video->api_store($data, Auth::user()->id );
-            //$this->video->createProgressFile($video->id);
-            //$this->video->createDirectory($video->id);
+            $this->video->createProgressFile($video->id);
+            $this->video->createDirectory($video->id);
 
             $path = basename($request->file('file')->getPathName() );
             //Log::info($path);
