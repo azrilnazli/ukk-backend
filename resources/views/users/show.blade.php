@@ -114,6 +114,7 @@
 @endif
 
 
+@if($user->proposals))
 @if( count($user->proposals) > 0 )
 <div class="row">
     <div class="col">
@@ -242,9 +243,11 @@
     </div>
 </div>
 @endif
+@endif
 
 <!-- Comment -->
-
+@if($user->company)
+@if($user->company->comments)
 @if(count($user->company->comments) > 0 )
 <div class="row">
     <div class="col">
@@ -269,6 +272,8 @@
         </div>
     </div>
 </div>
+@endif
+@endif
 @endif
 <!-- ./Comment -->
 
