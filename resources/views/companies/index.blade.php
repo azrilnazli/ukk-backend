@@ -31,7 +31,7 @@
 <div class="card card-dark mt-3">
 
     <div class="card-header clearfix">
-      <h3 class="card-title">List of companies</h3>
+      <h3 class="card-title">Total Companies ( {{ $data->total() }} )</h3>
     </div>
 
 

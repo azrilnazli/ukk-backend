@@ -18,7 +18,7 @@
 <div class="card card-dark">
 
     <div class="card-header clearfix">
-      <h3 class="card-title">List of Videos</h3>
+      <h3 class="card-title">Total Videos ( {{ $data->total() }} )</h3>
 
       {{-- <div class="card-tools">
         <a class="btn-sm btn-primary " href="{{ route('videos.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
