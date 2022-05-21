@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Services;
 
 use Auth;
@@ -13,9 +13,9 @@ class UserService {
     public function paginate($perPage=10)
     {
         //return User::role('subscriber')->get();
-        //$users = User::role('user')->get(); 
+        //$users = User::role('user')->get();
         //$data = User::orderBy('id','asc')->paginate(10)->setPath('users');
-        return User::orderBy('id','desc')->paginate($perPage)->setPath('users');
+        return User::orderBy('id','desc')->with('company')->paginate($perPage)->setPath('users');
     }
 
     public function store($request)
@@ -58,12 +58,12 @@ class UserService {
         {
             $user->removeRole($user->roles->first());
         }
-        
+
         // assign new role
         $user->assignRole($request->input('role'));
 
         // $request->validated()
-        return User::where('id',$user->id)->update($data);    
+        return User::where('id',$user->id)->update($data);
     }
 
     public function destroy($user)
@@ -74,7 +74,7 @@ class UserService {
     public function search(){}
 
     //$roles = \Spatie\Permission\Models\Role::all();
-    //$roles = Role::pluck('name', 'id')->except(['super-admin',1])->toArray();  
+    //$roles = Role::pluck('name', 'id')->except(['super-admin',1])->toArray();
     //$roles = Role::pluck('name', 'id')->toArray();
     public function getRoles()
     {

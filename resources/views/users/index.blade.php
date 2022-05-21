@@ -51,7 +51,28 @@
         @foreach($data as $row)
           <tr>
             <td><span class="badge badge-dark">{{ $row->id }}</span></td>
-            <td><strong>{{ $row->email }}</strong> <small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small></td>
+            <td><strong>{{ $row->email }}</strong>
+
+                @if($row->company)
+                    <br />
+                    {{ $row->company->name }} - {{ $row->company->phone }}
+                    @if($row->company->is_approved == 1 && $row->company->is_completed == 1 )
+                    <span class="badge badge-success">Approved</span>
+                    @endif
+
+                    @if($row->company->is_rejected == 1  && $row->company->is_completed == 0 )
+                    <span class="badge badge-danger">Rejected</span>
+                    @endif
+
+                    @if($row->company->is_rejected == 1  && $row->company->is_completed == 1 )
+                    <span class="badge badge-warning">Resubmission</span>
+                    @endif
+
+                    @if($row->company->is_rejected == 0 && $row->company->is_approved == 0 )
+                      <span class="badge badge-info">Pending</span>
+                    @endif
+                @endif
+                <br /><small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small></td>
             <td>
             @if(!empty($row->getRoleNames()))
               @foreach($row->getRoleNames() as $v)
@@ -66,9 +87,9 @@
                   <label class="badge badge-primary p-2 text-uppercase">{{ $v }}</label>
                   @break
                   @case('subscriber')
-                  <label class="badge badge-success p-2 text-uppercase">{{ $v }}</label>
+                  <label class="badge badge-success p-2 text-uppercase">vendor</label>
                   @break
-                @endswitch       
+                @endswitch
               @endforeach
             @endif
             </td>
@@ -77,24 +98,28 @@
               <form action="{{ route('users.destroy', $row->id)}}" method="post">
                 @csrf @method('DELETE')
               <a class="btn btn-primary btn-sm" href="{{ route('users.show', $row->id) }} ">
-                  <i class="fas fa-info">
+                  <i class="fas fa-search">
                   </i>
               </a>
               <a class="btn btn-success btn-sm" href="{{ route('users.edit', $row->id) }}">
                   <i class="fas fa-pencil-alt">
                   </i>
-                  
+
               </a>
-                @if(!in_array($row->id,[1,2,3,4]))
-                <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
-                @else
-                <button disabled class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
-                @endif
+
+
+                @role('super-admin')
+                    @if(!in_array($row->id,[1,2,3,4]))
+                    <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                    @else
+                    <button disabled class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                    @endif
+                @endrole
               </form>
-            </td>            
+            </td>
           </tr>
-        
-        
+
+
         @endforeach
       </tbody>
       </table>
@@ -103,7 +128,7 @@
   </div>
   <!-- /.card-body -->
   <div class="card-footer clearfix">
-    
+
     <div class="card-tools">
       {{ $data->links() }}
     </div>

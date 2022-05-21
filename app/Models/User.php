@@ -103,4 +103,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(TenderSubmission::class);
     }
+
+    /**
+     * User hasMany Proposal
+     */
+    public function messages()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
