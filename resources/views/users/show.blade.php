@@ -244,7 +244,7 @@
 @endif
 
 <!-- Comment -->
-@if($user->messages)
+@if(count($user->messages) > 0 )
 <div class="row">
     <div class="col">
         <div class="card card-info">
