@@ -142,11 +142,11 @@
                         <td>
 
                             @if($proposal->is_pdf_cert_uploaded)
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PDF">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PDF_{{$proposal->id}}">
                                     PDF
                                 </button>
                                 <!-- PDF Modal -->
-                                <div class="modal fade" id="PDF" tabindex="-1" role="dialog" aria-labelledby="PDFLabel" aria-hidden="true">
+                                <div class="modal fade" id="PDF_{{$proposal->id}}" tabindex="-1" role="dialog" aria-labelledby="PDFLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-xl" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -170,11 +170,11 @@
                             @endif
 
                             @if($proposal->video->is_ready)
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#video">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#video_{{ $proposal->video->id }}">
                                     VIDEO
                                 </button>
                                 <!-- video Modal -->
-                                <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="videoLabel" aria-hidden="true">
+                                <div class="modal fade" id="video_{{ $proposal->video->id}}" tabindex="-1" role="dialog" aria-labelledby="videoLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -191,9 +191,9 @@
                                                     <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
                                                     data-setup='{
                                                       "fluid": true,
-                                                      "poster": "{{ Storage::disk('streaming')->url( $proposal->video->is_ready . '/thumbnails/poster.jpg')}}"
+                                                      "poster": "{{ Storage::disk('streaming')->url( $proposal->video->id . '/thumbnails/poster.jpg')}}"
                                                     }'>
-                                                          <source src=" {{ route('assets', ['video' => $proposal->video->is_ready, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
+                                                          <source src=" {{ route('assets', ['video' => $proposal->video->id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
 
                                                     </video-js>
 
