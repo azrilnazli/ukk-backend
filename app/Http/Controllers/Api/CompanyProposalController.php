@@ -75,6 +75,7 @@ class CompanyProposalController extends Controller
     }
 
     public function my_proposal(){
+        // test 123
         $company = Company::query()
         ->where('user_id' , auth()->user()->id)
         ->first();
