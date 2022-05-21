@@ -30,7 +30,7 @@
                 </dl> --}}
                 <dl class="row">
                 <dt class="col-sm-4 text-right text-uppercase">user id</dt>
-                <dd class="col-sm-8 text-left">{{ $user->id }}</dd>
+                <dd class="col-sm-8 text-left"><span class="badge badge-warning">{{ $user->id }}</span></dd>
 
                 <dt class="col-sm-4 text-right text-uppercase">user email</dt>
                 <dd class="col-sm-8 text-left">{{ $user->email }}</dd>
@@ -45,6 +45,7 @@
     </div>
 </div>
 
+@if ($user->company)
 <div class="row">
     <div class="col">
         <div class="card card-info">
@@ -63,10 +64,29 @@
                 <dl class="row">
 
                         <dt class="col-sm-4 text-right text-uppercase">company id</dt>
-                        <dd class="col-sm-8 text-left">{{ $user->company->id }}</dd>
+                        <dd class="col-sm-8 text-left"><span class="badge badge-warning"> {{ $user->company->id }}</span></dd>
 
                         <dt class="col-sm-4 text-right text-uppercase">Is Approved ?</dt>
-                        <dd class="col-sm-8 text-left">{{ $user->company->is_approved }}</dd>
+                        <dd class="col-sm-8 text-left">
+
+
+                            @if($user->company->is_approved == 1 && $user->company->is_completed == 1 )
+                            <span class="badge badge-success">Approved</span>
+                            @endif 
+                            
+                            @if($user->company->is_rejected == 1  && $user->company->is_completed == 0 ) 
+                            <span class="badge badge-danger">Rejected</span> 
+                            @endif
+                            
+                            @if($user->company->is_rejected == 1  && $user->company->is_completed == 1 ) 
+                            <span class="badge badge-warning">Resubmission</span> 
+                            @endif
+    
+                            @if($user->company->is_rejected == 0 && $user->company->is_approved == 0 ) 
+                              <span class="badge badge-info">Pending</span>
+                            @endif
+
+                        </dd>
 
                         <dt class="col-sm-4 text-right text-uppercase">company name</dt>
                         <dd class="col-sm-8 text-left">{{ $user->company->name }}</dd>
@@ -83,23 +103,60 @@
         </div>
     </div>
 </div>
+@endif
 
 
+@if($user->proposals)
 <div class="row">
     <div class="col">
         <div class="card card-info">
-            <div class="card-header">Company Info</div>
+            <div class="card-header">PROPOSAL</div>
             <div class="card-body">
 
 
-             @foreach($user->proposals as $proposal)
-                {{$proposal->channel}}
-             @endforeach
+             
+               
+                <table class="table">
+                    <tr>
+                        <th width="5%">ID</td>
+                        <th>CATEGORY</td>
+                        <th>PROGRAMME CODE</td>
+                        <th>ATTACHMENTS</th>
+                    </tr>
+                    @foreach($user->proposals as $proposal)
+                    <tr>
+                        <td><span class="badge badge-warning">{{$proposal->id}}</span></td>
+                        <td>
+                            {{$proposal->tender->type}}-{{$proposal->tender->tender_category}}
+                            <br />
+                            <small>
+                            Submitted <span>{{ \Carbon\Carbon::parse($proposal->created_at)->diffForHumans() }}<br />
+                            Updated <span>{{ \Carbon\Carbon::parse($proposal->updated_at)->diffForHumans() }}
+                            </small>
+                        </td>
+                        <td>{{$proposal->tender->programme_code}}</td>
+                        <td>
+                            {!!$proposal->is_pdf_cert_uploaded ?  '<span class="badge badge-dark">PDF</span>' : null !!}
+                            @if($proposal->video->is_ready) 
+                                <span class="badge badge-dark">VIDEO ( ID:{{ $proposal->video->id }} )</span>
+                            @endif     
+                        
+                        </td>
+                    
+                    </tr>   
+                    @endforeach
+                </table>     
+
+
+
+
+             
             </div>
             <div class="card-footer text-muted">Submitted <span>{{ \Carbon\Carbon::parse($user->company->created_at)->diffForHumans() }}</div>
         </div>
     </div>
 </div>
+@endif
 
 
 <form id="delete-form" action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-none">

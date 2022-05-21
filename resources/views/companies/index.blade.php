@@ -70,7 +70,7 @@
                         @endif
 
                         @if($row->is_rejected == 0 && $row->is_approved == 0 ) 
-                          <span class="badge badge-info">Pending</span
+                          <span class="badge badge-info">Pending</span>
                         @endif
                 
                     </td>
