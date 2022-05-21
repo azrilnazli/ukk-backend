@@ -114,7 +114,7 @@
 @endif
 
 
-@if($user->proposals)
+@if( count($user->proposals) > 0 )
 <div class="row">
     <div class="col">
         <div class="card card-info">
@@ -244,6 +244,7 @@
 @endif
 
 <!-- Comment -->
+
 @if(count($user->messages) > 0 )
 <div class="row">
     <div class="col">
