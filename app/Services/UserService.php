@@ -18,6 +18,42 @@ class UserService {
         return User::orderBy('id','desc')->with('company')->paginate($perPage)->setPath('users');
     }
 
+
+    public function search($request)
+    {
+        $q = $request->input('query');
+
+        // return Tender::where([['title', 'like', "{$query}%"]])
+        //                 ->paginate(10)->setPath('tenders');
+        $tenders = TenderSubmission::query()
+                        ->sortable()
+                        // ->whereHas('user.company', fn($query) =>
+                        //     $query->where('is_approved', true)
+                        // )
+                        ->orWhereHas('user.company', fn($query) =>
+                            $query->where('name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('email', 'LIKE', '%' . $q . '%')
+                            ->orWhere('id', 'LIKE', '%' . $q . '%')
+                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
+
+                        )
+                        ->orWhereHas('tender', fn($query) =>
+                            $query->where('tender_category', 'LIKE', '%' . $q . '%')
+                            ->orWhere('type', 'LIKE', '%' . $q . '%')
+                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
+                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
+                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                        )
+
+                        ->paginate(50)
+                        ->setPath(route('user.index'));
+
+                        $tenders->appends(['search' => $q]);
+
+        return $tenders;
+
+    }
+
     public function store($request)
     {
         // $request->validated() from StoreUserRequest
@@ -71,7 +107,7 @@ class UserService {
         User::where('id',$user->id)->delete();
     }
 
-    public function search(){}
+
 
     //$roles = \Spatie\Permission\Models\Role::all();
     //$roles = Role::pluck('name', 'id')->except(['super-admin',1])->toArray();
