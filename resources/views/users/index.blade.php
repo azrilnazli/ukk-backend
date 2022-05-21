@@ -101,11 +101,13 @@
                   <i class="fas fa-search">
                   </i>
               </a>
+              @role('super-admin')
               <a class="btn btn-success btn-sm" href="{{ route('users.edit', $row->id) }}">
                   <i class="fas fa-pencil-alt">
                   </i>
 
               </a>
+              @endrole
 
 
                 @role('super-admin')

@@ -381,7 +381,7 @@
 <form method="POST" id="edit_Company" action="{{ route('companies.update', $company->id) }}" enctype="multipart/form-data">
 @csrf
 @method('PUT')
-<div class="card card-secondary " style="background-color:lightblue">
+<div class="card card-secondary " style="background-color:lightyellow">
 
     <div class="card-header">
         Administration
@@ -390,10 +390,10 @@
     <div class="card-body pl-5 pr-5">
         <label>Previous Conversation </label>
         @foreach($messages as $comment)
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-secondary text-dark" style="background-color:lightblue" role="alert">
             <dl class="row">
-                <dt class="col-3"><span class="badge badge-light">{{$comment->user->name }}</span></dt>
-                <dd class="col-9">{{$comment->message}}</dd>
+                <dt class="col-2"><span class="badge badge-light">{{$comment->user->name }}</span></dt>
+                <dd class="col-10">{{$comment->message}}</dd>
             </dl>
             <small><i>{{$comment->created_at->diffForHumans() }}</i></small>
         </div>
