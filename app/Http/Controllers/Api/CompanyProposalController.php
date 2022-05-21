@@ -80,8 +80,8 @@ class CompanyProposalController extends Controller
         ->where('user_id' , auth()->user()->id)
         ->first();
 
-        //Log::info($company->is_approved);
-        if($company->is_approved ){
+        Log::info($company->is_approved);
+        if($company->is_approved == 1 ){
 
                     // list all proposals by user
              $proposals = TenderSubmission::query()
