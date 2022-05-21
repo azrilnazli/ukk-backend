@@ -16,7 +16,7 @@
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js" integrity="sha512-g16L6hyoieygYYZrtuzScNFXrrbJo/lj9+1AYsw+0CYYYZ6lx5J3x9Yyzsm+D37/7jMIGh0fDqdvyYkNWbuYuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  
+
 
 
 <div class="card card-secondary">
@@ -61,7 +61,7 @@
   </div>
 
 
-   
+
 <div class="card card-secondary">
     <div class="card-header">
       <strong>Board of Directors</strong>
@@ -97,20 +97,20 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_ssm_cert_uploaded ? 
-                
+             {!!$company->is_ssm_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#ssm_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
   </div>
 
-  
+
 
   <div class="card card-secondary">
     <div class="card-header">
@@ -124,9 +124,9 @@
 
         <dl class="row">
             <dt class="col-sm-2">eProlehan Status</dt>
-            <dd class="col-sm-9">{!! $company->is_mof_active ? 
-            '<span class="badge badge-success">Active</span>' 
-            : 
+            <dd class="col-sm-9">{!! $company->is_mof_active ?
+            '<span class="badge badge-success">Active</span>'
+            :
             '<span class="badge badge-danger">Expired</span>'
             !!}</dd>
         </dl>
@@ -137,14 +137,14 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_mof_cert_uploaded ? 
-                
+             {!!$company->is_mof_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mof_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
@@ -166,14 +166,14 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_finas_fp_cert_uploaded ? 
-                
+             {!!$company->is_finas_fp_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#finas_fp_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
@@ -195,14 +195,14 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_finas_fd_cert_uploaded ? 
-                
+             {!!$company->is_finas_fd_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#finas_fd_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
@@ -224,14 +224,14 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_kkmm_syndicated_cert_uploaded ? 
-                
+             {!!$company->is_kkmm_syndicated_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#kkmm_syndicated_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
@@ -253,14 +253,14 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_kkmm_swasta_cert_uploaded ? 
-                
+             {!!$company->is_kkmm_swasta_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#kkmm_swasta_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
@@ -282,14 +282,14 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_bumiputera_cert_uploaded ? 
-                
+             {!!$company->is_bumiputera_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#bumiputera_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
@@ -315,14 +315,14 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_bank_cert_uploaded ? 
-                
+             {!!$company->is_bank_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#bank_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
@@ -337,20 +337,20 @@
         <dl class="row">
             <dt class="col-sm-2">Document</dt>
             <dd class="col-sm-9">
-             {!!$company->is_credit_cert_uploaded ? 
-                
+             {!!$company->is_credit_cert_uploaded ?
+
                 '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#credit_modal">
                     View Document
-                </button>' 
-                
+                </button>'
+
                 : '<span class="text-danger">missing document</span>' !!}
-         
+
             </dd>
         </dl>
     </div>
   </div>
 
-  
+
 
     @foreach($documents as $key => $document)
     <!-- Modal -->
@@ -364,14 +364,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                        
+
                 <div style="height:500px" id="{{$document}}_cert"></div>
                 <script>PDFObject.embed("/storage/companies/{{$company->id}}/{{$document}}_cert.pdf", "#{{$document}}_cert");</script>
-  
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-     
+
             </div>
             </div>
         </div>
@@ -382,7 +382,7 @@
 @csrf
 @method('PUT')
 <div class="card card-secondary " style="background-color:lightblue">
-  
+
     <div class="card-header">
         Administration
     </div><!-- /.card-header -->
@@ -392,18 +392,18 @@
         @foreach($messages as $comment)
         <div class="alert alert-success" role="alert">
             <dl class="row">
-                <dt class="col-1"><span class="badge badge-light">{{$comment->user->name }}</span></dt>
-                <dd class="col-11">{{$comment->message}}</dd>
+                <dt class="col-3"><span class="badge badge-light">{{$comment->user->name }}</span></dt>
+                <dd class="col-9">{{$comment->message}}</dd>
             </dl>
             <small><i>{{$comment->created_at->diffForHumans() }}</i></small>
-        </div>  
-        @endForeach  
+        </div>
+        @endForeach
     </div>
 
     <div class="card-body pl-5 pr-5">
 
         <div class="form-group row">
-                 
+
             <dl class="row">
                 <dt class="col-sm-6">Update Status</dt>
                 <dd class="col-sm-8">
@@ -434,14 +434,14 @@
                   @enderror
                   <div class="mt-3">
                     <button id="submit" class="btn btn-primary" >Submit</button>
-                    
+
                     <button type="button" class="btn btn-secondary" onclick="window.location.href='/companies'">
-                        Cancel 
+                        Cancel
                     </button>
                   </div>
             </div>
-              
-          
+
+
     </div><!-- /.card-body -->
 </div><!-- /.card -->
 </form>
@@ -454,5 +454,5 @@
     });
     </script>
 
- 
+
 @stop
