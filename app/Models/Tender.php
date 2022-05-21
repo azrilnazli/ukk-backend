@@ -35,7 +35,7 @@ class Tender extends Model
             $enum[] = $v;
         }
         return $enum;
-    } 
+    }
 
         // enum | duration
         public static function duration(){
@@ -50,11 +50,11 @@ class Tender extends Model
                 $enum[] = $v;
             }
             return $enum;
-        } 
+        }
 
     // enum | language
     public static function get_languages(){
-        
+
         $name = 'language';
         $instance = new Tender; // create an instance of the model to be able to get the table name
         $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$instance->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
@@ -65,11 +65,11 @@ class Tender extends Model
             $enum[] = $v;
         }
         return $enum;
-    }  
+    }
 
     // enum | channel
     public static function channels(){
-    
+
         $name = 'channel';
         $instance = new Tender; // create an instance of the model to be able to get the table name
         $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$instance->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
@@ -80,17 +80,17 @@ class Tender extends Model
             $enum[] = $v;
         }
         return $enum;
-    } 
+    }
 
     public function setLanguagesAttribute($value)
     {
         $this->attributes['languages'] = json_encode($value);
     }
 
-    public function getLanguagesAttribute($value)
-    {
-        return $this->attributes['languages'] = json_decode($value);
-    }
+    // public function getLanguagesAttribute($value)
+    // {
+    //     return $this->attributes['languages'] = json_decode($value);
+    // }
 
     // public function getDescriptionAttribute($value)
     // {
