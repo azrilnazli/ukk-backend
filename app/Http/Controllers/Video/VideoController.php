@@ -105,11 +105,11 @@ class VideoController extends Controller
      * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function show(Video $video)
-    {
-        $extra['format'] =  $this->video->ffprobe($video->id,'format_long_name');
-        return view('videos.show',compact(['video','extra']));
-    }
+    // public function show(Video $video)
+    // {
+    //     $extra['format'] =  $this->video->ffprobe($video->id,'format_long_name');
+    //     return view('videos.show',compact(['video','extra']));
+    // }
 
     /**
      * Show the form for editing the specified resource.
