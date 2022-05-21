@@ -174,6 +174,19 @@
                                     VIDEO
                                 </button>
                                 <!-- video Modal -->
+                                <script>
+
+                                    function closePlayer_{{ $proposal->video->id }}(){
+                                        $( document ).ready(function() {
+                                            // Handler for .ready() called.
+                                            console.log('close and ready');
+                                            $('video').each(function() {
+                                                $(this).get(0).pause();
+                                            });
+                                        });
+
+                                     }
+                                </script>
                                 <div class="modal fade" id="video_{{ $proposal->video->id}}" tabindex="-1" role="dialog" aria-labelledby="videoLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
@@ -188,13 +201,12 @@
                                                 <!-- video -->
                                                 <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
 
-                                                    <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
-                                                    data-setup='{
-                                                      "fluid": true,
-                                                      "poster": "{{ Storage::disk('streaming')->url( $proposal->video->id . '/thumbnails/poster.jpg')}}"
-                                                    }'>
+                                                    <video-js id="my_video_{{$proposal->video->id}}" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                                                            data-setup='{
+                                                                "fluid": true,
+                                                                "poster": "{{ Storage::disk('streaming')->url( $proposal->video->id . '/thumbnails/poster.jpg')}}"
+                                                            }'>
                                                           <source src=" {{ route('assets', ['video' => $proposal->video->id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
-
                                                     </video-js>
 
                                                     <script src="/js/videojs/video.js"></script>
@@ -203,8 +215,8 @@
                                                     <script src="/js/videojs/videojs-hls-quality-selector.min.js"></script>
 
                                                     <script>
-                                                        var player = videojs('my_video_1');
-                                                        player.hlsQualitySelector();
+                                                        var player_{{ $proposal->video->id}} = videojs('my_video_{{$proposal->video->id}}');
+                                                        player_{{ $proposal->video->id}}.hlsQualitySelector();
                                                     </script>
 
                                                 </div>
@@ -212,11 +224,12 @@
 
                                             </div>
                                             <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button onClick="closePlayer_{{ $proposal->video->id }}()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- ./video MODAL -->
                             @endif
                         </td>

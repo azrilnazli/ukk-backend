@@ -21,36 +21,40 @@ class UserService {
 
     public function search($request)
     {
+
         $q = $request->input('query');
+
 
         // return Tender::where([['title', 'like', "{$query}%"]])
         //                 ->paginate(10)->setPath('tenders');
-        $tenders = TenderSubmission::query()
-                        ->sortable()
-                        // ->whereHas('user.company', fn($query) =>
-                        //     $query->where('is_approved', true)
-                        // )
-                        ->orWhereHas('user.company', fn($query) =>
-                            $query->where('name', 'LIKE', '%' . $q . '%')
-                            ->orWhere('email', 'LIKE', '%' . $q . '%')
-                            ->orWhere('id', 'LIKE', '%' . $q . '%')
-                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
+       $users = User::query()
+                    ->where('email', 'LIKE', '%' . $q . '%')
+                    ->orWhere('firstname', 'LIKE', '%' . $q . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $q . '%')
 
-                        )
-                        ->orWhereHas('tender', fn($query) =>
-                            $query->where('tender_category', 'LIKE', '%' . $q . '%')
-                            ->orWhere('type', 'LIKE', '%' . $q . '%')
-                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
-                        )
+                    ->orWhereHas('company', fn($query) =>
+                        $query->where('name', 'LIKE', '%' . $q . '%')
+                        ->orWhere('email', 'LIKE', '%' . $q . '%')
+                        ->orWhere('phone', 'LIKE', '%' . $q . '%')
+                        ->orWhere('address', 'LIKE', '%' . $q . '%')
+                        ->orWhere('city', 'LIKE', '%' . $q . '%')
+                        ->orWhere('states', 'LIKE', '%' . $q . '%')
+                        ->orWhere('postcode', 'LIKE', '%' . $q . '%')
+                    )
 
-                        ->paginate(50)
-                        ->setPath(route('user.index'));
+                    ->orWhereHas('proposals.tender', fn($query) =>
+                        $query->where('tender_category', 'LIKE', '%' . $q . '%')
+                        ->orWhere('type', 'LIKE', '%' . $q . '%')
+                        ->orWhere('channel', 'LIKE', '%' . $q . '%')
+                        ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                    )
 
-                        $tenders->appends(['search' => $q]);
+                    ->paginate(50)
+                    ->setPath(route('users.index'));
 
-        return $tenders;
+                    $users->appends(['search' => $q]);
+
+        return $users;
 
     }
 

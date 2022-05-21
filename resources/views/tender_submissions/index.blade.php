@@ -18,7 +18,7 @@
 <form method="GET"  action="{{ route('tender_submissions.search') }}">
   @csrf
   <div class="row mt-5">
-    <div class="col-3">
+    <div class="col-5">
       <input required type="text" name="query" class="form-control" placeholder="Search">
     </div>
     <div class="col">
@@ -28,21 +28,21 @@
 </form>
 
 <div class="card card-dark mt-3">
-  
+
     <div class="card-header clearfix">
       <h3 class="card-title">List of Proposals</h3>
     </div>
     <!-- /.card-header -->
-  
+
     <div class="card-body p-0">
       <div class="table-responsive">
         <table class="table table-condensed table-striped">
             <thead>
 
                 <th width="5%">@sortablelink('id', 'ID')</th>
-     
+
                 <th width="*">Company</th>
-                
+
                 <th width="*">@sortablelink('tender.tender_category', 'Category')</th>
 
                 <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
@@ -61,10 +61,10 @@
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
                     <td>{{ $row->tender->programme_code }}</td>
-                    <td>{!! $row->is_pdf_cert_uploaded ? '<span class="text-primary"><i class="fas fa-file-pdf"></i>' : '' !!} </td>     
+                    <td>{!! $row->is_pdf_cert_uploaded ? '<span class="text-primary"><i class="fas fa-file-pdf"></i>' : '' !!} </td>
                     <td>
                       @if(isset($row->video))
-                      {!! $row->video->is_ready ? '<span class="text-red"><i class="fas fa-video"></i></span>' : '' !!} </td>     
+                      {!! $row->video->is_ready ? '<span class="text-red"><i class="fas fa-video"></i></span>' : '' !!} </td>
                       @endif
                     <td class="text-center">
                       <a class="btn btn-success btn-sm" href="{{ route('tender_submissions.show', $row->id) }}">
@@ -73,24 +73,24 @@
 
                     </td>
                 </tr>
-                
+
                 @endif
                 @endforeach
             </tbody>
 
         </table>
-        
+
     </div>
-  
+
     </div><!-- /.card-body -->
-  
+
     <div class="card-footer clearfix">
       <div class="card-tools">
         {{ $proposals->links() }}
       </div>
     </div>
-  
-  
+
+
   </div>
   <!-- /.card -->
 @stop
