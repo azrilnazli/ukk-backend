@@ -276,7 +276,7 @@
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
                                         <span class="info-box-text">Duration</span>
-                                        <span class="info-box-number">{{ $video['duration']/60 }} minutes</span>
+                                        <span class="info-box-number">{{ round($video['duration']/60) }} minutes</span>
                                 </div>
                         </div>
                     </div>
