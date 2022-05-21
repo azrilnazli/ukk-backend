@@ -9,6 +9,7 @@ use App\Models\Video;
 use App\Models\Company;
 use App\Models\Tender;
 use App\Models\TenderSubmission;
+use App\Services\VideoService;
 
 // Form Validation
 use App\Http\Requests\Tender\StoreTenderSubmissionRequest;
@@ -79,6 +80,12 @@ class TenderController extends Controller
         $video->tender_id =  $request->tender_id;
 
         $video->save();
+
+        // create video placeholder
+        $this->video = new VideoService;
+        $this->video->createProgressFile($video->id);
+        $this->video->createDirectory($video->id);
+
 
         //save video->id to Proposal
         $proposal->video_id =  $video->id;

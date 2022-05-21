@@ -148,13 +148,13 @@ class CompanyProposalController extends Controller
                 'filesize'  => $request->file('file')->getSize(),
                 'original_filename'  => $request->file('file')->getClientOriginalName(),
                 'uploading_duration' => $uploading_duration,
-                'is_processing' => true,
+                'is_processing' => 0,
 
              ];
 
             $video = $this->video->api_store($data, Auth::user()->id );
-            $this->video->createProgressFile($video->id);
-            $this->video->createDirectory($video->id);
+            //$this->video->createProgressFile($video->id);
+            //$this->video->createDirectory($video->id);
 
             $path = basename($request->file('file')->getPathName() );
             //Log::info($path);
@@ -173,9 +173,8 @@ class CompanyProposalController extends Controller
             $this->dispatch(new ConvertVideoQueue($video));
         }
 
-
         return response([
-            'uploaded' => true,
+            'uploaded' => true, // use this flag
             'video_id' => $video->id,
         ]);
     }
@@ -191,16 +190,21 @@ class CompanyProposalController extends Controller
         // get video_id
 
         // check if video is_ready
-        Log::info($proposal);
+        //Log::info($proposal);
 
         // by default video_is is null
-        if( $proposal->video_id ){
+        if( $proposal->video->is_ready ){
             $message = [
                 'exists' => true,
+                'is_ready' => $proposal->video->is_ready,
                 'video_id' => $proposal->video_id,
             ];
 
         } else {
+
+            // create video placeholder
+            //$this->video->createProgressFile($proposal->video->id);
+
             $message = [
                 'exists' => 'false',
             ];
