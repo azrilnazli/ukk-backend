@@ -107,7 +107,8 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        $extra['format'] =  $this->video->ffprobe($video->id,'format_long_name');
+        //$extra['format'] =  $this->video->ffprobe($video->id,'format_long_name');
+        $extra['format'] =  null;
         return view('videos.show',compact(['video','extra']));
     }
 
@@ -341,6 +342,12 @@ class VideoController extends Controller
     public function delayed_redirect(Video $video){
         sleep(3);
         return redirect()->route('videos.edit', $video->id);
+    }
+
+
+    public function encoding_status(){
+
+        return view('videos.encoding_status');
     }
 
 }
