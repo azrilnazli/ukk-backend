@@ -25,13 +25,13 @@
 @section('content')
 <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
 
-    <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto" 
+    <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
     data-setup='{
       "fluid": true,
-      "poster": "{{ Storage::disk('streaming')->url( $video->id . '/thumbnails/poster.jpg')}}" 
+      "poster": "{{ Storage::disk('streaming')->url( $video->id . '/thumbnails/poster.jpg')}}"
     }'>
           <source src=" {{ route('assets', ['video' => $video->id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
-         
+
     </video-js>
 
     <script src="/js/videojs/video.js"></script>
@@ -55,7 +55,8 @@
 
       <!-- /.card-body -->
       <div class="card-footer">
-
+        <span class="info-box-text">Filename : <strong>{{ $video->original_filename }}</strong>
+        <br />
         Created at : <strong>{{ $video->created_at }}</strong> around {{ $video->created_at->diffForHumans() }}
         <br />
         Updated at : <strong>{{ $video->updated_at }}</strong> around {{ $video->updated_at->diffForHumans() }}
@@ -89,9 +90,9 @@
       <span class="info-box-icon bg-success"><i class="fas fa-database"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Filename : <strong>{{ $video->original_filename }}</strong>
-        
-        <span class="info-box-text">Size : <strong>{{ round($video->filesize/1000000) }} MB</strong></span>
+
+        <span class="info-box-text">Size</span>
+        <span class="info-box-number">{{ round($video->filesize/1000000) }} MB</span>
        </span>
       </div>
 
@@ -134,7 +135,7 @@
 <!-- /.row -->
 
 
-  
+
 <div class="row mt-4">
   <div class="col-md-3 col-sm-6 col-12">
     <div class="info-box">
@@ -166,7 +167,7 @@
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-12">
+  {{-- <div class="col-md-3 col-sm-6 col-12">
     <div class="info-box">
       <span class="info-box-icon bg-warning"><i class="fas fa-info"></i></span>
 
@@ -177,7 +178,7 @@
       <!-- /.info-box-content -->
     </div>
     <!-- /.info-box -->
-  </div>
+  </div> --}}
   <!-- /.col -->
   <div class="col-md-3 col-sm-6 col-12">
     <div class="info-box">
@@ -215,7 +216,7 @@
     <div class="col-md-3 col-sm-6 col-12">
       <div class="info-box">
         <span class="info-box-icon bg-info"><i class="fas fa-video"></i></span>
-  
+
         <div class="info-box-content">
           <span class="info-box-text">Codec</span>
           <span class="info-box-number">H264/AAC</span>
@@ -230,7 +231,7 @@
         <div class="col-md-3 col-sm-6 col-12">
           <div class="info-box">
             <span class="info-box-icon bg-info"><i class="fas fa-key"></i></span>
-      
+
             <div class="info-box-content">
               <span class="info-box-text">Encryption</span>
               <span class="info-box-number"><small>AES Rotating keys</small></span>
@@ -245,7 +246,7 @@
                 <div class="col-md-3 col-sm-6 col-12">
                   <div class="info-box">
                     <span class="info-box-icon bg-info"><i class="fas fa-info"></i></span>
-              
+
                     <div class="info-box-content">
                       <span class="info-box-text">Stream Type</span>
                       <span class="info-box-number"><small>5 MBR streaming</small></span>
@@ -255,7 +256,7 @@
                   <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
-  
+
 </div>
 <!-- /.row -->
 @stop
