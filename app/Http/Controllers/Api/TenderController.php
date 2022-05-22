@@ -105,6 +105,22 @@ class TenderController extends Controller
         ->first();
         //Log::info($company->is_approved);
         if($company->is_approved){
+                    // list all proposals by user
+                    $proposals = TenderSubmission::query()
+                    ->with('tender')
+                    ->where('user_id' , auth()->user()->id)
+                    ->get();
+
+                    // count total number for sambung siri
+                    $total['sambung_siri'] = $proposals->where('tender.type','SAMBUNG SIRI')->count();
+                    if( $total['sambung_siri'] > 1 ) {
+                        return response(['title' => 'SAMBUNG SIRI ERROR', 'message' => 'Quota reached! ( only 1 proposal )'],422);
+                    }
+
+                    $total['swasta'] = $proposals->where('tender.type','SWASTA')->count();
+                    if($total['swasta'] > 2 ) {
+                        return response(['title' => 'SWASTA ERROR', 'message' => 'Quota Reached! ( only 2 proposals )'],422);
+                    }
 
                     // display tender
                     $tenders = Tender::query()
