@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CompanyProposalController;
 use App\Http\Controllers\Api\TenderController;
+use App\Http\Controllers\Api\VideoController;
 
 
 /*
@@ -130,6 +131,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::post('/proposal/destroy', [CompanyProposalController::class, 'destroy']);
 
     // video
+    Route::get('/video/encoding_status', [VideoController::class, 'encoding_status'])->name('videos.encoding_status'); // API
     Route::get('/video/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
     Route::get('/video/{video}/is_playable', [App\Http\Controllers\Video\VideoController::class, 'is_playable'])->name('videos.is_playable');
 

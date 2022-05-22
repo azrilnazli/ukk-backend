@@ -47,6 +47,7 @@ Route::get('/tender_submissions/search', [App\Http\Controllers\Tender\TenderSubm
 Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('user.search');
 
 Route::get('/videos/failed', [App\Http\Controllers\Video\VideoController::class, 'failed'])->name('videos.failed');
+Route::get('/videos/encoding_status', [App\Http\Controllers\Video\VideoController::class, 'encoding_status'])->name('videos.encoding_status');
 
 Route::resources([
     'users'   =>  App\Http\Controllers\User\UserController::class,
@@ -79,18 +80,18 @@ Route::prefix('jobs')->group(function () {
 
 // route for HLS playlist request
 Route::get('/assets/{video}/{playlist}', function ( $video, $playlist ) {
- 
+
     return FFMpeg::dynamicHLSPlaylist()
 
         // http://admin.test/storage/streaming/15/m3u8/playlist.m3u8 --> master playlist
         ->fromDisk("streaming") // public storage for m3u8
-        ->open("$video/m3u8/$playlist") 
+        ->open("$video/m3u8/$playlist")
         // secret key resolver
         ->setKeyUrlResolver(function($key) use ($video) {
             return route('secret.key',['video' => $video, 'key' => $key]);
         })
         // requeste will look for referenced playlist
-        // eg playlist_0_400.m3u8 , playlist_0_500.m3u8 
+        // eg playlist_0_400.m3u8 , playlist_0_500.m3u8
         ->setPlaylistUrlResolver(function($playlist) use ($video) {
             return route('assets', ['video' => $video, 'playlist' => $playlist]);
         })
