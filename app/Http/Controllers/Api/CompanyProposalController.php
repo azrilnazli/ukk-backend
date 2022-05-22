@@ -75,7 +75,7 @@ class CompanyProposalController extends Controller
     }
 
     public function my_proposal(){
-        // test 123
+        // check if user's company is_approved = trye
         $company = Company::query()
         ->where('user_id' , auth()->user()->id)
         ->first();
@@ -83,16 +83,21 @@ class CompanyProposalController extends Controller
         Log::info($company->is_approved);
         if($company->is_approved == 1 ){
 
-                    // list all proposals by user
+             // list all proposals by user
              $proposals = TenderSubmission::query()
                         ->with('tender')
                         ->where('user_id' , auth()->user()->id)
                         ->get();
 
+            // count total number for sambung siri
+            $total['sambung_siri'] = $proposals->where('tender.type','SAMBUNG SIRI')->count();
+            $total['swasta'] = $proposals->where('tender.type','SWASTA')->count();
+
             if (!$proposals->isEmpty()) {
                 return response([
                     'uploaded' => true,
                     'proposals' => $proposals,
+                    'total' => $total
                 ]);
             } else {
                 return response([
