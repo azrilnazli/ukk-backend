@@ -26,6 +26,14 @@ class Tender extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Tender hasMany Proposal
+     */
+    public function proposals()
+    {
+        return $this->hasMany(TenderSubmission::class);
+    }
+
     // enum | type of tender
     public static function types(){
 
