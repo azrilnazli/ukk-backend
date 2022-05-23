@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Services;
 
 use App\Models\Company;
@@ -9,7 +9,7 @@ class CompanyService {
 
     // contstructor
     public function __construct(){
-       
+
     }
 
     public function paginate($items = 50){
@@ -31,10 +31,11 @@ class CompanyService {
 
     public function search($request)
     {
-        $query = $request->input('query');        
+        $query = $request->input('query');
         return Company::where([['title', 'like', "{$query}%"]])
-                        ->paginate(10)->setPath('companies');
-        
+                        ->paginate(10)
+                        ->setPath(route('companies.search'));
+
     }
 
     public function create($request){
@@ -48,7 +49,7 @@ class CompanyService {
     public function find($id){
         return Company::query()->find($id);
     }
-    
+
     public function update($request, $id){
 
         if($request->is_approved == 1 ){
@@ -63,7 +64,7 @@ class CompanyService {
                 'is_completed' => false, // approve or reject
                 'is_approved' => false,
             ]);
-        } 
+        }
     }
 
     public function get_messages($id){
@@ -85,5 +86,5 @@ class CompanyService {
     public function destroy($id){
         return Company::where('id',$id)->delete();
     }
-        
-} 
+
+}
