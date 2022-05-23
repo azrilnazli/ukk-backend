@@ -47,7 +47,8 @@ class VideoService {
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
-            ->where('duration','=', 0)
+            ->where('is_ready','=', 0)
+            ->orWhere('duration','=', 0)
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('videos.failed'));
