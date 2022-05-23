@@ -44,7 +44,7 @@ Route::get('/tenders/search', [App\Http\Controllers\Tender\TenderController::cla
 // tender submission
 Route::get('/tender_submissions/search', [App\Http\Controllers\Tender\TenderSubmissionController::class, 'search'])->name('tender_submissions.search');
 
-Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('user.search');
+Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('users.search');
 
 Route::get('/videos/failed', [App\Http\Controllers\Video\VideoController::class, 'failed'])->name('videos.failed');
 Route::get('/videos/encoding_status', [App\Http\Controllers\Video\VideoController::class, 'encoding_status'])->name('videos.encoding_status');
