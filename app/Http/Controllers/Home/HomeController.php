@@ -230,6 +230,19 @@ class HomeController extends Controller
 
        //dd($video);
 
+       // tender related
+       $tenders = Tender::distinct()
+       ->select('id','programme_code')
+       ->get(['programme_code'])
+       ->map( function($val, $key)  {
+
+           $val['count'] = TenderSubmission::query()
+           ->where('tender_id', $val->id)
+           ->count();
+           return $val;
+       });
+
+
         return view('home')->with(compact(
             'user',
             'company',
@@ -237,7 +250,8 @@ class HomeController extends Controller
             'comment',
             'resubmit',
             'video',
-            'states'
+            'states',
+            'tenders'
         ));
     }
 
