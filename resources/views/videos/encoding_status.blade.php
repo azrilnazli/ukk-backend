@@ -102,7 +102,6 @@
          }
          //setInterval(getEncodingStatus, 2000); // request every 2 secs
 
-         $('#footer-text').html(0);
          function getVideos(){
              var cards = $();
 
@@ -116,7 +115,7 @@
                       $.each(JSON.parse(data.encoding), function(key, value) {
                          console.log(value); // display to console
                          cards = cards.add(createCard(value));
-                         $('#footer-text').html(data.count);
+
                      })
 
                      $('#videos').html(cards);
@@ -163,8 +162,8 @@
 
     </div>
 
-    <div class="card-footer">
-        Current progress : <span id="footer-text">none</footer>
+    <div class="card-footer text-muted">
+       Showing current video encoding process.
     </div>
 </div>
 
