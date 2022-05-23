@@ -52,7 +52,7 @@ class TenderSubmissionService {
                         )
 
                         ->paginate(50)
-                        ->setPath(route('tender_submissions.index'));
+                        ->setPath(route('tender_submissions.search'));
 
                         $tenders->appends([
                             '_token' => $t,
