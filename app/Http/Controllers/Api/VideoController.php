@@ -31,9 +31,12 @@ class VideoController extends Controller
                     ->where('is_processing', true)
                     ->get()
                     ->map( function($val, $key)  {
-                        $val['progress'] =  Storage::disk('assets')
-                                            ->get( $val->id . "/progress_all.txt" );
-                        return $val;
+
+                        if(Storage::disk('assets')->exists($val->id . "/progress_all.txt")) {
+                            $val['progress'] =  Storage::disk('assets')
+                                                ->get( $val->id . "/progress_all.txt" );
+                            return $val;
+                        }
                     })
                     ->toJson();
 
