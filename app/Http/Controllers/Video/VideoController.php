@@ -327,6 +327,18 @@ class VideoController extends Controller
 
     }
 
+    public function is_processing(Video $video)
+    {
+
+        $status = false;
+        if($video->is_processing == TRUE){
+            $status = true;
+        }
+        return response([
+            'is_processing' => $status,
+        ]);
+    }
+
     public function is_playable(Video $video)
     {
 
