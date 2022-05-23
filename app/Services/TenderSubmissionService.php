@@ -36,7 +36,7 @@ class TenderSubmissionService {
         // return Tender::where([['title', 'like', "{$query}%"]])
         //                 ->paginate(10)->setPath('tenders');
         $tenders = TenderSubmission::query()
-                        ->sortable()
+                       // ->sortable()
                         // ->whereHas('user.company', fn($query) =>
                         //     $query->where('is_approved', true)
                         // )
