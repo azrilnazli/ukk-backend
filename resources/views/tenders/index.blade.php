@@ -53,6 +53,7 @@
                 <th>Code</th>
                 <th>Duration</th>
                 <th>Episode</th>
+                <th>Proposal</th>
                 <th>Language</th>
 
                 {{-- <th width="*">Added by</th> --}}
@@ -70,9 +71,10 @@
                     <td>{{$row->type }}</td>
 
                     <td>{{$row->tender_category }}</td>
-                    <td>{{$row->programme_code }}</td>
+                    <td>{{$row->programme_code }} </td>
                     <td>{{$row->duration }}</td>
                     <td>{{$row->number_of_episode }}</td>
+                    <td>@if($row->proposals) {{ $row->proposals->count() }} @endif</td>
                     <td>
                       @foreach( $row->languages as $lang )
                       <span class="badge badge-warning">{{$lang}}</span>
