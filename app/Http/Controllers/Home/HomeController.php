@@ -127,9 +127,6 @@ class HomeController extends Controller
                                 ->whereHas('user.company', fn($query) =>
                                     $query->where('is_approved', true)
                                 )
-                                ->whereHas('video', fn($query) =>
-                                    $query->where('is_ready', false)
-                                )
                                 ->where('is_pdf_cert_uploaded','=', true)
                                 ->count();
 

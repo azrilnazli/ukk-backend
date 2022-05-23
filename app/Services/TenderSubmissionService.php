@@ -31,9 +31,6 @@ class TenderSubmissionService {
     public function search($request)
     {
         $q = $request->input('query');
-        $t = $request->input('_token');
-
-
         $tenders = TenderSubmission::query()
 
                         ->orWhereHas('user.company', fn($query) =>
@@ -55,11 +52,8 @@ class TenderSubmissionService {
                         ->setPath(route('tender_submissions.search'));
 
                         $tenders->appends([
-                            '_token' => $t,
                             'query' => $q
-                            ]
-                        );
-
+                            ]);
         return $tenders;
 
     }
