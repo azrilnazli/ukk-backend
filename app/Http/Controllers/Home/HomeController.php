@@ -233,6 +233,7 @@ class HomeController extends Controller
        // tender related
        $tenders = Tender::distinct()
        ->select('id','programme_code')
+       ->orderBy('programme_code', 'ASC')
        ->get(['programme_code'])
        ->map( function($val, $key)  {
 
