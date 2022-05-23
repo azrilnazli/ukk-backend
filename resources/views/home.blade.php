@@ -140,7 +140,7 @@
             </div>
             <div class="card-footer text-muted ">
 
-                @foreach($states as $state)
+            @foreach($states as $state)
                 <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
                 <span class="text-uppercase">{{ $state->states}}</span> <span class="badge badge-light">{{ $state->count }}</span>
               </button>
@@ -229,7 +229,11 @@
                 </div> <!-- ./row -->
             </div>
             <div class="card-footer text-muted ">
-
+                @foreach($tenders as $tender)
+                <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
+                <span class="text-uppercase">{{ $tender->programme_code}}</span> <span class="badge badge-light">{{ $tender->count }}</span>
+              </button>
+              @endforeach
             </div>
         </div>
     </div>
