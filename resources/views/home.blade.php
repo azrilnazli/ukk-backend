@@ -141,7 +141,7 @@
             <div class="card-footer text-muted ">
 
                 @foreach($states as $state)
-                <button type="button" class="p1 btn btn-dark btn-sm">
+                <button type="button" class="p-2 btn btn-dark btn-sm">
                 <span class="text-uppercase">{{ $state->states}}</span> <span class="badge badge-light">{{ $state->count }}</span>
               </button>
               @endforeach
