@@ -104,6 +104,7 @@
 
          function getVideos(){
              var cards = $();
+             $('#footer-text').html(0);
              $.ajax({
                  type: 'GET', // mode is GET
                  url: '/api/video/encoding_status', // laravel api route
