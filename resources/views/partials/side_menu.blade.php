@@ -120,7 +120,7 @@
               </a>
             </li>
             <li class="nav-item">
-                <a href="/videos/encoding_status" class="nav-link  {{ active('jobs') }}">
+                <a href="/videos/encoding_status" class="nav-link  {{ active('encoding_status') }}">
                   <i class="fas fa-upload nav-icon"></i>
                   <p>Realtime Encoding</p>
                 </a>
