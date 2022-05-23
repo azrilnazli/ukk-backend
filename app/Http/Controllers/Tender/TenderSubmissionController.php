@@ -30,7 +30,7 @@ class TenderSubmissionController extends Controller
     }
 
     public function search(Request $request){
-   
+
         $proposals = $this->tender->search($request);
         return view('tender_submissions.index')->with(compact('proposals'));
     }
@@ -41,5 +41,5 @@ class TenderSubmissionController extends Controller
         return view('tender_submissions.show')->with(compact('tenderSubmission'));
     }
 
-  
+
 }

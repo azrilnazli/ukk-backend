@@ -33,13 +33,9 @@ class TenderSubmissionService {
         $q = $request->input('query');
         $t = $request->input('_token');
 
-        // return Tender::where([['title', 'like', "{$query}%"]])
-        //                 ->paginate(10)->setPath('tenders');
+
         $tenders = TenderSubmission::query()
-                       // ->sortable()
-                        // ->whereHas('user.company', fn($query) =>
-                        //     $query->where('is_approved', true)
-                        // )
+
                         ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
@@ -56,7 +52,7 @@ class TenderSubmissionService {
                         )
 
                         ->paginate(50)
-                        ->setPath(route('tender_submissions.index'));
+                        ->setPath(route('tender_submissions.search'));
 
                         $tenders->appends([
                             '_token' => $t,
