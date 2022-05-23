@@ -117,8 +117,11 @@ class HomeController extends Controller
                             ->whereHas('user.company', fn($query) =>
                                 $query->where('is_approved', true)
                              )
+                             ->whereHas('video', fn($query) =>
+                             $query->where('is_ready', true)
+                         )
                             ->where('is_pdf_cert_uploaded','=', 1)
-                            ->where('video_id','!=', 0)->count();
+                            ->count();
 
         $proposal['pdf_only'] = TenderSubmission::query()
                                 ->whereHas('user.company', fn($query) =>
