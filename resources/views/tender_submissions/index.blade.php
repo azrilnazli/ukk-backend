@@ -86,7 +86,8 @@
 
     <div class="card-footer clearfix">
       <div class="card-tools">
-        {{ $proposals->links() }}
+
+        {{ $proposals->appends(Request::all())->links() }}
       </div>
     </div>
 
