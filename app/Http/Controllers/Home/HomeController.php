@@ -38,6 +38,9 @@ class HomeController extends Controller
     public function index()
     {
 
+
+        //$roles = auth()->user()->getRoleNames();
+
         if(Auth::user()->hasRole('subscriber'))
         {
             // do something
@@ -102,7 +105,12 @@ class HomeController extends Controller
 
 
         // proposal related
-        $proposal['total'] = TenderSubmission::query()->count();
+        $proposal['total'] = TenderSubmission::query()
+                                ->whereHas('user.company', fn($query) =>
+                                        $query->where('is_approved', true)
+                                    )
+                                ->count();
+
         //$proposal['pdf_only'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', true)->count();
         //$proposal['video_only'] = TenderSubmission::query()->where('video_id','!=', 0)->count();
         $proposal['both'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', 1)->where('video_id','!=', 0)->count();
