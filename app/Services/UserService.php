@@ -50,7 +50,7 @@ class UserService {
                     )
 
                     ->paginate(50)
-                    ->setPath(route('users.index'));
+                    ->setPath(route('users.search'));
 
                     $users->appends(['search' => $q]);
 
