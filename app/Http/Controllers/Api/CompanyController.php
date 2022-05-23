@@ -34,11 +34,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
 
@@ -59,7 +59,7 @@ class CompanyController extends Controller
         $company->experiences = $request->experiences;
 
         $company->save();
- 
+
         // JSON response
         return response([
             'message' => $request->all(),
@@ -77,11 +77,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
 
@@ -94,7 +94,7 @@ class CompanyController extends Controller
         $company->mof_expiry_date = $request->mof_expiry_date;
         $company->is_mof_active = $request->is_mof_active;
         $company->save();
- 
+
         // JSON response
         return response([
             'message' => $request->all(),
@@ -111,11 +111,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -126,7 +126,7 @@ class CompanyController extends Controller
         $company->ssm_registration_number = $request->ssm_registration_number;
         $company->ssm_expiry_date = $request->ssm_expiry_date;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
@@ -143,11 +143,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -159,7 +159,7 @@ class CompanyController extends Controller
         $company->bumiputera_registration_number = $request->bumiputera_registration_number;
         $company->bumiputera_expiry_date = $request->bumiputera_expiry_date;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
@@ -176,11 +176,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -191,12 +191,12 @@ class CompanyController extends Controller
         $company->kkmm_syndicated_registration_number = $request->kkmm_syndicated_registration_number;
         $company->kkmm_syndicated_expiry_date = $request->kkmm_syndicated_expiry_date;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }    
+    }
 
     function kkmm_swasta(){
 
@@ -208,11 +208,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -223,12 +223,12 @@ class CompanyController extends Controller
         $company->kkmm_swasta_registration_number = $request->kkmm_swasta_registration_number;
         $company->kkmm_swasta_expiry_date = $request->kkmm_swasta_expiry_date;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }    
+    }
 
     function finas_fp(){
 
@@ -240,11 +240,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -255,12 +255,12 @@ class CompanyController extends Controller
         $company->finas_fp_registration_number = $request->finas_fp_registration_number;
         $company->finas_fp_expiry_date = $request->finas_fp_expiry_date;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }    
+    }
 
     function finas_fd(){
 
@@ -272,11 +272,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -287,12 +287,12 @@ class CompanyController extends Controller
         $company->finas_fd_registration_number = $request->finas_fd_registration_number;
         $company->finas_fd_expiry_date = $request->finas_fd_expiry_date;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }      
+    }
 
     function audit(){
 
@@ -304,11 +304,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -319,12 +319,12 @@ class CompanyController extends Controller
         $company->current_audit_year = $request->current_audit_year;
         $company->paid_capital = $request->paid_capital;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }      
+    }
 
     function bank(){
 
@@ -336,11 +336,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -354,15 +354,15 @@ class CompanyController extends Controller
 
         $company->bank_statement_date_start = $request->bank_statement_date_start;
         $company->bank_statement_date_end = $request->bank_statement_date_end;
-       
+
 
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }   
+    }
 
     function board_of_directors(){
 
@@ -374,11 +374,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -388,13 +388,13 @@ class CompanyController extends Controller
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->board_of_directors = $request->board_of_directors;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }    
-    
+    }
+
 
     function experiences(){
 
@@ -406,11 +406,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -420,12 +420,12 @@ class CompanyController extends Controller
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->experiences = $request->experiences;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }      
+    }
 
 
     function credit(){
@@ -438,11 +438,11 @@ class CompanyController extends Controller
         $company ?
 
             $message = $this->success($company)
-        : 
+        :
             $message =  response([
             'message' => 'no data',
         ]);
-                
+
         return $message;
     }
     // custom field validation
@@ -452,12 +452,12 @@ class CompanyController extends Controller
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->is_credit_cert_uploaded = true;
         $company->save();
-    
+
         // JSON response
         return response([
             'message' => $request->all(),
         ]);
-    }      
+    }
 
     // only accept PDF
     public function upload(CompanyRequest $request){
@@ -468,7 +468,7 @@ class CompanyController extends Controller
         $company = DB::table('companies')
 
         // select required fields
-        ->select(       
+        ->select(
             DB::raw('companies.id'),
         )
         // belongs to who ?
@@ -478,7 +478,11 @@ class CompanyController extends Controller
 
         //Log::info($company->id);
         if($request->hasFile('selectedFile')){ // if exists
-         
+            Log::info($request);
+            // delete existing document
+            Log::info('delete existing doc');
+            Storage::disk('companies')->delete( $company->id .'/'. $request->document);
+
             // move to folder
             $request->file('selectedFile')
             ->storeAs(
@@ -618,11 +622,11 @@ class CompanyController extends Controller
             //->select('name','email','phone','address','postcode','city','states','board_of_directors','paid_capital','experiences')
             ->select($fields)
             ->where('user_id', auth()->user()->id)
-            
+
             ->first();
 
         //$completed = true;
-      
+
         $profile = collect($company);
 
         if(collect($profile)->isEmpty() == TRUE){
@@ -643,12 +647,12 @@ class CompanyController extends Controller
                 }
             }
             return false;
-        
+
         });
 
         return collect($is_empty)->isEmpty();
-  
-        
+
+
     }
 
 
@@ -668,7 +672,7 @@ class CompanyController extends Controller
         $status = $this->check($fields);
         return response([
             'status' => $status
-        ]);     
+        ]);
     }
 
     // approval status check
@@ -677,12 +681,10 @@ class CompanyController extends Controller
         $status = $this->check($fields);
         return response([
             'status' => $status
-        ]);     
+        ]);
     }
 
     public function check_approval_status(){
-
-  
 
         // rejected
         $fields = ['is_rejected'];
@@ -721,12 +723,12 @@ class CompanyController extends Controller
         $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
         $company->is_completed = true;
         $company->save();
-    
+
         // JSON response
         return response([
             'status' => $company->is_completed,
         ]);
-    } 
+    }
 
     public function check_for_approval(){
 
@@ -742,7 +744,7 @@ class CompanyController extends Controller
 
             // experiences
             'experiences',
-        
+
             // ssm
             'ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date',
 
@@ -767,7 +769,7 @@ class CompanyController extends Controller
 
             // // credit data
             // //'is_credit_cert_uploaded'
-            
+
         ];
 
         $result = $this->check($fields);
@@ -793,7 +795,7 @@ class CompanyController extends Controller
                     ->where('user_id', auth()->user()->id )
                     ->first();
          //Log::info($company);
-        if($company) {            
+        if($company) {
             // get comments
             $comment = Comment::query()
                         //->where('user_id', auth()->user()->id )
@@ -823,7 +825,7 @@ class CompanyController extends Controller
         $company = DB::table('companies')
 
         // select required fields
-        ->select(       
+        ->select(
             DB::raw('companies.id'),
         )
         // belongs to who ?
@@ -833,7 +835,7 @@ class CompanyController extends Controller
 
         //Log::info($company->id);
         if($request->hasFile('file')){ // if exists
-         
+
             // move to folder
             $request->file('file')
             ->storeAs(

@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col">
         <div class="card card-info">
-            <div class="card-header">User </div>
+            <div class="card-header">User Administration</div>
             <div class="card-body">
                 <!-- Registered -->
                 <div class="row">
@@ -38,7 +38,7 @@
                         <div class="info-box bg-secondary">
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
-                                        <span class="info-box-text">Vendor</span>
+                                        <span class="info-box-text">Subscriber</span>
                                         <span class="info-box-number">{{ $user['vendor'] }}</span>
                                 </div>
                         </div>
@@ -69,7 +69,7 @@
 <div class="row">
     <div class="col">
         <div class="card card-info">
-            <div class="card-header">Company </div>
+            <div class="card-header">Registered Company </div>
             <div class="card-body">
                 <!-- Total -->
                 <div class="row">

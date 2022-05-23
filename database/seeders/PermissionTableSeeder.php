@@ -20,7 +20,7 @@ class PermissionTableSeeder extends Seeder
          $actions = ['list','create','edit','delete'];
 
          // create permissions
-         foreach ($controllers as $controller) 
+         foreach ($controllers as $controller)
          {
             foreach($actions as $action)
             {
@@ -30,12 +30,12 @@ class PermissionTableSeeder extends Seeder
          }
 
         // role assignment
+        $role = Role::create(['name' => 'super-admin'])->givePermissionTo(Permission::all());
         $role = Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
         $role = Role::create(['name' => 'user'])->givePermissionTo([$video,$dashboard,$category]);
-        $role = Role::create(['name' => 'super-admin'])->givePermissionTo(Permission::all());
         $role = Role::create(['name' => 'subscriber'])->givePermissionTo($dashboard);
 
-        // assign role to user
+        // assign role to user based on id
         User::find(1)->assignRole('super-admin');
         User::find(2)->assignRole('admin');
         User::find(3)->assignRole('user');
