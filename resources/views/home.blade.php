@@ -186,37 +186,37 @@
                     </div>
                     <!-- ./ SWASTA -->
                     <!-- PDF Only -->
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <div class="info-box bg-secondary">
-                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+
                                 <div class="info-box-content">
                                         <span class="info-box-text">PDF only</span>
                                         <span class="info-box-number">{{ $proposal['pdf_only'] }}</span>
                                 </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- ./PDF Only -->
                     <!-- Video Only -->
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <div class="info-box bg-secondary">
-                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+
                                 <div class="info-box-content">
                                         <span class="info-box-text">Video only</span>
                                         <span class="info-box-number">{{ $proposal['video_only'] }}</span>
                                 </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- ./Video Only -->
                     <!-- Both Only -->
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <div class="info-box bg-secondary">
-                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+
                                 <div class="info-box-content">
                                         <span class="info-box-text">PDF & Video</span>
                                         <span class="info-box-number">{{ $proposal['both'] }}</span>
                                 </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- ./Both Only -->
                 </div> <!-- ./row -->
             </div>
