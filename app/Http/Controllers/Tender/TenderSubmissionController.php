@@ -30,8 +30,33 @@ class TenderSubmissionController extends Controller
     }
 
     public function search(Request $request){
-   
-        $proposals = $this->tender->search($request);
+
+
+        $proposals = TenderSubmission::query()
+
+                        ->orWhereHas('user.company', fn($query) =>
+                            $query->where('name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('email', 'LIKE', '%' . $q . '%')
+                            ->orWhere('id', 'LIKE', '%' . $q . '%')
+                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
+
+                        )
+                        ->orWhereHas('tender', fn($query) =>
+                            $query->where('tender_category', 'LIKE', '%' . $q . '%')
+                            ->orWhere('type', 'LIKE', '%' . $q . '%')
+                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
+                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
+                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                        )
+
+                        ->paginate(50)
+                        ->setPath(route('tender_submissions.index'));
+
+                        $tenders->appends([
+                            '_token' => $t,
+                            'query' => $q
+                            ]
+                        );
         return view('tender_submissions.index')->with(compact('proposals'));
     }
 
@@ -41,5 +66,5 @@ class TenderSubmissionController extends Controller
         return view('tender_submissions.show')->with(compact('tenderSubmission'));
     }
 
-  
+
 }
