@@ -61,35 +61,38 @@
         {{ $tenderSubmission->synopsis }}
       </div>
       <hr />
-      @if($tenderSubmission->video->is_ready)
 
-      <div class="card-body">
-        <h2>Video</h2>
+      @if($tenderSubmission->video)
+        @if($tenderSubmission->video->is_ready)
 
-              <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
+        <div class="card-body">
+            <h2>Video</h2>
 
-                <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
-                data-setup='{
-                  "fluid": true,
-                  "poster": "{{ Storage::disk('streaming')->url($tenderSubmission->video_id . '/thumbnails/poster.jpg')}}"
-                }'>
-                      <source src=" {{ route('assets', ['video' =>$tenderSubmission->video_id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
+                <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
 
-                </video-js>
+                    <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                    data-setup='{
+                    "fluid": true,
+                    "poster": "{{ Storage::disk('streaming')->url($tenderSubmission->video_id . '/thumbnails/poster.jpg')}}"
+                    }'>
+                        <source src=" {{ route('assets', ['video' =>$tenderSubmission->video_id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
 
-                <script src="/js/videojs/video.js"></script>
-                <script src="/js/videojs//videojs-http-streaming.js"></script>
-                <script src="/js/videojs/videojs-contrib-quality-levels.js"></script>
-                <script src="/js/videojs/videojs-hls-quality-selector.min.js"></script>
+                    </video-js>
 
-                <script>
-                    var player = videojs('my_video_1');
-                    player.hlsQualitySelector();
-                </script>
+                    <script src="/js/videojs/video.js"></script>
+                    <script src="/js/videojs//videojs-http-streaming.js"></script>
+                    <script src="/js/videojs/videojs-contrib-quality-levels.js"></script>
+                    <script src="/js/videojs/videojs-hls-quality-selector.min.js"></script>
 
-              </div>
-      </div>
-      <hr />
+                    <script>
+                        var player = videojs('my_video_1');
+                        player.hlsQualitySelector();
+                    </script>
+
+                </div>
+        </div>
+        <hr />
+        @endif
       @endif
 
       @if($tenderSubmission->is_pdf_cert_uploaded)
