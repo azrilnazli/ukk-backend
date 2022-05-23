@@ -113,29 +113,46 @@ class HomeController extends Controller
 
         //$proposal['pdf_only'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', true)->count();
         //$proposal['video_only'] = TenderSubmission::query()->where('video_id','!=', 0)->count();
-        $proposal['both'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', 1)->where('video_id','!=', 0)->count();
+        $proposal['both'] = TenderSubmission::query()
+                            ->whereHas('user.company', fn($query) =>
+                                $query->where('is_approved', true)
+                             )
+                            ->where('is_pdf_cert_uploaded','=', 1)
+                            ->where('video_id','!=', 0)->count();
 
         $proposal['pdf_only'] = TenderSubmission::query()
-        ->where('is_pdf_cert_uploaded','=', true)
-        ->count();
+                                ->whereHas('user.company', fn($query) =>
+                                    $query->where('is_approved', true)
+                                )
+                                ->where('is_pdf_cert_uploaded','=', true)
+                                ->count();
 
         $proposal['video_only'] = TenderSubmission::query()
-        ->whereHas('video', fn($query) =>
-            $query->where('is_ready', true)
-        )
-        ->count();
+                                ->whereHas('video', fn($query) =>
+                                    $query->where('is_ready', true)
+                                )
+                                ->whereHas('user.company', fn($query) =>
+                                    $query->where('is_approved', true)
+                                )
+                                ->count();
 
         $proposal['sambung_siri'] = TenderSubmission::query()
-        ->whereHas('tender', fn($query) =>
-            $query->where('type', 'SAMBUNG SIRI')
-        )
-        ->count();
+                                ->whereHas('tender', fn($query) =>
+                                    $query->where('type', 'SAMBUNG SIRI')
+                                )
+                                ->whereHas('user.company', fn($query) =>
+                                    $query->where('is_approved', true)
+                                )
+                                ->count();
 
         $proposal['swasta'] = TenderSubmission::query()
-        ->whereHas('tender', fn($query) =>
-            $query->where('type', 'SWASTA')
-        )
-        ->count();
+                                ->whereHas('tender', fn($query) =>
+                                    $query->where('type', 'SWASTA')
+                                )
+                                ->whereHas('user.company', fn($query) =>
+                                    $query->where('is_approved', true)
+                                )
+                                ->count();
 
 
         // company related
