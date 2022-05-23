@@ -138,6 +138,14 @@
                 <a href="{{ route('companies.is_rejected') }}" class="btn btn-sm btn-primary">REJECTED</a>
                 <a href="{{ route('companies.is_resubmit') }}" class="btn btn-sm btn-primary">RESUBMIT</a></h5>
             </div>
+            <div class="card-footer text-muted ">
+
+                @foreach($states as $state)
+                <button type="button" class="btn btn-dark btn-sm">
+                {{ $state->states}} <span class="badge badge-light">{{ $state->count }}</span>
+              </button>
+              @endforeach
+            </div>
         </div>
     </div>
 </div>

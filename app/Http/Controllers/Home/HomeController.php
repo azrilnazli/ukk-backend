@@ -158,6 +158,23 @@ class HomeController extends Controller
                                 )
                                 ->count();
 
+        // state related
+        $states = Company::distinct()
+                    ->get(['states'])
+                    ->map( function($val, $key)  {
+
+                        //$val['count'] =12;
+                        //dd($val->states);
+                        $val['count'] = Company::query()
+                        ->where('states', 'LIKE', '%'.$val->states.'%')
+                        ->count();
+                        return $val;
+                    });
+       // dd($states);
+
+        $state['selangor'] = Company::query()
+        ->where('states', 'LIKE', '%selangor%')
+        ->count();
 
         // company related
         $company['total'] = Company::query()->count();
@@ -219,7 +236,8 @@ class HomeController extends Controller
             'proposal',
             'comment',
             'resubmit',
-            'video'
+            'video',
+            'states'
         ));
     }
 
