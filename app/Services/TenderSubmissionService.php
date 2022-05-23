@@ -59,8 +59,7 @@ class TenderSubmissionService {
                         ->setPath(route('tender_submissions.index'));
 
                         $tenders->appends([
-                            '_token' => $t,
-                            'search' => $q
+                            'query' => $q
                             ]
                         );
 
