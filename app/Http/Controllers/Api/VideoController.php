@@ -26,18 +26,21 @@ class VideoController extends Controller
     function encoding_status(){
 
         // query videos where is_processing = true
-        $encoding = Video::query()
+        $collection = Video::query()
+                    ->select('id','original_filename')
                     ->where('is_processing', true)
                     ->get()
-                    ->map( function($val, $key){
-                        //get processing value
-                        return $val->status = $key;
+                    ->map( function($val, $key)  {
+                        $val['progress'] =  Storage::disk('assets')
+                                            ->get( $val->id . "/progress_all.txt" );
+                        return $val;
                     })
                     ->toJson();
 
-        return response([
+        return response()->json([
             'message' => 'request accepted',
-            'encoding' => $encoding
+            'encoding' => $collection,
+            'count' => Video::query()->where('is_processing', true)->count()
         ]);
     }
 

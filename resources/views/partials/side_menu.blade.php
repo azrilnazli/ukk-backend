@@ -1,5 +1,5 @@
 @php
-  
+
   function active($menu){
     $route = Route::currentRouteName();
 
@@ -22,14 +22,14 @@
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
-   
+
     <li class="nav-header"></li>
 
     <li class="nav-item">
       <a href="/home" class="nav-link {{ active('home') }}">
         <i class="nav-icon fas fa-home"></i>
         <p>
-          Home 
+          Home
         </p>
       </a>
     </li>
@@ -53,7 +53,7 @@
       </li>
 
 
-{{-- 
+{{--
       <li class="nav-item">
         <a href="/videos" class="nav-link {{ active('videos') }}">
           <i class="nav-icon fas fa-book"></i>
@@ -95,7 +95,7 @@
 
         </ul>
       </li>
- 
+
 
 
         <li class="nav-item has-treeview menu-close">
@@ -119,6 +119,12 @@
                 <p>Failed</p>
               </a>
             </li>
+            <li class="nav-item">
+                <a href="/videos/encoding_status" class="nav-link  {{ active('jobs') }}">
+                  <i class="fas fa-upload nav-icon"></i>
+                  <p>Realtime Encoding</p>
+                </a>
+              </li>
 
             <li class="nav-item">
               <a href="/queue/jobs" class="nav-link  {{ active('jobs') }}">
@@ -140,7 +146,7 @@
           </p>
         </a>
       </li> --}}
-{{-- 
+{{--
     <li class="nav-item">
       <a href="/videos" class="nav-link {{ active('videos') }}">
         <i class="nav-icon fas fa-video"></i>
