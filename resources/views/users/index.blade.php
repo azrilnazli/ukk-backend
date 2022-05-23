@@ -13,7 +13,7 @@
 
 @section('content')
 
-<form method="GET"  action="{{ route('user.search') }}">
+<form method="GET"  action="{{ route('users.search') }}">
   @csrf
   <div class="row mt-5">
     <div class="col-lg-5">
