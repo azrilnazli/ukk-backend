@@ -109,9 +109,6 @@ class HomeController extends Controller
 
         $proposal['pdf_only'] = TenderSubmission::query()
         ->where('is_pdf_cert_uploaded','=', true)
-        ->whereHas('video', fn($query) =>
-            $query->where('is_ready', false)
-        )
         ->count();
 
         $proposal['video_only'] = TenderSubmission::query()
