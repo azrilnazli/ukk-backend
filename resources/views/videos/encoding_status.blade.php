@@ -102,9 +102,10 @@
          }
          //setInterval(getEncodingStatus, 2000); // request every 2 secs
 
+         $('#footer-text').html(0);
          function getVideos(){
              var cards = $();
-             $('#footer-text').html(0);
+
              $.ajax({
                  type: 'GET', // mode is GET
                  url: '/api/video/encoding_status', // laravel api route
