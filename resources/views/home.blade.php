@@ -233,7 +233,7 @@
                 <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
                 <span class="text-uppercase">{{ $tender->programme_code}}</span>
                     @if( $tender->count > 0 )
-                    <span class="badge badge-success">{{ $tender->count }}</span>
+                    <span class="badge badge-light">{{ $tender->count }}</span>
                     @else
                     <span class="badge badge-danger">{{ $tender->count }}</span>
                     @endif
