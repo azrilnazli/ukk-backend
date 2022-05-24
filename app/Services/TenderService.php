@@ -25,7 +25,7 @@ class TenderService {
                     ->where('channel', 'LIKE', '%' . $q . '%')
                     ->orWhere('id', 'LIKE', '%' . $q . '%')
                     ->orWhere('type', 'LIKE', '%' . $q . '%')
-                    ->orWhere('category', 'LIKE', '%' . $q . '%')
+                    ->orWhere('tender_category', 'LIKE', '%' . $q . '%')
                     ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
                     ->orWhere('duration', 'LIKE', '%' . $q . '%')
                     ->orWhere('minutes', 'LIKE', '%' . $q . '%')
