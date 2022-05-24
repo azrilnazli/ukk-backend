@@ -28,7 +28,7 @@ class TenderService {
                     ->orWhere('tender_category', 'LIKE', '%' . $q . '%')
                     ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
                     ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                    ->orWhere('minutes', 'LIKE', '%' . $q . '%')
+
 
                     ->paginate(50);
 
