@@ -229,7 +229,7 @@
                 </div> <!-- ./row -->
             </div>
             <div class="card-footer text-muted ">
-                @foreach($tenders as $tender)
+                @foreach($tenders->sortByDesc('count') as $tender)
                 <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
                 <span class="text-uppercase">{{ $tender->programme_code}}</span>
                     @if( $tender->count > 0 )
