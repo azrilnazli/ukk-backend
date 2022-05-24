@@ -229,7 +229,22 @@
                 </div> <!-- ./row -->
             </div>
             <div class="card-footer text-muted ">
-                @foreach($tenders->sortByDesc('count') as $tender)
+                <h5>SWASTA</h5>
+                @foreach($tenders['swasta']->sortByDesc('count') as $tender)
+                <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
+                <span class="text-uppercase">{{ $tender->programme_code}}</span>
+                    @if( $tender->count > 0 )
+                    <span class="badge badge-light">{{ $tender->count }}</span>
+                    @else
+                    <span class="badge badge-danger">{{ $tender->count }}</span>
+                    @endif
+              </button>
+              @endforeach
+            </div>
+
+            <div class="card-footer text-muted ">
+                <h5>SAMBUNG SIRI</h5>
+                @foreach($tenders['sambung_siri']->sortByDesc('count') as $tender)
                 <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
                 <span class="text-uppercase">{{ $tender->programme_code}}</span>
                     @if( $tender->count > 0 )
