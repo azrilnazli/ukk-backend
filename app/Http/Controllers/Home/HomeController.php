@@ -231,7 +231,23 @@ class HomeController extends Controller
        //dd($video);
 
        // tender related
-       $tenders = Tender::distinct()
+       $tenders['sambung_siri'] = Tender::query()
+       ->distinct()
+       ->where('type','SAMBUNG SIRI')
+       ->select('id','programme_code')
+       ->orderBy('programme_code', 'ASC')
+       ->get(['programme_code'])
+       ->map( function($val, $key)  {
+
+           $val['count'] = TenderSubmission::query()
+           ->where('tender_id', $val->id)
+           ->count();
+           return $val;
+       });
+
+       $tenders['swasta'] = Tender::query()
+       ->distinct()
+       ->where('type','SWASTA')
        ->select('id','programme_code')
        ->orderBy('programme_code', 'ASC')
        ->get(['programme_code'])
