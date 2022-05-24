@@ -54,9 +54,11 @@ class CompanyProposalController extends Controller
         if($proposal == null ) return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
 
         // destroy video DB
-        if($proposal->video->is_ready == true){
-            $video = new VideoService;
-            $video->delete($proposal->video->id);
+        if($proposal->video){
+            if($proposal->video->is_ready == true){
+                $video = new VideoService;
+                $video->delete($proposal->video->id);
+            }
         }
 
 
