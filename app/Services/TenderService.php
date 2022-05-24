@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Services;
 
 use App\Models\Tender;
@@ -8,7 +8,7 @@ class TenderService {
 
     // contstructor
     public function __construct(){
-       
+
     }
 
     public function paginate($items = 50){
@@ -17,21 +17,25 @@ class TenderService {
 
     public function search($request)
     {
-        // $query = $request->input('query');        
+        // $query = $request->input('query');
         // return Tender::where([['title', 'like', "{$query}%"]])
         //                 ->paginate(10)->setPath('tenders');
         $q = $request->input('query');
         $tenders = Tender::query()
-                    ->where('title', 'LIKE', '%' . $q . '%')
+                    ->where('channel', 'LIKE', '%' . $q . '%')
                     ->orWhere('id', 'LIKE', '%' . $q . '%')
-                    ->orWhere('description', 'LIKE', '%' . $q . '%')
-                   
+                    ->orWhere('type', 'LIKE', '%' . $q . '%')
+                    >orWhere('category', 'LIKE', '%' . $q . '%')
+                    >orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                    >orWhere('duration', 'LIKE', '%' . $q . '%')
+                    >orWhere('minutes', 'LIKE', '%' . $q . '%')
+
                     ->paginate(50);
 
         $tenders->appends(['search' => $q]);
 
         return $tenders;
-        
+
     }
 
     public function create($request){
@@ -51,7 +55,7 @@ class TenderService {
     public function find($id){
         return Tender::find($id);
     }
-    
+
     public function update($request, $id){
         // return Tender::where('id',$id)->update([
         //     'channel' => $request['channel'],
@@ -60,7 +64,7 @@ class TenderService {
         //     'tender_category' => $request['tender_category'],
         //     'title' => $request['title'],
         //     'description' => $request['description'],
-        // ]); 
+        // ]);
 
         return Tender::where('id',$id)->update($request->except(['_token','_method']));
     }
@@ -68,5 +72,5 @@ class TenderService {
     public function destroy($id){
         return Tender::where('id',$id)->delete();
     }
-        
-} 
+
+}
