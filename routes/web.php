@@ -49,6 +49,15 @@ Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 's
 Route::get('/videos/failed', [App\Http\Controllers\Video\VideoController::class, 'failed'])->name('videos.failed');
 Route::get('/videos/encoding_status', [App\Http\Controllers\Video\VideoController::class, 'encoding_status'])->name('videos.encoding_status');
 
+// roles
+Route::get('/roles', [App\Http\Controllers\User\UserController::class, 'roles'])->name('roles');
+Route::get('/roles/create', [App\Http\Controllers\User\UserController::class, 'create_role'])->name('roles.create');
+Route::get('/roles/destroy', [App\Http\Controllers\User\UserController::class, 'delete_role'])->name('roles.destroy');
+
+// roles controller
+Route::get('/roles/controller/create', [App\Http\Controllers\User\UserController::class, 'create_controller'])->name('roles.controller.create');
+Route::get('/roles/controller/destroy', [App\Http\Controllers\User\UserController::class, 'delete_controller'])->name('roles.controller.destroy');
+
 Route::resources([
     'users'   =>  App\Http\Controllers\User\UserController::class,
     'videos'  =>  App\Http\Controllers\Video\VideoController::class,
@@ -58,7 +67,7 @@ Route::resources([
     'tender_submissions'  =>  App\Http\Controllers\Tender\TenderSubmissionController::class,
 ]);
 
-// companies
+
 
 
 Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);

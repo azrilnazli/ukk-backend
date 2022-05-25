@@ -114,7 +114,7 @@
 @endif
 
 
-@if($user->proposals))
+@if($user->proposals)
 @if( count($user->proposals) > 0 )
 <div class="row">
     <div class="col">
@@ -170,68 +170,70 @@
                                 <!-- ./PDF MODAL -->
                             @endif
 
-                            @if($proposal->video->is_ready)
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#video_{{ $proposal->video->id }}">
-                                    VIDEO
-                                </button>
-                                <!-- video Modal -->
-                                <script>
+                            @if($proposal->video)
+                                @if($proposal->video->is_ready)
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#video_{{ $proposal->video->id }}">
+                                        VIDEO
+                                    </button>
+                                    <!-- video Modal -->
+                                    <script>
 
-                                    function closePlayer_{{ $proposal->video->id }}(){
-                                        $( document ).ready(function() {
-                                            // Handler for .ready() called.
-                                            console.log('close and ready');
-                                            $('video').each(function() {
-                                                $(this).get(0).pause();
+                                        function closePlayer_{{ $proposal->video->id }}(){
+                                            $( document ).ready(function() {
+                                                // Handler for .ready() called.
+                                                console.log('close and ready');
+                                                $('video').each(function() {
+                                                    $(this).get(0).pause();
+                                                });
                                             });
-                                        });
 
-                                     }
-                                </script>
-                                <div class="modal fade" id="video_{{ $proposal->video->id}}" tabindex="-1" role="dialog" aria-labelledby="videoLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 class="modal-title" id="videoLabel">VIDEO</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            </div>
-                                            <div class="modal-body">
+                                        }
+                                    </script>
+                                    <div class="modal fade" id="video_{{ $proposal->video->id}}" tabindex="-1" role="dialog" aria-labelledby="videoLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="videoLabel">VIDEO</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                </div>
+                                                <div class="modal-body">
 
-                                                <!-- video -->
-                                                <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
+                                                    <!-- video -->
+                                                    <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
 
-                                                    <video-js id="my_video_{{$proposal->video->id}}" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
-                                                            data-setup='{
-                                                                "fluid": true,
-                                                                "poster": "{{ Storage::disk('streaming')->url( $proposal->video->id . '/thumbnails/poster.jpg')}}"
-                                                            }'>
-                                                          <source src=" {{ route('assets', ['video' => $proposal->video->id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
-                                                    </video-js>
+                                                        <video-js id="my_video_{{$proposal->video->id}}" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                                                                data-setup='{
+                                                                    "fluid": true,
+                                                                    "poster": "{{ Storage::disk('streaming')->url( $proposal->video->id . '/thumbnails/poster.jpg')}}"
+                                                                }'>
+                                                            <source src=" {{ route('assets', ['video' => $proposal->video->id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
+                                                        </video-js>
 
-                                                    <script src="/js/videojs/video.js"></script>
-                                                    <script src="/js/videojs//videojs-http-streaming.js"></script>
-                                                    <script src="/js/videojs/videojs-contrib-quality-levels.js"></script>
-                                                    <script src="/js/videojs/videojs-hls-quality-selector.min.js"></script>
+                                                        <script src="/js/videojs/video.js"></script>
+                                                        <script src="/js/videojs//videojs-http-streaming.js"></script>
+                                                        <script src="/js/videojs/videojs-contrib-quality-levels.js"></script>
+                                                        <script src="/js/videojs/videojs-hls-quality-selector.min.js"></script>
 
-                                                    <script>
-                                                        var player_{{ $proposal->video->id}} = videojs('my_video_{{$proposal->video->id}}');
-                                                        player_{{ $proposal->video->id}}.hlsQualitySelector();
-                                                    </script>
+                                                        <script>
+                                                            var player_{{ $proposal->video->id}} = videojs('my_video_{{$proposal->video->id}}');
+                                                            player_{{ $proposal->video->id}}.hlsQualitySelector();
+                                                        </script>
+
+                                                    </div>
+                                                    <!-- ./video -->
 
                                                 </div>
-                                                <!-- ./video -->
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button onClick="closePlayer_{{ $proposal->video->id }}()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <div class="modal-footer">
+                                                    <button onClick="closePlayer_{{ $proposal->video->id }}()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- ./video MODAL -->
+                                    <!-- ./video MODAL -->
+                                @endif
                             @endif
                         </td>
 

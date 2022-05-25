@@ -34,6 +34,7 @@
       </a>
     </li>
 
+    @hasanyrole('super-admin|admin')
     <li class="nav-item">
         <a href="/users" class="nav-link {{ active('users') }}">
           <i class="nav-icon far fa-user"></i>
@@ -43,25 +44,16 @@
         </a>
     </li>
 
-      <li class="nav-item">
-        <a href="/companies" class="nav-link {{ active('companies') }}">
-          <i class="nav-icon fa fa-users"></i>
-          <p>
-            Vendor
-          </p>
-        </a>
-      </li>
 
 
-{{--
-      <li class="nav-item">
-        <a href="/videos" class="nav-link {{ active('videos') }}">
-          <i class="nav-icon fas fa-book"></i>
-          <p>
-            Video
-          </p>
-        </a>
-      </li> --}}
+    <li class="nav-item">
+    <a href="/companies" class="nav-link {{ active('companies') }}">
+        <i class="nav-icon fa fa-users"></i>
+        <p>
+        Vendor
+        </p>
+    </a>
+    </li>
 
 
       <li class="nav-item has-treeview menu-close">
@@ -134,26 +126,44 @@
             </li>
           </ul>
         </li>
+        @endhasanyrole
 
+        @hasrole('JSPD')
+        <li class="nav-item">
+            <a href="/home" class="nav-link {{ active('proposals') }}">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                All Proposals
+              </p>
+            </a>
+        </li>
 
-      {{-- </li> --}}
+        <li class="nav-item">
+            <a href="/home" class="nav-link {{ active('proposals') }}">
+              <i class="nav-icon fas fa-check"></i>
+              <p>
+                Marked
+              </p>
+            </a>
+        </li>
 
-      {{-- <li class="nav-item">
-        <a href="/categories" class="nav-link {{ active('categories') }}">
-          <i class="nav-icon fas fa-list"></i>
-          <p>
-            Categories
-          </p>
-        </a>
-      </li> --}}
-{{--
-    <li class="nav-item">
-      <a href="/videos" class="nav-link {{ active('videos') }}">
-        <i class="nav-icon fas fa-video"></i>
-        <p>
-          Video
-        </p>
-      </a>
-    </li> --}}
+        <li class="nav-item">
+            <a href="/home" class="nav-link {{ active('proposals') }}">
+              <i class="nav-icon fas fa-hourglass"></i>
+              <p>
+                Pending
+              </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/home" class="nav-link {{ active('proposals') }}">
+              <i class="nav-icon fas fa-search"></i>
+              <p>
+                Scores
+              </p>
+            </a>
+        </li>
+        @endhasrole
 
   </ul>

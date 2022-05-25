@@ -40,32 +40,43 @@ class UserCommand extends Command
      */
     public function handle()
     {
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
-        Permission::find(1)->where('name','scoring-list')->delete();
-        Permission::create(['name' =>'scoring-list']);
+        // create User
+         $user = User::create([
+            'name' => 'JSPD',
+            'email' => 'jspd@local',
+            'password' => bcrypt('password')
+        ]);
 
-        Permission::find(1)->where(['name' =>'scoring-create'])->delete();
-        Permission::create(['name' =>'scoring-create']);
+        // create role
+        $role = Role::create(['name' => 'JSPD']); // create Role
 
-        Permission::find(1)->where(['name' =>'scoring-edit'])->delete();
-        Permission::create(['name' =>'scoring-edit']);
+        // assign role to user
+        $user->assignRole('JSPD'); // assign
+        //$user->removeRole('JSPD'); // remove
 
-        Permission::find(1)->where(['name' =>'scoring-delete'])->delete();
-        Permission::create(['name' =>'scoring-delete']);
+        // create Permission
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions(); // clear cache
+        $permissions = [
+            'scoring-list',
+            'scoring-create',
+            'scoring-edit',
+            'scoring-delete',
+         ];
 
-        // $role->revokePermissionTo($permission);
-        // $permission->removeRole($role);
+         // create permission and assign to role
+         foreach ($permissions as $permission) {
+            Permission::find(1)->where('name',$permission)->delete(); // delete existing
+            Permission::create(['name' =>$permission]); // create new
+            //$user->givePermissionTo($permission); // assign user to each permission
+            $role->givePermissionTo($permission); // assign each permission to role
+         }
+        // $users = User::role('JSPD')->get(); // Returns only users with the role 'JSPD'
+        // $roles = Role::pluck('name', 'id')->toArray(); // list all registered roles
 
-        $users = User::role('user')->get(); // Returns only users with the role 'writer'
-       // $users->revokePermissionTo('scoring-list');
-        $users->givePermissionTo('scoring-list');
-        $users->givePermissionTo('scoring-create');
-        $users->givePermissionTo('scoring-edit');
-        $users->givePermissionTo('scoring-delete');
-
-
-
-
-
+        // $role = Role::findOrFail($request->id); $role->delete()
+        // $role = Role::findByName('JSPD');
+        // $role->delete();
+        // $perm = Permission::findByName("write post");
+        // $perm->delete();
     }
 }
