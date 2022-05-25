@@ -27,67 +27,30 @@
       <table class="table table-condensed table-striped">
         <thead>
           <tr>
+            <th width="5%">ID</th>
             <th width="*">Name</th>
-            <th width="*">Controller</th>
-            <th width="*">Action</th>
-            <th width="12%"></th>
+   
+            <th width="20%"></th>
           </tr>
         </thead>
 
         <tbody>
         @foreach($roles as $role)
-            @foreach($role->permissions as $key => $permission)
-                @php
-                $temp = explode("-",$permission->name);
-                $controllers[] = $temp[0];
-                $actions[] = $temp[1];
-                @endphp
-            @endforeach
+
           <tr>
             <td>
-                <span class="text-uppercase"><strong>{{ $role->name }}</strong></span>
-            </td>
+              <span class="badge badge-dark">{{ $role->id }}</span>
+          </td>
             <td>
-
-
-                @php
-                    $collection = collect($controllers)->unique();
-                    $collection->each( function($value,$key) use ($collection){
-                        echo ucFirst($value);
-                        if ($key === array_key_last($collection->toArray())) {
-                            echo '';
-                        }else{
-                            echo ',';
-                        }
-                    });
-                    unset($controllers);
-                @endphp
-
-
+                <span class="text-uppercase">{{ $role->name }}</span>
             </td>
-
-            <td>
-
-                [
-                @php
-                    $collection = collect($actions)->unique();
-                    $collection->each( function($value,$key) use ($collection){
-                        echo $value;
-                        if ($key === array_key_last($collection->toArray())) {
-                            echo '';
-                        }else{
-                            echo ',';
-                        }
-                    });
-                @endphp
-                ]
-
-
-            </td>
+  
 
             <td class="float-right">
-                <form action="{{ route('roles.destroy', $role)}}" method="post">
-                @csrf @method('DELETE')
+              <form action="{{ route('roles.destroy', $role->id)}}" method="post">
+                @csrf 
+                @method('delete')
+                <a class="btn btn-success btn-sm" href="{{ route('roles.edit', $role->name) }}"><i class="fas fa-pencil-alt"></i></a>
                 <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
               </form>
             </td>

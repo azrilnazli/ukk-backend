@@ -3,40 +3,24 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/companies/requested', function () {
-//     return view('welcome');
-// });
-
-Auth::routes();
-
+Auth::routes(); // Auth
+Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);
 Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
+Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('users.search');
 
-Route::get('/queue/jobs', [App\Http\Controllers\Home\HomeController::class, 'jobs'])->name('videos.jobs');
-
-//Route::resource('users', UserController::class);
-Route::get('/companies/search', [App\Http\Controllers\Company\CompanyController::class, 'search'])->name('companies.search');
-Route::get('/companies/requested', [App\Http\Controllers\Company\CompanyController::class, 'requested'])->name('companies.requested');
-Route::get('/companies/is_approved', [App\Http\Controllers\Company\CompanyController::class, 'is_approved'])->name('companies.is_approved');
-Route::get('/companies/is_pending', [App\Http\Controllers\Company\CompanyController::class, 'is_pending'])->name('companies.is_pending');
-Route::get('/companies/is_rejected', [App\Http\Controllers\Company\CompanyController::class, 'is_rejected'])->name('companies.is_rejected');
-Route::get('/companies/is_new', [App\Http\Controllers\Company\CompanyController::class, 'is_new'])->name('companies.is_new');
-Route::get('/companies/is_resubmit', [App\Http\Controllers\Company\CompanyController::class, 'is_resubmit'])->name('companies.is_resubmit');
-
+// companies
+use App\Http\Controllers\Company\CompanyController;
+Route::get('/companies/search', [CompanyController::class, 'search'])->name('companies.search');
+Route::get('/companies/requested', [CompanyController::class, 'requested'])->name('companies.requested');
+Route::get('/companies/is_approved', [CompanyController::class, 'is_approved'])->name('companies.is_approved');
+Route::get('/companies/is_pending', [CompanyController::class, 'is_pending'])->name('companies.is_pending');
+Route::get('/companies/is_rejected', [CompanyController::class, 'is_rejected'])->name('companies.is_rejected');
+Route::get('/companies/is_new', [CompanyController::class, 'is_new'])->name('companies.is_new');
+Route::get('/companies/is_resubmit', [CompanyController::class, 'is_resubmit'])->name('companies.is_resubmit');
 
 // tender
 Route::get('/tenders/search', [App\Http\Controllers\Tender\TenderController::class, 'search'])->name('tenders.search');
@@ -44,19 +28,34 @@ Route::get('/tenders/search', [App\Http\Controllers\Tender\TenderController::cla
 // tender submission
 Route::get('/tender_submissions/search', [App\Http\Controllers\Tender\TenderSubmissionController::class, 'search'])->name('tender_submissions.search');
 
-Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('users.search');
+// roles
+use App\Http\Controllers\User\RoleController;
+Route::get('/roles', [RoleController::class, 'index'])->name('roles');
+Route::get('/roles/create', [RoleController::class,'create'])->name('roles.create');
+Route::post('/roles', [RoleController::class,'store'])->name('roles.store');
+Route::get('/roles/{role}/edit', [RoleController::class,'edit'])->name('roles.edit');
+Route::put('/roles/{role}/edit', [RoleController::class,'update'])->name('roles.update');
+Route::delete('/roles/{role}', [RoleController::class, 'delete'])->name('roles.destroy');
 
+// roles controller
+Route::get('/roles/controller/create', [RoleController::class, 'create_controller'])->name('roles.controller.create');
+Route::get('/roles/controller/destroy', [RoleController::class, 'delete_controller'])->name('roles.controller.destroy');
+
+// jobs
+Route::get('/queue/jobs', [App\Http\Controllers\Home\HomeController::class, 'jobs'])->name('videos.jobs');
+Route::prefix('jobs')->group(function () {
+    Route::queueMonitor();
+});
+
+// videos
+use App\Http\Controllers\Video\VideoController;
+Route::post('/videos/store_video', [VideoController::class, 'store_video'])->name('videos.store_video');
+Route::get('/videos/{video}/progress', [VideoController::class, 'progress'])->name('videos.progress');
+Route::get('/videos/{video}/status', [VideoController::class, 'status'])->name('videos.status');
+Route::get('/videos/{video}/delayed_redirect', [VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
 Route::get('/videos/failed', [App\Http\Controllers\Video\VideoController::class, 'failed'])->name('videos.failed');
 Route::get('/videos/encoding_status', [App\Http\Controllers\Video\VideoController::class, 'encoding_status'])->name('videos.encoding_status');
 
-// roles
-Route::get('/roles', [App\Http\Controllers\User\UserController::class, 'roles'])->name('roles');
-Route::get('/roles/create', [App\Http\Controllers\User\UserController::class, 'create_role'])->name('roles.create');
-Route::get('/roles/destroy', [App\Http\Controllers\User\UserController::class, 'delete_role'])->name('roles.destroy');
-
-// roles controller
-Route::get('/roles/controller/create', [App\Http\Controllers\User\UserController::class, 'create_controller'])->name('roles.controller.create');
-Route::get('/roles/controller/destroy', [App\Http\Controllers\User\UserController::class, 'delete_controller'])->name('roles.controller.destroy');
 
 Route::resources([
     'users'   =>  App\Http\Controllers\User\UserController::class,
@@ -67,25 +66,6 @@ Route::resources([
     'tender_submissions'  =>  App\Http\Controllers\Tender\TenderSubmissionController::class,
 ]);
 
-
-
-
-Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);
-
-Route::post('/videos/store_video', [App\Http\Controllers\Video\VideoController::class, 'store_video'])->name('videos.store_video');
-
-
-Route::get('/videos/{video}/progress', [App\Http\Controllers\Video\VideoController::class, 'progress'])->name('videos.progress');
-Route::get('/videos/{video}/status', [App\Http\Controllers\Video\VideoController::class, 'status'])->name('videos.status');
-Route::get('/videos/{video}/delayed_redirect', [App\Http\Controllers\Video\VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
-//  Route::get('/videos/{video}/conversion_progress', [App\Http\Controllers\Video\VideoController::class, 'conversion_progress'])->name('videos.conversion_progress');
-
-// User Profiles
-//Route::get('/profile', [App])
-
-Route::prefix('jobs')->group(function () {
-    Route::queueMonitor();
-});
 
 // route for HLS playlist request
 Route::get('/assets/{video}/{playlist}', function ( $video, $playlist ) {
@@ -116,12 +96,3 @@ Route::get('/assets/{video}/{playlist}', function ( $video, $playlist ) {
 Route::get('/storage/streaming/{video}/m3u8/{key}', function($video,$key){
     return Storage::disk('assets')->download( $video .'/secrets/'. $key);
 })->name('secret.key')->middleware('auth');
-
-
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
-
-
