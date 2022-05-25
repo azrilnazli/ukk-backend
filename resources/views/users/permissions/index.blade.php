@@ -28,33 +28,40 @@
         <thead>
           <tr>
             <th width="5%">ID</th>
-            <th width="*">Name</th>
-   
-            <th width="20%"></th>
+            <th width="50%">Name</th>
+            @foreach($roles as $role)
+              <th class="text-center" width="{{ round((45/count($roles))) }}%"><span class="text-uppercase">{{ $role->name }}</span></th>
+            @endforeach
+ 
+      
           </tr>
         </thead>
 
         <tbody>
-        @foreach($permissions as $permission)
+        @foreach($permissions as $key => $permission)
 
           <tr>
             <td>
-              <span class="badge badge-dark">{{ $permission->id }}</span>
+              <span class="badge badge-dark">{{ $key }}</span>
           </td>
-            <td>
-                <span class="text-uppercase">{{ $permission->name }}</span>
+            <td >
+                <span class="text-uppercase">{{ $permission }}</span>
             </td>
   
+            @foreach($roles as $role)
+              <td class="text-center"><span >
+               @php 
+                  $role_permissions = $role->permissions->pluck('name')->toArray();
+               @endphp
 
-            <td class="float-right">
-              {{-- <form action="{{ route('roles.destroy', $role->id)}}" method="post">
-                @csrf 
-                @method('delete')
-                <a class="btn btn-success btn-sm" href="{{ route('roles.edit', $role->name) }}"><i class="fas fa-pencil-alt"></i></a>
-                <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
-              </form>
-            </td> --}}
-          </tr>
+               @if(in_array($permission, $role_permissions))
+               <i class="fas fa-check"></i>
+               @else 
+               <small><i class="fas fa-circle text-muted"></i></small>
+               @endif
+              </span></td>
+            @endforeach
+
         @endforeach
 
 

@@ -25,8 +25,15 @@ class PermissionController extends Controller
 
     public function index()
     {
-        $permissions = Permission::all();
-        return View('users.permissions.index', compact('permissions'));
+        //$permissions = Permission::with('roles')->get();
+
+        $permissions = Permission::pluck('name', 'id')->toArray();
+        //$roles = Role::pluck('','name', 'id')->toArray();
+        //$roles = Role::with('permissions')->get()->pluck('permissions.name', 'id');
+        $roles = Role::with('permissions')->get();
+        //dd($roles);
+        
+        return View('users.permissions.index', compact('permissions','roles'));
     }
 
     public function delete(Role $role){

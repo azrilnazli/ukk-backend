@@ -104,17 +104,17 @@ class RoleController extends Controller
         });               
                   
         // turn Array to Collection
-        collect($request->input('controllers'))
-        ->each( function($controller, $key) use ($role){
+        // collect($request->input('controllers'))
+        // ->each( function($controller, $key) use ($role){
         
-            if(Permission::where('name',$controller)->count() > 0 ){ // need to do some Permission checking
-                $role->givePermissionTo($controller); // assign existing permission to role
-            } else {
-                Permission::create(['name' => $controller]); // create permission of not exists
-                $role->givePermissionTo($controller); // assign existing permission to role
+        //     if(Permission::where('name',$controller)->count() > 0 ){ // need to do some Permission checking
+        //         $role->givePermissionTo($controller); // assign existing permission to role
+        //     } else {
+        //         Permission::create(['name' => $controller]); // create permission of not exists
+        //         $role->givePermissionTo($controller); // assign existing permission to role
             
-            }
-        });
+        //     }
+        // });
         $role->syncPermissions($request->get('controllers'));
         return redirect('roles')->with('success','Role ' . $role->name . ' successfully updated.'); // redirect on success
     }
