@@ -28,6 +28,7 @@ class UserService {
         // return Tender::where([['title', 'like', "{$query}%"]])
         //                 ->paginate(10)->setPath('tenders');
        $users = User::query()
+                    ->where('id', 'LIKE', '%' . $q . '%')
                     ->where('email', 'LIKE', '%' . $q . '%')
                     ->orWhere('firstname', 'LIKE', '%' . $q . '%')
                     ->orWhere('lastname', 'LIKE', '%' . $q . '%')
