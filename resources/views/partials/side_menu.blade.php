@@ -51,14 +51,14 @@
       </p>
     </a>
   </li>
-  {{-- <li class="nav-item">
+  <li class="nav-item">
     <a href="/permissions" class="nav-link {{ active('permissions') }}">
       <i class="nav-icon fa fa-lock"></i>
       <p>
         Permission
       </p>
     </a>
-  </li> --}}
+  </li>
   {{-- <li class="nav-item">
     <a href="/roles/controller" class="nav-link {{ active('controllers') }}">
       <i class="nav-icon fa fa-wrench"></i>

@@ -17,10 +17,10 @@ class RoleController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('permission:role-list', ['only' => ['index','show','search']]);
-        // $this->middleware('permission:role-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:role-list', ['only' => ['index','show','search']]);
+        $this->middleware('permission:role-create', ['only' => ['create','store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
     public function index()
@@ -112,9 +112,10 @@ class RoleController extends Controller
             } else {
                 Permission::create(['name' => $controller]); // create permission of not exists
                 $role->givePermissionTo($controller); // assign existing permission to role
+            
             }
         });
-
+        $role->syncPermissions($request->get('controllers'));
         return redirect('roles')->with('success','Role ' . $role->name . ' successfully updated.'); // redirect on success
     }
     public function delete(Role $role){
