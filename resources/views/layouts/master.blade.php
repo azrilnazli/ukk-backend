@@ -37,13 +37,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-     
+
       {{-- <li class="nav-item">
         <img style="height:40px" class="img-fluid" src="/images/logo.png" />
       </li> --}}
       <li class="nav-item">
 
-        <a class="nav-link"  
+        <a class="nav-link"
            role="button"
            onclick="event.preventDefault();
            document.getElementById('logout-form').submit();">
@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-  
+
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endif
         </div>
         <div class="info">
-          <a href="/profile" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="/profile" class="d-block">{{ Auth::user()->email }}</a>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.sidebar -->
   </aside>
 
-  
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -103,14 +103,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               {{ $message }}
           </div>
         </div>
-      </div>  
+      </div>
       @endif
 
       @if ($errors->any())
       <div class="row justify-content-center">
         <div class="col-md-10">
-          
-                
+
+
           <div class="pt-3 alert alert-danger">
               <ul >
                   @foreach ($errors->all() as $error)
@@ -118,15 +118,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   @endforeach
               </ul>
           </div>
-    
-        
+
+
         </div>
-      </div>  
+      </div>
       @endif
 
 
     <div class="container-fluid">
-      
+
       <div class="row justify-content-center">
         <div class="col-md-10">
           @yield('breadcrumb')
@@ -135,13 +135,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     </div>
 
-  
+
     <!-- Main content -->
       <div class="row justify-content-center">
         <div class="col-md-10">
           @yield('content')
         </div>
-      </div>   
+      </div>
     <!-- /.content -->
 
   </div><!-- ./header -->

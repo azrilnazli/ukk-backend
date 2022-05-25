@@ -134,4 +134,12 @@ class UserController extends Controller
         $this->user->destroy($user);
         return redirect('users')->with('success','User ' . $user->name . ' successfully removed.');
     }
+
+    function roles(){
+        // list all available roles
+        //$roles = $this->user->getRoles();
+        $roles = Role::with('permissions')->get();
+        //dd($roles);
+        return View('users.roles.index', compact('roles'));
+    }
 }
