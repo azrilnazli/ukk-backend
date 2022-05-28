@@ -10,6 +10,6 @@ return [
     'permission',
     'tender',
     'tender_submission',
-    
-    'company'
+    'company',
+    'scoring',
 ];

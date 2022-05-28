@@ -39,7 +39,6 @@
 
         <tbody>
         @foreach($permissions as $key => $permission)
-
           <tr>
             <td>
               <span class="badge badge-dark">{{ $key }}</span>
