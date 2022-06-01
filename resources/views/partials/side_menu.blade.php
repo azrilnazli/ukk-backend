@@ -80,7 +80,7 @@
   
   @hasanyrole('super-admin|jspd-admin')
   <li class="nav-item has-treeview menu-close">
-    <a href="#" class="nav-link {{ active('users')  }}">
+    <a href="#" class="nav-link {{ active('scorings')  }}">
       <i class="nav-icon fas fa-database"></i>
       <p>
         JSPD
@@ -90,7 +90,7 @@
     <ul class="nav nav-treeview">
 
       <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('users.index') }}">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.dashboard') }}">
           <i class="nav-icon fa fa-dashboard"></i>
           <p>
             Dashboard
@@ -108,7 +108,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('users.index') }}">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.assign') }}">
           <i class="nav-icon fas fa-pencil-alt"></i>
           <p>
             Assign Penanda
@@ -117,7 +117,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('users.index') }}">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.activities') }}">
           <i class="nav-icon fa fa-area-chart"></i>
           <p>
             Activity
