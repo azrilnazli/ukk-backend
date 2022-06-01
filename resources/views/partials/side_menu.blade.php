@@ -34,40 +34,102 @@
       </a>
     </li>
 
+
+
   @hasrole('super-admin')
-  <li class="nav-item">
-      <a href="/users" class="nav-link {{ active('users') }}">
-        <i class="nav-icon far fa-user"></i>
-        <p>
-          User
-        </p>
-      </a>
-  </li>
-  <li class="nav-item">
-    <a href="/roles" class="nav-link {{ active('roles') }}">
-      <i class="nav-icon fa fa-cubes"></i>
+  <li class="nav-item has-treeview menu-close">
+    <a href="#" class="nav-link {{ active('users')  }}">
+      <i class="nav-icon fas fa-user"></i>
       <p>
-        Roles
+        User
+        <i class="right fas fa-angle-left"></i>
       </p>
     </a>
-  </li>
-  <li class="nav-item">
-    <a href="/permissions" class="nav-link {{ active('permissions') }}">
-      <i class="nav-icon fa fa-lock"></i>
-      <p>
-        Permission
-      </p>
-    </a>
-  </li>
-  {{-- <li class="nav-item">
-    <a href="/roles/controller" class="nav-link {{ active('controllers') }}">
-      <i class="nav-icon fa fa-wrench"></i>
-      <p>
-        Controller
-      </p>
-    </a>
-  </li> --}}
+    <ul class="nav nav-treeview">
+
+      <li class="nav-item">
+        <a href="{{ route('users.index') }}" class="nav-link {{ active('users.index') }}">
+          <i class="nav-icon fas fa-users"></i>
+          <p>
+            Users
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="{{ route('roles') }}" class="nav-link {{ active('roles') }}">
+          <i class="nav-icon fas fa-cubes"></i>
+          <p>
+            Roles
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/permissions" class="nav-link {{ active('permissions') }}">
+          <i class="nav-icon fa fa-lock"></i>
+          <p>
+            Permission
+          </p>
+        </a>
+      </li>
+    </ul>
+  </li> <!-- ./treeview -->
   @endhasrole
+
+  
+  @hasanyrole('super-admin|jspd-admin')
+  <li class="nav-item has-treeview menu-close">
+    <a href="#" class="nav-link {{ active('users')  }}">
+      <i class="nav-icon fas fa-database"></i>
+      <p>
+        JSPD
+        <i class="right fas fa-angle-left"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+
+      <li class="nav-item">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('users.index') }}">
+          <i class="nav-icon fa fa-dashboard"></i>
+          <p>
+            Dashboard
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.index') }}">
+          <i class="nav-icon fas fa-archive"></i>
+          <p>
+            Proposals
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('users.index') }}">
+          <i class="nav-icon fas fa-pencil-alt"></i>
+          <p>
+            Assign Penanda
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('users.index') }}">
+          <i class="nav-icon fa fa-area-chart"></i>
+          <p>
+            Activity
+          </p>
+        </a>
+      </li>
+
+
+
+    </ul>
+  </li> <!-- ./treeview -->
+  @endhasanyrole
 
 
   @hasanyrole('super-admin|admin')
