@@ -6,6 +6,7 @@ use App\Models\TenderSubmission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Scoring;
 use App\Services\ScoringService;
 use App\Http\Requests\Scoring\StoreScoringRequest;
 
@@ -33,7 +34,9 @@ class ScoringController extends Controller
 
     public function show(TenderSubmission $tenderSubmission)
     {
-       return view('JSPD.scorings.show')->with(compact('tenderSubmission'));
+
+        $data = Scoring::query()->where('tender_submission_id', $tenderSubmission->id )->first();
+        return view('JSPD.scorings.show')->with(compact('tenderSubmission','data'));
     }
 
     public function search(Request $request){

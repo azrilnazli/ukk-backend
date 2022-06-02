@@ -49,7 +49,7 @@
               type="checkbox" 
               name="pengesahan_comply" 
               value=1 
-              @if(old('pengesahan_comply') == 1) checked @endif
+              @if(old('pengesahan_comply',  optional($data)->pengesahan_comply) == 1) checked @endif
               />
               @error('pengesahan_comply')
               <input  type="hidden" class="form-control @error('pengesahan_comply') is-invalid @enderror"  />

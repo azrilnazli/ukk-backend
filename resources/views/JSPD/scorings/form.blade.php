@@ -7,7 +7,7 @@
                     type="radio" 
                     name="assessment" 
                     value="berwibawa"
-                    @if(old('assessment') == 'berwibawa') checked @endif
+                    @if(old('assessment',  optional($data)->assessment ) == 'berwibawa') checked @endif
                 />
                 <label class="form-check-label">
                 Syarikat Berwibawa
@@ -19,7 +19,7 @@
                     type="radio" 
                     name="assessment" 
                     value="berupaya"
-                    @if(old('assessment') == 'berupaya') checked @endif
+                    @if(old('assessment',  optional($data)->assessment) == 'berupaya') checked @endif
                 />
                 <label class="form-check-label">
                 Syarikat Berupaya
@@ -31,7 +31,7 @@
                     type="radio" 
                     name="assessment" 
                     value="baharu"
-                    @if(old('assessment') == 'baharu') checked @endif
+                    @if(old('assessment',  optional($data)->assessment) == 'baharu') checked @endif
                 />
                 <label class="form-check-label">
                 Syarikat Baharu
@@ -39,7 +39,7 @@
             </div>     
                
             @error('assessment')
-              <input  type="hidden" class="form-control @error('assessment') is-invalid @enderror"  />
+              <input type="hidden" class="form-control @error('assessment') is-invalid @enderror"  />
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -56,7 +56,7 @@
                     type="radio" 
                     name="need_statement_comply" 
                     value="1" 
-                    @if(old('need_statement_comply') == 1) checked @endif
+                    @if(old('need_statement_comply',  optional($data)->need_statement_comply) == 1) checked @endif
                     />
                 <label class="form-check-label">
                   Ya
@@ -68,7 +68,7 @@
                     type="radio" 
                     name="need_statement_comply"  
                     value="0" 
-                    @if(old('need_statement_comply') == 0) checked @endif
+                    @if(old('need_statement_comply',  optional($data)->need_statement_comply) == 0) checked @endif
                     />
                 <label class="form-check-label">
                   Tidak
@@ -94,7 +94,9 @@
             </div>
 
             @php 
-                $scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap','menepati_keperluan_asas']
+                $scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap','menepati_keperluan_asas'];
+                $formData = null;
+                if(!empty($data)) $formData = $data->toArray();
             @endphp
 
             @foreach($scores as $key => $score)
@@ -108,7 +110,7 @@
                             type="radio" 
                             name="{{ $score }}_status"  
                             value="1" 
-                            @if(old( $score . '_status' ) == 1 ) checked @endif
+                            @if(old( $score . '_status', $formData ? $formData[$score . '_status'] : null  ) == 1 ) checked @endif
                             />
                     </div>
                 </div>
@@ -119,15 +121,16 @@
                             type="radio" 
                             name="{{ $score }}_status"  
                             value="0" 
-                            @if(old( $score . '_status' ) == 0) checked @endif
+                            @if(old( $score . '_status', $formData ? $formData[$score . '_status'] : null  ) == 0 ) checked @endif
                             />
                     </div>
                 </div>
                 <div class="col-6">
+                
                         <textarea 
                             class="form-control  @error($score . '_message') is-invalid @enderror" 
                             name="{{ $score }}_message" 
-                            rows="3">{{ old( $score . '_message') }}</textarea>
+                            rows="3">{{ old( $score . '_message', $formData ? $formData[$score . '_message' ] : null) }}</textarea>
                             @error($score . '_message')
                             <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
                             <span class="invalid-feedback" role="alert">
@@ -171,7 +174,7 @@
                                 type="radio" 
                                 name="syor_status" 
                                 value="1" 
-                                @if(old('syor_status') == 1) checked @endif
+                                @if(old('syor_status', optional($data)->syor_status) == 1) checked @endif
                                 />
                             <label class="form-check-label">
                             Disokong
@@ -183,7 +186,7 @@
                             class="form-control  @error('syor_message_true') is-invalid @enderror" 
                             name="syor_message_true" 
                             rows="5"
-                            >{{ old( 'syor_message_true') }}</textarea>
+                            >{{ old( 'syor_message_true',  optional($data)->syor_message_true) }}</textarea>
                         @error('syor_message_true')
                         <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
                         <span class="invalid-feedback" role="alert">
@@ -200,7 +203,7 @@
                                 type="radio" 
                                 name="syor_status" 
                                 value="0" 
-                                @if(old( 'syor_status') == 0) checked @endif
+                                @if(old( 'syor_status',  optional($data)->syor_status) == 0) checked @endif
                                 />
                             <label class="form-check-label">
                             Tidak disokong
@@ -212,7 +215,7 @@
                             class="form-control  @error('syor_message_false') is-invalid @enderror" 
                             name="syor_message_false" 
                             rows="5"
-                        >{{ old( 'syor_message_false') }}</textarea>
+                        >{{ old( 'syor_message_false',  optional($data)->syor_message_false) }}</textarea>
                         @error('syor_message_false')
                         <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
                         <span class="invalid-feedback" role="alert">
