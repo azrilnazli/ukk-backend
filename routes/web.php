@@ -62,7 +62,7 @@ Route::get('/companies/search', [ScoringController::class, 'search'])->name('sco
 Route::get('/scorings/{tenderSubmission}', [ScoringController::class, 'show'])->name('scorings.show');
 Route::get('/scorings/dashboard', [ScoringController::class, 'index'])->name('scorings.dashboard');
 Route::get('/scorings/create', [ScoringController::class,'create'])->name('scorings.create');
-Route::post('/scorings', [ScoringController::class,'store'])->name('scorings.store');
+Route::post('/scorings/{tenderSubmission}', [ScoringController::class,'store'])->name('scorings.store');
 Route::get('/scorings/{role}/edit', [ScoringController::class,'edit'])->name('scorings.edit');
 Route::put('/scorings/{role}/edit', [ScoringController::class,'update'])->name('scorings.update');
 Route::delete('/scorings/{role}', [ScoringController::class, 'delete'])->name('scorings.destroy');

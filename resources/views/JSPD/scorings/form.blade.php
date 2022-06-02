@@ -3,7 +3,7 @@
             <h5>Kategori Syarikat</h5>
             <div class="form-check">
                 <input 
-                    class="form-check-input" 
+                    class="form-check-input @error('assessment') is-invalid @enderror" 
                     type="radio" 
                     name="assessment" 
                     value="berwibawa"
@@ -15,7 +15,7 @@
             </div>
             <div class="form-check">
                 <input 
-                    class="form-check-input" 
+                    class="form-check-input @error('assessment') is-invalid @enderror" 
                     type="radio" 
                     name="assessment" 
                     value="berupaya"
@@ -27,7 +27,7 @@
             </div>
             <div class="form-check">
                 <input 
-                    class="form-check-input" 
+                    class="form-check-input @error('assessment') is-invalid @enderror"
                     type="radio" 
                     name="assessment" 
                     value="baharu"
@@ -36,7 +36,14 @@
                 <label class="form-check-label">
                 Syarikat Baharu
                 </label>
-            </div>        
+            </div>     
+               
+            @error('assessment')
+              <input  type="hidden" class="form-control @error('assessment') is-invalid @enderror"  />
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror 
         </div>
 
         <hr />
@@ -44,17 +51,35 @@
         <div class="form-group">
             <h5>Menepati <i>Need Statement</i> ?</h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="need_statement_comply" value="true" @if(old('need_statement_comply')) checked @endif>
+                <input 
+                    class="form-check-input @error('need_statement_comply') is-invalid @enderror" 
+                    type="radio" 
+                    name="need_statement_comply" 
+                    value="1" 
+                    @if(old('need_statement_comply') == 1) checked @endif
+                    />
                 <label class="form-check-label">
                   Ya
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="need_statement_comply"  value="false" @if(!old('need_statement_comply')) checked @endif>
+                <input 
+                    class="form-check-input @error('need_statement_comply') is-invalid @enderror" 
+                    type="radio" 
+                    name="need_statement_comply"  
+                    value="0" 
+                    @if(old('need_statement_comply') == 0) checked @endif
+                    />
                 <label class="form-check-label">
                   Tidak
                 </label>
             </div>
+            @error('need_statement_comply')
+            <input  type="hidden" class="form-control @error('assessment') is-invalid @enderror"  />
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+            @enderror 
         </div>  
         
         <hr />
@@ -76,53 +101,124 @@
             <div class="row mt-3">
                 <div class="col-1">{{$key+1}}.</div>
                 <div class="col-2 text-uppercase">{{ str_replace('_', ' ' , $score) }}</div>
-                <div class="col-1  text-center">
+                <div class="col-1 text-center">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="{{ $score }}_status"  value="true" @if(old( $score . '_status')) checked @endif>
+                        <input 
+                            class="form-check-input @error($score . '_status') is-invalid @enderror" 
+                            type="radio" 
+                            name="{{ $score }}_status"  
+                            value="1" 
+                            @if(old( $score . '_status' ) == 1 ) checked @endif
+                            />
                     </div>
                 </div>
                 <div class="col-1 text-center">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="{{ $score }}_status"  value="false" @if(!old( $score . '_status')) checked @endif>
+                        <input 
+                            class="form-check-input @error($score . '_status') is-invalid @enderror" 
+                            type="radio" 
+                            name="{{ $score }}_status"  
+                            value="0" 
+                            @if(old( $score . '_status' ) == 0) checked @endif
+                            />
                     </div>
                 </div>
                 <div class="col-6">
-                        <textarea class="form-control" name="{{ $score }}_message" rows="3">{{ old( $score . '_status') }}</textarea>
+                        <textarea 
+                            class="form-control  @error($score . '_message') is-invalid @enderror" 
+                            name="{{ $score }}_message" 
+                            rows="3">{{ old( $score . '_message') }}</textarea>
+                            @error($score . '_message')
+                            <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror 
                 </div>
             </div>
-            @endforeach
-                 
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-2"></div>
+                <div class="col-2">
+                    @error($score . '_status')
+                    <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror 
+                </div>
+                <div class="col-6"></div>
+            </div>
+            @endforeach 
         </div>       
         <hr />
         
         <div class="form-group">
-            <h5>Pengesyoran</h5>
+            <h5>Pengesyoran
+                @error('syor_status')
+                <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror 
+            </h5>
             <div class="row mt-3 mr-3">
                 <div class="col pr-3">
                     <div class="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="syor_status" value="true" @if(old( 'syor_status')) checked @endif>
+                            <input 
+                                class="form-check-input @error('syor_status') is-invalid @enderror" 
+                                type="radio" 
+                                name="syor_status" 
+                                value="1" 
+                                @if(old('syor_status') == 1) checked @endif
+                                />
                             <label class="form-check-label">
                             Disokong
                             </label>
                         </div>
                     </div>
                     <div class="row">
-                        <textarea class="form-control" name="syor_true" rows="5">{{ old( 'syor_true') }}</textarea>
+                        <textarea 
+                            class="form-control  @error('syor_message_true') is-invalid @enderror" 
+                            name="syor_message_true" 
+                            rows="5"
+                            >{{ old( 'syor_message_true') }}</textarea>
+                        @error('syor_message_true')
+                        <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror 
                     </div>
-                    
                 </div>
                 <div class="col">
                     <div class="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="syor_status" value="false" @if(!old( 'syor_status')) checked @endif>
+                            <input 
+                                class="form-check-input  @error('syor_status') is-invalid @enderror" 
+                                type="radio" 
+                                name="syor_status" 
+                                value="0" 
+                                @if(old( 'syor_status') == 0) checked @endif
+                                />
                             <label class="form-check-label">
                             Tidak disokong
                             </label>
                         </div>
                     </div>
                     <div class="row">
-                        <textarea class="form-control" name="syor_false" rows="5">{{ old( 'syor_false') }}</textarea>
+                        <textarea 
+                            class="form-control  @error('syor_message_false') is-invalid @enderror" 
+                            name="syor_message_false" 
+                            rows="5"
+                        >{{ old( 'syor_message_false') }}</textarea>
+                        @error('syor_message_false')
+                        <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror 
                     </div>
                 </div>
             </div>

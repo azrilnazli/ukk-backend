@@ -21,7 +21,7 @@
 
 
 @section('content')
-<form id="store_scorings" method="post" action="{{ route('scorings.store') }}" >
+<form id="store_scorings" method="post" action="{{ route('scorings.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
 @csrf
   <div class="card bg-secondary">
     <div class="card-header">
@@ -44,18 +44,32 @@
       <div class="form-group">
         <h5>Pengesahan</h5>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="pengesahan_comply" value="true">
-            <label class="form-check-label">
-              Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
-                <p class="font-weight-bold mt-3">
-                  {{ auth()->user()->name }}<br />
-                  {{ \Carbon\Carbon::parse( date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
-                </p>
-            </label>
+            <input 
+              class="form-check-input @error('pengesahan_comply') is-invalid @enderror" 
+              type="checkbox" 
+              name="pengesahan_comply" 
+              value=1 
+              @if(old('pengesahan_comply') == 1) checked @endif
+              />
+              @error('pengesahan_comply')
+              <input  type="hidden" class="form-control @error('pengesahan_comply') is-invalid @enderror"  />
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+              @enderror 
+       
+
         </div>
+        <label class="form-check-label ml-3">
+          Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
+            <p class="font-weight-bold mt-3">
+              {{ auth()->user()->name }}<br />
+              {{ \Carbon\Carbon::parse( date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
+            </p>
+        </label>
     </div>  
 
-      <div class="mt-3">
+      <div class="mt-5">
         <button id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.index') }}'">
             Cancel 

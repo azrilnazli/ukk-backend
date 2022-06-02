@@ -6,7 +6,8 @@ use App\Models\TenderSubmission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Services\TenderSubmissionService;
+use App\Services\ScoringService;
+use App\Http\Requests\Scoring\StoreScoringRequest;
 
 class ScoringController extends Controller
 {
@@ -17,7 +18,7 @@ class ScoringController extends Controller
         $this->middleware( 'permission:scoring-edit',     ['only' => ['edit','update']] );
         $this->middleware( 'permission:scoring-delete',   ['only' => ['delete']] );
 
-        $this->tender = new TenderSubmissionService;
+        $this->scoring = new ScoringService;
     }
 
     // scoring-list
@@ -25,7 +26,7 @@ class ScoringController extends Controller
     
     public function index()
     {
-        $proposals = $this->tender->paginate();
+        $proposals = $this->scoring->paginate();
         return view('JSPD.scorings.index')->with(compact('proposals'));
     }
 
@@ -37,15 +38,22 @@ class ScoringController extends Controller
 
     public function search(Request $request){
 
-        $proposals = $this->tender->search($request);
+        $proposals = $this->scoring->search($request);
         return view('JSPD.scorings.index')->with(compact('proposals'));
     }
 
     // scoring-create
     public function create(){}
-    
-    public function store(Request $request){
-        dd($request->input());
+
+    public function store(StoreScoringRequest $request, TenderSubmission $tenderSubmission){
+       
+        $request['user_id'] =  auth()->user()->id;
+        $request['tender_submission_id'] =  $tenderSubmission->id;
+        $request['tender_id'] =  $tenderSubmission->tender_id;
+        $request['company_id'] =  $tenderSubmission->user->company->id;
+     
+        $scoring = $this->scoring->store($request);
+        return redirect('scorings')->with('success','Proposal '. $scoring->id .' successfully validated.');
     }
 
     // scoring-edit
