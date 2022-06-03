@@ -7,7 +7,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="route('scoring.index')">{{ __('Scoring Index') }}</a></li>
+        <li class="breadcrumb-item"><a href="route('signers.index')">{{ __('Proposal Signers') }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Proposal List</li>
     </ol>
 </nav>
@@ -15,7 +15,7 @@
 
 @section('content')
 
-<form method="GET"  action="{{ route('scorings.search') }}">
+<form method="GET"  action="{{ route('signers.search') }}">
   @csrf
   <div class="row mt-5">
     <div class="col-5">
@@ -62,8 +62,8 @@
                     <td>{{ $row->tender->programme_code }}</td>
                    
                     <td class="text-center">
-                      <a class="btn btn-success btn-sm" href="{{ route('scorings.show', $row->id) }}">
-                          <i class="fas fa-pencil-alt"></i>
+                      <a class="btn btn-success btn-sm" href="{{ route('signers.show', $row->id) }}">
+                          <i class="fas fa-user"></i>
                       </a>
 
                     </td>

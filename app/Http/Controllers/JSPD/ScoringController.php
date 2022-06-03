@@ -31,16 +31,13 @@ class ScoringController extends Controller
         return view('JSPD.scorings.index')->with(compact('proposals'));
     }
 
-
     public function show(TenderSubmission $tenderSubmission)
     {
-
         $data = Scoring::query()->where('tender_submission_id', $tenderSubmission->id )->first();
         return view('JSPD.scorings.show')->with(compact('tenderSubmission','data'));
     }
 
     public function search(Request $request){
-
         $proposals = $this->scoring->search($request);
         return view('JSPD.scorings.index')->with(compact('proposals'));
     }

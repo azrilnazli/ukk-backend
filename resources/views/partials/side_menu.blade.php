@@ -102,16 +102,16 @@
         <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.index') }}">
           <i class="nav-icon fas fa-archive"></i>
           <p>
-            Proposals
+            Proposal
           </p>
         </a>
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.assign') }}">
+        <a href="{{ route('signers.index') }}" class="nav-link {{ active('signers.index') }}">
           <i class="nav-icon fas fa-pencil-alt"></i>
           <p>
-            Assign Penanda
+            Signer
           </p>
         </a>
       </li>

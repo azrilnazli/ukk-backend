@@ -94,7 +94,7 @@
                 <td>
             @if(!empty($row->getRoleNames()))
               @foreach($row->getRoleNames() as $v)
-                @switch($v)
+               {{-- @switch($v)
                   @case('super-admin')
                   <span class="badge badge-danger  text-uppercase ">{{ $v }}</span>
                   @break
@@ -107,8 +107,9 @@
                   @case('subscriber')
                   <span class="badge badge-success  text-uppercase">vendor</span>
                   @break
-                @endswitch
-              @endforeach
+                @endswitch --}}
+                <span class="badge badge-dark text-uppercase ">{{ $v }}</span>
+              @endforeach 
             @endif
             </td>
 
