@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use App\Models\Scoring;
+use App\Models\Signer;
 use App\Models\TenderSubmission;
 use Auth;
 
@@ -56,51 +56,33 @@ class SignerService {
 
     }
 
-    // public function store($request){
-    //     return Scoring::create($request->except(['_token','_method']));
-    // }
 
-    public function store($request){
-        
-        $scoring = Scoring::firstOrNew([
-            'user_id' =>  $request['user_id'] ,
-            'tender_submission_id' => $request['tender_submission_id']
-        ]);
+    public function store($request,$type, $tenderSubmission){
+        // delete existing data
+        Signer::query()
+        ->where([
+            'tender_submission_id' =>  $tenderSubmission->id,
+            'type' => $type
+        ])
+        ->delete();
 
-        
-        $scoring->user_id = $request['user_id'];
-        $scoring->tender_submission_id = $request['tender_submission_id'];
-        $scoring->tender_id = $request['tender_id'];
-        $scoring->company_id = $request['company_id'];
+        // store signers
+        $signers = collect($request)
+                    ->each( function($value , $key) use ($tenderSubmission, $type){
 
-        $scoring->assessment = $request['assessment'];
-        $scoring->need_statement_comply = $request['need_statement_comply'];
-
-        $scoring->tajuk_status = $request['tajuk_status'];
-        $scoring->tajuk_message = $request['tajuk_message'];
-
-        $scoring->sinopsis_status = $request['sinopsis_status'];
-        $scoring->sinopsis_message = $request['sinopsis_message'];
-        
-        $scoring->idea_dan_subjek_status = $request['idea_dan_subjek_status'];
-        $scoring->idea_dan_subjek_message = $request['idea_dan_subjek_message'];
-
-        $scoring->lengkap_status = $request['lengkap_status'];
-        $scoring->lengkap_message = $request['lengkap_message'];
-
-        $scoring->menepati_keperluan_asas_status = $request['menepati_keperluan_asas_status'];
-        $scoring->menepati_keperluan_asas_message = $request['menepati_keperluan_asas_message'];
-
-        $scoring->syor_status = $request['syor_status'];
-        $scoring->syor_message_true = $request['syor_message_true'];
-        $scoring->syor_message_false = $request['syor_message_false'];
-
-        $scoring->pengesahan_comply = $request['pengesahan_comply'];
-
-        
-        $scoring->save($request->except(['_token','_method']));
-
-        return $scoring;
+                        // populate new data
+                        $signer = Signer::firstOrNew([
+                            'user_id' =>  $value ,
+                            'type' => $type,
+                            'tender_submission_id' => $tenderSubmission->id
+                        ]);
+                
+                        $signer->user_id = $value;
+                        $signer->type = $type;
+                        $signer->tender_submission_id = $tenderSubmission->id;
+                        $signer->added_by = auth()->user()->id;
+                        $signer->save();
+                    });                 
     }
 
     public function find($id){

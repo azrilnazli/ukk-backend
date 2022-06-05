@@ -3,6 +3,7 @@ namespace App\Http\Controllers\JSPD;
 
 use App\Http\Controllers\Controller;
 use App\Models\TenderSubmission;
+use App\Models\Signer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -34,9 +35,12 @@ class SignerController extends Controller
 
     public function show(TenderSubmission $tenderSubmission)
     {
+
+        $assigned_signers = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','signer')->get()->pluck('user_id')->toArray();
+        $assigned_admins = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','urusetia')->get()->pluck('user_id')->toArray();
         $signers = User::role('JSPD-PENANDA')->get(); // list all users in signers category
         $admins = User::role('JSPD-URUSETIA')->get(); // list all users in signers category
-        return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins'));
+        return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
     }
 
     public function search(Request $request){
@@ -44,23 +48,15 @@ class SignerController extends Controller
         return view('JSPD.signers.index')->with(compact('proposals'));
     }
 
-    // scoring-create
+    /// scoring-create
     public function create(){}
 
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
 
-        //dd($tenderSubmission->id);
-        dd($request->input());
-        $signers = $request->input('signers'); 
-        $admins = $request->input('admins');
+        $this->signer->store($request->input('signers'),'signer',  $tenderSubmission);
+        $this->signer->store($request->input('admins'),'urusetia', $tenderSubmission);
 
-        // $request['user_id'] =  auth()->user()->id;
-        // $request['tender_submission_id'] =  $tenderSubmission->id;
-        // $request['tender_id'] =  $tenderSubmission->tender_id;
-        // $request['company_id'] =  $tenderSubmission->user->company->id;
-     
-        // $scoring = $this->signer->store($request);
-        // return redirect('signers')->with('success','Proposal '. $scoring->id .' successfully validated.');
+        return redirect('signers')->with('success','Proposal '. $tenderSubmission->id .' successfully updated.');
     }
 
     // scoring-edit
