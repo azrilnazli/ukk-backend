@@ -45,10 +45,10 @@
 
                 <th width="*">@sortablelink('tender.tender_category', 'Category')</th>
 
-                <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
+                <th width="*" class="text-center">@sortablelink('tender.programme_code', 'Programme Code')</th>
 
-                <th width="*">Penanda</th>
-                <th width="*">Urusetia</th>
+                <th width="*" class="text-center">Penanda</th>
+                <th width="*" class="text-center">Urusetia</th>
                 {{-- <th width="*">Added by</th> --}}
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
@@ -60,9 +60,9 @@
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
-                    <td>{{ $row->tender->programme_code }}</td>
-                    <td>{{ $row->signers->count() }}</td>
-                    <td>{{ $row->urusetia->count() }}</td>
+                    <td class="text-center">{{ $row->tender->programme_code }}</td>
+                    <td class="text-center">{{ $row->signers->count() }}</td>
+                    <td class="text-center">{{ $row->urusetia->count() }}</td>
                     <td class="text-center">
                       <a class="btn btn-success btn-sm" href="{{ route('signers.show', $row->id) }}">
                           <i class="fas fa-user"></i>
