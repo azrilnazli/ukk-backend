@@ -71,7 +71,7 @@ Route::delete('/scorings/{role}', [ScoringController::class, 'delete'])->name('s
 // JSPD - signers
 use App\Http\Controllers\JSPD\SignerController;
 Route::get('/signers', [SignerController::class, 'index'])->name('signers.index');
-Route::get('/scorings/search', [SignerController::class, 'search'])->name('signers.search');
+Route::get('/signers/search', [SignerController::class, 'search'])->name('signers.search');
 Route::get('/signers/{tenderSubmission}', [SignerController::class, 'show'])->name('signers.show');
 Route::get('/signers/dashboard', [SignerController::class, 'index'])->name('signers.dashboard');
 Route::get('/signers/create', [SignerController::class,'create'])->name('signers.create');

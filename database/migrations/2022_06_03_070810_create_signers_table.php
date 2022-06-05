@@ -28,6 +28,8 @@ class CreateSignersTable extends Migration
             $table->string('type')->string()->nullable(); // penanda / urusetia
             $table->integer('added_by')->nullable();
             $table->timestamps();
+
+            
         });
     }
 

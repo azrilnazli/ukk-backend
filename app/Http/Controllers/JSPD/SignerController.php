@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use App\Models\Scoring;
 use App\Models\User;
 use App\Services\SignerService;
-use App\Http\Requests\Scoring\StoreScoringRequest;
+use App\Http\Requests\Signer\StoreRequest;
 
 class SignerController extends Controller
 {
@@ -47,15 +47,20 @@ class SignerController extends Controller
     // scoring-create
     public function create(){}
 
-    public function store(StoreScoringRequest $request, TenderSubmission $tenderSubmission){
-       
-        $request['user_id'] =  auth()->user()->id;
-        $request['tender_submission_id'] =  $tenderSubmission->id;
-        $request['tender_id'] =  $tenderSubmission->tender_id;
-        $request['company_id'] =  $tenderSubmission->user->company->id;
+    public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
+
+        //dd($tenderSubmission->id);
+        dd($request->input());
+        $signers = $request->input('signers'); 
+        $admins = $request->input('admins');
+
+        // $request['user_id'] =  auth()->user()->id;
+        // $request['tender_submission_id'] =  $tenderSubmission->id;
+        // $request['tender_id'] =  $tenderSubmission->tender_id;
+        // $request['company_id'] =  $tenderSubmission->user->company->id;
      
-        $scoring = $this->signer->store($request);
-        return redirect('signers')->with('success','Proposal '. $scoring->id .' successfully validated.');
+        // $scoring = $this->signer->store($request);
+        // return redirect('signers')->with('success','Proposal '. $scoring->id .' successfully validated.');
     }
 
     // scoring-edit
