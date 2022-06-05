@@ -17,4 +17,6 @@ class Signer extends Model
     {
         return $this->belongsTo(Scoring::class);
     }
+
+
 }
