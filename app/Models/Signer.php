@@ -18,5 +18,13 @@ class Signer extends Model
         return $this->belongsTo(Scoring::class);
     }
 
+    /**
+     * Signer belongsTo TenderSubmission
+     */
+    public function proposal()
+    {
+        return $this->belongsTo(TenderSubmission::class);
+    }
+
 
 }

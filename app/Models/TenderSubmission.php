@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Auth;
 
 class TenderSubmission extends Model
 {
@@ -31,10 +32,6 @@ class TenderSubmission extends Model
         return $this->belongsTo(User::class);
     }
 
-    
-    /**
-     * TenderSubmission hasOne Video
-     */
     public function video()
     {
         return $this->hasOne(Video::class);
@@ -46,5 +43,9 @@ class TenderSubmission extends Model
 
     public function urusetia(){
         return $this->hasMany(Signer::class)->where('type','=', 'urusetia');
+    }
+
+    public function score(){
+        return $this->hasOne(Scoring::class)->where('user_id', Auth::user()->id);
     }
 }

@@ -16,6 +16,7 @@ class ScoringService {
 
     public function paginate($item = 50)
     {
+        
         return TenderSubmission::query()
             ->sortable()
             ->whereHas('user.company', fn($query) =>
@@ -24,6 +25,17 @@ class ScoringService {
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('tender_submissions.index'));
+    }
+
+    public function tasks($item = 50){
+        return TenderSubmission::query()
+        ->sortable()
+        ->whereHas('signers', fn($query) =>
+            $query->where('user_id', auth()->user()->id )
+            )
+        ->orderBy('id','desc')
+        ->paginate($item)
+        ->setPath(route('scorings.tasks'));
     }
 
     public function search($request)
@@ -92,8 +104,14 @@ class ScoringService {
         $scoring->menepati_keperluan_asas_message = $request['menepati_keperluan_asas_message'];
 
         $scoring->syor_status = $request['syor_status'];
-        $scoring->syor_message_true = $request['syor_message_true'];
-        $scoring->syor_message_false = $request['syor_message_false'];
+
+        if( $request['syor_status'] == 1 ){
+            $scoring->syor_message_true = $request['syor_message_true'];
+            $scoring->syor_message_false = null;
+        } else {
+            $scoring->syor_message_true = null;
+            $scoring->syor_message_false = $request['syor_message_false'];
+        }
 
         $scoring->pengesahan_comply = $request['pengesahan_comply'];
 

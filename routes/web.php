@@ -58,27 +58,28 @@ Route::prefix('jobs')->group(function () {
 // JSPD - scorings
 use App\Http\Controllers\JSPD\ScoringController;
 Route::get('/scorings', [ScoringController::class, 'index'])->name('scorings.index');
+Route::get('/scorings/tasks', [ScoringController::class, 'tasks'])->name('scorings.tasks');
 Route::get('/scorings/search', [ScoringController::class, 'search'])->name('scorings.search');
-Route::get('/scorings/{tenderSubmission}', [ScoringController::class, 'show'])->name('scorings.show');
-Route::get('/scorings/dashboard', [ScoringController::class, 'index'])->name('scorings.dashboard');
+Route::get('/scorings/dashboard', [ScoringController::class, 'dashboard'])->name('scorings.dashboard');
 Route::get('/scorings/create', [ScoringController::class,'create'])->name('scorings.create');
-Route::post('/scorings/{tenderSubmission}', [ScoringController::class,'store'])->name('scorings.store');
 Route::get('/scorings/{role}/edit', [ScoringController::class,'edit'])->name('scorings.edit');
 Route::put('/scorings/{role}/edit', [ScoringController::class,'update'])->name('scorings.update');
 Route::delete('/scorings/{role}', [ScoringController::class, 'delete'])->name('scorings.destroy');
+Route::post('/scorings/{tenderSubmission}', [ScoringController::class,'store'])->name('scorings.store');
+Route::get('/scorings/{tenderSubmission}', [ScoringController::class, 'show'])->name('scorings.show');
 
 
 // JSPD - signers
 use App\Http\Controllers\JSPD\SignerController;
 Route::get('/signers', [SignerController::class, 'index'])->name('signers.index');
 Route::get('/signers/search', [SignerController::class, 'search'])->name('signers.search');
-Route::get('/signers/{tenderSubmission}', [SignerController::class, 'show'])->name('signers.show');
-Route::get('/signers/dashboard', [SignerController::class, 'index'])->name('signers.dashboard');
+Route::get('/signers/dashboard', [SignerController::class, 'dashboard'])->name('signers.dashboard');
 Route::get('/signers/create', [SignerController::class,'create'])->name('signers.create');
-Route::post('/signers/{tenderSubmission}', [SignerController::class,'store'])->name('signers.store');
 Route::get('/signers/{role}/edit', [SignerController::class,'edit'])->name('signers.edit');
 Route::put('/signers/{role}/edit', [SignerController::class,'update'])->name('signers.update');
 Route::delete('/signers/{role}', [SignerController::class, 'delete'])->name('signers.destroy');
+Route::get('/signers/{tenderSubmission}', [SignerController::class, 'show'])->name('signers.show');
+Route::post('/signers/{tenderSubmission}', [SignerController::class,'store'])->name('signers.store');
 
 // videos
 use App\Http\Controllers\Video\VideoController;

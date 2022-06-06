@@ -14,7 +14,7 @@ class ScoringController extends Controller
 {
     function __construct()
     {
-        $this->middleware( 'permission:scoring-list',     ['only' => ['dashboard','index','show','search']] );
+        $this->middleware( 'permission:scoring-list',     ['only' => ['dashboard','index','show','search','tasks']] );
         $this->middleware( 'permission:scoring-create',   ['only' => ['create','store']] );
         $this->middleware( 'permission:scoring-edit',     ['only' => ['edit','update']] );
         $this->middleware( 'permission:scoring-delete',   ['only' => ['delete']] );
@@ -23,12 +23,20 @@ class ScoringController extends Controller
     }
 
     // scoring-list
-    public function dashboard(){}
+    public function dashboard(){
+        return view('JSPD.scorings.dashboard');
+    }
     
     public function index()
     {
         $proposals = $this->scoring->paginate();
         return view('JSPD.scorings.index')->with(compact('proposals'));
+    }
+
+    public function tasks(){
+        // list proposal assigned to JSPD-PENANDA
+        $proposals = $this->scoring->tasks();
+        return view('JSPD.scorings.tasks')->with(compact('proposals'));
     }
 
     public function show(TenderSubmission $tenderSubmission)
@@ -47,13 +55,14 @@ class ScoringController extends Controller
 
     public function store(StoreScoringRequest $request, TenderSubmission $tenderSubmission){
        
+ 
         $request['user_id'] =  auth()->user()->id;
         $request['tender_submission_id'] =  $tenderSubmission->id;
         $request['tender_id'] =  $tenderSubmission->tender_id;
         $request['company_id'] =  $tenderSubmission->user->company->id;
      
         $scoring = $this->scoring->store($request);
-        return redirect('scorings')->with('success','Proposal '. $scoring->id .' successfully validated.');
+        return redirect(route('scorings.tasks'))->with('success','Proposal '. $scoring->id .' successfully validated.');
     }
 
     // scoring-edit

@@ -25,14 +25,36 @@
 
     <li class="nav-header"></li>
 
-    <li class="nav-item">
-      <a href="/home" class="nav-link {{ active('home') }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>
-          Home
-        </p>
-      </a>
-    </li>
+  @hasanyrole('super-admin|admin')
+  <li class="nav-item">
+    <a href="/home" class="nav-link {{ active('home') }}">
+      <i class="nav-icon fas fa-home"></i>
+      <p>
+        Home
+      </p>
+    </a>
+  </li>
+  @endhasanyrole
+
+  @hasrole('JSPD-PENANDA')
+  <li class="nav-item">
+    <a href="{{ route('scorings.dashboard') }}" class="nav-link {{ active('scorings.dashboard') }}">
+      <i class="nav-icon fas fa-home"></i>
+      <p>
+        Home
+      </p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="{{ route('scorings.tasks') }}" class="nav-link {{ active('scorings.tasks') }}">
+      <i class="nav-icon fas fa-list"></i>
+      <p>
+        Proposal
+      </p>
+    </a>
+  </li>
+  @endhasrole
 
 
 

@@ -12,5 +12,6 @@ return [
     'tender_submission',
     'company',
     'scoring',
-    'signer'
+    'signer',
+    
 ];
