@@ -20,7 +20,8 @@ class SignerService {
             ->sortable()
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
-                )
+            )
+            ->doesntHave('signers')
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('tender_submissions.index'));
