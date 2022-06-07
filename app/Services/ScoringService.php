@@ -27,10 +27,10 @@ class ScoringService {
             ->setPath(route('tender_submissions.index'));
     }
 
-    public function tasks($item = 50){
+    public function tasks($type,$item = 50){
         return TenderSubmission::query()
         ->sortable()
-        ->whereHas('signers', fn($query) =>
+        ->whereHas($type, fn($query) =>
             $query->where('user_id', auth()->user()->id )
             )
         ->orderBy('id','desc')

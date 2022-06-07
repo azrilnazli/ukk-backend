@@ -19,8 +19,8 @@ class StoreRequest extends FormRequest
     {
         return [
            // signers
-           'signers' => ['required_without_all','array','max:3'],
-           'admins' => ['required_without_all','array','max:2'],
+           'signers' => ['required_without_all','array','max:3','min:3'],
+           'admins' => ['required_without_all','array','max:2','min:1'],
         ];
     }
 }

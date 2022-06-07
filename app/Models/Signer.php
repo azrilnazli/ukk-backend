@@ -26,5 +26,10 @@ class Signer extends Model
         return $this->belongsTo(TenderSubmission::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
 }

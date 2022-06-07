@@ -4,16 +4,19 @@
         <h5>Assign Signer</h5>
         <div class="form-check">
     
-        @foreach($signers as $signer)
+         
+        @foreach($signers as $key => $signer)
+            
             <input 
                 value="{{ $signer->id }}" 
                 name="signers[]" 
                 class="form-check-input  @error('signers') is-invalid @enderror" 
                 type="checkbox" 
-                value="{{ $signer->id }}" 
-                @if(old('signers', in_array(optional($signer)->id, $assigned_signers))) checked @endif
+                value="{{ $signer->id }}"       
+                @if(in_array(optional($signer)->id, old('signers') ? old('signers') : array() )) checked  @endif    
+                @if(in_array(optional($signer)->id, $assigned_signers)) checked @endif
                
-                />
+            />
                                                 
             <label class="form-check-label text-muted">
                 <strong>{{ $signer->name }}</strong> ( {{ $signer->email }}  )
@@ -39,7 +42,9 @@
                 class="form-check-input  @error('admins') is-invalid @enderror" 
                 type="checkbox" 
                 value="{{ $admin->id }}" 
-                @if(old('admins', in_array(optional($admin)->id, $assigned_admins))) checked @endif
+                @if(auth()->user()->id == $admin->id) checked disabled @endif
+                @if(in_array(optional($admin)->id, old('admins') ? old('admins') : array() )) checked  @endif 
+                @if(in_array(optional($admin)->id, $assigned_admins)) checked @endif
             />
                                                   
             <label class="form-check-label text-muted">

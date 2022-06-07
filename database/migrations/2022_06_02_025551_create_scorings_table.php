@@ -52,6 +52,7 @@ class CreateScoringsTable extends Migration
             $table->text('syor_message_false')->nullable();
 
             $table->boolean('pengesahan_comply')->default(0);
+            $table->boolean('is_verified_by_urusetia')->default(0);
             
             $table->timestamps();
         });

@@ -67,6 +67,8 @@ Route::put('/scorings/{role}/edit', [ScoringController::class,'update'])->name('
 Route::delete('/scorings/{role}', [ScoringController::class, 'delete'])->name('scorings.destroy');
 Route::post('/scorings/{tenderSubmission}', [ScoringController::class,'store'])->name('scorings.store');
 Route::get('/scorings/{tenderSubmission}', [ScoringController::class, 'show'])->name('scorings.show');
+Route::get('/scorings/{tenderSubmission}/verify', [ScoringController::class, 'show_verify'])->name('scorings.show_verify');
+Route::post('/scorings/{tenderSubmission}/verify', [ScoringController::class,'store_verify'])->name('scorings.store_verify');
 
 
 // JSPD - signers

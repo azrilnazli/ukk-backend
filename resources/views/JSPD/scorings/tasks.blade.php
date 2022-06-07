@@ -47,8 +47,13 @@
 
                 <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
 
-
-                <th width="*">Status</th>
+                @hasrole('JSPD-PENANDA')
+                <th width="*" class="text-center">Status</th>
+                @endhasrole 
+                @hasrole('JSPD-URUSETIA')
+                <th width="*" class="text-center">Penanda</th>
+                <th width="*" class="text-center">Verify</th>
+                @endhasrole
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
 
@@ -60,12 +65,27 @@
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
                     <td>{{ $row->tender->programme_code }}</td>
-                    <td>{!! optional($row->score)->count() ? '<i class="fas fa-check"></i>' : '<i class="fas fa-hourglass"></i>' !!} </td>
-                   
+                    @hasrole('JSPD-PENANDA')
+                    <td class="text-center">{!! optional($row->score)->count() ? '<i class="fas fa-check"></i>' : '<i class="fas fa-hourglass"></i>' !!} </td>
+                    @endhasrole
+                    @hasrole('JSPD-URUSETIA')
+                    <td class="text-center">{{ $row->signer->user->name }} </td>
+                    <td class="text-center">test</td>
+                    @endhasrole
                     <td class="text-center">
+
+                      @hasrole('JSPD-PENANDA')
                       <a class="btn btn-success btn-sm" href="{{ route('scorings.show', $row->id) }}">
                           <i class="fas fa-pencil-alt"></i>
                       </a>
+                      @endhasrole
+
+                      @hasrole('JSPD-URUSETIA')
+                      <a class="btn btn-success btn-sm" href="{{ route('scorings.show_verify', $row->id) }}">
+                          <i class="fas fa-pencil-alt"></i>
+                      </a>
+                      @endhasrole
+
 
                     </td>
                 </tr>

@@ -82,7 +82,22 @@ class SignerService {
                         $signer->tender_submission_id = $tenderSubmission->id;
                         $signer->added_by = auth()->user()->id;
                         $signer->save();
-                    });                 
+                    });      
+                    
+        // urusetia add himself
+        $signer = Signer::firstOrNew([
+            'user_id' =>  auth()->user()->id ,
+            'type' => $type,
+            'tender_submission_id' => $tenderSubmission->id
+        ]);
+
+        if($type == 'urusetia'){
+            $signer->user_id = auth()->user()->id;
+            $signer->type = 'urusetia';
+            $signer->tender_submission_id = $tenderSubmission->id;
+            $signer->added_by = auth()->user()->id;
+            $signer->save();
+        }    
     }
 
     public function find($id){
