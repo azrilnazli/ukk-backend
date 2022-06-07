@@ -4,6 +4,7 @@
             <div class="form-check">
                 <input 
                     class="form-check-input @error('assessment') is-invalid @enderror" 
+                    @if(!empty($data)) disabled @endif 
                     type="radio" 
                     name="assessment" 
                     value="berwibawa"
@@ -16,6 +17,7 @@
             <div class="form-check">
                 <input 
                     class="form-check-input @error('assessment') is-invalid @enderror" 
+                    @if(!empty($data)) disabled @endif 
                     type="radio" 
                     name="assessment" 
                     value="berupaya"
@@ -28,6 +30,7 @@
             <div class="form-check">
                 <input 
                     class="form-check-input @error('assessment') is-invalid @enderror"
+                    @if(!empty($data)) disabled @endif 
                     type="radio" 
                     name="assessment" 
                     value="baharu"
@@ -53,6 +56,7 @@
             <div class="form-check">
                 <input 
                     class="form-check-input @error('need_statement_comply') is-invalid @enderror" 
+                    @if(!empty($data)) disabled @endif 
                     type="radio" 
                     name="need_statement_comply" 
                     value="1" 
@@ -65,6 +69,7 @@
             <div class="form-check">
                 <input 
                     class="form-check-input @error('need_statement_comply') is-invalid @enderror" 
+                    @if(!empty($data)) disabled @endif 
                     type="radio" 
                     name="need_statement_comply"  
                     value="0" 
@@ -107,6 +112,7 @@
                     <div class="form-check">
                         <input 
                             class="form-check-input @error($score . '_status') is-invalid @enderror" 
+                            @if(!empty($data)) disabled @endif 
                             type="radio" 
                             name="{{ $score }}_status"  
                             value="1" 
@@ -118,6 +124,7 @@
                     <div class="form-check">
                         <input 
                             class="form-check-input @error($score . '_status') is-invalid @enderror" 
+                            @if(!empty($data)) disabled @endif 
                             type="radio" 
                             name="{{ $score }}_status"  
                             value="0" 
@@ -129,6 +136,7 @@
                 
                         <textarea 
                             class="form-control  @error($score . '_message') is-invalid @enderror" 
+                            @if(!empty($data)) disabled @endif 
                             name="{{ $score }}_message" 
                             rows="3">{{ old( $score . '_message', $formData ? $formData[$score . '_message' ] : null) }}</textarea>
                             @error($score . '_message')
@@ -171,6 +179,7 @@
                         <div class="form-check">
                             <input 
                                 class="form-check-input @error('syor_status') is-invalid @enderror" 
+                                @if(!empty($data)) disabled @endif 
                                 type="radio" 
                                 name="syor_status" 
                                 value="1" 
@@ -184,6 +193,7 @@
                     <div class="row">
                         <textarea 
                             class="form-control  @error('syor_message_true') is-invalid @enderror" 
+                            @if(!empty($data)) disabled @endif 
                             name="syor_message_true" 
                             rows="5"
                             >{{ old( 'syor_message_true',  optional($data)->syor_message_true) }}</textarea>
@@ -200,6 +210,7 @@
                         <div class="form-check">
                             <input 
                                 class="form-check-input  @error('syor_status') is-invalid @enderror" 
+                                @if(!empty($data)) disabled @endif 
                                 type="radio" 
                                 name="syor_status" 
                                 value="0" 
@@ -213,6 +224,7 @@
                     <div class="row">
                         <textarea 
                             class="form-control  @error('syor_message_false') is-invalid @enderror" 
+                            @if(!empty($data)) disabled @endif 
                             name="syor_message_false" 
                             rows="5"
                         >{{ old( 'syor_message_false',  optional($data)->syor_message_false) }}</textarea>

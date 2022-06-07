@@ -12,7 +12,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('scorings.index') }}">{{ __('View Proposals') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('scorings.tasks') }}">{{ __('View Proposals') }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Proposal Scoring</li>
     </ol>
 </nav>
@@ -48,6 +48,7 @@
         <div class="form-check">
             <input 
               class="form-check-input @error('pengesahan_comply') is-invalid @enderror" 
+              @if(!empty($data)) disabled @endif 
               type="checkbox" 
               name="pengesahan_comply" 
               value=1 
@@ -66,14 +67,15 @@
           Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
             <p class="font-weight-bold mt-3">
               {{ auth()->user()->name }}<br />
-              {{ \Carbon\Carbon::parse( date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
+              {{ \Carbon\Carbon::parse( optional($data)->created_at ? optional($data)->created_at : date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
             </p>
         </label>
     </div>  
 
       <div class="mt-5">
-        <button id="submit" class="btn btn-primary" >Submit</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.index') }}'">
+        
+        <button @if(!empty($data)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.tasks') }}'">
             Cancel 
         </button>
         <script>

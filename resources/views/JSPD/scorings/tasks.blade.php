@@ -75,9 +75,15 @@
                     <td class="text-center">
 
                       @hasrole('JSPD-PENANDA')
-                      <a class="btn btn-success btn-sm" href="{{ route('scorings.show', $row->id) }}">
-                          <i class="fas fa-pencil-alt"></i>
-                      </a>
+                        @if( optional($row->score)->count() == 0 )
+                        <a class="btn btn-success btn-sm" href="{{ route('scorings.show', $row->id) }}">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        @else
+                        <a class="btn btn-info btn-sm" href="{{ route('scorings.show', $row->id) }}">
+                          <i class="fas fa-search"></i>
+                        </a>
+                        @endif
                       @endhasrole
 
                       @hasrole('JSPD-URUSETIA')
