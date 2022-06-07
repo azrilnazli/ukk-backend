@@ -53,13 +53,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * User hasMany Video
-     */
-    // public function videos()
-    // {
-    //     return $this->hasMany(Video::class);
-    // }
 
     /**
      * User hasOne Video
@@ -68,8 +61,6 @@ class User extends Authenticatable
     {
         return $this->hasOne(Video::class);
     }
-
-
 
     /**
      * User hasMany Comment

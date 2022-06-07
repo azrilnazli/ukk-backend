@@ -16,7 +16,7 @@ class SignerController extends Controller
 {
     function __construct()
     {
-        $this->middleware( 'permission:signer-list',     ['only' => ['dashboard','index','show','search']] );
+        $this->middleware( 'permission:signer-list',     ['only' => ['dashboard','index','show','search','tasks']] );
         $this->middleware( 'permission:signer-create',   ['only' => ['create','store']] );
         $this->middleware( 'permission:signer-edit',     ['only' => ['edit','update']] );
         $this->middleware( 'permission:signer-delete',   ['only' => ['delete']] );
@@ -32,6 +32,21 @@ class SignerController extends Controller
         $proposals = $this->signer->paginate();
         return view('JSPD.signers.index')->with(compact('proposals'));
     }
+
+    public function tasks()
+    {
+        $proposals = Signer::query()
+                        ->select('tender_submission_id')
+                        ->groupBy('tender_submission_id')
+                        ->with('tender_submission.user','tender_submission.tender','user')
+                        //->where('added_by',auth()->user()->id)
+                        
+                        ->paginate(50)
+                        ->setPath(route('signers.tasks'));
+
+        return view('JSPD.signers.tasks')->with(compact('proposals'));
+    }
+
 
     public function show(TenderSubmission $tenderSubmission)
     {

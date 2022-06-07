@@ -74,6 +74,7 @@ Route::post('/scorings/{tenderSubmission}/verify', [ScoringController::class,'st
 // JSPD - signers
 use App\Http\Controllers\JSPD\SignerController;
 Route::get('/signers', [SignerController::class, 'index'])->name('signers.index');
+Route::get('/signers/tasks', [SignerController::class, 'tasks'])->name('signers.tasks');
 Route::get('/signers/search', [SignerController::class, 'search'])->name('signers.search');
 Route::get('/signers/dashboard', [SignerController::class, 'dashboard'])->name('signers.dashboard');
 Route::get('/signers/create', [SignerController::class,'create'])->name('signers.create');
