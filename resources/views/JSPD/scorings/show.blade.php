@@ -66,7 +66,8 @@
         <label class="form-check-label ml-3">
           Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
             <p class="font-weight-bold mt-3">
-              {{ auth()->user()->name }}<br />
+              {{ auth()->user()->name }}  ({{ auth()->user()->email }})<br />
+              {{ auth()->user()->occupation }}<br />
               {{ \Carbon\Carbon::parse( optional($data)->created_at ? optional($data)->created_at : date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
             </p>
         </label>
