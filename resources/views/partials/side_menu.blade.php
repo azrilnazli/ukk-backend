@@ -50,7 +50,16 @@
     <a href="{{ route('signers.index') }}" class="nav-link {{ active('signers.index') }}">
       <i class="nav-icon fas fa-pencil-alt"></i>
       <p>
-        Signer
+        Assign
+      </p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Tasks
       </p>
     </a>
   </li>

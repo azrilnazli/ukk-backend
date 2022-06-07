@@ -31,10 +31,7 @@ class TenderSubmission extends Model
 
     public function signers(){
         return $this->hasMany(Signer::class)->where('type','=', 'signer');
-    }
-
-    public function signer(){
-        return $this->hasOne(Signer::class);
+        //return $this->hasMany(Signer::class);
     }
 
     public function urusetia(){
