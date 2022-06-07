@@ -74,16 +74,27 @@
 
       <div class="mt-5">
         
-        <button @if(!empty($data)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+        <button type="button" @if(!empty($data)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.tasks') }}'">
             Cancel 
         </button>
+        @include('JSPD.scorings.modal_submit')
         <script>
           $( document ).ready(function() {
                 $( "#submit" ).click(function() {
-                //alert( "Handler for .click() called." );
-                $("#store_scorings").submit();
-              });
+                    //alert( "Handler for .click() called." );
+                    $('#modal_submit').modal('show');
+                    e.preventDefault();
+                    //$("#store_scorings").submit();
+                });
+
+                $( "#agree" ).click(function() {
+                  $("#store_scorings").submit();
+                  $('#modal_submit').modal('hide');
+                  //alert( "Handler for .click() called." );
+                });
+
+
           });
           </script>
       </div>
