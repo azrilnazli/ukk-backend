@@ -38,10 +38,10 @@
       </div>
  
    
-    <div class="card-body bg-light">@include('JSPD.signers.form')</div>
+    <div class="card-body bg-light">@include('JSPD.signers.form_disabled')</div>
     <div class="card-footer bg-light">
   
-        <button id="submit" class="btn btn-primary" >Submit</button>
+        <button disabled id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('signers.tasks') }}'">
             Cancel 
         </button>
