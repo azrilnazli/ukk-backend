@@ -47,12 +47,17 @@ class ScoringController extends Controller
         return view('JSPD.scorings.tasks')->with(compact('proposals'));
     }
 
+    // used by JSPD-PENANDA to show their task
     public function show(TenderSubmission $tenderSubmission)
     {
-        $data = Scoring::query()->where('tender_submission_id', $tenderSubmission->id )->first();
+        $data = Scoring::query()
+                ->where('tender_submission_id', $tenderSubmission->id ) // proposal id
+                ->where('user_id', auth()->user()->id ) // penanda id
+                ->first();
         return view('JSPD.scorings.show')->with(compact('tenderSubmission','data'));
     }
 
+    // used by JSPD-URUSETIA to show their task
     public function show_verify(TenderSubmission $tenderSubmission)
     {
         $data = Scoring::query()

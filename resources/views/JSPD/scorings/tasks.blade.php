@@ -51,8 +51,9 @@
                 <th width="*" class="text-center">Status</th>
                 @endhasrole 
                 @hasrole('JSPD-URUSETIA')
-                <th width="*" class="text-center">Penanda</th>
-                <th width="*" class="text-center">Verify</th>
+                <th width="*" class="text-center">Owner</th>
+                <th width="*" class="text-center">Assigned</th>
+                <th width="*" class="text-center">Signed</th>
                 @endhasrole
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
@@ -68,10 +69,19 @@
                     @hasrole('JSPD-PENANDA')
                     <td class="text-center">{!! optional($row->score)->count() ? '<i class="fas fa-check"></i>' : '<i class="fas fa-hourglass"></i>' !!} </td>
                     @endhasrole
+
                     @hasrole('JSPD-URUSETIA')
-                    <td class="text-center">{{ $row->signer->user->name }} </td>
-                    <td class="text-center">test</td>
+                    <td class="text-center">
+                      {{ $row->owner->name}}
+                    </td>
+                    <td class="text-center">
+                      {{ $row->signers->count() }}
+                    </td>
+                    <td class="text-center">
+                      {{$row->scorings->count() }}
+                    </td>
                     @endhasrole
+                    
                     <td class="text-center">
 
                       @hasrole('JSPD-PENANDA')
