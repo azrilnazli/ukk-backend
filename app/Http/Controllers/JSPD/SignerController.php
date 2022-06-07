@@ -54,12 +54,15 @@ class SignerController extends Controller
         $signers = User::role('JSPD-PENANDA')->get(); // list all users in signers category
         $admins = User::role('JSPD-URUSETIA')->get(); // list all users in signers category
         
-        // only owner of the signers can edit
-
-        if($tenderSubmission->added_by == auth()->user()->id ){
+        if($tenderSubmission->added_by == 0){ // 0 means not being assigned yet
             return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
         } else {
-            return view('JSPD.signers.disabled')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
+            // only owner of the signers can edit
+            if($tenderSubmission->added_by == auth()->user()->id ){
+                return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
+            } else {
+                return view('JSPD.signers.disabled')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
+            }
         }
     }
 
