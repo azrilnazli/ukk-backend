@@ -7,6 +7,7 @@
             
             <input 
                 value="{{ $signer->id }}" 
+                disabled
                 name="signers[]" 
                 class="form-check-input  @error('signers') is-invalid @enderror" 
                 type="checkbox" 
@@ -36,6 +37,7 @@
 
             <input 
                 value="{{ $admin->id }}" 
+                disabled
                 name="admins[]" 
                 class="form-check-input  @error('admins') is-invalid @enderror" 
                 type="checkbox" 

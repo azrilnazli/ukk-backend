@@ -39,8 +39,7 @@ class SignerController extends Controller
                         ->select('tender_submission_id')
                         ->groupBy('tender_submission_id')
                         ->with('tender_submission.user','tender_submission.tender','user')
-                        //->where('added_by',auth()->user()->id)
-                        
+                        ->where('user_id',auth()->user()->id) // assigned task to urusetia 
                         ->paginate(50)
                         ->setPath(route('signers.tasks'));
 
@@ -50,12 +49,18 @@ class SignerController extends Controller
 
     public function show(TenderSubmission $tenderSubmission)
     {
-
         $assigned_signers = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','signer')->get()->pluck('user_id')->toArray();
         $assigned_admins = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','urusetia')->get()->pluck('user_id')->toArray();
         $signers = User::role('JSPD-PENANDA')->get(); // list all users in signers category
         $admins = User::role('JSPD-URUSETIA')->get(); // list all users in signers category
-        return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
+        
+        // only owner of the signers can edit
+
+        if($tenderSubmission->added_by == auth()->user()->id ){
+            return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
+        } else {
+            return view('JSPD.signers.disabled')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
+        }
     }
 
     public function search(Request $request){
@@ -68,6 +73,11 @@ class SignerController extends Controller
 
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
 
+        // update added_by in TenderSubmission table
+        $tenderSubmission->added_by = auth()->user()->id;
+        $tenderSubmission->save();
+
+        // store in signers table
         $this->signer->store($request->input('signers'),'signer',  $tenderSubmission);
         $this->signer->store($request->input('admins'),'urusetia', $tenderSubmission);
 
