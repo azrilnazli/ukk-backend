@@ -42,13 +42,12 @@ class Scoring extends Model
         return $this->belongsTo(Company::class);
     }
 
-    // /**
-    //  * Scoring hasMany Signer
-    //  */
-    // public function company()
-    // {
-    //     return $this->hasMany(Signer::class);
-    // }    
+    public function tender_submissions()
+    {
+        return $this->belongsTo(TenderSubmission::class);
+    }
+
+
 
 
 }

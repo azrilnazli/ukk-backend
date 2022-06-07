@@ -31,11 +31,22 @@ class TenderSubmission extends Model
 
     public function signers(){
         return $this->hasMany(Signer::class)->where('type','=', 'signer');
-        //return $this->hasMany(Signer::class);
+    }
+
+    public function signer(){
+        return $this->hasOne(Signer::class);
+    }
+
+    public function owner(){
+        return $this->belongsTo(User::class, 'added_by');
     }
 
     public function urusetia(){
         return $this->hasMany(Signer::class)->where('type','=', 'urusetia');
+    }
+
+    public function scorings(){
+        return $this->hasMany(Scoring::class);
     }
 
     public function score(){
