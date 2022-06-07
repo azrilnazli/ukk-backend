@@ -67,6 +67,7 @@
           Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
             <p class="font-weight-bold mt-3">
               {{ $data->user->name }} ({{ $data->user->email }})<br />
+              {{ $data->user->occupation }}
               {{ \Carbon\Carbon::parse( $data->created_at )->format('d/m/Y H:i:s')}}
             </p>
         </label> 

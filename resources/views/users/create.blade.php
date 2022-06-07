@@ -45,8 +45,7 @@ test
                                 <option  @if( old('role') == $name) {{ 'selected' }}  @endif value="{{ $name }}">{{ ucfirst($name) }}</option>
                             @endForeach
                         </select>
-                       
-                                                    
+                                 
                         @error('role')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -69,6 +68,21 @@ test
                         @enderror
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="occupation" class="col-sm-2 col-form-label text-md-right ">{{ __('Occupation') }} </label>
+    
+                    <div class="col-sm-10">
+                        <input id="occupation" type="occupation" class="form-control @error('occupation') is-invalid @enderror" name="occupation" value="{{ old('occupation') }}" placeholder="User E-Mail">
+    
+                        @error('occupation')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>                
+                
     
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label text-md-right ">{{ __('E-Mail') }} </label>

@@ -93,6 +93,7 @@ class UserService {
         //$data['role'] = $request->input('role');
         $data['name']  = $request->input('name');
         $data['email'] = $request->input('email');
+        $data['occupation'] = $request->input('occupation');
 
         // update user's role
         if( count( $user->getRoleNames() ) > 0 )
