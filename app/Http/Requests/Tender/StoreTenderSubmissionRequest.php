@@ -26,13 +26,8 @@ class StoreTenderSubmissionRequest extends FormRequest
     {
         return [
 
-            // company profile
-            'theme' => ['sometimes', 'string', 'max:255'],
-            'genre' => ['sometimes', 'string', 'max:255'],
-            'concept' => ['sometimes', 'string', new MaxWordsRule(1000)],
-            'synopsis' => ['sometimes', 'string', new MaxWordsRule(1000)],
-          
-            "selectedFile" => "sometimes|mimes:pdf|max:1000000",
+ 
+            
         ];
     }
 

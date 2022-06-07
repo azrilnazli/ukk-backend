@@ -38,9 +38,7 @@ class HomeController extends Controller
     public function index()
     {
 
-
-        //$roles = auth()->user()->getRoleNames();
-
+        // Subscriber shall not access!
         if(Auth::user()->hasRole('subscriber'))
         {
             // do something
@@ -49,34 +47,13 @@ class HomeController extends Controller
             return redirect()->to('https://ukk.rtm.gov.my');
         }
 
+        // Subscriber shall not access!
+        if(Auth::user()->hasAnyRole(['JSPD-PENANDA','JSPD-URUSETIA']))
+        {
+            return redirect()->to(route('scorings.dashboard'));
+        }
 
-        // $users = null;
-
-        // $users = User::query()
-        // ->orderBy('id','desc')
-        // ->limit(5)
-        // ->get();
-
-        // $requested = Company::query()
-        // ->orderBy('updated_at','desc')
-        // ->where('is_completed', true)
-        // ->limit(5)
-        // ->get();
-
-        // $rejected = Company::query()
-        // ->orderBy('updated_at','desc')
-        // ->where('is_completed', false)
-        // ->where('is_rejected', true)
-        // ->limit(5)
-        // ->get();
-
-        // $approved = Company::query()
-        // ->orderBy('updated_at','desc')
-        // ->where('is_completed', true)
-        // ->where('is_approved', true)
-        // ->limit(5)
-        // ->get();
-
+        
         $resubmit = Company::query()
         ->orderBy('updated_at','desc')
         ->where('is_completed', true)
@@ -84,10 +61,7 @@ class HomeController extends Controller
         ->limit(5)
         ->get();
 
-        // $proposals = TenderSubmission::query()
-        // ->orderBy('updated_at','desc')
-        // ->limit(5)
-        // ->get();
+
 
         // user related
         $user['total'] = User::query()->count();
