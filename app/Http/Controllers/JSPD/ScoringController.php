@@ -50,6 +50,7 @@ class ScoringController extends Controller
     // used by JSPD-PENANDA to show their task
     public function show(TenderSubmission $tenderSubmission)
     {
+        // every PENANDA only assigned 1 PROPOSAL
         $data = Scoring::query()
                 ->where('tender_submission_id', $tenderSubmission->id ) // proposal id
                 ->where('user_id', auth()->user()->id ) // penanda id

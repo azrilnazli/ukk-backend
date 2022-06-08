@@ -99,7 +99,8 @@
             </div>
 
             @php 
-                $scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap','menepati_keperluan_asas'];
+                //$scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap','menepati_keperluan_asas'];
+                $scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap'];
                 $formData = null;
                 if(!empty($data)) $formData = $data->toArray();
             @endphp
@@ -236,5 +237,38 @@
                         @enderror 
                     </div>
                 </div>
+                
             </div>
         </div>
+
+        <div class="form-group">
+            <h5>Ditanda oleh</h5>
+            <div class="form-check">
+                <input 
+                class="form-check-input @error('pengesahan_comply') is-invalid @enderror" 
+                disabled
+                type="checkbox" 
+                name="pengesahan_comply" 
+                value=1 
+                @if(old('pengesahan_comply',  optional($data)->pengesahan_comply) == 1) checked @endif
+                />
+                @error('pengesahan_comply')
+                <input  type="hidden" class="form-control @error('pengesahan_comply') is-invalid @enderror"  />
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror 
+            </div>
+            <label class="form-check-label ml-3">
+                Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
+                  <p class="font-weight-bold mt-3">
+                    {{ auth()->user()->name }}  ({{ auth()->user()->email }})<br />
+                    {{ auth()->user()->occupation }}<br />
+                    {{ \Carbon\Carbon::parse( optional($data)->created_at ? optional($data)->created_at : date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
+                  </p>
+            </label>
+        </div>
+        
+
+   
+
