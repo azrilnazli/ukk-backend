@@ -16,7 +16,7 @@ class ScoringController extends Controller
 {
     function __construct()
     {
-        $this->middleware( 'permission:scoring-list',     ['only' => ['dashboard','index','show','search','tasks']] );
+        $this->middleware( 'permission:scoring-list',     ['only' => ['dashboard','index','show','search','tasks','company']] );
         $this->middleware( 'permission:scoring-create',   ['only' => ['create','store']] );
         $this->middleware( 'permission:scoring-edit',     ['only' => ['edit','update']] );
         $this->middleware( 'permission:scoring-delete',   ['only' => ['delete']] );
@@ -56,18 +56,19 @@ class ScoringController extends Controller
                 ->where('tender_submission_id', $tenderSubmission->id ) // proposal id
                 ->where('user_id', auth()->user()->id ) // penanda id
                 ->first();
+                
         return view('JSPD.scorings.show')->with(compact('tenderSubmission','data'));
     }
 
     // used by JSPD-URUSETIA to show their task
     public function show_verify(TenderSubmission $tenderSubmission)
     {
-        $data = Scoring::query()
+        $scorings = Scoring::query()
                         ->with('user')
                         ->where('tender_submission_id', $tenderSubmission->id )
-                        ->first();
+                        ->get();
         //dd($data);
-        return view('JSPD.scorings.show_verify')->with(compact('tenderSubmission','data'));
+        return view('JSPD.scorings.show_verify')->with(compact('tenderSubmission','scorings'));
     }    
 
     public function search(Request $request){

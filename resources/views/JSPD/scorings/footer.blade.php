@@ -2,15 +2,14 @@
       <h5>Pengesahan</h5>
       <div class="form-check">
         <input 
-          class="form-check-input @error('pengesahan_comply') is-invalid @enderror" 
-         
+          class="form-check-input @error('is_verified') is-invalid @enderror" 
           type="checkbox" 
           name="is_verified" 
           value=1 
-          @if(old('pengesahan_comply',  optional($data)->is_verified) == 1) checked @endif
+          {{-- @if(old('is_verified',  optional($data)->is_verified) == 1) checked @endif --}}
           />
-          @error('pengesahan_comply')
-          <input  type="hidden" class="form-control @error('pengesahan_comply') is-invalid @enderror"  />
+          @error('is_verified')
+          <input  type="hidden" class="form-control @error('is_verified') is-invalid @enderror"  />
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>
