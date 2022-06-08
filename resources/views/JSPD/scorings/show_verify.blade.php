@@ -17,43 +17,24 @@
 @stop
 
 @section('content')
-  <form id="store_scorings" method="post" action="{{ route('scorings.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
-  @csrf
+
     <div class="card">
       <div class="card-header bg-secondary">
         @include('JSPD.scorings.header')
       </div>
     
       <div class="card-body">
-        {{-- @include('JSPD.scorings.form_verify') --}}
-
-        
-
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab">SUMMARY</a>
-            @foreach($scorings as $key => $score )
-              <a class="nav-item nav-link text-uppercase" id="nav-scoring-tab" data-toggle="tab" href="#score_{{ $score->id }}" role="tab">{{ optional($score)->user->name }}</a>
-            @endforeach
-
-          </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel">test 1</div>
-          @foreach($scorings as $key => $score )
-            <div class="tab-pane fade p-2" id="score_{{ $score->id }}" role="tabpanel">
-              @include('JSPD.scorings.form_verify', ['data' => $score])
-            </div>
-          @endforeach
-  
-        </div>
-
+         @include('JSPD.scorings.contents') 
       </div>
 
-      <div class="card-footer bg-info ">
-        @include('JSPD.scorings.footer')
+      <div class="card-footer">
+        <div class="row">
+          <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-1')</div>
+          <div class="col m-1 p-2 bg-warning rounded">@include('JSPD.scorings.urusetia-2')</div>
+        </div>
+   
       </div>
 
     </div>
-  </form>
+
 @stop

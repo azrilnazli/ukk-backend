@@ -102,4 +102,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function verification()
+    {
+       // return $this->hasOne(Company::class)->where('is_approved','=', 1);
+        return $this->hasOne(Verification::class);
+    }
 }

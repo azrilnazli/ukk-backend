@@ -95,8 +95,6 @@
                   $('#modal_submit').modal('hide');
                   //alert( "Handler for .click() called." );
                 });
-
-
           });
           </script>
       </div>
