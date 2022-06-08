@@ -34,8 +34,8 @@ class StoreScoringRequest extends FormRequest
            'lengkap_status' => ['required', 'boolean'],
            'lengkap_message' => ['required', 'string'],
 
-           'menepati_keperluan_asas_status' => ['required', 'boolean'],
-           'menepati_keperluan_asas_message' => ['required', 'string'],
+        //    'menepati_keperluan_asas_status' => ['required', 'boolean'],
+        //    'menepati_keperluan_asas_message' => ['required', 'string'],
 
            'syor_status' => ['required', 'boolean'],
            'syor_message_true'  => [ 'required_if:syor_status,==,1'],

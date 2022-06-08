@@ -100,8 +100,8 @@ class ScoringService {
         $scoring->lengkap_status = $request['lengkap_status'];
         $scoring->lengkap_message = $request['lengkap_message'];
 
-        $scoring->menepati_keperluan_asas_status = $request['menepati_keperluan_asas_status'];
-        $scoring->menepati_keperluan_asas_message = $request['menepati_keperluan_asas_message'];
+        // $scoring->menepati_keperluan_asas_status = $request['menepati_keperluan_asas_status'];
+        // $scoring->menepati_keperluan_asas_message = $request['menepati_keperluan_asas_message'];
 
         $scoring->syor_status = $request['syor_status'];
 

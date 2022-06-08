@@ -99,15 +99,22 @@
             </div>
 
             @php 
-                $scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap','menepati_keperluan_asas'];
+               // $scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap','menepati_keperluan_asas'];
+                $scores = [
+                    'TAJUK' => 'tajuk',
+                    'SINOPSIS' => 'sinopsis',
+                    'IDEA DAN SUBJEK' => 'idea_dan_subjek',
+                    'LENGKAP PROPOSAL' => 'lengkap'
+                ];
                 $formData = null;
                 if(!empty($data)) $formData = $data->toArray();
+                $i=1;
             @endphp
 
             @foreach($scores as $key => $score)
             <div class="row mt-3">
-                <div class="col-1">{{$key+1}}.</div>
-                <div class="col-2 text-uppercase">{{ str_replace('_', ' ' , $score) }}</div>
+                <div class="col-1">{{$i++}}.</div>
+                <div class="col-2 text-uppercase">{{ $key }}</div>
                 <div class="col-1 text-center">
                     <div class="form-check">
                         <input 
