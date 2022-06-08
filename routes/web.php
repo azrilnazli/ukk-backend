@@ -62,6 +62,7 @@ Route::get('/scorings/tasks', [ScoringController::class, 'tasks'])->name('scorin
 Route::get('/scorings/search', [ScoringController::class, 'search'])->name('scorings.search');
 Route::get('/scorings/dashboard', [ScoringController::class, 'dashboard'])->name('scorings.dashboard');
 Route::get('/scorings/create', [ScoringController::class,'create'])->name('scorings.create');
+Route::get('/scorings/{company}/company', [ScoringController::class,'company'])->name('scorings.company');
 Route::get('/scorings/{role}/edit', [ScoringController::class,'edit'])->name('scorings.edit');
 Route::put('/scorings/{role}/edit', [ScoringController::class,'update'])->name('scorings.update');
 Route::delete('/scorings/{role}', [ScoringController::class, 'delete'])->name('scorings.destroy');

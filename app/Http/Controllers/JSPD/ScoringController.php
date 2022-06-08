@@ -3,6 +3,7 @@ namespace App\Http\Controllers\JSPD;
 
 use App\Http\Controllers\Controller;
 use App\Models\TenderSubmission;
+use App\Models\Company;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -98,6 +99,28 @@ class ScoringController extends Controller
         $scoring = $this->scoring->store($request);
         return redirect(route('scorings.tasks'))->with('success','Proposal '. $scoring->id .' successfully validated.');
     }
+
+
+    public function company(Company $company)
+    {
+   
+        $documents = [
+            'ssm',
+            'mof',
+            'finas_fp',
+            'finas_fd',
+            'kkmm_swasta',
+            'kkmm_syndicated',
+            'bank',
+            'audit',
+            'credit',
+            'bumiputera'
+
+        ];
+
+        return view('JSPD.scorings.company',compact(['company','documents']));
+    }
+
 
     // scoring-edit
     public function edit(){}
