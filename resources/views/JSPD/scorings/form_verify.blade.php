@@ -6,7 +6,7 @@
                     class="form-check-input @error('assessment') is-invalid @enderror" 
                     disabled
                     type="radio" 
-                    name="assessment" 
+                    name="assessment[{{ $data->id }}]" 
                     value="berwibawa"
                     @if(old('assessment',  optional($data)->assessment ) == 'berwibawa') checked @endif
                 />
@@ -19,7 +19,7 @@
                     class="form-check-input @error('assessment') is-invalid @enderror" 
                     disabled
                     type="radio" 
-                    name="assessment" 
+                    name="assessment[{{ $data->id }}]" 
                     value="berupaya"
                     @if(old('assessment',  optional($data)->assessment) == 'berupaya') checked @endif
                 />
@@ -32,7 +32,7 @@
                     class="form-check-input @error('assessment') is-invalid @enderror"
                     disabled
                     type="radio" 
-                    name="assessment" 
+                    name="assessment[{{ $data->id }}]" 
                     value="baharu"
                     @if(old('assessment',  optional($data)->assessment) == 'baharu') checked @endif
                 />
@@ -58,7 +58,7 @@
                     class="form-check-input @error('need_statement_comply') is-invalid @enderror" 
                     disabled
                     type="radio" 
-                    name="need_statement_comply" 
+                    name="need_statement_comply[{{ $data->id }}]" 
                     value="1" 
                     @if(old('need_statement_comply',  optional($data)->need_statement_comply) == 1) checked @endif
                     />
@@ -71,7 +71,7 @@
                     class="form-check-input @error('need_statement_comply') is-invalid @enderror" 
                     disabled
                     type="radio" 
-                    name="need_statement_comply"  
+                    name="need_statement_comply[{{ $data->id }}]"  
                     value="0" 
                     @if(old('need_statement_comply',  optional($data)->need_statement_comply) == 0) checked @endif
                     />
@@ -100,22 +100,31 @@
 
             @php 
                 //$scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap','menepati_keperluan_asas'];
-                $scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap'];
+                //$scores = ['tajuk','sinopsis','idea_dan_subjek','lengkap'];
+
+                $scores = [
+                    'TAJUK' => 'tajuk',
+                    'SINOPSIS' => 'sinopsis',
+                    'IDEA DAN SUBJEK' => 'idea_dan_subjek',
+                    'LENGKAP PROPOSAL' => 'lengkap'
+                ];
+
                 $formData = null;
                 if(!empty($data)) $formData = $data->toArray();
+                $i=1;
             @endphp
 
             @foreach($scores as $key => $score)
             <div class="row mt-3">
-                <div class="col-1">{{$key+1}}.</div>
-                <div class="col-2 text-uppercase">{{ str_replace('_', ' ' , $score) }}</div>
+                <div class="col-1">{{$i++}}.</div>
+                <div class="col-2 text-uppercase">{{ $key}}</div>
                 <div class="col-1 text-center">
                     <div class="form-check">
                         <input 
                             class="form-check-input @error($score . '_status') is-invalid @enderror" 
                             disabled
                             type="radio" 
-                            name="{{ $score }}_status"  
+                            name="{{ $score }}_status[{{ $data->id }}]"  
                             value="1" 
                             @if(old( $score . '_status', $formData ? $formData[$score . '_status'] : null  ) == 1 ) checked @endif
                             />
@@ -127,7 +136,7 @@
                             class="form-check-input @error($score . '_status') is-invalid @enderror" 
                             disabled
                             type="radio" 
-                            name="{{ $score }}_status"  
+                            name="{{ $score }}_status[{{ $data->id }}]"  
                             value="0" 
                             @if(old( $score . '_status', $formData ? $formData[$score . '_status'] : null  ) == 0 ) checked @endif
                             />
@@ -138,7 +147,7 @@
                         <textarea 
                             class="form-control  @error($score . '_message') is-invalid @enderror" 
                             disabled
-                            name="{{ $score }}_message" 
+                            name="{{ $score }}_message[{{ $data->id }}]" 
                             rows="3">{{ old( $score . '_message', $formData ? $formData[$score . '_message' ] : null) }}</textarea>
                             @error($score . '_message')
                             <input  type="hidden" class="form-control @error($score . '_status') is-invalid @enderror"  />
@@ -182,7 +191,7 @@
                                 class="form-check-input @error('syor_status') is-invalid @enderror" 
                                 disabled
                                 type="radio" 
-                                name="syor_status" 
+                                name="syor_status[{{ $data->id }}]" 
                                 value="1" 
                                 @if(old('syor_status', optional($data)->syor_status) == 1) checked @endif
                                 />
@@ -213,7 +222,7 @@
                                 class="form-check-input  @error('syor_status') is-invalid @enderror" 
                                 disabled
                                 type="radio" 
-                                name="syor_status" 
+                                name="syor_status[{{ $data->id }}]" 
                                 value="0" 
                                 @if(old( 'syor_status',  optional($data)->syor_status) == 0) checked @endif
                                 />

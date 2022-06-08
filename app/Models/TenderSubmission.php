@@ -41,12 +41,20 @@ class TenderSubmission extends Model
         return $this->belongsTo(User::class, 'added_by');
     }
 
-    public function urusetia(){
+    public function urusetias(){
         return $this->hasMany(Signer::class)->where('type','=', 'urusetia');
+    }
+
+    public function urusetia(){
+        return $this->hasOne(Signer::class)->where('type','=', 'urusetia')->where('user_id','!=', Auth::user()->id);
     }
 
     public function scorings(){
         return $this->hasMany(Scoring::class);
+    }
+
+    public function verifications(){
+        return $this->hasMany(Verification::class);
     }
 
     public function score(){

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\Scoring;
 use App\Services\ScoringService;
 use App\Http\Requests\Scoring\StoreScoringRequest;
+use App\Http\Requests\Scoring\StoreVerificationRequest;
 use Auth;
 
 class ScoringController extends Controller
@@ -42,7 +43,7 @@ class ScoringController extends Controller
         }
         if(Auth::user()->hasRole('JSPD-URUSETIA')){
             // list proposal assigned to JSPD-PENANDA
-            $proposals = $this->scoring->tasks('urusetia', 50); // relation signers()
+            $proposals = $this->scoring->tasks('urusetias', 50); // relation signers()
         }
 
         return view('JSPD.scorings.tasks')->with(compact('proposals'));
@@ -56,7 +57,8 @@ class ScoringController extends Controller
                 ->where('tender_submission_id', $tenderSubmission->id ) // proposal id
                 ->where('user_id', auth()->user()->id ) // penanda id
                 ->first();
-                
+
+
         return view('JSPD.scorings.show')->with(compact('tenderSubmission','data'));
     }
 
@@ -68,6 +70,23 @@ class ScoringController extends Controller
                         ->where('tender_submission_id', $tenderSubmission->id )
                         ->get();
         //dd($data);
+
+        // check urusetia 1
+
+        $tenderSubmission->urusetias
+        ->each( function($val, $key) use ($tenderSubmission) {
+       
+                //echo $val->user->name;
+        });
+
+        $tenderSubmission->verifications
+        ->each( function($val, $key) use ($tenderSubmission) {
+       
+                //echo $val->user->name;
+        });
+
+        // check urusetia 2
+
         return view('JSPD.scorings.show_verify')->with(compact('tenderSubmission','scorings'));
     }    
 
@@ -78,6 +97,15 @@ class ScoringController extends Controller
 
     // scoring-create
     public function create(){}
+
+    public function store_verification(StoreVerificationRequest $request,TenderSubmission $tenderSubmission){
+        $request['user_id'] =  auth()->user()->id;
+        $request['tender_submission_id'] =  $tenderSubmission->id;
+
+     
+        $verification = $this->scoring->store_verification($request);
+        return redirect(route('scorings.tasks'))->with('success','Proposal '. $verification->id .' successfully verified.');
+    }
 
     public function store(StoreScoringRequest $request, TenderSubmission $tenderSubmission){
        

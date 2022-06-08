@@ -52,8 +52,9 @@
                 @endhasrole 
                 @hasrole('JSPD-URUSETIA')
                 <th width="*" class="text-center">Owner</th>
-                <th width="*" class="text-center">Assigned</th>
+   
                 <th width="*" class="text-center">Signed</th>
+                <th width="*" class="text-center">Verified</th>
                 @endhasrole
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
@@ -74,11 +75,13 @@
                     <td class="text-center">
                       {{ $row->owner->name}}
                     </td>
+      
                     <td class="text-center">
-                      {{ $row->signers->count() }}
+                      {{$row->scorings->count() }}/{{ $row->signers->count() }}
                     </td>
+
                     <td class="text-center">
-                      {{$row->scorings->count() }}
+                      {{$row->verifications->count() }}/{{ $row->urusetias->count() }}
                     </td>
                     @endhasrole
                     

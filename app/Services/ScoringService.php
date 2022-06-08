@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Scoring;
+use App\Models\Verification;
 use App\Models\TenderSubmission;
 use Auth;
 
@@ -30,9 +31,9 @@ class ScoringService {
     public function tasks($type,$item = 50){
         return TenderSubmission::query()
         ->sortable()
-        ->whereHas($type, fn($query) =>
-            $query->where('user_id', auth()->user()->id )
-            )
+        // ->whereHas($type, fn($query) =>
+        //     $query->where('user_id', auth()->user()->id )
+        //     )
         ->orderBy('id','desc')
         ->paginate($item)
         ->setPath(route('scorings.tasks'));
@@ -71,6 +72,20 @@ class ScoringService {
     // public function store($request){
     //     return Scoring::create($request->except(['_token','_method']));
     // }
+
+    public function store_verification($request){
+        $verification = Verification::firstOrNew([
+            'user_id' =>  $request['user_id'] ,
+            'tender_submission_id' => $request['tender_submission_id']
+        ]);
+
+        $verification->user_id = $request['user_id'];
+        $verification->is_verified = $request['is_verified'];
+        $verification->save();
+
+        return $verification;
+
+    }
 
     public function store($request){
         
