@@ -25,9 +25,10 @@
 @csrf
   <div class="card bg-secondary">
     <div class="card-header">
-        <div class="card-title">
+        <div class="card-title text-uppercase h2">
           Proposal by {{ $tenderSubmission->user->company->name }}
           @include('JSPD.scorings.modal_contents')
+          @include('JSPD.scorings.modal_company')
         </div>    
         <div class="card-item text-right">
           <span class="badge badge-warning text-uppercase">PROPOSAL ID</span> : {{ $tenderSubmission->id}}     
