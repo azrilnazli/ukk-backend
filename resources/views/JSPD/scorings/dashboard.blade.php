@@ -23,15 +23,21 @@
 <div class="card">
     <div class="card-header">
         <div class="card-title">
-            title
+            <h5>NEED STATEMENT</h5>
         </div>    
         <div class="card-item text-right">
-            card item
+        
         </div>
     </div>
    
-    <div class="card-body">body</div>
-    <div class="card-footer">footer</div>
+    <div class="card-body">
+
+        <h2>PDF</h2>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js" integrity="sha512-g16L6hyoieygYYZrtuzScNFXrrbJo/lj9+1AYsw+0CYYYZ6lx5J3x9Yyzsm+D37/7jMIGh0fDqdvyYkNWbuYuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <div style="height:720px" id="document"></div>
+        <script>PDFObject.embed("/pdf/need_statement.pdf", "#document");</script>
+    </div>
+    <div class="card-footer"></div>
 </div>
 
 @stop
