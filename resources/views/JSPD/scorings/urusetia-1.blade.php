@@ -7,7 +7,8 @@
       <div class="form-check">
         <input 
           class="form-check-input @error('is_verified') is-invalid @enderror" 
-          @if(  in_array(auth()->user()->id, $tenderSubmission->verifications->pluck('user_id')->toArray() )) checked disabled @endif
+          {{-- @if(  in_array(auth()->user()->id, $tenderSubmission->verifications->pluck('user_id')->toArray() )) checked disabled @endif --}}
+          @if( $tenderSubmission->verifications->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif
           type="checkbox" 
           name="is_verified" 
           value=1 
@@ -30,7 +31,7 @@
       </label>
 
       <div class="mt-2">
-        <button  @if(  in_array(auth()->user()->id, $tenderSubmission->verifications->pluck('user_id')->toArray() )) checked disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+        <button   @if( $tenderSubmission->verifications->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.index') }}'">
             Cancel 
         </button>
