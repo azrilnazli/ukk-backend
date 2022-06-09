@@ -49,10 +49,11 @@
 
                 @hasrole('JSPD-PENANDA')
                 <th width="*" class="text-center">Status</th>
-                @endhasrole 
+                @endhasrole
+
                 @hasrole('JSPD-URUSETIA')
                 <th width="*" class="text-center">Owner</th>
-   
+
                 <th width="*" class="text-center">Signed</th>
                 <th width="*" class="text-center">Verified</th>
                 @endhasrole
@@ -73,18 +74,18 @@
 
                     @hasrole('JSPD-URUSETIA')
                     <td class="text-center">
-                      {{ $row->owner->name}}
-                    </td>
-      
-                    <td class="text-center">
-                      {{$row->scorings->count() }}/{{ $row->signers->count() }}
+                      {{ optional($row->owner)->name}}
                     </td>
 
                     <td class="text-center">
-                      {{$row->verifications->count() }}/{{ $row->urusetias->count() }}
+                      {{ optional($row->scorings)->count() }}/{{ optional($row->signers)->count() }}
+                    </td>
+
+                    <td class="text-center">
+                      {{ optional($row->verifications)->count() }}/{{ optional($row->urusetias)->count() }}
                     </td>
                     @endhasrole
-                    
+
                     <td class="text-center">
 
                       @hasrole('JSPD-PENANDA')
