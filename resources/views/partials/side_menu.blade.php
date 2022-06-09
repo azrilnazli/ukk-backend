@@ -56,7 +56,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}  {{ active('signers.index') }}">
+    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}  {{ active('signers.search') }}">
       <i class="nav-icon fas fa-book"></i>
       <p>
         Tasks
