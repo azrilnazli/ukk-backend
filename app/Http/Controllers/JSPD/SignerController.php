@@ -52,6 +52,7 @@ class SignerController extends Controller
 
     public function show(TenderSubmission $tenderSubmission)
     {
+        die('test');
         $assigned_signers = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','signer')->get()->pluck('user_id')->toArray();
         $assigned_admins = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','urusetia')->get()->pluck('user_id')->toArray();
         $signers = User::role('JSPD-PENANDA')->get(); // list all users in signers category
