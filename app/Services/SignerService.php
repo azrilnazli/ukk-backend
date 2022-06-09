@@ -97,7 +97,7 @@ class SignerService {
             $signer->user_id = auth()->user()->id;
             $signer->type = 'urusetia';
             $signer->tender_submission_id = $tenderSubmission->id;
-            $signer->added_by = auth()->user()->id;
+            //$signer->added_by = auth()->user()->id;
             $signer->save();
         }
     }
