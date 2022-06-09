@@ -39,28 +39,30 @@ class ScoringService {
         ->setPath(route('scorings.tasks'));
     }
 
-    public function search($request)
+    public function search($type,$request)
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
-
-                        ->orWhereHas('user.company', fn($query) =>
-                            $query->where('name', 'LIKE', '%' . $q . '%')
-                            ->orWhere('email', 'LIKE', '%' . $q . '%')
-                            ->orWhere('id', 'LIKE', '%' . $q . '%')
-                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
-
+                        ->orWhereHas($type, fn($query) =>
+                            $query->where('user_id', auth()->user()->id )
                         )
-                        ->orWhereHas('tender', fn($query) =>
-                            $query->where('tender_category', 'LIKE', '%' . $q . '%')
-                            ->orWhere('type', 'LIKE', '%' . $q . '%')
-                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                        // ->orWhereHas('user.company', fn($query) =>
+                        //     $query->where('name', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('email', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('id', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('phone', 'LIKE', '%' . $q . '%')
+
+                        // )
+                        ->orWhereHas('score.tender', fn($query) =>
+                            $query->where('programme_code', 'LIKE', '%' . $q . '%')
+                            // ->orWhere('type', 'LIKE', '%' . $q . '%')
+                            // ->orWhere('duration', 'LIKE', '%' . $q . '%')
+                            // ->orWhere('channel', 'LIKE', '%' . $q . '%')
+                            // ->orWhere('tender_category', 'LIKE', '%' . $q . '%')
                         )
 
                         ->paginate(50)
-                        ->setPath(route('tender_submissions.search'));
+                        ->setPath(route('scorings.search'));
 
                         $tenders->appends([
                             'query' => $q
