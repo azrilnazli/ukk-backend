@@ -56,7 +56,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}">
+    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}  {{ active('signers.index') }}">
       <i class="nav-icon fas fa-book"></i>
       <p>
         Tasks
@@ -65,7 +65,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="{{ route('scorings.tasks') }}" class="nav-link {{ active('scorings.tasks') }}">
+    <a href="{{ route('scorings.tasks') }}" class="nav-link {{ active('scorings.tasks') }}  {{ active('scorings.search') }}">
       <i class="nav-icon fas fa-list"></i>
       <p>
         Proposal
@@ -137,7 +137,7 @@
   </li> <!-- ./treeview -->
   @endhasrole
 
-  
+
   @hasanyrole('super-admin|jspd-admin')
   <li class="nav-item has-treeview menu-close">
     <a href="#" class="nav-link {{ active('scorings')  }}">
@@ -159,7 +159,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.index') }}">
+        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.index') }} ">
           <i class="nav-icon fas fa-archive"></i>
           <p>
             Proposal

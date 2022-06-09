@@ -46,13 +46,13 @@ class ScoringService {
                         ->orWhereHas($type, fn($query) =>
                             $query->where('user_id', auth()->user()->id )
                         )
-                        // ->orWhereHas('user.company', fn($query) =>
-                        //     $query->where('name', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('email', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('id', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('phone', 'LIKE', '%' . $q . '%')
+                        ->orWhereHas('user.company', fn($query) =>
+                            $query->where('name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('email', 'LIKE', '%' . $q . '%')
+                            ->orWhere('id', 'LIKE', '%' . $q . '%')
+                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
 
-                        // )
+                        )
                         ->orWhereHas('score.tender', fn($query) =>
                             $query->where('programme_code', 'LIKE', '%' . $q . '%')
                             // ->orWhere('type', 'LIKE', '%' . $q . '%')
