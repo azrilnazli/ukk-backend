@@ -1,14 +1,16 @@
 
+
+      @if($tenderSubmission->urusetia)
       <h5>Pengesahan  ( {{  $tenderSubmission->urusetia->user->name }} )</h5>
       {{-- @if(  in_array($tenderSubmission->urusetia->user->id, $tenderSubmission->verifications->pluck('user_id')->toArray() ))  --}}
       @if( $tenderSubmission->verifications->pluck('user_id')->contains( $tenderSubmission->urusetia->user->id ))
       <div class="form-check">
-        <input 
-          class="form-check-input @error('is_verified') is-invalid @enderror" 
+        <input
+          class="form-check-input @error('is_verified') is-invalid @enderror"
           disabled
-          type="checkbox" 
-          name="is_verified" 
-          value=1 
+          type="checkbox"
+          name="is_verified"
+          value=1
           @if( $tenderSubmission->verifications->pluck('user_id')->contains( $tenderSubmission->urusetia->user->id )) checked disabled @endif
           />
           @error('is_verified')
@@ -16,7 +18,7 @@
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>
-          @enderror 
+          @enderror
       </div>
 
       <label class="form-check-label ml-3">
@@ -26,8 +28,9 @@
             {{ \Carbon\Carbon::parse(  optional($tenderSubmission->urusetia->user->verification)->created_at )->format('d/m/Y H:i:s')}}
           </p>
       </label>
-      @else 
+      @else
+      <i>Belum disahkan.</i>
+      @endif
       <i>Belum disahkan.</i>
       @endif
 
- 
