@@ -85,14 +85,15 @@ class SignerService {
                         $signer->save();
                     });
 
-        // urusetia add himself
-        $signer = Signer::firstOrNew([
-            'user_id' =>  auth()->user()->id ,
-            'type' => $type,
-            'tender_submission_id' => $tenderSubmission->id
-        ]);
 
         if($type == 'urusetia'){
+
+            // urusetia add himself
+            $signer = Signer::firstOrNew([
+                'user_id' =>  auth()->user()->id ,
+                'tender_submission_id' => $tenderSubmission->id
+            ]);
+
             $signer->user_id = auth()->user()->id;
             $signer->type = 'urusetia';
             $signer->tender_submission_id = $tenderSubmission->id;
