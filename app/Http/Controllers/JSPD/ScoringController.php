@@ -71,6 +71,13 @@ class ScoringController extends Controller
                         ->get();
         //dd($data);
 
+
+        $tenderSubmission->signers
+        ->each( function($val, $key) use ($tenderSubmission) {
+
+                //echo $val->user->name;
+        });
+
         // check urusetia 1
 
         $tenderSubmission->urusetias
