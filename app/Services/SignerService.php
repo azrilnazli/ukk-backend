@@ -24,7 +24,7 @@ class SignerService {
             ->doesntHave('signers')
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('tender_submissions.index'));
+            ->setPath(route('signers.index'));
     }
 
     public function search($request)
