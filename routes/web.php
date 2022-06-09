@@ -93,7 +93,7 @@ Route::get('/videos/{video}/progress', [VideoController::class, 'progress'])->na
 Route::get('/videos/{video}/status', [VideoController::class, 'status'])->name('videos.status');
 Route::get('/videos/{video}/delayed_redirect', [VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
 Route::get('/videos/failed', [App\Http\Controllers\Video\VideoController::class, 'failed'])->name('videos.failed');
-Route::get('/videos/encoding_status', [App\Http\Controllers\Video\VideoController::class, 'encoding_status'])->name('videos.encoding_status');
+Route::get('/videos/encoding_status', [App\Http\Controllers\Video\VideoController::class, 'encoding_status']);
 
 
 Route::resources([
