@@ -17,7 +17,7 @@ class ScoringService {
 
     public function paginate($item = 50)
     {
-        
+
         return TenderSubmission::query()
             ->sortable()
             ->whereHas('user.company', fn($query) =>
@@ -31,9 +31,9 @@ class ScoringService {
     public function tasks($type,$item = 50){
         return TenderSubmission::query()
         ->sortable()
-        // ->whereHas($type, fn($query) =>
-        //     $query->where('user_id', auth()->user()->id )
-        //     )
+        ->whereHas($type, fn($query) =>
+            $query->where('user_id', auth()->user()->id )
+            )
         ->orderBy('id','desc')
         ->paginate($item)
         ->setPath(route('scorings.tasks'));
@@ -88,13 +88,13 @@ class ScoringService {
     }
 
     public function store($request){
-        
+
         $scoring = Scoring::firstOrNew([
             'user_id' =>  $request['user_id'] ,
             'tender_submission_id' => $request['tender_submission_id']
         ]);
 
-        
+
         $scoring->user_id = $request['user_id'];
         $scoring->tender_submission_id = $request['tender_submission_id'];
         $scoring->tender_id = $request['tender_id'];
@@ -108,7 +108,7 @@ class ScoringService {
 
         $scoring->sinopsis_status = $request['sinopsis_status'];
         $scoring->sinopsis_message = $request['sinopsis_message'];
-        
+
         $scoring->idea_dan_subjek_status = $request['idea_dan_subjek_status'];
         $scoring->idea_dan_subjek_message = $request['idea_dan_subjek_message'];
 
@@ -130,7 +130,7 @@ class ScoringService {
 
         $scoring->pengesahan_comply = $request['pengesahan_comply'];
 
-        
+
         $scoring->save($request->except(['_token','_method']));
 
         return $scoring;

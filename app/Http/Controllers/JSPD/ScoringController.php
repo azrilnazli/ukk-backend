@@ -29,7 +29,7 @@ class ScoringController extends Controller
     public function dashboard(){
         return view('JSPD.scorings.dashboard');
     }
-    
+
     public function index()
     {
         $proposals = $this->scoring->paginate();
@@ -41,6 +41,7 @@ class ScoringController extends Controller
             // list proposal assigned to JSPD-PENANDA
             $proposals = $this->scoring->tasks('signers', 50); // relation signers()
         }
+
         if(Auth::user()->hasRole('JSPD-URUSETIA')){
             // list proposal assigned to JSPD-PENANDA
             $proposals = $this->scoring->tasks('urusetias', 50); // relation signers()
@@ -58,7 +59,6 @@ class ScoringController extends Controller
                 ->where('user_id', auth()->user()->id ) // penanda id
                 ->first();
 
-
         return view('JSPD.scorings.show')->with(compact('tenderSubmission','data'));
     }
 
@@ -75,20 +75,20 @@ class ScoringController extends Controller
 
         $tenderSubmission->urusetias
         ->each( function($val, $key) use ($tenderSubmission) {
-       
+
                 //echo $val->user->name;
         });
 
         $tenderSubmission->verifications
         ->each( function($val, $key) use ($tenderSubmission) {
-       
+
                 //echo $val->user->name;
         });
 
         // check urusetia 2
 
         return view('JSPD.scorings.show_verify')->with(compact('tenderSubmission','scorings'));
-    }    
+    }
 
     public function search(Request $request){
         $proposals = $this->scoring->search($request);
@@ -102,29 +102,29 @@ class ScoringController extends Controller
         $request['user_id'] =  auth()->user()->id;
         $request['tender_submission_id'] =  $tenderSubmission->id;
 
-     
+
         $verification = $this->scoring->store_verification($request);
         return redirect(route('scorings.tasks'))->with('success','Proposal '. $verification->id .' successfully verified.');
     }
 
     public function store(StoreScoringRequest $request, TenderSubmission $tenderSubmission){
-       
+
         $request['user_id'] =  auth()->user()->id;
         $request['tender_submission_id'] =  $tenderSubmission->id;
         $request['tender_id'] =  $tenderSubmission->tender_id;
         $request['company_id'] =  $tenderSubmission->user->company->id;
-     
+
         $scoring = $this->scoring->store($request);
         return redirect(route('scorings.tasks'))->with('success','Proposal '. $scoring->id .' successfully validated.');
     }
 
     public function store_verify(StoreScoringRequest $request, TenderSubmission $tenderSubmission){
-       
+
         $request['user_id'] =  auth()->user()->id;
         $request['tender_submission_id'] =  $tenderSubmission->id;
         $request['tender_id'] =  $tenderSubmission->tender_id;
         $request['company_id'] =  $tenderSubmission->user->company->id;
-     
+
         $scoring = $this->scoring->store($request);
         return redirect(route('scorings.tasks'))->with('success','Proposal '. $scoring->id .' successfully validated.');
     }
@@ -132,7 +132,7 @@ class ScoringController extends Controller
 
     public function company(Company $company)
     {
-   
+
         $documents = [
             'ssm',
             'mof',
