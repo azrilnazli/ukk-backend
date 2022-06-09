@@ -61,8 +61,8 @@
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
                     <td class="text-center">{{ $row->tender->programme_code }}</td>
-                    <td class="text-center">{{ $row->signers->count() }}</td>
-                    <td class="text-center">{{ $row->urusetia->count() }}</td>
+                    <td class="text-center">{{ optional($row->signers)->count() }}</td>
+                    <td class="text-center">{{ optional($row->urusetia)->count() }}</td>
                     <td class="text-center">
                       <a class="btn btn-success btn-sm" href="{{ route('signers.show', $row->id) }}">
                           <i class="fas fa-user"></i>
