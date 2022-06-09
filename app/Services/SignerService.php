@@ -48,7 +48,7 @@ class SignerService {
                         )
 
                         ->paginate(50)
-                        ->setPath(route('tender_submissions.search'));
+                        ->setPath(route('signers.search'));
 
                         $tenders->appends([
                             'query' => $q
@@ -77,14 +77,14 @@ class SignerService {
                             'type' => $type,
                             'tender_submission_id' => $tenderSubmission->id
                         ]);
-                
+
                         $signer->user_id = $value;
                         $signer->type = $type;
                         $signer->tender_submission_id = $tenderSubmission->id;
                         $signer->added_by = auth()->user()->id;
                         $signer->save();
-                    });      
-                    
+                    });
+
         // urusetia add himself
         $signer = Signer::firstOrNew([
             'user_id' =>  auth()->user()->id ,
@@ -98,7 +98,7 @@ class SignerService {
             $signer->tender_submission_id = $tenderSubmission->id;
             $signer->added_by = auth()->user()->id;
             $signer->save();
-        }    
+        }
     }
 
     public function find($id){
