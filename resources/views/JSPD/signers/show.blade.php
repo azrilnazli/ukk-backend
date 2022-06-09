@@ -21,7 +21,6 @@
 
 
 @section('content')
-test
 <form id="store_signers" method="post" action="{{ route('signers.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
 @csrf
   <div class="card bg-secondary">
