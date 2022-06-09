@@ -98,8 +98,22 @@ class ScoringController extends Controller
     }
 
     public function search(Request $request){
-        $proposals = $this->scoring->search($request);
-        return view('JSPD.scorings.index')->with(compact('proposals'));
+
+        if(Auth::user()->hasRole('JSPD-PENANDA')){
+            // list proposal assigned to JSPD-PENANDA
+            // echo 'jspd-penanda';
+            // dd($request);
+            $proposals = $this->scoring->search('signers', $request); // relation signers()
+        }
+
+        if(Auth::user()->hasRole('JSPD-URUSETIA')){
+            // list proposal assigned to JSPD-PENANDA
+            // echo 'jspd-urusetia';
+            // dd($request);
+            $proposals = $this->scoring->search('urusetias', $request); // relation signers()
+        }
+
+        return view('JSPD.scorings.tasks')->with(compact('proposals'));
     }
 
     // scoring-create
