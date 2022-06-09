@@ -15,7 +15,7 @@
 
 @section('content')
 
-<form method="GET"  action="{{ route('signers.search') }}">
+{{-- <form method="GET"  action="{{ route('signers.search') }}">
   @csrf
   <div class="row mt-5">
     <div class="col-5">
@@ -25,7 +25,7 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
-</form>
+</form> --}}
 
 <div class="card card-dark mt-3">
 
@@ -55,9 +55,9 @@
 
             <tbody>
                 @foreach($proposals as $row)
-          
+
                 @if(isset($row->tender_submission->user))
-             
+
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->tender_submission->id }}</h1></td>
                     <td> @if(isset( $row->tender_submission->user->company))<span class="badge badge-warning">{{  $row->tender_submission->user->company->id }}</span> {{  $row->tender_submission->user->company->name }}@endif</td>

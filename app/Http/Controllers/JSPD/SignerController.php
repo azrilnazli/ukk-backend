@@ -26,20 +26,23 @@ class SignerController extends Controller
 
     // signer-list
     public function dashboard(){}
-    
+
+
+    // list all proposal for urusetia to assign
     public function index()
     {
         $proposals = $this->signer->paginate();
         return view('JSPD.signers.index')->with(compact('proposals'));
     }
 
+    // tasks assigned to user()->id
     public function tasks()
     {
         $proposals = Signer::query()
                         ->select('tender_submission_id')
                         ->groupBy('tender_submission_id')
                         ->with('tender_submission.user','tender_submission.tender','user')
-                        ->where('user_id',auth()->user()->id) // assigned task to urusetia 
+                        ->where('user_id',auth()->user()->id) // assigned task to urusetia
                         ->paginate(50)
                         ->setPath(route('signers.tasks'));
 
@@ -53,7 +56,7 @@ class SignerController extends Controller
         $assigned_admins = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','urusetia')->get()->pluck('user_id')->toArray();
         $signers = User::role('JSPD-PENANDA')->get(); // list all users in signers category
         $admins = User::role('JSPD-URUSETIA')->get(); // list all users in signers category
-        
+
         if($tenderSubmission->added_by == 0){ // 0 means not being assigned yet
             return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));
         } else {

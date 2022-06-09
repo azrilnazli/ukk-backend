@@ -47,7 +47,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="{{ route('signers.index') }}" class="nav-link {{ active('signers.index') }}">
+    <a href="{{ route('signers.index') }}" class="nav-link {{ active('signers.index') }} {{ active('signers.search') }}">
       <i class="nav-icon fas fa-pencil-alt"></i>
       <p>
         Assign
@@ -56,7 +56,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}  {{ active('signers.search') }}">
+    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}  ">
       <i class="nav-icon fas fa-book"></i>
       <p>
         Tasks
