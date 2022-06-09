@@ -34,14 +34,13 @@
         <div class="form-check">
         @foreach($admins as $admin)
 
-
             <input
                 value="{{ $admin->id }}"
                 name="admins[]"
                 class="form-check-input  @error('admins') is-invalid @enderror"
                 type="checkbox"
                 value="{{ $admin->id }}"
-                {{-- @if(auth()->user()->id == $admin->id) checked disabled @endif --}}
+                @if(auth()->user()->id == $admin->id) checked disabled @endif
                 @if(in_array(optional($admin)->id, $assigned_admins)) checked @endif
             />
 
