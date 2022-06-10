@@ -37,7 +37,9 @@ class SignerService {
                         // )
 
                         ->orWhereHas('user.company', fn($query) =>
-                            $query->where('name', 'LIKE', '%' . $q . '%')
+                            $query
+                            ->where('is_approved', true)
+                            ->orWhere('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
                             ->orWhere('id', 'LIKE', '%' . $q . '%')
                             ->orWhere('phone', 'LIKE', '%' . $q . '%')
