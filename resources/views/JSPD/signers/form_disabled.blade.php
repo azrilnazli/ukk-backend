@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-3">
+    <div class="col-6">
         <h5>Assign Signer</h5>
         <div class="form-check">
         @foreach($signers as $key => $signer)
@@ -30,7 +30,7 @@
         @enderror 
         </div>
     </div>
-    <div class="col-5">
+    <div class="col-6">
         <h5>Assign Urusetia</h5>
         <div class="form-check">
         @foreach($admins as $admin)
