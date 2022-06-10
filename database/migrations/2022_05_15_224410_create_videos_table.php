@@ -17,15 +17,6 @@ class CreateVideosTable extends Migration
      */
     public function up()
     {
-<<<<<<< HEAD
-	    Schema::dropIfExists('videos');    
-
-	    Schema::create('videos', function (Blueprint $table) {
- 
-=======
-        Schema::create('videos', function (Blueprint $table) {
-
->>>>>>> e3bb1b02e60a7617f3c30142ee9a3355011547f4
             $table->id();
 
             // relationship
