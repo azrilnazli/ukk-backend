@@ -78,6 +78,15 @@ class ScoringController extends Controller
     // used by JSPD-URUSETIA to show their task
     public function show_verify(TenderSubmission $tenderSubmission)
     {
+        if(
+            !$tenderSubmission
+            ->allowed_users // relationship
+            ->pluck('user_id') // db field array to compare
+            ->contains( auth()->user()->id ) // value to compare
+        ){
+            abort(403);
+        }
+
         $scorings = Scoring::query()
                         ->with('user')
                         ->where('tender_submission_id', $tenderSubmission->id )
@@ -133,9 +142,18 @@ class ScoringController extends Controller
     public function create(){}
 
     public function store_verification(StoreVerificationRequest $request,TenderSubmission $tenderSubmission){
+
+        if(
+            !$tenderSubmission
+            ->urusetias // relationship
+            ->pluck('user_id') // db field array to compare
+            ->contains( auth()->user()->id ) // value to compare
+        ){
+            abort(403);
+        }
+
         $request['user_id'] =  auth()->user()->id;
         $request['tender_submission_id'] =  $tenderSubmission->id;
-
 
         $verification = $this->scoring->store_verification($request);
         return redirect(route('scorings.tasks'))->with('success','Proposal '. $verification->id .' successfully verified.');
