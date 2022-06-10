@@ -9,10 +9,7 @@ class JspdAdminService {
 
     // contstructor
     public function __construct(){
-
     }
-
-
 
     public function paginate($item = 50)
     {
@@ -30,6 +27,10 @@ class JspdAdminService {
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
+
+                        ->whereHas('user.company', fn($query) =>
+                            $query->where('is_approved', true)
+                        )
 
                         ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
