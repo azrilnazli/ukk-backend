@@ -1,6 +1,6 @@
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab">SUMMARY</a>
+      {{-- <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab">SUMMARY</a> --}}
       @foreach($scorings as $key => $score )
         <a class="nav-item nav-link text-uppercase" id="nav-scoring-tab" data-toggle="tab" href="#score_{{ $score->id }}" role="tab">{{ optional($score)->user->name }}</a>
       @endforeach
