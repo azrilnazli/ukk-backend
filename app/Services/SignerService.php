@@ -32,6 +32,10 @@ class SignerService {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
+                        ->whereHas('user.company', fn($query) =>
+                            $query->where('is_approved', true)
+                        )
+
                         ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
@@ -86,6 +90,7 @@ class SignerService {
                     });
 
 
+        // to add himself as urusetia
         if($type == 'urusetia'){
 
             // urusetia add himself
