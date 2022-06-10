@@ -33,6 +33,7 @@ class CreateVideosTable extends Migration
             $table->bigInteger('processing_duration')->nullable()->default(0); // processing duration in seconds
             $table->bigIinteger('uploading_duration')->nullable()->default(0); // upload duration in seconds
 
+            // hello world
 
             // ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration,bit_rate -of default=noprint_wrappers=1 input.mp4
             $table->integer('duration')->nullable()->default(0); // video length in seconds
