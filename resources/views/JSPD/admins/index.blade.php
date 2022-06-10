@@ -40,19 +40,12 @@
             <thead>
 
                 <th width="5%">@sortablelink('id', 'ID')</th>
-
                 <th width="*">Company</th>
-
-
-
                 <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
-
-
                 <th width="*" class="text-center">Owner</th>
-
                 <th width="*" class="text-center">Signed</th>
                 <th width="*" class="text-center">Verified</th>
-
+                <th width="*" class="text-center">Pengesyoran</th>
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
 
@@ -69,22 +62,38 @@
                         @endif</td>
 
                     <td>{{ $row->tender->programme_code }}</td>
-
-
-
                     <td class="text-center">
                       {{ optional($row->owner)->name}}
                     </td>
-
                     <td class="text-center">
                       {{ optional($row->scorings)->count() }}/{{ optional($row->signers)->count() }}
                     </td>
-
                     <td class="text-center">
                       {{ optional($row->verifications)->count() }}/{{ optional($row->urusetias)->count() }}
                     </td>
+                    <td class="text-center">
+                    @php $approved = [] @endphp
+                    @foreach($row->scorings as $score)
+
+                        @if( count($row->scorings) == 3 )
+                            @if($score->syor_status == 1)
+                                @php
+                                    $approved[$score->id] = 1;
+                                @endphp
+                            @endif
+                        @endif
+
+                    @endforeach
 
 
+                    @if(count($approved ) > 1)
+                        <span class="badge badge-success">SYOR</span>
+                    @else
+                        <span class="badge badge-secondary">TIDAK</span>
+                    @endif
+
+                    @php unset($approved) @endphp
+                    </td>
                     <td class="text-center">
                       <a class="btn btn-success btn-sm" href="{{ route('scorings.show_verify', $row->id) }}">
                           <i class="fas fa-pencil-alt"></i>
