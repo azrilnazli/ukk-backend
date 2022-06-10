@@ -29,6 +29,10 @@ class TenderSubmission extends Model
         return $this->hasOne(Video::class);
     }
 
+    public function allowed_users(){
+        return $this->hasMany(Signer::class);
+    }
+
     public function signers(){
         return $this->hasMany(Signer::class)->where('type','=', 'signer');
     }

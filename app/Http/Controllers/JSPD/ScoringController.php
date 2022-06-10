@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Scoring;
+use App\Models\Signer;
 use App\Services\ScoringService;
 use App\Http\Requests\Scoring\StoreScoringRequest;
 use App\Http\Requests\Scoring\StoreVerificationRequest;
@@ -53,6 +54,18 @@ class ScoringController extends Controller
     // used by JSPD-PENANDA to show their task
     public function show(TenderSubmission $tenderSubmission)
     {
+        // check if current user is assigned in signers
+
+        if(
+            !$tenderSubmission
+            ->allowed_users // relationship
+            ->pluck('user_id') // db field array to compare
+            ->contains( auth()->user()->id ) // value to compare
+        ){
+            abort(403);
+        }
+
+
         // every PENANDA only assigned 1 PROPOSAL
         $data = Scoring::query()
                 ->where('tender_submission_id', $tenderSubmission->id ) // proposal id
