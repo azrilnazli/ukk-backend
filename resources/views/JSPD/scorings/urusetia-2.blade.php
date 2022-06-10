@@ -22,7 +22,7 @@
         </div>
 
         <label class="form-check-label ml-3">
-          Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
+          Adalah dengan ini diakui bahawa laporan pensyoran yang dibuat adalah sahih dan muktamad.
             <p class="font-weight-bold mt-3">
               {{ $tenderSubmission->urusetia->user->name  }} ({{$tenderSubmission->urusetia->user->email  }})<br />
               {{ \Carbon\Carbon::parse(  optional($tenderSubmission->urusetia->user->verification)->created_at )->format('d/m/Y H:i:s')}}
