@@ -8,9 +8,9 @@
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel">
+    {{-- <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel">
         @include('JSPD.scorings.summary')
-    </div>
+    </div> --}}
     @foreach($scorings as $key => $score )
       <div class="tab-pane fade p-2" id="score_{{ $score->id }}" role="tabpanel">
         @include('JSPD.scorings.form_verify', ['data' => $score])
