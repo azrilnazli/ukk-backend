@@ -31,7 +31,10 @@ class JspdAdminController extends Controller
         return view('JSPD.admins.index', compact('proposals'));
     }
     public function show(){}
-    public function search(){}
+    public function search(Request $request){
+        $proposals = $this->service->search($request);
+        return view('JSPD.admins.index', compact('proposals'));
+    }
     public function create(){}
     public function store(){}
     public function edit(){}

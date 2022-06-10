@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 
-@section('title', 'Tender List')
+@section('title', 'Proposal List')
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
@@ -15,7 +15,7 @@
 
 @section('content')
 
-<form method="GET"  action="{{ route('scorings.search') }}">
+<form method="GET"  action="{{ route('jspd-admins.search') }}">
   @csrf
   <div class="row mt-5">
     <div class="col-5">
@@ -71,7 +71,7 @@
                     <td class="text-center">
                       {{ optional($row->verifications)->count() }}/{{ optional($row->urusetias)->count() }}
                     </td>
-                    <td class="text-center">   
+                    <td class="text-center">
                         @if(count( $row->approved ) > 1)
                             <span class="badge badge-success">SYOR</span>
                         @else
