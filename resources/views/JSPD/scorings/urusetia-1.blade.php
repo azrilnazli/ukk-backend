@@ -1,25 +1,24 @@
 
+@if( count($tenderSubmission->scorings) == 3 )
 <form id="store_verification" method="post" action="{{ route('scorings.store_verification',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
 @csrf
-
-
       <h5>Pengesahan Urusetia 1</h5>
       <div class="form-check">
-        <input 
-          class="form-check-input @error('is_verified') is-invalid @enderror" 
+        <input
+          class="form-check-input @error('is_verified') is-invalid @enderror"
           {{-- @if(  in_array(auth()->user()->id, $tenderSubmission->verifications->pluck('user_id')->toArray() )) checked disabled @endif --}}
           @if( $tenderSubmission->verifications->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif
-          type="checkbox" 
-          name="is_verified" 
-          value=1 
-   
+          type="checkbox"
+          name="is_verified"
+          value=1
+
           />
           @error('is_verified')
           <input  type="hidden" class="form-control @error('is_verified') is-invalid @enderror"  />
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>
-          @enderror 
+          @enderror
       </div>
 
       <label class="form-check-label ml-3">
@@ -33,24 +32,11 @@
       <div class="mt-2">
         <button   @if( $tenderSubmission->verifications->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.index') }}'">
-            Cancel 
+            Cancel
         </button>
         @include('JSPD.scorings.modal_submit')
-        {{-- <script>
-          $( document ).ready(function() {
-                $( "#submit" ).click(function() {
-                    //alert( "Handler for .click() called." );
-                    $('#modal_submit').modal('show');
-                    e.preventDefault();
-                    //$("#store_scorings").submit();
-                });
-
-                $( "#agree" ).click(function() {
-                  $("#store_verification").submit();
-                  $('#modal_submit').modal('hide');
-                  //alert( "Handler for .click() called." );
-                });
-          });
-          </script> --}}
       </div>
 </form>
+@else
+<h5> Penandaan belum lengkap. </h5>
+@endif
