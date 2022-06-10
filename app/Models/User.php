@@ -83,6 +83,12 @@ class User extends Authenticatable
      */
     public function company()
     {
+        //return $this->hasOne(Company::class)->where('is_approved', true);
+        return $this->hasOne(Company::class);
+    }
+
+    public function approved_company()
+    {
           return $this->hasOne(Company::class)->where('is_approved', true);
         //return $this->hasOne(Company::class);
     }
