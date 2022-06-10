@@ -54,7 +54,6 @@ class JspdAdminService {
                             'query' => $q
                             ]);
         return $tenders;
-
     }
 
     public function create($request){
