@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Scoring;
 use Auth;
 use App\Services\JspdAdminService;
+use App\Http\Requests\JspdAdmin\StoreApprovalRequest;
 
 class JspdAdminController extends Controller
 {
@@ -43,12 +44,21 @@ class JspdAdminController extends Controller
                         ->with('user')
                         ->where('tender_submission_id', $tenderSubmission->id )
                         ->get();
-        return view('JSPD.admins.show_verify')->with(compact('tenderSubmission','scorings'));
+        return view('JSPD.admins.show')->with(compact('tenderSubmission','scorings'));
     }
 
 
     public function create(){}
-    public function store(){}
+
+    public function store(StoreApprovalRequest $request,TenderSubmission $tenderSubmission){
+
+
+        $request['user_id'] =  auth()->user()->id;
+        $request['tender_submission_id'] =  $tenderSubmission->id;
+
+        $verification = $this->scoring->store_verification($request);
+        return redirect(route('scorings.tasks'))->with('success','Proposal '. $verification->id .' successfully verified.');
+    }
     public function edit(){}
     public function update(){}
     public function delete(){}

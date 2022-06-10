@@ -52,6 +52,19 @@ class JspdAdminService {
         return $tenders;
     }
 
+    public function store($request){
+        $approval = Approval::firstOrNew([
+            'user_id' =>  $request['user_id'] ,
+            'tender_submission_id' => $request['tender_submission_id']
+        ]);
+
+        $approval->user_id = $request['user_id'];
+        $approval->is_verified = $request['is_verified'];
+        $approval->save();
+
+        return $approval;
+    }
+
     public function create($request){
         return TenderSubmission::create($request->except(['_token','_method']));
     }
