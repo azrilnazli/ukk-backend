@@ -32,7 +32,7 @@ class JspdAdminService {
                         //     $query->where('is_approved', true)
                         // )
 
-                        ->orWhereHas('user.company', fn($query) =>
+                        ->orWhereHas('user.approved_company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
                             ->orWhere('id', 'LIKE', '%' . $q . '%')

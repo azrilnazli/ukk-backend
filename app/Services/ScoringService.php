@@ -19,7 +19,7 @@ class ScoringService {
     {
         return TenderSubmission::query()
             ->sortable()
-            ->whereHas('user.company', fn($query) =>
+            ->whereHas('user.approved_company', fn($query) =>
                 $query->where('is_approved', true)
                 )
             ->orderBy('id','desc')
@@ -42,13 +42,11 @@ class ScoringService {
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
-                        // ->orWhereHas('user.company', fn($query) =>
-                        //     $query->where('is_approved', true)
-                        // )
+        
                         ->orWhereHas($type, fn($query) =>
                             $query->where('user_id', auth()->user()->id )
                         )
-                        ->orWhereHas('user.company', fn($query) =>
+                        ->orWhereHas('user.approved_company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
                             ->orWhere('id', 'LIKE', '%' . $q . '%')

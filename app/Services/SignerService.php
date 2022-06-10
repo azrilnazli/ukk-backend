@@ -32,9 +32,6 @@ class SignerService {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
-                        // ->whereHas('user.company', fn($query) =>
-                        //     $query->where('is_approved', true)
-                        // )
 
                         ->orWhereHas('user.approved_company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
