@@ -56,6 +56,7 @@
 
                 <th width="*" class="text-center">Signed</th>
                 <th width="*" class="text-center">Verified</th>
+                <th width="*" class="text-center">Pengesyoran</th>
                 @endhasrole
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
@@ -83,6 +84,30 @@
 
                     <td class="text-center">
                       {{ optional($row->verifications)->count() }}/{{ optional($row->urusetias)->count() }}
+                    </td>
+
+                    <td class="text-center">
+                        @php $approved = [] @endphp
+                        @foreach($row->scorings as $score)
+
+                            @if( count($row->scorings) == 3 )
+                                @if($score->syor_status == 1)
+                                    @php
+                                        $approved[$score->id] = 1;
+                                    @endphp
+                                @endif
+                            @endif
+
+                        @endforeach
+
+
+                        @if(count($approved ) > 1)
+                            <span class="badge badge-success">SYOR</span>
+                        @else
+                            <span class="badge badge-secondary">TIDAK</span>
+                        @endif
+
+                        @php unset($approved) @endphp
                     </td>
                     @endhasrole
 

@@ -1,5 +1,4 @@
 @php
-
 function active($menu){
     $route = Route::currentRouteName();
 
@@ -9,8 +8,6 @@ function active($menu){
       return null;
       }
 }
-
-
 @endphp
 
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -133,7 +130,7 @@ function active($menu){
   @endhasrole
 
 
-  @hasanyrole('super-admin|jspd-admin')
+  @hasanyrole('super-admin|JSPD-ADMIN|admin')
   <li class="nav-item has-treeview menu-close">
     <a href="#" class="nav-link {{ active('jspd-admins')  }}">
       <i class="nav-icon fas fa-database"></i>
