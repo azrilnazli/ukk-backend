@@ -17,7 +17,7 @@ class Signer extends Model
 
     public function tender_submission()
     {
-        return $this->belongsTo(TenderSubmission::class);
+        return $this->belongsTo(TenderSubmission::class)->where('is_approved',true);
     }
 
     public function user()
