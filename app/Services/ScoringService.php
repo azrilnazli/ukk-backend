@@ -17,7 +17,6 @@ class ScoringService {
 
     public function paginate($item = 50)
     {
-
         return TenderSubmission::query()
             ->sortable()
             ->whereHas('user.company', fn($query) =>

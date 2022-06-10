@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // controller name used in Role & Permission
 return [
@@ -13,5 +13,5 @@ return [
     'company',
     'scoring',
     'signer',
-    
+    'jspd-admin'
 ];

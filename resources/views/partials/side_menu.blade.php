@@ -1,6 +1,6 @@
 @php
 
-  function active($menu){
+function active($menu){
     $route = Route::currentRouteName();
 
     if(preg_match("/{$menu}/i", $route)) {
@@ -8,13 +8,7 @@
       } else{
       return null;
       }
-    }
-
-//     $a = 'users.index';
-// $search = 'users';
-// if(preg_match("/{$search}/i", $a)) {
-//     echo 'true';
-// }
+}
 
 
 @endphp
@@ -34,6 +28,7 @@
       </p>
     </a>
   </li>
+
   @endhasanyrole
 
   @hasrole('JSPD-URUSETIA')
@@ -140,7 +135,7 @@
 
   @hasanyrole('super-admin|jspd-admin')
   <li class="nav-item has-treeview menu-close">
-    <a href="#" class="nav-link {{ active('scorings')  }}">
+    <a href="#" class="nav-link {{ active('jspd-admins')  }}">
       <i class="nav-icon fas fa-database"></i>
       <p>
         JSPD
@@ -149,41 +144,15 @@
     </a>
     <ul class="nav nav-treeview">
 
-      <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.dashboard') }}">
-          <i class="nav-icon fa fa-dashboard"></i>
-          <p>
-            Dashboard
-          </p>
-        </a>
-      </li>
 
-      <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.index') }} ">
-          <i class="nav-icon fas fa-archive"></i>
-          <p>
-            Proposal
-          </p>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="{{ route('signers.index') }}" class="nav-link {{ active('signers.index') }}">
-          <i class="nav-icon fas fa-pencil-alt"></i>
-          <p>
-            Signer
-          </p>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="{{ route('scorings.index') }}" class="nav-link {{ active('scorings.activities') }}">
-          <i class="nav-icon fa fa-area-chart"></i>
-          <p>
-            Activity
-          </p>
-        </a>
-      </li>
+        <li class="nav-item">
+          <a href="{{ route('jspd-admins.index') }}" class="nav-link {{ active('jspd-admins')  }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>
+              ADMIN
+            </p>
+          </a>
+        </li>
 
 
 
