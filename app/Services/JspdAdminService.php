@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\TenderSubmission;
+use App\Models\Approval;
 use Auth;
 
 class JspdAdminService {
@@ -59,7 +60,7 @@ class JspdAdminService {
         ]);
 
         $approval->user_id = $request['user_id'];
-        $approval->is_verified = $request['is_verified'];
+        $approval->is_approved = $request['is_approved'];
         $approval->save();
 
         return $approval;

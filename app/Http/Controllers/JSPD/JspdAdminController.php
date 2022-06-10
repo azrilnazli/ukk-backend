@@ -56,8 +56,8 @@ class JspdAdminController extends Controller
         $request['user_id'] =  auth()->user()->id;
         $request['tender_submission_id'] =  $tenderSubmission->id;
 
-        $verification = $this->scoring->store_verification($request);
-        return redirect(route('scorings.tasks'))->with('success','Proposal '. $verification->id .' successfully verified.');
+        $approval = $this->service->store($request);
+        return redirect(route('jspd-admins.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully approved.');
     }
     public function edit(){}
     public function update(){}
