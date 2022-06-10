@@ -28,7 +28,10 @@
               {{ \Carbon\Carbon::parse(  optional($tenderSubmission->urusetia->user->verification)->created_at )->format('d/m/Y H:i:s')}}
             </p>
         </label>
-        @endif
+        @else
         <i>Belum disahkan.</i>
+        @endif
+      @else
+      <i>Belum disahkan.</i>
       @endif
 
