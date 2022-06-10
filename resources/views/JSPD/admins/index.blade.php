@@ -79,7 +79,7 @@
                         @endif
                     </td>
                     <td class="text-center">
-                      <a class="btn btn-success btn-sm" href="{{ route('scorings.show_verify', $row->id) }}">
+                      <a class="btn btn-success btn-sm" href="{{ route('jspd-admins.show', $row->id) }}">
                           <i class="fas fa-pencil-alt"></i>
                       </a>
                     </td>
