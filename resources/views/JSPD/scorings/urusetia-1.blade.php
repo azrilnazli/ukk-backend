@@ -23,7 +23,7 @@
       </div>
 
       <label class="form-check-label ml-3">
-        Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad
+        Adalah dengan ini diakui bahawa laporan pensyoran yang dibuat adalah sahih dan muktamad.
           <p class="font-weight-bold mt-3">
             {{ auth()->user()->name }} ({{ auth()->user()->email }})<br />
             {{ \Carbon\Carbon::parse( date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
