@@ -28,9 +28,9 @@ class JspdAdminService {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
-                        ->orWhereHas('user.company', fn($query) =>
-                            $query->where('is_approved', true)
-                        )
+                        // ->orWhereHas('user.company', fn($query) =>
+                        //     $query->where('is_approved', true)
+                        // )
 
                         ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
