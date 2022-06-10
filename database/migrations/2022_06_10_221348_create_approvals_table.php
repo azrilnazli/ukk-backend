@@ -19,7 +19,7 @@ class CreateApprovalsTable extends Migration
             $table->id();
             $table->foreignIdFor(User::class); // User
             $table->foreignIdFor(TenderSubmission::class)->nullable(); // TenderSubmission
-            $table->boolean('is_verified')->default(0);
+            $table->boolean('is_approved')->default(0);
             $table->timestamps();
         });
     }
