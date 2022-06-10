@@ -30,11 +30,23 @@ class JspdAdminController extends Controller
         $proposals = $this->service->paginate(50);
         return view('JSPD.admins.index', compact('proposals'));
     }
-    public function show(){}
+
     public function search(Request $request){
         $proposals = $this->service->search($request);
         return view('JSPD.admins.index', compact('proposals'));
     }
+
+    public function show(TenderSubmission $tenderSubmission)
+    {
+
+        $scorings = Scoring::query()
+                        ->with('user')
+                        ->where('tender_submission_id', $tenderSubmission->id )
+                        ->get();
+        return view('JSPD.admins.show_verify')->with(compact('tenderSubmission','scorings'));
+    }
+
+
     public function create(){}
     public function store(){}
     public function edit(){}
