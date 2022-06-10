@@ -87,27 +87,12 @@
                     </td>
 
                     <td class="text-center">
-                        @php $approved = [] @endphp
-                        @foreach($row->scorings as $score)
-
-                            @if( count($row->scorings) == 3 )
-                                @if($score->syor_status == 1)
-                                    @php
-                                        $approved[$score->id] = 1;
-                                    @endphp
-                                @endif
-                            @endif
-
-                        @endforeach
-
-
-                        @if(count($approved ) > 1)
+                        @if(count( $row->approved ) > 1)
                             <span class="badge badge-success">SYOR</span>
                         @else
                             <span class="badge badge-secondary">TIDAK</span>
                         @endif
 
-                        @php unset($approved) @endphp
                     </td>
                     @endhasrole
 

@@ -33,6 +33,10 @@ class TenderSubmission extends Model
         return $this->hasMany(Signer::class)->where('type','=', 'signer');
     }
 
+    public function approved(){
+        return $this->hasMany(Scoring::class)->where('syor_status','=',  true);
+    }
+
     public function signer(){
         return $this->hasOne(Signer::class);
     }
