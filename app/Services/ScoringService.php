@@ -42,7 +42,7 @@ class ScoringService {
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
-                        ->whereHas('user.company', fn($query) =>
+                        ->orWhereHas('user.company', fn($query) =>
                             $query->where('is_approved', true)
                         )
                         ->orWhereHas($type, fn($query) =>
