@@ -6,8 +6,7 @@
       <div class="form-check">
         <input
           class="form-check-input @error('is_approved') is-invalid @enderror"
-          {{-- @if(  in_array(auth()->user()->id, $tenderSubmission->verifications->pluck('user_id')->toArray() )) checked disabled @endif --}}
-          @if( $tenderSubmission->approval->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif
+          @if( !empty($tenderSubmission->approval) && $tenderSubmission->approval->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif
           type="checkbox"
           name="is_approved"
           value=1
@@ -25,7 +24,7 @@
         Adalah dengan ini diakui bahawa laporan pensyoran yang dibuat adalah sahih dan muktamad.
           <p class="font-weight-bold mt-3">
             {{ auth()->user()->name }} ({{ auth()->user()->email }})<br />
-            @if( $tenderSubmission->approval->pluck('user_id')->contains( auth()->user()->id ) )
+            @if(  !empty($tenderSubmission->approval) && $tenderSubmission->approval->pluck('user_id')->contains( auth()->user()->id ) )
                 {{ \Carbon\Carbon::parse( $tenderSubmission->approval->created_at )->format('d/m/Y H:i:s')}}
             @else
                 {{ \Carbon\Carbon::parse( date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
@@ -34,7 +33,7 @@
       </label>
 
       <div class="mt-2">
-        <button   @if( $tenderSubmission->approval->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+        <button   @if(  !empty($tenderSubmission->approval) && $tenderSubmission->approval->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.index') }}'">
             Cancel
         </button>
