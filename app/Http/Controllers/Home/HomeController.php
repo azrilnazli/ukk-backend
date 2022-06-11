@@ -80,10 +80,31 @@ class HomeController extends Controller
 
         // proposal related
         $proposal['total'] = TenderSubmission::query()
-                                ->whereHas('user.company', fn($query) =>
-                                        $query->where('is_approved', true)
-                                    )
+                                // ->whereHas('user.company', fn($query) =>
+                                //         $query->where('is_approved', true)
+                                //     )
+                                ->has('user.approved_company')
                                 ->count();
+
+        $proposal['assigned'] = TenderSubmission::query()
+                            ->has('user.approved_company')
+                            ->where('added_by','!=',0)
+                            ->count();        
+
+        $proposal['signed'] = TenderSubmission::query()
+                            ->has('scorings','=', 3)
+                            ->count();        
+                            
+        $proposal['verified'] = TenderSubmission::query()
+                            ->has('verifications','=', 2)
+                            ->count();  
+
+        $proposal['approved'] = TenderSubmission::query()
+                            ->has('approval','=', 1)
+                            ->count();  
+
+                            
+
 
         //$proposal['pdf_only'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', true)->count();
         //$proposal['video_only'] = TenderSubmission::query()->where('video_id','!=', 0)->count();
