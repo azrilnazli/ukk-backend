@@ -10,7 +10,7 @@
   <nav aria-label="breadcrumb">
       <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('scorings.tasks') }}">{{ __('Tasks') }}</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('jspd-admins.index') }}">{{ __('Porposals') }}</a></li>
           <li class="breadcrumb-item active" aria-current="page">Proposal Scoring</li>
       </ol>
   </nav>
