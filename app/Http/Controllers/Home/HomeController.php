@@ -103,6 +103,12 @@ class HomeController extends Controller
                             ->has('approval','=', 1)
                             ->count();  
 
+        $proposal['signers'] = TenderSubmission::query()
+                            ->has('signers','=', 3)
+                            ->has('urusetias','=', 2)
+                            ->count();  
+
+
                             
 
 
