@@ -42,10 +42,10 @@
                 <th width="*">Company</th>
                 <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
                 <th width="*" class="text-center">Owner</th>
-                <th width="*" class="text-center">Signed</th>
-                <th width="*" class="text-center">Verified</th>
-                <th width="*" class="text-center">Approved</th>
-                <th width="*" class="text-center">Pengesyoran</th>
+                <th width="*" class="text-center">PENANDA</th>
+                <th width="*" class="text-center">URUSETIA</th>
+                <th width="*" class="text-center">KETUA</th>
+                <th width="*" class="text-center">SYOR ?</th>
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
 
