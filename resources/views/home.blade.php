@@ -228,7 +228,7 @@
                     <!-- ./Both Only -->
                 </div> <!-- ./row -->
             </div>
-            <div class="card-footer text-muted ">
+            {{-- <div class="card-footer text-muted ">
                 <h5>SWASTA</h5>
                 @foreach($tenders['swasta']->sortByDesc('count') as $tender)
                 <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
@@ -240,9 +240,9 @@
                     @endif
               </button>
               @endforeach
-            </div>
+            </div> --}}
 
-            <div class="card-footer text-muted ">
+            {{-- <div class="card-footer text-muted ">
                 <h5>SAMBUNG SIRI</h5>
                 @foreach($tenders['sambung_siri']->sortByDesc('count') as $tender)
                 <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
@@ -254,7 +254,85 @@
                     @endif
               </button>
               @endforeach
+            </div> --}}
+        </div>
+    </div>
+</div>
+<!-- ./Horizontal Form -->
+
+<!-- Horizontal Form -->
+<div class="row">
+    <div class="col">
+        <div class="card card-info">
+            <div class="card-header">Saringan </div>
+            <div class="card-body">
+
+                <div class="row">
+
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">Total</span>
+                                        <span class="info-box-number">{{ $proposal['total'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->
+
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">Assigned To Urusetia</span>
+                                        <span class="info-box-number">{{ $proposal['assigned'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->
+
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">Signed ( 3 PENANDA )</span>
+                                        <span class="info-box-number">{{ $proposal['signed'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->
+
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">Verified ( 2 URUSETIA )</span>
+                                        <span class="info-box-number">{{ $proposal['verified'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->
+
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">Approved ( 1 KETUA )</span>
+                                        <span class="info-box-number">{{ $proposal['approved'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->
+                 
+
+                </div> <!-- ./row -->
             </div>
+
         </div>
     </div>
 </div>
