@@ -7,8 +7,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('scorings.tasks')}}">{{ __('Scoring Index') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Proposal List</li>
+        <li class="breadcrumb-item active" aria-current="page">Proposals List</li>
     </ol>
 </nav>
 @stop
@@ -45,6 +44,7 @@
                 <th width="*" class="text-center">Owner</th>
                 <th width="*" class="text-center">Signed</th>
                 <th width="*" class="text-center">Verified</th>
+                <th width="*" class="text-center">Approved</th>
                 <th width="*" class="text-center">Pengesyoran</th>
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
@@ -70,6 +70,9 @@
                     </td>
                     <td class="text-center">
                       {{ optional($row->verifications)->count() }}/{{ optional($row->urusetias)->count() }}
+                    </td>
+                    <td class="text-center">
+                      {{ optional($row->approval)->count() ? optional($row->approval)->count() : 0   }}/1
                     </td>
                     <td class="text-center">
                         @if(count( $row->approved ) > 1)
