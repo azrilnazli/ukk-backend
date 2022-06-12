@@ -24,6 +24,19 @@ class JspdAdminService {
             ->setPath(route('jspd-admins.index'));
     }
 
+    public function approved($item = 50)
+    {
+        return TenderSubmission::query()
+
+            ->has('approved','=', 2)
+            ->whereHas('user.company', fn($query) =>
+                $query->where('is_approved', true)
+                )
+            ->orderBy('id','desc')
+            ->paginate($item)
+            ->setPath(route('jspd-admins.index'));
+    }
+
     public function search($request)
     {
         $q = $request->input('query');
