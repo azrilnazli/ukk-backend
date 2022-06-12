@@ -14,7 +14,7 @@ class JspdAdminController extends Controller
 {
     function __construct()
     {
-        $this->middleware( 'permission:jspd-admin-list',     ['only' => ['dashboard','index','show','search']] );
+        $this->middleware( 'permission:jspd-admin-list',     ['only' => ['dashboard','index','show','search','approved']] );
         $this->middleware( 'permission:jspd-admin-create',   ['only' => ['create','store']] );
         $this->middleware( 'permission:jspd-admin-edit',     ['only' => ['edit','update']] );
         $this->middleware( 'permission:jspd-admin-delete',   ['only' => ['delete']] );
@@ -30,6 +30,13 @@ class JspdAdminController extends Controller
         // searchable by company name & id
         $proposals = $this->service->paginate(50);
         return view('JSPD.admins.index', compact('proposals'));
+    }
+
+    public function approved(){
+
+        $proposals = $this->service->approved(50);
+        return view('JSPD.admins.index', compact('proposals'));
+
     }
 
     public function search(Request $request){
