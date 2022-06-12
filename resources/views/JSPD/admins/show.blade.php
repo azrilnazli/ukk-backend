@@ -29,8 +29,10 @@
 
       <div class="card-footer">
         <div class="row">
+
+          @foreach($tenderSubmission->verifications as $verification)
           <div class="col m-1 p-2 bg-info rounded">@include('JSPD.admins.urusetia-1')</div>
-          <div class="col m-1 p-2 bg-warning rounded">@include('JSPD.admins.urusetia-2')</div>
+          @endforeach
         </div>
         <div class="row">
             <div class="col m-1 p-2 bg-light rounded">@include('JSPD.admins.ketua-urusetia')</div>
