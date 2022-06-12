@@ -341,6 +341,43 @@
                         </div>
                     </div>
                     <!-- ./ Registered -->
+
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">LULUS</span>
+                                        <span class="info-box-number">{{ $proposal['success'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">GAGAL</span>
+                                        <span class="info-box-number">{{ $proposal['failed'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->
+                    
+                    <!-- Registered -->
+                    <div class="col-md-2">
+                        <div class="info-box bg-secondary">
+                                {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                                <div class="info-box-content">
+                                        <span class="info-box-text">BELUM DITANDA</span>
+                                        <span class="info-box-number">{{ $proposal['pending'] }}</span>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- ./ Registered -->                    
+
+                    
                  
 
                 </div> <!-- ./row -->

@@ -108,6 +108,18 @@ class HomeController extends Controller
                             ->has('urusetias','=', 2)
                             ->count();  
 
+        $proposal['success'] = TenderSubmission::query()
+                            ->has('approved','=', 2)
+                            ->count();  
+
+        $proposal['failed'] = TenderSubmission::query()
+                            ->has('failed','=', 2)
+                            ->count();  
+
+        $proposal['pending'] = TenderSubmission::query()
+                            ->has('scorings','=', 0)
+                            ->count();  
+
 
                             
 
