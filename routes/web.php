@@ -90,6 +90,8 @@ Route::post('/signers/{tenderSubmission}', [SignerController::class,'store'])->n
 use App\Http\Controllers\JSPD\JspdAdminController;
 Route::get('/jspd-admins', [JspdAdminController::class, 'index'])->name('jspd-admins.index');
 Route::get('/jspd-admins/approved', [JspdAdminController::class, 'approved'])->name('jspd-admins.approved');
+Route::get('/jspd-admins/failed', [JspdAdminController::class, 'failed'])->name('jspd-admins.failed');
+Route::get('/jspd-admins/pending', [JspdAdminController::class, 'pending'])->name('jspd-admins.pending');
 Route::get('/jspd-admins/search', [JspdAdminController::class, 'search'])->name('jspd-admins.search');
 Route::get('/jspd-admins/dashboard', [JspdAdminController::class, 'dashboard'])->name('jspd-admins.dashboard');
 Route::get('/jspd-admins/create', [JspdAdminController::class,'create'])->name('jspd-admins.create');
