@@ -45,7 +45,7 @@
                 <th width="*" class="text-center">PENANDA</th>
                 <th width="*" class="text-center">URUSETIA</th>
                 <th width="*" class="text-center">KETUA</th>
-                <th width="*" class="text-center">SYOR ?</th>
+                <th width="*" class="text-center">STATUS</th>
                 <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
             </thead>
 
@@ -76,9 +76,9 @@
                     </td>
                     <td class="text-center">
                         @if(count( $row->approved ) > 1)
-                            <span class="badge badge-success">SYOR</span>
+                            <span class="badge badge-success">LULUS</span>
                         @else
-                            <span class="badge badge-secondary">TIDAK</span>
+                            <span class="badge badge-secondary">GAGAL</span>
                         @endif
                     </td>
                     <td class="text-center">
