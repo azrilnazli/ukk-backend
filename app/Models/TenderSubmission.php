@@ -41,6 +41,11 @@ class TenderSubmission extends Model
         return $this->hasMany(Scoring::class)->where('syor_status','=',  true);
     }
 
+    public function failed(){
+        return $this->hasMany(Scoring::class)->where('syor_status','=',  false);
+    }
+
+
     public function approval(){
         return $this->hasOne(Approval::class);
     }
