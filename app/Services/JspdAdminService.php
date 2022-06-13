@@ -34,7 +34,7 @@ class JspdAdminService {
                 )
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('jspd-admins.index'));
+            ->setPath(route('jspd-admins.approved'));
     }
 
     public function failed($item = 50)
@@ -47,7 +47,7 @@ class JspdAdminService {
                 )
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('jspd-admins.index'));
+            ->setPath(route('jspd-admins.failed'));
     }
 
     
@@ -61,7 +61,7 @@ class JspdAdminService {
                 )
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('jspd-admins.index'));
+            ->setPath(route('jspd-admins.pending'));
     }
 
 
