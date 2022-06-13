@@ -76,8 +76,7 @@
                       1
                       @else 
                       0
-                      @endif
-                      /1 
+                      @endif/1 
                     </td>
                     <td class="text-center">
                         @if(count( $row->approved ) > 1)
