@@ -72,7 +72,7 @@
                       {{ optional($row->verifications)->count() }}/{{ optional($row->urusetias)->count() }}
                     </td>
                     <td class="text-center">
-                      {{ $row->approval ? $row->approval->count() : 0   }}/1
+                      {{ $row->approval->count() }}/1
                     </td>
                     <td class="text-center">
                         @if(count( $row->approved ) > 1)
