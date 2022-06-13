@@ -75,11 +75,22 @@
                       {{ $row->approval ? 1 : 0  }}/1
                     </td>
                     <td class="text-center">
-                        @if(count( $row->approved ) > 1)
-                            <span class="badge badge-success">LULUS</span>
-                        @else
-                            <span class="badge badge-secondary">GAGAL</span>
+
+
+                    @if( optional($row->scorings)->count() == 3 )  
+                        @if( optional($row->verifications)->count() == 2 ) 
+
+                            @if(count( $row->approved ) > 1)
+                                <span class="badge badge-success">LULUS</span>
+                            @else
+                                <span class="badge badge-danger">GAGAL</span>
+                            @endif
+                        @else   
+                          <span class="badge badge-info">BELUM DISAHKAN</span>
                         @endif
+                    @else
+                      <span class="badge badge-secondary">BELUM DITANDA</span>
+                    @endif
                     </td>
                     <td class="text-center">
                       <a class="btn btn-success btn-sm" href="{{ route('jspd-admins.show', $row->id) }}">
