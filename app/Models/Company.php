@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+
 
 class Company extends Model
 {
@@ -30,4 +32,18 @@ class Company extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    // states to lower case
+    public function setStatesAttribute($value)
+    {
+        $this->attributes['states'] = strtolower($value);
+    }
+
+    // states to first letter uppercase
+    public function getStatesAttribute()
+    {
+        return ucWords($this->attributes['states']);
+    }
+
+
 }
