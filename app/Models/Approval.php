@@ -15,7 +15,7 @@ class Approval extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tender_submissions()
+    public function tender_submission()
     {
         return $this->belongsTo(TenderSubmission::class);
     }
