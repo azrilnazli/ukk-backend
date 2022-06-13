@@ -29,6 +29,8 @@ class JspdAdminService {
         return TenderSubmission::query()
 
             ->has('approved','=', 2)
+            ->has('scorings','=', 3)
+            ->has('verifications','=', 2)
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
@@ -42,6 +44,8 @@ class JspdAdminService {
         return TenderSubmission::query()
 
             ->has('failed','=', 2)
+            ->has('scorings','=', 3)
+            ->has('verifications','=', 2)
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
@@ -55,7 +59,8 @@ class JspdAdminService {
     {
         return TenderSubmission::query()
 
-            ->has('scorings','=', 0)
+            ->has('scorings','!=', 3)
+            ->has('verifications','!=', 2)
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
