@@ -46,12 +46,9 @@ class TenderSubmission extends Model
     }
 
     public function approval(){
-        return $this->hasOne(Approval::class);
+        return $this->hasOne(Approval::class)->where('is_approved','=',  true);
     }
 
-    public function approval_success(){
-        return $this->hasOne(Approval::class);
-    }
 
     public function signer(){
         return $this->hasOne(Signer::class);
