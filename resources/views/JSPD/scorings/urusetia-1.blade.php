@@ -28,7 +28,7 @@
     
           <p class="font-weight-bold mt-3">
             {{  $verification->user->name }} ({{  $verification->user->email }})<br />
-            {{ \Carbon\Carbon::parse(  $verification->created_at ))->format('d/m/Y H:i:s')}}
+            {{ \Carbon\Carbon::parse(  $verification->created_at )->format('d/m/Y H:i:s')}}
           </p>
       </label>
 
