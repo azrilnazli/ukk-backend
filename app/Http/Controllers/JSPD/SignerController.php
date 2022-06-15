@@ -40,8 +40,8 @@ class SignerController extends Controller
     {
         $proposals = Signer::query()
                         ->select('tender_submission_id')
-                        //->groupBy('tender_submission_id')
-                        ->with('tender_submission.user','tender_submission.tender','user')
+                        // ->groupBy('tender_submission_id')
+                        // ->with('tender_submission.user','tender_submission.tender','user')
                         ->where('user_id',auth()->user()->id) // assigned task to urusetia
                         ->paginate(50)
                         ->setPath(route('signers.tasks'));
