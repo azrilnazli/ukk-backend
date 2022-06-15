@@ -16,8 +16,8 @@
 
 <form method="GET"  action="{{ route('jspd-admins.search') }}">
   @csrf
-  <div class="row mt-5">
-    <div class="col-5">
+  <div class="row ">
+    <div class="col">
       <input required type="text" name="query" class="form-control" placeholder="Search">
     </div>
     <div class="col">
@@ -26,12 +26,28 @@
   </div>
 </form>
 
+
+
 <div class="card card-dark mt-3">
 
     <div class="card-header clearfix">
       <h3 class="card-title">Total Proposals ( {{ $proposals->total() }} )</h3>
     </div>
     <!-- /.card-header -->
+
+
+    <div class="row">
+      <div class="col">
+          <div class="card-footer clearfix">
+            <div class="card-tools">
+              {{ $proposals->appends(Request::all())->links() }}
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+  
 
     <div class="card-body p-0">
       <div class="table-responsive">
@@ -111,7 +127,6 @@
 
     <div class="card-footer clearfix">
       <div class="card-tools">
-
         {{ $proposals->appends(Request::all())->links() }}
       </div>
     </div>
