@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="card">
+  <div class="card">
       <div class="card-header bg-secondary">
         @include('JSPD.scorings.header')
       </div>
@@ -28,13 +28,34 @@
       </div>
 
       <div class="card-footer">
-        <div class="row">
-          <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-1')</div>
-          <div class="col m-1 p-2 bg-warning rounded">@include('JSPD.scorings.urusetia-2')</div>
-        </div>
-   
-      </div>
+       
+                  <div class="row">
+               
 
-    </div>
+                    @if( count($tenderSubmission->verifications) == 0)
+
+                      <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-form')</div>
+
+                    @elseif(  count($tenderSubmission->verifications) == 1  )
+                      
+                      @if( !$tenderSubmission->verifications->pluck('user_id')->contains( auth()->user()->id ))
+                          <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-form')</div>
+                      @endif
+                      
+                      
+                      @foreach($tenderSubmission->verifications as $verification)
+                        <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-1')</div>
+                      @endforeach  
+
+
+                    @elseif(  count($tenderSubmission->verifications) == 2 )
+                        @foreach($tenderSubmission->verifications as $verification)
+                          <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-1')</div>
+                        @endforeach 
+                    @endif 
+              
+                  </div>
+      </div>
+  </div>
 
 @stop
