@@ -105,10 +105,10 @@
                                 @endif
 
                             @else   
-                              <span class="badge badge-info">BELUM DISAHKAN</span>
+                              <span class="badge badge-secondary">BELUM DISAHKAN</span>
                             @endif
                         @else
-                          <span class="badge badge-secondary">BELUM DITANDA</span>
+                          <span class="badge badge-warning">BELUM DITANDA</span>
                         @endif
                     @endif
                     </td>
@@ -119,7 +119,7 @@
                               <i class="fas fa-pencil-alt"></i>
                           </a>
                           @hasrole('super-admin')
-                          <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                          <button onclick="return confirm('Are you sure ?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
                           @endhasrole
                         </form>
                     </td>
