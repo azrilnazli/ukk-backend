@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\TenderSubmission;
 use App\Models\Approval;
 use Auth;
+use Storage;
 
 class JspdAdminService {
 
@@ -125,7 +126,35 @@ class JspdAdminService {
     }
 
     public function destroy($id){
-        return TenderSubmission::where('id',$id)->delete();
+        $tenderSubmission = TenderSubmission::findOrFail($id);
+        $tenderSubmission->scorings()->delete();
+        $tenderSubmission->verifications()->delete();
+        $tenderSubmission->signers()->delete();
+        $tenderSubmission->scorings()->delete();
+        $tenderSubmission->approval()->delete();
+
+       
+        // $video = User::has('video')->get();
+        //dd($tenderSubmission->video());
+        $this->video = new \App\Services\VideoService;
+        $video = \App\Models\Video::query()->where('tender_submission_id', $id)->first();
+   
+        if($video){
+     
+            if( Storage::disk('assets')->exists($video->id) && Storage::disk('streaming')->exists($video->id)  ){
+                $this->video->delete($video->id);
+            }
+            $video->delete();
+        }
+       
+    
+        if(Storage::disk('proposals')->exists($tenderSubmission->id)){
+            Storage::disk('proposals')->deleteDirectory( $tenderSubmission->id ); // private dir
+        }
+
+       $tenderSubmission->delete();
+
+       return $tenderSubmission;
     }
 
 }

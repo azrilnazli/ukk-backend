@@ -9,7 +9,6 @@ use App\Models\Scoring;
 use Auth;
 use App\Services\JspdAdminService;
 use App\Http\Requests\JspdAdmin\StoreApprovalRequest;
-use Storage;
 
 class JspdAdminController extends Controller
 {
@@ -74,7 +73,6 @@ class JspdAdminController extends Controller
 
     public function store(StoreApprovalRequest $request,TenderSubmission $tenderSubmission){
 
-
         $request['user_id'] =  auth()->user()->id;
         $request['tender_submission_id'] =  $tenderSubmission->id;
 
@@ -94,32 +92,7 @@ class JspdAdminController extends Controller
 
         if(Auth::user()->hasAnyRole(['JSPD-ADMIN','super-admin'])){
 
-            $tenderSubmission = TenderSubmission::findOrFail($id);
-            $tenderSubmission->scorings()->delete();
-            $tenderSubmission->verifications()->delete();
-            $tenderSubmission->signers()->delete();
-            $tenderSubmission->scorings()->delete();
-            $tenderSubmission->approval()->delete();
-
-           
-            //dd($tenderSubmission->video());
-            $this->video = new \App\Services\VideoService;
-            $video = \App\Models\Video::query()->where('tender_submission_id', $id)->first();
-       
-            if($video){
-         
-                if( Storage::disk('assets')->exists($video->id) && Storage::disk('streaming')->exists($video->id)  ){
-                    $this->video->delete($video->id);
-                }
-                $video->delete();
-            }
-           
-        
-            if(Storage::disk('proposals')->exists($tenderSubmission->id)){
-                Storage::disk('proposals')->deleteDirectory( $tenderSubmission->id ); // private dir
-            }
-
-            $tenderSubmission->delete();
+            $tenderSubmission = $this->service->destroy($id);
 
             return redirect(route('jspd-admins.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully removed.');
         } else {
