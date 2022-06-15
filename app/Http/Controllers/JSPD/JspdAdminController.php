@@ -103,7 +103,7 @@ class JspdAdminController extends Controller
 
             if($tenderSubmission->has('video')){
                 $this->video = new \App\Services\VideoService;
-                if( Storage::disk('assets')->exists($tenderSubmission->id) &&  Storage::disk('streaming')->exists($tenderSubmission->id)  ){
+                if( Storage::disk('assets')->exists($tenderSubmission->video->id) && Storage::disk('streaming')->exists($tenderSubmission->video->id)  ){
                     //dd($tenderSubmission->id);
                     $this->video->delete($tenderSubmission->video->id);
                 }
