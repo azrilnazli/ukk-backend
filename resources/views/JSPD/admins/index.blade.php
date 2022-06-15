@@ -109,9 +109,13 @@
                     @endif
                     </td>
                     <td class="text-center">
-                      <a class="btn btn-success btn-sm" href="{{ route('jspd-admins.show', $row->id) }}">
-                          <i class="fas fa-pencil-alt"></i>
-                      </a>
+                        <form action="{{ route('jspd-admins.destroy', $row->id)}}" method="post">
+                        @csrf @method('DELETE')
+                          <a class="btn btn-success btn-sm" href="{{ route('jspd-admins.show', $row->id) }}">
+                              <i class="fas fa-pencil-alt"></i>
+                          </a>
+                          <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                        </form>
                     </td>
                 </tr>
 

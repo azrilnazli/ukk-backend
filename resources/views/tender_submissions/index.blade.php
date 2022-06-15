@@ -67,9 +67,12 @@
                       {!! $row->video->is_ready ? '<span class="text-red"><i class="fas fa-video"></i></span>' : '' !!} </td>
                       @endif
                     <td class="text-center">
+
+                      @hasrole('super-admin')
                       <a class="btn btn-success btn-sm" href="{{ route('tender_submissions.show', $row->id) }}">
                           <i class="fas fa-search"></i>
                       </a>
+                      @endhasrole
 
                     </td>
                 </tr>
