@@ -9,6 +9,7 @@ use App\Models\Scoring;
 use Auth;
 use App\Services\JspdAdminService;
 use App\Http\Requests\JspdAdmin\StoreApprovalRequest;
+use Storage;
 
 class JspdAdminController extends Controller
 {
@@ -82,5 +83,37 @@ class JspdAdminController extends Controller
     }
     public function edit(){}
     public function update(){}
-    public function delete(){}
+
+    // delete proposal
+    // delete scorings
+    // delete verifications
+    // delete signers
+    // delete approval
+    // delete videos
+    public function delete($id){
+
+        $tenderSubmission = TenderSubmission::findOrFail($id);
+        $tenderSubmission->scorings()->delete();
+        $tenderSubmission->verifications()->delete();
+        $tenderSubmission->signers()->delete();
+        $tenderSubmission->scorings()->delete();
+        $tenderSubmission->approval()->delete();
+
+        if($tenderSubmission->has('video')){
+            $this->video = new \App\Services\VideoService;
+            if( Storage::disk('assets')->exists($tenderSubmission->id) &&  Storage::disk('streaming')->exists($tenderSubmission->id)  ){
+                //dd($tenderSubmission->id);
+                $this->video->delete($tenderSubmission->video->id);
+            }
+            $tenderSubmission->video()->delete();
+        }
+
+        if(Storage::disk('proposals')->exists($tenderSubmission->id)){
+            Storage::disk('proposals')->deleteDirectory( $tenderSubmission->id ); // private dir
+        }
+
+        $tenderSubmission->delete();
+
+        return redirect(route('jspd-admins.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully removed.');
+    }
 }
