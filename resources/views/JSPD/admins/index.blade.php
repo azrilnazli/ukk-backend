@@ -101,6 +101,7 @@
                             @else
                                 <span class="badge badge-danger">GAGAL</span>
                             @endif
+                            
                         @else   
                           <span class="badge badge-info">BELUM DISAHKAN</span>
                         @endif
