@@ -95,21 +95,26 @@
                     @if(( $row->approval ))
                       <span class="badge badge-dark">SELESAI</span>
                     @else
-                        @if( optional($row->scorings)->count() == 3 )  
-                            @if( optional($row->verifications)->count() == 2 ) 
+                        @if($row->owner)
+                                  
+                                  @if( optional($row->scorings)->count() == 3 )  
+                                      @if( optional($row->verifications)->count() == 2 ) 
 
-                                @if(count( $row->approved ) > 1)
-                                    <span class="badge badge-success">LULUS</span>
-                                @else
-                                    <span class="badge badge-danger">GAGAL</span>
-                                @endif
+                                          @if(count( $row->approved ) > 1)
+                                              <span class="badge badge-success">LULUS</span>
+                                          @else
+                                              <span class="badge badge-danger">GAGAL</span>
+                                          @endif
 
-                            @else   
-                              <span class="badge badge-secondary">BELUM DISAHKAN OLEH URUSETIA</span>
-                            @endif
-                        @else
-                          <span class="badge badge-warning">BELUM DITANDA OLEH PENANDA</span>
-                        @endif
+                                      @else   
+                                        <span class="badge badge-secondary">BELUM DISAHKAN OLEH URUSETIA</span>
+                                      @endif
+                                  @else
+                                    <span class="badge badge-warning">BELUM DITANDA OLEH PENANDA</span>
+                                  @endif
+                        @else    
+                          <span class="badge badge-warning">PROPOSAL BELUM ASSIGN</span>
+                        @endif   
                     @endif
                     </td>
                     <td class="text-center">
