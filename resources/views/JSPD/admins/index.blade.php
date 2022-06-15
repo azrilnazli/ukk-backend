@@ -92,21 +92,24 @@
                     </td>
                     <td class="text-center">
 
-
-                    @if( optional($row->scorings)->count() == 3 )  
-                        @if( optional($row->verifications)->count() == 2 ) 
-
-                            @if(count( $row->approved ) > 1)
-                                <span class="badge badge-success">LULUS</span>
-                            @else
-                                <span class="badge badge-danger">GAGAL</span>
-                            @endif
-                            
-                        @else   
-                          <span class="badge badge-info">BELUM DISAHKAN</span>
-                        @endif
+                    @if(( $row->approval ))
+                      <span class="badge badge-dark">SELESAI</span>
                     @else
-                      <span class="badge badge-secondary">BELUM DITANDA</span>
+                        @if( optional($row->scorings)->count() == 3 )  
+                            @if( optional($row->verifications)->count() == 2 ) 
+
+                                @if(count( $row->approved ) > 1)
+                                    <span class="badge badge-success">LULUS</span>
+                                @else
+                                    <span class="badge badge-danger">GAGAL</span>
+                                @endif
+
+                            @else   
+                              <span class="badge badge-info">BELUM DISAHKAN</span>
+                            @endif
+                        @else
+                          <span class="badge badge-secondary">BELUM DITANDA</span>
+                        @endif
                     @endif
                     </td>
                     <td class="text-center">
