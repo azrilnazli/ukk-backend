@@ -114,7 +114,9 @@
                           <a class="btn btn-success btn-sm" href="{{ route('jspd-admins.show', $row->id) }}">
                               <i class="fas fa-pencil-alt"></i>
                           </a>
+                          @hasrole('super-admin')
                           <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                          @endhasrole
                         </form>
                     </td>
                 </tr>
