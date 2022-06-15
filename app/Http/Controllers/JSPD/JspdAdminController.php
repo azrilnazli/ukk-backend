@@ -101,15 +101,20 @@ class JspdAdminController extends Controller
             $tenderSubmission->scorings()->delete();
             $tenderSubmission->approval()->delete();
 
-            if($tenderSubmission->has('video')){
-                $this->video = new \App\Services\VideoService;
-                if( Storage::disk('assets')->exists($tenderSubmission->video->id) && Storage::disk('streaming')->exists($tenderSubmission->video->id)  ){
-                    //dd($tenderSubmission->id);
-                    $this->video->delete($tenderSubmission->video->id);
+           
+            //dd($tenderSubmission->video());
+            $this->video = new \App\Services\VideoService;
+            $video = \App\Models\Video::query()->where('tender_submission_id', $id)->first();
+       
+            if($video){
+         
+                if( Storage::disk('assets')->exists($video->id) && Storage::disk('streaming')->exists($video->id)  ){
+                    $this->video->delete($video->id);
                 }
-                $tenderSubmission->video()->delete();
+                $video->delete();
             }
-
+           
+        
             if(Storage::disk('proposals')->exists($tenderSubmission->id)){
                 Storage::disk('proposals')->deleteDirectory( $tenderSubmission->id ); // private dir
             }
