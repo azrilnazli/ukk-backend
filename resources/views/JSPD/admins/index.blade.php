@@ -105,10 +105,10 @@
                                 @endif
 
                             @else   
-                              <span class="badge badge-secondary">BELUM DISAHKAN</span>
+                              <span class="badge badge-secondary">BELUM DISAHKAN OLEH URUSETIA</span>
                             @endif
                         @else
-                          <span class="badge badge-warning">BELUM DITANDA</span>
+                          <span class="badge badge-warning">BELUM DITANDA OLEH PENANDA</span>
                         @endif
                     @endif
                     </td>
