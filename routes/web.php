@@ -8,6 +8,7 @@ Route::get('/', function () {
 });
 
 Auth::routes(); // Auth
+
 Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);
 Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
 Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('users.search');
@@ -54,6 +55,10 @@ Route::get('/queue/jobs', [App\Http\Controllers\Home\HomeController::class, 'job
 Route::prefix('jobs')->group(function () {
     Route::queueMonitor();
 });
+
+// TenderDetail
+\App\Http\Controllers\tender\TenderDetailController::routes();
+
 
 // JSPD - scorings
 use App\Http\Controllers\JSPD\ScoringController;

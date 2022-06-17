@@ -19,7 +19,12 @@ class CreateTenderDetailsTable extends Migration
             $table->string('title')->nullable();
             $table->text('login_text')->nullable();
             $table->text('dashboard_text')->nullable();
+            $table->text('proposal_text')->nullable();
             $table->boolean('is_active')->default(false);
+
+            $table->date('start')->nullable();
+            $table->date('end')->nullable();
+
             $table->timestamps();
         });
 

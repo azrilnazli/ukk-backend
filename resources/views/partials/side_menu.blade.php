@@ -25,8 +25,59 @@ function active($menu){
       </p>
     </a>
   </li>
-
   @endhasanyrole
+
+
+  @hasrole('super-admin')
+  <li class="nav-item has-treeview menu-close">
+    <a href="#" class="nav-link {{ active('tenders')  }}">
+      <i class="nav-icon fas fa-list-alt"></i>
+      <p>
+        Tender
+        <i class="right fas fa-angle-left"></i>
+      </p>
+    </a>
+    <ul class="ml-3 nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ route('tenders.index') }}" class="nav-link {{ active('tenders.index') }}">
+          <i class="nav-icon fas fa-pencil-alt"></i>
+          <p>
+            Manage Tender
+          </p>
+        </a>
+      </li>
+
+        <li class="nav-item">
+          <a href="{{ route('tender-details.index') }}" class="nav-link {{ active('tender-details.index')  }}">
+            <i class="nav-icon fa fa-pencil"></i>
+            <p>
+              Tender Detail
+            </p>
+          </a>
+        </li>
+
+        
+        {{-- <li class="nav-item">
+          <a href="{{ route('tenders-categories') }}" class="nav-link {{ active('tenders-categories')  }}">
+            <i class="nav-icon fas fa-check"></i>
+            <p>
+              Tender Category
+            </p>
+          </a>
+        </li> --}}
+
+        {{-- <li class="nav-item">
+          <a href="{{ route('tenders.index') }}" class="nav-link {{ active('tenders.index')  }}">
+            <i class="nav-icon fas fa-times"></i>
+            <p>
+              Tender
+            </p>
+          </a>
+        </li> --}}
+
+    </ul>
+  </li> <!-- ./treeview -->
+  @endhasrole
 
   @hasrole('JSPD-URUSETIA')
   <li class="nav-item">
@@ -97,8 +148,7 @@ function active($menu){
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
-    <ul class="nav nav-treeview">
-
+    <ul class="ml-3  nav nav-treeview">
       <li class="nav-item">
         <a href="{{ route('users.index') }}" class="nav-link {{ active('users.index') }}">
           <i class="nav-icon fas fa-users"></i>
@@ -139,9 +189,7 @@ function active($menu){
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
-    <ul class="nav nav-treeview">
-
-
+    <ul class="ml-3  nav nav-treeview">
         <li class="nav-item">
           <a href="{{ route('jspd-admins.index') }}" class="nav-link {{ active('jspd-admins.index')  }}">
             <i class="nav-icon fas fa-database"></i>
@@ -150,8 +198,6 @@ function active($menu){
             </p>
           </a>
         </li>
-
-        
         <li class="nav-item">
           <a href="{{ route('jspd-admins.approved') }}" class="nav-link {{ active('jspd-admins.approved')  }}">
             <i class="nav-icon fas fa-check"></i>
@@ -197,23 +243,14 @@ function active($menu){
 
 
     <li class="nav-item has-treeview menu-close">
-      <a href="#" class="nav-link {{ active('tenders')  }}">
+      <a href="#" class="nav-link {{ active('tender_submissions')  }}">
         <i class="nav-icon fas fa-list"></i>
         <p>
           Proposal
           <i class="right fas fa-angle-left"></i>
         </p>
       </a>
-      <ul class="nav nav-treeview">
-
-        <li class="nav-item">
-          <a href="/tenders" class="nav-link {{ active('tenders') }}">
-            <i class="nav-icon fas fa-pencil-alt"></i>
-            <p>
-              Manage Tender
-            </p>
-          </a>
-        </li>
+      <ul class="ml-3  nav nav-treeview">
 
         <li class="nav-item">
           <a href="/tender_submissions" class="nav-link {{ active('tender_submissions') }}">
@@ -236,7 +273,7 @@ function active($menu){
           <i class="right fas fa-angle-left"></i>
         </p>
       </a>
-      <ul class="nav nav-treeview">
+      <ul class="ml-3 nav nav-treeview">
         <li class="nav-item">
           <a href="/videos" class="nav-link  {{ active('videos.index') }}">
             <i class="nav-icon fas fa-check"></i>

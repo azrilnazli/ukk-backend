@@ -15,10 +15,14 @@ class TenderSubmissionController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:tender-list|Tender-create|Tender-edit|Tender-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:tender-create', ['only' => ['create','store']]);
-         $this->middleware('permission:tender-edit',   ['only' => ['edit','update']]);
-         $this->middleware('permission:tender-delete', ['only' => ['destroy']]);
+        $this->middleware(
+             'permission:tender-submission-list|tender-submission-create|tender-submission-edit|tender-submission-delete', 
+             ['only' => ['index','show']]
+        );
+          
+        $this->middleware('permission:tender-submission--create', ['only' => ['create','store']]);
+        $this->middleware('permission:tender-submission--edit',   ['only' => ['edit','update']]);
+        $this->middleware('permission:tender-submission--delete', ['only' => ['destroy']]);
 
         $this->tender = new TenderSubmissionService;
     }

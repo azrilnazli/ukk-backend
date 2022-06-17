@@ -12,14 +12,13 @@ use App\Http\Requests\Tender\UpdateTenderRequest;
 
 class TenderController extends Controller
 {
-    var $Tender;
+    var $tender;
 
-    function __construct()
-    {
-        //  $this->middleware('permission:Tender-list|Tender-create|Tender-edit|Tender-delete', ['only' => ['index','show']]);
-        //  $this->middleware('permission:Tender-create', ['only' => ['create','store']]);
-        //  $this->middleware('permission:Tender-edit',   ['only' => ['edit','update']]);
-        //  $this->middleware('permission:Tender-delete', ['only' => ['destroy']]);
+    function __construct(){
+        $this->middleware('permission:tender-list|tender-create|tender-edit|tender-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:tender-create', ['only' => ['create','store']]);
+        $this->middleware('permission:tender-edit',   ['only' => ['edit','update']]);
+        $this->middleware('permission:tender-delete', ['only' => ['destroy']]);
 
         $this->tender = new TenderService;
     }
