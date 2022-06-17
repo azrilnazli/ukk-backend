@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Tender\TenderDetail;
+namespace App\Http\Requests\Tender\TenderRequirement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,12 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['sometimes', 'string', 'max:255'],
-            'login_text' => ['sometimes','string'],
-            'dashboard_text' => ['sometimes','string'],
-            'proposal_text' => ['sometimes','string'],
-            'date_start' => ['sometimes', 'date'],
-            'date_end' => ['sometimes', 'date', 'after:date_start'],
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required','string'],
         ];
     }
 }

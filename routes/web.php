@@ -58,6 +58,8 @@ Route::prefix('jobs')->group(function () {
 
 // TenderDetail
 \App\Http\Controllers\tender\TenderDetailController::routes();
+// TenderRequirement
+\App\Http\Controllers\tender\TenderRequirementController::routes();
 
 
 // JSPD - scorings

@@ -38,25 +38,34 @@ function active($menu){
       </p>
     </a>
     <ul class="ml-3 nav nav-treeview">
-      <li class="nav-item">
-        <a href="{{ route('tenders.index') }}" class="nav-link {{ active('tenders.index') }}">
-          <i class="nav-icon fas fa-pencil-alt"></i>
-          <p>
-            Manage Tender
-          </p>
-        </a>
-      </li>
-
         <li class="nav-item">
-          <a href="{{ route('tender-details.index') }}" class="nav-link {{ active('tender-details.index')  }}">
-            <i class="nav-icon fa fa-pencil"></i>
+            <a href="{{ route('tenders.index') }}" class="nav-link {{ active('tenders.index') }}">
+            <i class="nav-icon fas fa-pencil-alt"></i>
             <p>
-              Tender Detail
+                Manage Tender
             </p>
-          </a>
+            </a>
         </li>
 
-        
+        <li class="nav-item">
+            <a href="{{ route('tender-details.index') }}" class="nav-link {{ active('tender-details.index')  }}">
+            <i class="nav-icon fa fa-pencil"></i>
+            <p>
+                Tender Detail
+            </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('tender-requirements.index') }}" class="nav-link {{ active('tender-requirements.index')  }}">
+            <i class="nav-icon fa fa-pencil"></i>
+            <p>
+                Tender Requirement
+            </p>
+            </a>
+        </li>
+
+
         {{-- <li class="nav-item">
           <a href="{{ route('tenders-categories') }}" class="nav-link {{ active('tenders-categories')  }}">
             <i class="nav-icon fas fa-check"></i>

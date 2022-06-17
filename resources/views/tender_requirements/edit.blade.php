@@ -7,14 +7,14 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('tender-details.index') }}">{{ __('Tender Detail') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('tender-requirements.index') }}">{{ __('Tender Requirement') }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Edit Tender</li>
     </ol>
 </nav>
 @stop
 
 @section('content')
-<form method="POST" action="{{ route('tender-details.update', $tenderDetail->id) }}" >
+<form method="POST"  action="{{ route('tender-requirements.update', $tenderRequirement->id) }}" >
 @csrf
 @method('PUT')
 <div class="card card-dark">
@@ -26,7 +26,7 @@
     </div><!-- /.card-header -->
 
     <div class="card-body">
-        @include('tender_details.form')
+        @include('tender_requirements.form')
     </div><!-- /.card-body -->
 
 </div><!-- /.card -->

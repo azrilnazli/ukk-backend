@@ -7,8 +7,8 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="/tenders">{{ __('Tender Details') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tender Detail List</li>
+        <li class="breadcrumb-item"><a href="/tenders">{{ __('Tender Requirements') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tender Requirement List</li>
     </ol>
 </nav>
 @stop
@@ -30,10 +30,10 @@
 <div class="card card-dark mt-3">
 
     <div class="card-header clearfix">
-      <h3 class="card-title">Total  ( {{ $tenders->total() }} )</h3>
+      <h3 class="card-title">Total ( {{ $tenders->total() }} )</h3>
 
       <div class="card-tools">
-        <a class="btn-sm btn-primary " href="{{ route('tender-details.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
+        <a class="btn-sm btn-primary " href="{{ route('tender-requirements.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
       </div>
 
     </div>
@@ -64,9 +64,9 @@
 
                     @role('super-admin')
                     <td>
-                      <form action="{{ route('tender-details.destroy', $row->id)}}" method="post">
+                      <form action="{{ route('tender-requirements.destroy', $row->id)}}" method="post">
                         @csrf @method('DELETE')
-                      <a class="btn btn-success btn-sm" href="{{ route('tender-details.edit', $row->id) }}">
+                      <a class="btn btn-success btn-sm" href="{{ route('tender-requirements.edit', $row->id) }}">
                           <i class="fas fa-pencil-alt"></i>
                       </a>
                         <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
