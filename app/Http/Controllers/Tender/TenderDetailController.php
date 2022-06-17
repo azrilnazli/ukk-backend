@@ -73,6 +73,6 @@ class TenderDetailController extends Controller
     public function destroy($id)
     {
         $this->service->destroy($id);
-        return redirect()->back()->with('success','Tender deleted.');
+        return redirect()->back()->with('success','Tender Detail deleted successfully.');
     }
 }
