@@ -34,6 +34,14 @@ class Tender extends Model
         return $this->hasMany(TenderSubmission::class);
     }
 
+    /**
+     * Tender belongsTo TenderCategory
+     */
+    public function tender_category()
+    {
+        return $this->belongsTo(TenderCategory::class);
+    }
+
     // enum | type of tender
     public static function types(){
 
@@ -49,20 +57,20 @@ class Tender extends Model
         return $enum;
     }
 
-        // enum | duration
-        public static function duration(){
+    // enum | duration
+    public static function duration(){
 
-            $name = 'duration';
-            $instance = new Tender; // create an instance of the model to be able to get the table name
-            $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$instance->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
-            preg_match('/^enum\((.*)\)$/', $type, $matches);
-            $enum = array();
-            foreach(explode(',', $matches[1]) as $value){
-                $v = trim( $value, "'" );
-                $enum[] = $v;
-            }
-            return $enum;
+        $name = 'duration';
+        $instance = new Tender; // create an instance of the model to be able to get the table name
+        $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$instance->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
+        preg_match('/^enum\((.*)\)$/', $type, $matches);
+        $enum = array();
+        foreach(explode(',', $matches[1]) as $value){
+            $v = trim( $value, "'" );
+            $enum[] = $v;
         }
+        return $enum;
+    }
 
     // enum | language
     public static function get_languages(){

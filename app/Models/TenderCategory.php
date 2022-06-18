@@ -9,4 +9,13 @@ class TenderCategory extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    /**
+     * TenderCategory hasMany Tender
+     */
+    public function tenders()
+    {
+        return $this->hasMany(Tender::class);
+    }
+
 }

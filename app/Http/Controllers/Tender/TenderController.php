@@ -31,8 +31,8 @@ class TenderController extends Controller
         return view('tenders.index')->with(compact('tenders'));
     }
 
-    public function search(Request $request){
-
+    public function search(Request $request)
+    {
         $tenders = $this->tender->search($request);
         return view('tenders.index')->with(compact('tenders'));
     }
@@ -55,10 +55,11 @@ class TenderController extends Controller
     public function edit(Tender $tender)
     {
 
+        $tenderCategories = TenderCategory::all();
         $types = Tender::types(); // tender types
         $languages = Tender::get_languages();
         $channels = Tender::channels();
-        return view('tenders.edit',compact('tender','languages','channels','types'));
+        return view('tenders.edit',compact('tender','languages','channels','types','tenderCategories'));
     }
 
     public function update(UpdateRequest $request, $id)
