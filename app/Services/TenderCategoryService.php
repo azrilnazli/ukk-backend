@@ -1,10 +1,10 @@
 <?php
 namespace App\Services;
 
-use App\Models\TenderDetail;
+use App\Models\TenderCategory;
 use Auth;
 
-class TenderDetailService {
+class TenderCategoryService {
 
 
     // contstructor
@@ -15,7 +15,7 @@ class TenderDetailService {
 
     public function paginate($item = 50)
     {
-        return TenderDetail::query()
+        return TenderCategory::query()
 
             // ->whereHas('user.company', fn($query) =>
             //     $query->where('is_approved', true)
@@ -28,7 +28,7 @@ class TenderDetailService {
     public function search($request)
     {
         $q = $request->input('query');
-        $tenders = TenderDetail::query()
+        $tenders = TenderCategory::query()
 
                     ->orWhereHas('user.company', fn($query) =>
                         $query->where('name', 'LIKE', '%' . $q . '%')
@@ -56,34 +56,20 @@ class TenderDetailService {
     }
 
     public function store($request){
-
-        // save in TenderDetail
         $request['user_id'] = auth()->user()->id;
-        $tenderDetail = TenderDetail::create($request->except(['_token','_method','requirements']));
-
-        // ManyToMany with TenderRequirement
-        $tenderDetail->tender_requirements()->sync($request->input('requirements'));
-        return $tenderDetail;
-
-    }
-
-    public function update($request, $id){
-
-        $tenderDetail = TenderDetail::find($id);
-        $tenderDetail->update($request->except(['_token','_method','requirements']));
-        // ManyToMany with TenderRequirement
-        $tenderDetail->tender_requirements()->sync($request->input('requirements'));
-
-        return $tenderDetail;
+        return TenderCategory::create($request->except(['_token','_method']));
     }
 
     public function find($id){
-        return TenderDetail::find($id);
+        return TenderCategory::find($id);
     }
 
+    public function update($request, $id){
+        return TenderCategory::where('id',$id)->update($request->except(['_token','_method']));
+    }
 
     public function destroy($id){
-        return TenderDetail::where('id',$id)->delete();
+        return TenderCategory::where('id',$id)->delete();
     }
 
 }

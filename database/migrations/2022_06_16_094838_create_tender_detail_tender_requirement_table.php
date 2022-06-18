@@ -29,6 +29,6 @@ class CreateTenderDetailTenderRequirementTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tender_detail_tender_requirement');
- 
+
     }
 }

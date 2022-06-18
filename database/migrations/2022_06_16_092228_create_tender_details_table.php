@@ -28,7 +28,6 @@ class CreateTenderDetailsTable extends Migration
             $table->timestamps();
         });
 
-        
     }
 
     /**

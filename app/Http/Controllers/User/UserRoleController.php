@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use Config;
 
 
-class RoleController extends Controller
+class UserRoleController extends Controller
 {
     function __construct()
     {

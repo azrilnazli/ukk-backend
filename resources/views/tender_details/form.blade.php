@@ -19,18 +19,18 @@
 </div>
 
 <div class="form-group row">
-    <label for="date_start" class="col-md-4 col-form-label text-md-right">{{ __('Start Date') }}</label>
+    <label for="start" class="col-md-4 col-form-label text-md-right">{{ __('Start Date') }}</label>
     <div class="col-md-6">
         <input
-            id="date_start"
+            id="start"
             type="date"
             class="form-control
-            @error('date_start') is-invalid @enderror"
-            name="date_start"
-            value="{{ old('date_start', !empty($tenderDetail) ? $tenderDetail->date_start : null ) }}"
+            @error('start') is-invalid @enderror"
+            name="start"
+            value="{{ old('start', !empty($tenderDetail) ? $tenderDetail->start : null ) }}"
             >
 
-        @error('date_start')
+        @error('start')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -39,18 +39,18 @@
 </div>
 
 <div class="form-group row">
-    <label for="date_end" class="col-md-4 col-form-label text-md-right">{{ __('End Date') }}</label>
+    <label for="end" class="col-md-4 col-form-label text-md-right">{{ __('End Date') }}</label>
     <div class="col-md-6">
         <input
-            id="date_end"
+            id="end"
             type="date"
             class="form-control
-            @error('date_end') is-invalid @enderror"
-            name="date_end"
-            value="{{ old('date_end', !empty($tenderDetail) ? $tenderDetail->date_end : null ) }}"
+            @error('end') is-invalid @enderror"
+            name="end"
+            value="{{ old('end', !empty($tenderDetail) ? $tenderDetail->end : null ) }}"
              >
 
-        @error('date_end')
+        @error('end')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -117,6 +117,29 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="proposal_text" class="col-md-4 col-form-label text-md-right">{{ __('Requirements') }}</label>
+
+    <div class="col-md-6">
+        @if($requirements)
+            @foreach($requirements as $requirement)
+            <div class="form-check">
+                <input
+                    value="{{ $requirement->id }}"
+                    name="requirements[]"
+                    class="form-check-input"
+                    @if( $tenderDetail->tender_requirements->pluck('id')->contains($requirement->id)) checked @endif
+                    type="checkbox"  />
+                <label class="form-check-label text-muted">
+                    {{ ucWords(str_replace('-',' ',$requirement->title)) }}
+                </label>
+            </div>
+            @endforeach
+        @endif
+
     </div>
 </div>
 

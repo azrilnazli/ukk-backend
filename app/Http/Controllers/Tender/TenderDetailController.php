@@ -2,9 +2,8 @@
 namespace App\Http\Controllers\Tender;
 
 use App\Http\Controllers\Controller;
-//use Auth;
 use App\Models\TenderDetail;
-//use Illuminate\Http\Request;
+use App\Models\TenderRequirement;
 use App\Services\TenderDetailService;
 use App\Http\Requests\Tender\TenderDetail\StoreRequest;
 use App\Http\Requests\Tender\TenderDetail\UpdateRequest;
@@ -50,7 +49,8 @@ class TenderDetailController extends Controller
     public function create()
     {
         // get available requiremnents
-        return view('tender_details.create');
+        $requirements = TenderRequirement::all();
+        return view('tender_details.create', compact('requirements'));
     }
 
     public function store(StoreRequest $request)
@@ -61,7 +61,8 @@ class TenderDetailController extends Controller
 
     public function edit(TenderDetail $tenderDetail)
     {
-        return view('tender_details.edit',compact('tenderDetail'));
+        $requirements = TenderRequirement::all();
+        return view('tender_details.edit',compact('tenderDetail','requirements'));
     }
 
     public function update(UpdateRequest $request, $id)
