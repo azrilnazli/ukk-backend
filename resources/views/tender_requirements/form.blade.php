@@ -18,6 +18,26 @@
     </div>
 </div>
 
+<div class="form-group row">
+    <label for="module" class="col-md-4 col-form-label text-md-right">{{ __('Module') }}</label>
+    <div class="col-md-6">
+        <input
+            id="module"
+            type="text"
+            class="form-control
+            @error('module') is-invalid @enderror"
+            name="module"
+            value="{{ old('module', !empty($tenderRequirement) ? $tenderRequirement->module : null ) }}"
+            >
+
+        @error('module')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+
 
 <div class="form-group row">
     <label for="descriptiion" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>

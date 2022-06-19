@@ -39,6 +39,9 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
         return auth()->user();
     });
 
+    // TenderDetail
+    \App\Http\Controllers\Api\TenderDetailController::routes();
+
     // tenders
     Route::get('/tenders/sambung_siri', [TenderController::class, 'sambung_siri']);
     Route::get('/tenders/swasta', [TenderController::class, 'swasta']);
@@ -73,15 +76,21 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/check_audit', [CompanyController::class, 'check_audit']);
     Route::post('/company/update_audit', [CompanyController::class, 'update_audit']);
 
-
     Route::get('/company/credit', [CompanyController::class, 'credit']);
     Route::get('/company/check_credit', [CompanyController::class, 'check_credit']);
     Route::post('/company/update_credit', [CompanyController::class, 'update_credit']);
 
+    Route::get('/company/authorization_letter', [CompanyController::class, 'authorization_letter']);
+    Route::get('/company/check_authorization_letter', [CompanyController::class, 'check_authorization_letter']);
+    Route::post('/company/update_authorization_letter', [CompanyController::class, 'update_authorization_letter']);
+
+    Route::get('/company/official_company_letter', [CompanyController::class, 'official_company_letter']);
+    Route::get('/company/check_official_company_letter', [CompanyController::class, 'check_official_company_letter']);
+    Route::post('/company/update_official_company_letter', [CompanyController::class, 'update_official_company_letter']);
+
     Route::get('/company/bumiputera', [CompanyController::class, 'bumiputera']);
     Route::get('/company/check_bumiputera', [CompanyController::class, 'check_bumiputera']);
     Route::post('/company/update_bumiputera', [CompanyController::class, 'update_bumiputera']);
-
 
     Route::get('/company/bank', [CompanyController::class, 'bank']);
     Route::get('/company/check_bank', [CompanyController::class, 'check_bank']);

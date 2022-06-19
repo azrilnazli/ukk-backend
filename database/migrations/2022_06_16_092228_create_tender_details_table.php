@@ -17,14 +17,10 @@ class CreateTenderDetailsTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class); // User
             $table->string('title')->nullable();
-            $table->text('login_text')->nullable();
-            $table->text('dashboard_text')->nullable();
-            $table->text('proposal_text')->nullable();
-            $table->boolean('is_active')->default(false);
-
+            $table->text('description')->nullable();
+            $table->integer('max')->default(0);
             $table->date('start')->nullable();
             $table->date('end')->nullable();
-
             $table->timestamps();
         });
 

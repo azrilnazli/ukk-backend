@@ -24,37 +24,37 @@
       <strong>Profile</strong>
     </div>
     <div class="card-body">
+
         <dl class="row">
             <dt class="col-sm-2">Name</dt>
-            <dd class="col-sm-9">{{ $company->name }}</dd>
-
+            <dd class="col-sm-9">{{ $company->name  }}</dd>
 
             <dt class="col-sm-2">Email</dt>
-            <dd class="col-sm-9">{{ $company->email }}</dd>
+            <dd class="col-sm-9">{{ $company->email  }}</dd>
 
             <dt class="col-sm-2">Phone</dt>
-            <dd class="col-sm-9">{{ $company->phone }}</dd>
+            <dd class="col-sm-9">{{ $company->phone  }}</dd>
 
             <dt class="col-sm-2">Address</dt>
-            <dd class="col-sm-9">{{ $company->address }}</dd>
+            <dd class="col-sm-9">{{ $company->address  }}</dd>
 
             <dt class="col-sm-2">Postcode</dt>
-            <dd class="col-sm-9">{{ $company->postcode }}</dd>
+            <dd class="col-sm-9">{{ $company->postcode  }}</dd>
 
             <dt class="col-sm-2">City</dt>
-            <dd class="col-sm-9">{{ $company->city }}</dd>
+            <dd class="col-sm-9">{{ $company->city  }}</dd>
 
             <dt class="col-sm-2">State</dt>
-            <dd class="col-sm-9">{{ $company->states }}</dd>
+            <dd class="col-sm-9">{{ $company->states   }}</dd>
 
             <dt class="col-sm-2">User ID</dt>
-            <dd class="col-sm-9">{{ $company->user->id}}</dd>
+            <dd class="col-sm-9">{{ optional($company->user)->id}}</dd>
 
             <dt class="col-sm-2">User E-Mail</dt>
-            <dd class="col-sm-9">{{ $company->user->email}}</dd>
+            <dd class="col-sm-9">{{ optional($company->user)->email}}</dd>
 
             <dt class="col-sm-2">Registered On</dt>
-            <dd class="col-sm-9">{{ $company->user->created_at }} , {{ $company->user->created_at->diffForHumans() }}</dd>
+            <dd class="col-sm-9">{{ optional($company->user)->created_at }} , {{ optional($company->user)->created_at->diffForHumans() }}</dd>
 
         </dl>
     </div>
@@ -350,6 +350,53 @@
     </div>
   </div>
 
+  <div class="card card-secondary">
+    <div class="card-header">
+      <strong>Authorization Letter</strong>
+    </div>
+    <div class="card-body">
+
+        <dl class="row">
+            <dt class="col-sm-2">Document</dt>
+            <dd class="col-sm-9">
+             {!!$company->is_authorization_letter_cert_uploaded ?
+
+                '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#authorization_letter_modal">
+                    View Document
+                </button>'
+
+                : '<span class="text-danger">missing document</span>' !!}
+
+            </dd>
+        </dl>
+    </div>
+  </div>
+
+  <div class="card card-secondary">
+    <div class="card-header">
+      <strong>Official Company Letter</strong>
+    </div>
+    <div class="card-body">
+
+        <dl class="row">
+            <dt class="col-sm-2">Document</dt>
+            <dd class="col-sm-9">
+             {!!$company->is_official_company_letter_cert_uploaded ?
+
+                '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#official_company_letter_modal">
+                    View Document
+                </button>'
+
+                : '<span class="text-danger">missing document</span>' !!}
+
+            </dd>
+        </dl>
+    </div>
+  </div>
+
+
+
+
 
 
     @foreach($documents as $key => $document)
@@ -392,7 +439,7 @@
         @foreach($messages as $comment)
         <div class="alert alert-secondary text-dark" style="background-color:lightblue" role="alert">
             <dl class="row">
-                <dt class="col-2"><span class="badge badge-light">{{$comment->user->name }}</span></dt>
+                <dt class="col-2"><span class="badge badge-light">{{ optional($comment->user)->name }}</span></dt>
                 <dd class="col-10">{{$comment->message}}</dd>
             </dl>
             <small><i>{{$comment->created_at->diffForHumans() }}</i></small>

@@ -16,6 +16,7 @@ class CreateTenderRequirementsTable extends Migration
         Schema::create('tender_requirements', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->string('module')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

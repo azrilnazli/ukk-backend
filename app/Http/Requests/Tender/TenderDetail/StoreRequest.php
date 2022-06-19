@@ -25,11 +25,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'login_text' => ['required'],
-            'dashboard_text' => ['required'],
-            'proposal_text' => ['required'],
-            'date_start' => ['required', 'date'],
-            'date_end' => ['required', 'date', 'after:date_start'],
+            'description' => ['required'],
+            'start' => ['required', 'date'],
+            'end' => ['required', 'date', 'after:date_start'],
         ];
     }
 }

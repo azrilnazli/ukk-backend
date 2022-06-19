@@ -25,9 +25,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => ['sometimes', 'string', 'max:255'],
-            'login_text' => ['sometimes','string'],
-            'dashboard_text' => ['sometimes','string'],
-            'proposal_text' => ['sometimes','string'],
+            'description' => ['sometimes','string'],
             'date_start' => ['sometimes', 'date'],
             'date_end' => ['sometimes', 'date', 'after:date_start'],
         ];

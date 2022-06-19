@@ -445,6 +445,7 @@ class CompanyController extends Controller
 
         return $message;
     }
+
     // custom field validation
     public function update_credit(CompanyRequest $request){
 
@@ -458,6 +459,78 @@ class CompanyController extends Controller
             'message' => $request->all(),
         ]);
     }
+
+    // authorization_letter - start
+
+    function authorization_letter(){
+
+        $company = Company::query()
+        ->select('id','is_authorization_letter_cert_uploaded')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        :
+            $message =  response([
+            'message' => 'no data',
+        ]);
+
+        return $message;
+    }
+
+    // custom field validation
+    public function update_authorization_letter(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->is_authorization_letter_cert_uploaded = true;
+        $company->save();
+
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }
+    // authorization_letter - stop
+
+    // official_company_letter - start
+
+    function official_company_letter(){
+
+        $company = Company::query()
+        ->select('id','is_official_company_letter_cert_uploaded')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        $company ?
+
+            $message = $this->success($company)
+        :
+            $message =  response([
+            'message' => 'no data',
+        ]);
+
+        return $message;
+    }
+
+    // custom field validation
+    public function update_official_company_letter(CompanyRequest $request){
+
+        // company profile
+        $company = Company::firstOrNew(['user_id' => auth()->user()->id ]);
+        $company->is_official_company_letter_cert_uploaded = true;
+        $company->save();
+
+        // JSON response
+        return response([
+            'message' => $request->all(),
+        ]);
+    }
+    // official_company_letter - stop
+
+
 
     // only accept PDF
     public function upload(CompanyRequest $request){
@@ -558,6 +631,22 @@ class CompanyController extends Controller
 
     public function check_credit(){
         $fields = ['is_credit_cert_uploaded'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_authorization_letter(){
+        $fields = ['is_authorization_letter_cert_uploaded'];
+        $status = $this->check($fields);
+        return response([
+            'status' => $status
+        ]);
+    }
+
+    public function check_official_company_letter(){
+        $fields = ['is_official_company_letter_cert_uploaded'];
         $status = $this->check($fields);
         return response([
             'status' => $status

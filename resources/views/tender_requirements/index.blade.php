@@ -47,7 +47,7 @@
 
                 <th width="5%">ID</th>
                 <th>Title</th>
-
+                <th>Module</th>
 
                 {{-- <th width="*">Added by</th> --}}
                 @role('super-admin')
@@ -61,7 +61,7 @@
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td>{{$row->title }}</td>
-
+                    <td>{{$row->module }}</td>
                     @role('super-admin')
                     <td>
                       <form action="{{ route('tender-requirements.destroy', $row->id)}}" method="post">
