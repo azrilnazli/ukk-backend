@@ -395,7 +395,6 @@ class CompanyController extends Controller
         ]);
     }
 
-
     function experiences(){
 
         $company = Company::query()
@@ -529,8 +528,6 @@ class CompanyController extends Controller
         ]);
     }
     // official_company_letter - stop
-
-
 
     // only accept PDF
     public function upload(CompanyRequest $request){
@@ -745,7 +742,6 @@ class CompanyController extends Controller
     }
 
 
-
     // to check request for approval
     public function check_is_completed(){
         $fields = ['is_completed'];
@@ -803,6 +799,7 @@ class CompanyController extends Controller
         }
     }
 
+    // vendor handleSubmit()
     public function request_for_approval(CompanyRequest $request){
 
         // check first
@@ -819,6 +816,7 @@ class CompanyController extends Controller
         ]);
     }
 
+    // Vendor useEffect ( pageload checking their approval status )
     public function check_for_approval(){
 
         // skip check if is_completed == true

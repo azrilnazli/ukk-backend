@@ -42,6 +42,9 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     // TenderDetail
     \App\Http\Controllers\Api\TenderDetailController::routes();
 
+    // CompanyApproval
+    \App\Http\Controllers\Api\CompanyApprovalController::routes();
+
     // tenders
     Route::get('/tenders/sambung_siri', [TenderController::class, 'sambung_siri']);
     Route::get('/tenders/swasta', [TenderController::class, 'swasta']);
