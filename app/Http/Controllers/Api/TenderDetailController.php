@@ -26,7 +26,7 @@ class TenderDetailController extends Controller
 
     function index()
     {
-        $tenders = TenderDetail::with('tender_requirements')->get();
+        $tenders = TenderDetail::with('tender_requirements')->orderBy('id','DESC')->get();
 
         return response([
             'message' =>  !empty($tenders) ? 'success' : 'empty',
