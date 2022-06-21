@@ -140,9 +140,7 @@
                         @if( $tenderDetail->is_active == 1 )) checked @endif
                     @endif
                     type="checkbox"  />
-                <label class="form-check-label text-muted">
 
-                </label>
             </div>
     </div>
 </div>
