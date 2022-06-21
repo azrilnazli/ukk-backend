@@ -60,12 +60,21 @@ class CompanyApprovalController extends Controller
     // to check user if user Company data meets TenderRequirement ?
     public function allow_request(TenderDetail $tenderDetail){
 
-        // get Company data based on loggedIn User
-        $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
-        // load tender requirements
-        $requirements = $tenderDetail->tender_requirements;
         // set $allow to true
         $status = true;
+
+        // get Company data based on loggedIn User
+        $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
+
+        if(is_null($company)){
+            // return response as JSON
+            return response([
+                'status' => false // return as boolean
+            ]);
+        }
+        // load tender requirements
+        $requirements = $tenderDetail->tender_requirements;
+
         // run the loop
         foreach($requirements as $requirement){
             // run the check
