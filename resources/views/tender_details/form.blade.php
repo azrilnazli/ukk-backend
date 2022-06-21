@@ -20,7 +20,7 @@
 
 <div class="form-group row">
     <label for="start" class="col-md-4 col-form-label text-md-right">{{ __('Start Date') }}</label>
-    <div class="col-md-2kk">
+    <div class="col-md-2">
         <input
             id="start"
             type="date"
@@ -103,7 +103,7 @@
 <div class="form-group row">
     <label for="proposal_text" class="col-md-4 col-form-label text-md-right">{{ __('Requirements') }}</label>
 
-    <div class="col-md-6">
+    <div class="col-md-6 mt-2">
         @if($requirements)
             @foreach($requirements as $requirement)
             <div class="form-check">
@@ -124,6 +124,30 @@
 
     </div>
 </div>
+
+<div class="form-group row">
+    <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Is Active?') }}</label>
+
+    <div class="col-md-6 mt-2">
+
+            <div class="form-check">
+                {{$tenderDetail->is_active }}
+                <input
+                    value="1"
+                    name="is_active"
+                    class="form-check-input"
+                    @if(!empty($tenderDetail))
+                        @if( $tenderDetail->is_active == 1 )) checked @endif
+                    @endif
+                    type="checkbox"  />
+                <label class="form-check-label text-muted">
+
+                </label>
+            </div>
+    </div>
+</div>
+
+
 
 <div class="form-group row">
     <label for="login_text" class="col-md-4 col-form-label text-md-right"></label>
