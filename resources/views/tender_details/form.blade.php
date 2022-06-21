@@ -131,7 +131,7 @@
     <div class="col-md-6 mt-2">
 
             <div class="form-check">
-                {{$tenderDetail->is_active }}
+
                 <input
                     value="1"
                     name="is_active"
