@@ -28,7 +28,7 @@ class CompanyController extends Controller
     public function search(Request $request){
         //$q = $request['query'];
         $q = $request->input('query');
-        
+
         $data = Company::query()
                     ->where('name', 'LIKE', '%' . $q . '%')
                     ->orWhere('id', 'LIKE', '%' . $q . '%')
@@ -109,7 +109,7 @@ class CompanyController extends Controller
                         ->get();
         return view('companies.all')->withCompanies($companies);
     }
-    
+
     public function requested()
     {
         $data = $this->company->requested();
@@ -146,8 +146,9 @@ class CompanyController extends Controller
             'bank',
             'audit',
             'credit',
-            'bumiputera'
-
+            'bumiputera',
+            'authorization_letter',
+            'official_company_letter'
         ];
 
         // previous comments

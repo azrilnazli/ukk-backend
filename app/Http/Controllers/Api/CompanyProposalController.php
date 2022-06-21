@@ -44,7 +44,6 @@ class CompanyProposalController extends Controller
         $this->video = new VideoService;
     }
 
-
     public function destroy(Request $request){
 
         // get collection

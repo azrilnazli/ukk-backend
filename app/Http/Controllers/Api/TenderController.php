@@ -152,53 +152,6 @@ class TenderController extends Controller
 
     }
 
-    // function sambung_siri(){
-
-    //     // check if user.company.is_approved = TRUE
-    //     //return $this->checkIsApproved();
-
-    //     // display tender
-    //     $tenders = Tender::query()
-    //                 ->where(['type' =>  "SAMBUNG SIRI" ])
-    //                 ->get();
-
-    //     if( !$tenders->isEmpty() ){
-    //         $message = [
-    //             'exists' => true,
-    //             'tenders' => $tenders,
-    //         ];
-
-    //     } else {
-    //         $message = [
-    //             'exists' => false,
-    //         ];
-    //     }
-    //     return response($message);
-    // }
-
-    // function swasta(){
-    //     // check if user.company.is_approved = TRUE
-    //     return $this->checkIsApproved();
-
-    //     if($company->is_approved != 1) return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
-
-    //     $tenders = Tender::query()
-    //                 ->where(['type' =>  "SWASTA" ])
-    //                 ->get();
-
-    //     if( !$tenders->isEmpty() ){
-    //         $message = [
-    //             'exists' => true,
-    //             'tenders' => $tenders,
-    //         ];
-
-    //     } else {
-    //         $message = [
-    //             'exists' => false,
-    //         ];
-    //     }
-    //     return response($message);
-    // }
 
     function show($id){
         $tender = Tender::query()

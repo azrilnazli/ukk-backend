@@ -38,6 +38,7 @@ class HomeController extends Controller
     public function index()
     {
 
+
         // Subscriber shall not access!
         if(Auth::user()->hasRole('subscriber'))
         {
@@ -53,7 +54,7 @@ class HomeController extends Controller
             return redirect()->to(route('scorings.dashboard'));
         }
 
-        
+
         $resubmit = Company::query()
         ->orderBy('updated_at','desc')
         ->where('is_completed', true)
@@ -89,42 +90,42 @@ class HomeController extends Controller
         $proposal['assigned'] = TenderSubmission::query()
                             ->has('user.approved_company')
                             ->where('added_by','!=',0)
-                            ->count();        
+                            ->count();
 
         $proposal['signed'] = TenderSubmission::query()
                             ->has('scorings','=', 3)
-                            ->count();        
-                            
+                            ->count();
+
         $proposal['verified'] = TenderSubmission::query()
                             ->has('verifications','=', 2)
-                            ->count();  
+                            ->count();
 
         $proposal['approved'] = TenderSubmission::query()
                             ->has('approval','=', 1)
-                            ->count();  
+                            ->count();
 
         $proposal['signers'] = TenderSubmission::query()
                             ->has('signers','=', 3)
                             ->has('urusetias','=', 2)
-                            ->count();  
+                            ->count();
 
         $proposal['success'] = TenderSubmission::query()
-		            ->whereHas('user.company', fn($query) =>
+                            ->whereHas('user.company', fn($query) =>
                               $query->where('is_approved', true)
                               )
                             ->has('scorings','=', 3)
                             ->has('verifications','=', 2)
                             ->has('approved','>=', 2)
-                            ->count();  
+                            ->count();
 
         $proposal['failed'] = TenderSubmission::query()
-	                    ->whereHas('user.company', fn($query) =>
+                            ->whereHas('user.company', fn($query) =>
                               $query->where('is_approved', true)
                               )
                             ->has('scorings','=', 3)
                             ->has('verifications','=', 2)
                             ->has('failed','>=', 2)
-                            ->count();  
+                            ->count();
 
         $proposal['pending'] = TenderSubmission::query()
                             ->whereHas('user.company', fn($query) =>
@@ -132,10 +133,9 @@ class HomeController extends Controller
                               )
                             ->has('scorings','!=', 3)
                             ->has('verifications','!=', 2)
-                            ->count();  
+                            ->count();
 
 
-                            
 
 
         //$proposal['pdf_only'] = TenderSubmission::query()->where('is_pdf_cert_uploaded','=', true)->count();
@@ -304,3 +304,4 @@ class HomeController extends Controller
         return view('home.jobs');
     }
 }
+

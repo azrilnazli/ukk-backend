@@ -28,8 +28,8 @@ class CreateVideosTable extends Migration
             $table->string('original_filename')->nullable();
             $table->boolean('is_processing')->default(0); // true for processing
             $table->boolean('is_ready')->default(0); // true for ready
-            $table->bigInteger('processing_duration')->nullable()->default(0); // processing duration in seconds
-            $table->bigIinteger('uploading_duration')->nullable()->default(0); // upload duration in seconds
+            $table->integer('processing_duration')->nullable()->default(0); // processing duration in seconds
+            $table->integer('uploading_duration')->nullable()->default(0); // upload duration in seconds
 
             // hello world
 

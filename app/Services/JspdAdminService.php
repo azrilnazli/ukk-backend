@@ -55,7 +55,7 @@ class JspdAdminService {
             ->setPath(route('jspd-admins.failed'));
     }
 
-    
+
     public function pending($item = 50)
     {
         return TenderSubmission::query()
@@ -133,21 +133,21 @@ class JspdAdminService {
         $tenderSubmission->scorings()->delete();
         $tenderSubmission->approval()->delete();
 
-       
+
         // $video = User::has('video')->get();
         //dd($tenderSubmission->video());
         $this->video = new \App\Services\VideoService;
         $video = \App\Models\Video::query()->where('tender_submission_id', $id)->first();
-   
+
         if($video){
-     
+
             if( Storage::disk('assets')->exists($video->id) && Storage::disk('streaming')->exists($video->id)  ){
                 $this->video->delete($video->id);
             }
             $video->delete();
         }
-       
-    
+
+
         if(Storage::disk('proposals')->exists($tenderSubmission->id)){
             Storage::disk('proposals')->deleteDirectory( $tenderSubmission->id ); // private dir
         }

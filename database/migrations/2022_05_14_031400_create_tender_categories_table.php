@@ -16,7 +16,6 @@ class CreateTenderCategoriesTable extends Migration
         Schema::create('tender_categories', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            //$table->enum('language',  ['MELAYU', 'INGGERIS', 'TAMIL','KANTONIS'])->default('MELAYU');
             $table->string('title');
             $table->text('description');
             $table->timestamps();

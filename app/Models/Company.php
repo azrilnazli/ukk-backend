@@ -14,7 +14,7 @@ class Company extends Model
     use Sortable;
 
     protected $guarded = ['id'];
-    
+
     public $sortable = ['id', 'name', 'email', 'status','created_at', 'updated_at'];
 
     /**
@@ -31,6 +31,14 @@ class Company extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Company hasMany CompanyApproval
+     */
+    public function company_approvals()
+    {
+        return $this->hasMany(CompanyApproval::class);
     }
 
     // states to lower case

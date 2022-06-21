@@ -8,6 +8,7 @@ Route::get('/', function () {
 });
 
 Auth::routes(); // Auth
+
 Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);
 Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
 Route::get('/users/search', [App\Http\Controllers\User\UserController::class, 'search'])->name('users.search');
@@ -39,11 +40,7 @@ Route::delete('/roles/{role}', [RoleController::class, 'delete'])->name('roles.d
 
 use App\Http\Controllers\User\PermissionController;
 Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions');
-// Route::get('/roles/create', [RoleController::class,'create'])->name('roles.create');
-// Route::post('/roles', [RoleController::class,'store'])->name('roles.store');
-// Route::get('/roles/{role}/edit', [RoleController::class,'edit'])->name('roles.edit');
-// Route::put('/roles/{role}/edit', [RoleController::class,'update'])->name('roles.update');
-// Route::delete('/roles/{role}', [RoleController::class, 'delete'])->name('roles.destroy');
+
 
 // roles controller
 Route::get('/roles/controller/create', [RoleController::class, 'create_controller'])->name('roles.controller.create');
@@ -54,6 +51,19 @@ Route::get('/queue/jobs', [App\Http\Controllers\Home\HomeController::class, 'job
 Route::prefix('jobs')->group(function () {
     Route::queueMonitor();
 });
+
+// Content
+\App\Http\Controllers\Content\ContentController::routes();
+
+// TenderDetail
+\App\Http\Controllers\Tender\TenderDetailController::routes();
+
+// TenderRequirement
+\App\Http\Controllers\Tender\TenderRequirementController::routes();
+
+// TenderCategory
+\App\Http\Controllers\Tender\TenderCategoryController::routes();
+
 
 // JSPD - scorings
 use App\Http\Controllers\JSPD\ScoringController;

@@ -27,19 +27,19 @@ class CollectionsController extends Controller
     {
 
         $cars = collect(['nissan','proton','daihatsu', 'perodua','renault']);
-    
+
         return $cars->all();
     }
 
-    // The combine method combines the values of the collection, 
+    // The combine method combines the values of the collection,
     // as keys, with the values of another array or collection:
     public function combine()
     {
         $collection = collect(['brand', 'country']);
-        
+
         $combined = $collection->combine(['mazda', 'japan']);
-        
-              
+
+
         return $combined->all();
 
     }
@@ -79,8 +79,8 @@ class CollectionsController extends Controller
 
     }
 
-    // The concat method appends 
-    // the given array or collection's 
+    // The concat method appends
+    // the given array or collection's
     // values onto the end of another collection:
     public function concat()
     {
@@ -89,9 +89,9 @@ class CollectionsController extends Controller
         return $cars->all();
     }
 
-    
 
-    // The collapse method collapses a collection 
+
+    // The collapse method collapses a collection
     // of arrays into a single, flat collection:
     public function collapse()
     {
@@ -103,7 +103,7 @@ class CollectionsController extends Controller
         $collapsed = $cars->collapse();
 
         return $collapsed->all();
-        
+
     }
 
 
@@ -114,9 +114,9 @@ class CollectionsController extends Controller
     // certain "types" of elements in the collection:
     public function countBy()
     {
-        $emails = [     
-                'skyline@nissan','silvia@nissan', 
-                'nsx@honda','civic@honda', 
+        $emails = [
+                'skyline@nissan','silvia@nissan',
+                'nsx@honda','civic@honda',
                 'supra@toyota', 'ae86@toyota','gt86@toyota',
                 'evolution@mitsubishi', 'pajero@mitsubishi',
                 'mira@daihatsu'
@@ -126,14 +126,14 @@ class CollectionsController extends Controller
 
         $counted = $collection->countBy( function ($email) {
 
-            // The strrchr() function finds the position of the last occurrence of a string 
-            // within another string, and returns all characters from this position 
+            // The strrchr() function finds the position of the last occurrence of a string
+            // within another string, and returns all characters from this position
             // to the end of the string.
             $brand = strrchr($email,"@"); // will return @nissan or @honda
 
             // The substr() function returns a part of a string.
             // 1 here means first character which is @
-            $brand = substr( $brand, 1); // remove the @ 
+            $brand = substr( $brand, 1); // remove the @
 
             return $brand; // return the brand
 
@@ -146,7 +146,7 @@ class CollectionsController extends Controller
 
 
     // The diff method compares the collection against another collection or a plain
-    // PHP array based on its values. This method will return the values in the original 
+    // PHP array based on its values. This method will return the values in the original
     // collection that are not present in the given collection:
 
     public function diff()
@@ -161,9 +161,9 @@ class CollectionsController extends Controller
 
     }
 
-   
 
-    // The each method iterates over the items in 
+
+    // The each method iterates over the items in
     // the collection and passes each item to a closure:
     public function each()
     {
@@ -179,12 +179,12 @@ class CollectionsController extends Controller
         echo "----------------------" . PHP_EOL;
 
         $cars->each( function ( $car, $key) {
-            
+
             echo "Key is $key and valus is $car" . PHP_EOL;
             if($car == 'daihatsu')
             {
                 return FALSE;
-            }    
+            }
         });
 
     }
@@ -199,16 +199,16 @@ class CollectionsController extends Controller
     function eachSpread()
     {
         $collection = collect([
-            ['mazda', 'japan'], 
+            ['mazda', 'japan'],
             ['proton', 'malaysia'],
             ['bmw', 'germany'],
             ['tata', 'india'],
             ['geely', 'china']
-        
+
         ]);
- 
+
         $collection->eachSpread(function ($car, $country) {
-    
+
             echo "$car is from $country" . PHP_EOL;
 
         });
@@ -229,35 +229,35 @@ class CollectionsController extends Controller
 
         echo PHP_EOL;
 
-        
+
         $number = collect([1, 2, 3, 4])->every(function ($value, $key) {
             return $value > 2;
         });
 
         echo $number ? 'true' : 'false';
-    
+
     }
 
 
 
-    // The except method returns all items in the 
+    // The except method returns all items in the
     // collection except for those with the specified keys:
     function except()
     {
         $collection = collect([
                 'car_model' => 'mazda',
-                'car_id' => 1, 
-                'price' => 100, 
+                'car_id' => 1,
+                'price' => 100,
                 'discount' => false
             ]);
- 
+
         $filtered = $collection->except(['price', 'discount']);
- 
+
        return $filtered->all();
     }
 
 
-    // The filter method filters the collection using 
+    // The filter method filters the collection using
     // the given callback, keeping only those items that pass a given truth test:
 
     function filter()
@@ -270,7 +270,7 @@ class CollectionsController extends Controller
             '4' => 'indonesia',
         ];
         $collection = collect($countries)
-                        ->each( function ( $value,$key) 
+                        ->each( function ( $value,$key)
                         {
                             echo "value is $value key is $key". PHP_EOL;
 
@@ -290,11 +290,11 @@ class CollectionsController extends Controller
         $collection = collect([
             [
                 'cars' => [
-                    'japan'     => [ 
-                                    'mazda'     =>   ['mx-5', 'rx-7', 'rx-8'], 
-                                    'honda'     =>   ['civic', 'city','accord', 'nsx'], 
-                                    'toyota'    =>   [ 'corolla', 'celica' , 'supra'], 
-                                    'daihatsu'  =>   ['mira', 'charade'], 
+                    'japan'     => [
+                                    'mazda'     =>   ['mx-5', 'rx-7', 'rx-8'],
+                                    'honda'     =>   ['civic', 'city','accord', 'nsx'],
+                                    'toyota'    =>   [ 'corolla', 'celica' , 'supra'],
+                                    'daihatsu'  =>   ['mira', 'charade'],
                                     'subaru'    =>   ['impreza' ,'forester'],
                                     'nissan'    =>   ['almera', 'skyline', 'sentra']
                                     ],
@@ -310,8 +310,8 @@ class CollectionsController extends Controller
 
         // $collection->pluck('cars.japan')->dd();
         $collection->pluck('cars.japan.mazda')->dd();
-      
-         
+
+
     }
 
 
@@ -362,20 +362,20 @@ class CollectionsController extends Controller
     }
 
 
-    
+
 
     function collect()
     {
 
 
-        $vehicles = 
-          
+        $vehicles =
+
                 [
                     (object)([
                             'model' => 'skyline',
                             'price' => 250000,
                             'horsepower' => 280,
-                            'turbo' => true      
+                            'turbo' => true
                             ]), // skyline
 
                     (object) ([
@@ -384,46 +384,46 @@ class CollectionsController extends Controller
                             'horsepower' => 200,
                             'turbo' => true
                              ]), // silvia
-            
+
                 ]; // array
-       
+
 
         $collection = collect($vehicles);
 
-        foreach ($collection as $product) 
+        foreach ($collection as $product)
         {
             echo $product->model . PHP_EOL;
         }
 
-        $collection->each( function ($value, $key) 
+        $collection->each( function ($value, $key)
         {
             echo $value->model . PHP_EOL;
         });
-   
+
     }
 
     function multi()
     {
-     
-        
+
+
         // $collection = collect([
         //     [
-        //         'cars' => 
+        //         'cars' =>
         //         [
-        //             'japan'     => [ 
-        //                                 'mazda'     =>   ['mx-5', 'rx-7', 'rx-8'], 
-        //                                 'honda'     =>   ['civic', 'city','accord', 'nsx'], 
-        //                                 'toyota'    =>   ['corolla', 'celica' , 'supra'], 
-        //                                 'daihatsu'  =>   ['mira', 'charade'], 
+        //             'japan'     => [
+        //                                 'mazda'     =>   ['mx-5', 'rx-7', 'rx-8'],
+        //                                 'honda'     =>   ['civic', 'city','accord', 'nsx'],
+        //                                 'toyota'    =>   ['corolla', 'celica' , 'supra'],
+        //                                 'daihatsu'  =>   ['mira', 'charade'],
         //                                 'subaru'    =>   ['impreza' ,'forester'],
         //                                 'nissan'    =>   [
-        //                                                     'almera', 
+        //                                                     'almera',
         //                                                     'sentra',
         //                                                     'skyline' => [
         //                                                                     'model' => 'skyline',
         //                                                                     'price' => 250000,
         //                                                                     'horsepower' => 280,
-        //                                                                     'turbo' => true      
+        //                                                                     'turbo' => true
         //                                                                 ] // skyline
         //                                                 ] // nissan
         //                             ],
@@ -435,12 +435,12 @@ class CollectionsController extends Controller
         //     ],
         // ]); // collection
 
-        
+
 
         $cars = [
-            'brand' =>  [ 
+            'brand' =>  [
                             'mazda' =>  [
-                                            'model' => [ 
+                                            'model' => [
                                                             'mx-5' =>   [
                                                                             'price' => 130000,
                                                                             'horsepower' => 120,
@@ -448,7 +448,7 @@ class CollectionsController extends Controller
                                                                             'layout' => 'rwd',
                                                                             'code' => 'ND',
                                                                             'year' => 2016
-                                                                        ], 
+                                                                        ],
                                                             'rx-7' =>   [
                                                                             'price' => 250000,
                                                                             'horsepower' => 280,
@@ -456,7 +456,7 @@ class CollectionsController extends Controller
                                                                             'layout' => 'rwd',
                                                                             'code' => 'FD',
                                                                             'year' => 2001
-                                                                        ], 
+                                                                        ],
                                                             'rx-8' =>   [
                                                                             'price' => 200000,
                                                                             'horsepower' => 200,
@@ -464,11 +464,11 @@ class CollectionsController extends Controller
                                                                             'layout' => 'rwd',
                                                                             'code' => 'SE3P',
                                                                             'year' => 2005
-                                                                        ],                                                                         
+                                                                        ],
                                                         ], // model
                                         ],  // mazda
                                 'honda' =>  [
-                                            'model' => [ 
+                                            'model' => [
                                                             'civic' =>   [
                                                                             'price' => 75000,
                                                                             'horsepower' => 70,
@@ -476,7 +476,7 @@ class CollectionsController extends Controller
                                                                             'layout' => 'fwd',
                                                                             'code' => 'FB',
                                                                             'year' => 2021
-                                                                        ], 
+                                                                        ],
                                                             'accord' =>   [
                                                                             'price' => 180000,
                                                                             'horsepower' => 150,
@@ -484,7 +484,7 @@ class CollectionsController extends Controller
                                                                             'layout' => 'fwd',
                                                                             'code' => 'SV8',
                                                                             'year' => 2020
-                                                                        ], 
+                                                                        ],
                                                             'city' =>   [
                                                                             'price' => 50000,
                                                                             'horsepower' => 50,
@@ -492,11 +492,11 @@ class CollectionsController extends Controller
                                                                             'layout' => 'fwd',
                                                                             'code' => 'CITY',
                                                                             'year' => 2009
-                                                                        ],                                                                         
+                                                                        ],
                                                         ], // model
 
 
-                                        ]  // mazda                                        
+                                        ]  // mazda
                         ], // brand
         ];
 
@@ -508,9 +508,9 @@ class CollectionsController extends Controller
         $collection->pluck('mazda.model') // pluck
                    ->each( function ($value, $key) // print_r($value)
                     {
-                        collect($value)->each( function ($value, $key) // collect again 
+                        collect($value)->each( function ($value, $key) // collect again
                         {
-                            echo $key . PHP_EOL; // echo         
+                            echo $key . PHP_EOL; // echo
                         });
                     });
 
@@ -570,21 +570,21 @@ class CollectionsController extends Controller
             ]
         ]
     ];// manufacturer
-                       
 
 
-        // list manufacturer and its model                
+
+        // list manufacturer and its model
         // collect($manufacturer)->each( function( $value, $key ){
         //     //print_r($key) . PHP_EOL;
-        //     echo $value['name'] . ' = ';  
+        //     echo $value['name'] . ' = ';
         //     collect($value['cars'])->each( function( $value, $key ){
         //         collect($value['model'])->each( function( $value, $key ){
         //            echo $value . ',';
         //         });
         //     });
         //     echo PHP_EOL;
-        // });               
-        
+        // });
+
         // list only mazda
         // $mazda = collect($manufacturer)->filter( function($value){
         //     return $value['name'] == 'mazda';
@@ -602,7 +602,7 @@ class CollectionsController extends Controller
 
         //get only toyotas
         $models = collect($manufacturer)
-                    ->filter(function ($value, $key) 
+                    ->filter(function ($value, $key)
                     {
                         return collect($value['name'])
                                 ->contains('toyota');
@@ -650,8 +650,8 @@ class CollectionsController extends Controller
 
     function only()
     {
-     
-        $detail = collect(        
+
+        $detail = collect(
             [
                 'model' => 'cx-5',
                 'price' => 130000,
@@ -671,7 +671,7 @@ class CollectionsController extends Controller
 
     function pipe()
     {
-        $price = collect(        
+        $price = collect(
             [
                 'exhaust' => 1200,
                 'wheels' => 500,
@@ -684,7 +684,7 @@ class CollectionsController extends Controller
         );
 
         $total = $price->flatten()->pipe( function($value){
-            
+
             return $value->sum();
 
         });
@@ -715,25 +715,25 @@ class CollectionsController extends Controller
         $fh = fopen($log_file,'r') or die($php_errormsg);
         $i = 1;
         $requests = array();
-        while (! feof($fh)) 
+        while (! feof($fh))
         {
 
-            // read each line and trim off leading/trailing whitespace 
-            if ($s = trim(fgets($fh,16384))) 
+            // read each line and trim off leading/trailing whitespace
+            if ($s = trim(fgets($fh,16384)))
             {
                 echo $s;
-                if (preg_match($pattern,$s,$matches)) 
-                { 
+                if (preg_match($pattern,$s,$matches))
+                {
                     print_r('lepas');
-                    /* put each part of the match in an appropriately-named * variable */ 
-                    list($whole_match,$remote_host,$logname,$user,$time, $method,$request,$protocol,$status,$bytes,$referer, $user_agent) = $matches; 
-                    // keep track of the count of each request 
-                    $requests[$request]++; 
-                } else { 
+                    /* put each part of the match in an appropriately-named * variable */
+                    list($whole_match,$remote_host,$logname,$user,$time, $method,$request,$protocol,$status,$bytes,$referer, $user_agent) = $matches;
+                    // keep track of the count of each request
+                    $requests[$request]++;
+                } else {
                     print_r("\n");
-                    // complain if the line didn't match the pattern 
+                    // complain if the line didn't match the pattern
                     // echo 'not match';
-                    // error_log("Can't parse line $i: $s"); 
+                    // error_log("Can't parse line $i: $s");
                 } // if
                 die();
 
@@ -741,19 +741,19 @@ class CollectionsController extends Controller
 
             $i++;
 
-        } // while    
+        } // while
 
         fclose($fh) or die($php_errormsg);
 
-        // sort the array (in reverse) by number of requests 
-        arsort($requests); 
-        
-        // print formatted results 
-        foreach ($requests as $request => $accesses) 
-        { 
-            printf("%6d %s\n",$accesses,$request); 
+        // sort the array (in reverse) by number of requests
+        arsort($requests);
+
+        // print formatted results
+        foreach ($requests as $request => $accesses)
+        {
+            printf("%6d %s\n",$accesses,$request);
         }
-        
+
 
     }
 
@@ -761,7 +761,7 @@ class CollectionsController extends Controller
     {
 
         $log = '127.0.0.1 - - [07/Mar/2022:11:38:44 +0800] "GET /api/movie/6/playlist.m3u8/114%7CruDKlwRfNxLbIl4waAWIAOq83oZFEtWwncDt6Fok?access_token=114|ruDKlwRfNxLbIl4waAWIAOq83oZFEtWwncDt6Fok HTTP/1.1" 200 1358';
-        
+
         //$pattern ='127.0.0.1 - - [07/Mar/2022:11:38:44 +0800] "GET /api/movie/6/playlist.m3u8/114%7CruDKlwRfNxLbIl4waAWIAOq83oZFEtWwncDt6Fok?access_token=114|ruDKlwRfNxLbIl4waAWIAOq83oZFEtWwncDt6Fok HTTP/1.1" 200 1358';
         $pattern ='127.0.0.1 - - [02/Mar/2022:17:09:58 +0800] "GET /api/movie/6/playlist.m3u8/65 HTTP/1.1" 206 1348';
 
@@ -780,23 +780,23 @@ class CollectionsController extends Controller
     function processLog()
     {
 
-        
-        //$regex = "/^(\S+) (\S+) (\S+) \[([^:]+):(\d+:\d+:\d+) ([^\]]+)\] \"(\S+) (.*?) (\S+)\" (\S+) (\S+) (\".*?\") (\".*?\")(\r?\n)$/"; 
-  
+
+        //$regex = "/^(\S+) (\S+) (\S+) \[([^:]+):(\d+:\d+:\d+) ([^\]]+)\] \"(\S+) (.*?) (\S+)\" (\S+) (\S+) (\".*?\") (\".*?\")(\r?\n)$/";
+
         $log = 'C:\laragon\bin\apache\httpd-2.4.47-win64-VS16\logs\access.log';
         // 127.0.0.1 - - [14/Mar/2022:13:36:01 +0800] "GET /storage/streaming/12/m3u8/playlist_720p_0_2500_00010.ts HTTP/1.1" 200 769312
         $regex = '@^(\S+)\ (\S+) (\S+) \\[(.*?)\\] \\"GET \/storage\/streaming\/(.*?)\/m3u8\/(.*?).ts\?access_token\=(.*?) HTTP/1.1\\" (\S+) (\S+)(\r?\n)$@';
 
         LazyCollection::make(function () use ($log){
-           
+
             $handle = fopen($log, 'r');
-            
+
             while (($line = fgets($handle)) !== false){
-                yield $line;    
+                yield $line;
             }
-            })->each(function ($line) use ($regex) 
+            })->each(function ($line) use ($regex)
             {
-   
+
                // echo $line . PHP_EOL;
                 if (preg_match($regex,$line,$matches)){
                     //echo 'match' . PHP_EOL;
@@ -816,21 +816,21 @@ class CollectionsController extends Controller
                     $token_data = DB::table('personal_access_tokens')
                                     ->where('token', hash('sha256', $token))
                                     ->first();
-                    
+
                     //print_r($token_data);
                     $user_id = 0;
                     if($token_data){
                         $user_id = $token_data->tokenable_id;
                     }
-                   
+
                     $request = $matches[0];
                     $status = $matches[8];
                     $responseBytes = $matches[9];
-     
-                    $log = VideoLog::firstOrNew( 
+
+                    $log = VideoLog::firstOrNew(
                                             [
                                                 'request' => $request, // check before insert
-                                            ] 
+                                            ]
                                         );
                     $log->time = $time;
                     $log->user_id =  $user_id;
@@ -843,7 +843,7 @@ class CollectionsController extends Controller
 
                 }
             });
-        
+
     } // lazy()
 
 
@@ -875,7 +875,7 @@ class CollectionsController extends Controller
     // only GET requests
     function logger(){
         $logger = new Logger();
-        
+
         while(true){
             sleep(2);
             $logger->processLog();
@@ -885,7 +885,7 @@ class CollectionsController extends Controller
     function my_account(){
         $user = DB::table('users')
         // join all tables
-        ->join('profiles', 'profiles.user_id', '=', 'users.id') 
+        ->join('profiles', 'profiles.user_id', '=', 'users.id')
         // select required fields
         ->select(
             DB::raw('users.firstname'),
@@ -901,7 +901,7 @@ class CollectionsController extends Controller
         ->limit(1)
         // get the Collection
         ->first();
-     
+
         dd($user);
 
     }
@@ -911,7 +911,7 @@ class CollectionsController extends Controller
 
         // company() & comments() methods in app/Models/User.php
         $user = User::query()->with('company','comments')->where('id',2)->first(); // hardcode user.id = 2
-       
+
         echo $user->name; // user's name
         //echo $user->company->name; // company name ( Company belongsTo User)
 
@@ -925,7 +925,7 @@ class CollectionsController extends Controller
     function get_comments(){
         $user_id = 2; // sanctum user_id
         $companies = Company::query()->with('comments')->get();
-       
+
         foreach($companies as $company){
             foreach($company->comments as $comment){
                 echo $company->id;
@@ -938,7 +938,7 @@ class CollectionsController extends Controller
     function latest_comment(){
         $user_id = 2; // sanctum user_id
         $companies = Company::query()->with('comments')->get();
-       
+
         foreach($companies as $company){
             foreach($company->comments as $comment){
                 echo $company->id;
@@ -950,13 +950,13 @@ class CollectionsController extends Controller
     function proposal(){
 
         $video = Video::firstOrNew(['user_id' =>  2 ]);
- 
+
         $video->title = 'test 123';
         $video->category_id = 6;
         $video->original_filename = 'test.mp4';
         $video->synopsis = 'test.mp4';
-  
-        
+
+
         $video->save();
         // $video = User::query()->find(1)->video;
         dd($video->id);
@@ -975,10 +975,61 @@ class CollectionsController extends Controller
         $proposal->save();
     }
 
-    function delete_video_id(){
-       
+    function test_company(){
+        $field = 'experiences';
+        $company = Company::query()
+        ->where('user_id', 4)
+        ->get($field);
+
+        if(is_null($company->first()->$field)){
+            echo 'empty';
+        } else {
+            echo 'set';
+        }
     }
-        
-        
+
+    function test_requirement(){
+        // get Company data
+        $company = \App\Models\Company::where('user_id', 4 )->first();
+
+        // load tenderDetail
+        $tenderDetail = \App\Models\TenderDetail::with('tender_requirements')->find(4);
+
+        //load tender requirements
+        $requirements = $tenderDetail->tender_requirements;
+
+        // load service
+        $this->service = new \App\Services\CompanyApprovalService;
+        // loop tender requirements and check each field is present
+        $allow = true;
+
+        foreach($requirements as $requirement){
+            // echo $requirement->module;
+            // echo PHP_EOL;
+            // run the check
+            // return true or false
+            $module = $requirement->module;
+            echo "checking for $module = ";
+            $allow =  $this->service->$module();
+
+            echo $allow ? 'pass' : 'failed';
+            echo PHP_EOL;
+            if(!$allow){
+                break;
+            }
+        }
+        echo $allow ? 'allow submit button' : 'button is disabled';
+    }
+
+    function test_status(){
+        $company_approval = \App\Models\CompanyApproval::query()
+        ->where('company_id',2)
+        ->where('tender_detail_id',1)
+        ->get('status');
+
+        echo $approval_status = $company_approval->first()->status; // string
+    }
+
+
 
 }// class

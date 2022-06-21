@@ -4,22 +4,23 @@ namespace App\Http\Controllers\Tender;
 
 use App\Http\Controllers\Controller;
 use Auth;
+use App\Models\TenderCategory;
 use App\Models\Tender;
 use Illuminate\Http\Request;
 use App\Services\TenderService;
-use App\Http\Requests\Tender\StoreTenderRequest;
-use App\Http\Requests\Tender\UpdateTenderRequest;
+use App\Http\Requests\Tender\Tender\StoreRequest;
+use App\Http\Requests\Tender\Tender\UpdateRequest;
 
 class TenderController extends Controller
 {
-    var $Tender;
+    var $tender;
 
-    function __construct()
-    {
-        //  $this->middleware('permission:Tender-list|Tender-create|Tender-edit|Tender-delete', ['only' => ['index','show']]);
-        //  $this->middleware('permission:Tender-create', ['only' => ['create','store']]);
-        //  $this->middleware('permission:Tender-edit',   ['only' => ['edit','update']]);
-        //  $this->middleware('permission:Tender-delete', ['only' => ['destroy']]);
+    function __construct(){
+
+        $this->middleware('permission:tender-list|tender-create|tender-edit|tender-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:tender-create', ['only' => ['create','store']]);
+        $this->middleware('permission:tender-edit',   ['only' => ['edit','update']]);
+        $this->middleware('permission:tender-delete', ['only' => ['destroy']]);
 
         $this->tender = new TenderService;
     }
@@ -30,21 +31,22 @@ class TenderController extends Controller
         return view('tenders.index')->with(compact('tenders'));
     }
 
-    public function search(Request $request){
-   
+    public function search(Request $request)
+    {
         $tenders = $this->tender->search($request);
         return view('tenders.index')->with(compact('tenders'));
     }
 
     public function create()
     {
+        $tenderCategories = TenderCategory::all();
         $types = Tender::types(); // tender types
         $languages = Tender::get_languages();
         $channels = Tender::channels();
-        return view('tenders.create', compact('languages','channels','types'));
+        return view('tenders.create', compact('languages','channels','types','tenderCategories'));
     }
 
-    public function store(StoreTenderRequest $request)
+    public function store(StoreRequest $request)
     {
         $this->tender->create($request);
         return redirect('tenders')->with('success','Tender created successfully');
@@ -53,13 +55,14 @@ class TenderController extends Controller
     public function edit(Tender $tender)
     {
 
+        $tenderCategories = TenderCategory::all();
         $types = Tender::types(); // tender types
         $languages = Tender::get_languages();
         $channels = Tender::channels();
-        return view('tenders.edit',compact('tender','languages','channels','types'));
+        return view('tenders.edit',compact('tender','languages','channels','types','tenderCategories'));
     }
 
-    public function update(UpdateTenderRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $this->tender->update($request, $id);
         return redirect()->route('tenders.index', $id)->with('success','Tender updated.');

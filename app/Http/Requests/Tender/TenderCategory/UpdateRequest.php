@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Tender;
+namespace App\Http\Requests\Tender\TenderCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTenderRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class StoreTenderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required','string'],
         ];
     }
 }

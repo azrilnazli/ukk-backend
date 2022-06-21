@@ -8,8 +8,12 @@ return [
     'dashboard',
     'category',
     'permission',
+    
     'tender',
-    'tender_submission',
+    'tender-requirement',
+    'tender-detail',
+    'tender-submission',
+
     'company',
     'scoring',
     'signer',

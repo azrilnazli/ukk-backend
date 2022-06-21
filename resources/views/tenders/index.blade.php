@@ -68,9 +68,9 @@
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td>{{$row->channel }}</td>
-                    <td>{{$row->type }}</td>
+                    <td>{{ optional($row->tender_category)->title }}</td>
 
-                    <td>{{$row->tender_category }}</td>
+                    <td>{{$row->programme_category }}</td>
                     <td>{{$row->programme_code }} </td>
                     <td>{{$row->duration }}</td>
                     <td>{{$row->number_of_episode }}</td>
@@ -95,7 +95,7 @@
                 </tr>
 
                 <tr>
-                  <td colspan=9>
+                  <td colspan=10>
                     <div class="alert alert-light" role="alert">
                     {!! nl2br($row->description) !!}
                     </div>
