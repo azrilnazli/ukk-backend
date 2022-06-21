@@ -53,16 +53,16 @@ Route::prefix('jobs')->group(function () {
 });
 
 // Content
-\App\Http\Controllers\content\ContentController::routes();
+\App\Http\Controllers\Content\ContentController::routes();
 
 // TenderDetail
-\App\Http\Controllers\tender\TenderDetailController::routes();
+\App\Http\Controllers\Tender\TenderDetailController::routes();
 
 // TenderRequirement
-\App\Http\Controllers\tender\TenderRequirementController::routes();
+\App\Http\Controllers\Tender\TenderRequirementController::routes();
 
 // TenderCategory
-\App\Http\Controllers\tender\TenderCategoryController::routes();
+\App\Http\Controllers\Tender\TenderCategoryController::routes();
 
 
 // JSPD - scorings
