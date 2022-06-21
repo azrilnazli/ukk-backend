@@ -37,6 +37,12 @@ class CompanyApprovalController extends Controller
     {
         // get Company data based on loggedIn User
         $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
+        if(is_null($company)){
+            // return response as JSON
+            return response([
+                'status' => 'No Company Data' // return as boolean
+            ]);
+        }
 
         $result = \App\Models\CompanyApproval::query()
                     ->where('company_id',$company->id)
