@@ -29,7 +29,7 @@ class JspdAdminService {
     {
         return TenderSubmission::query()
 
-            ->has('approved','=', 2)
+            ->has('approved','>=', 2)
             ->has('scorings','=', 3)
             ->has('verifications','=', 2)
             ->whereHas('user.company', fn($query) =>
@@ -44,7 +44,7 @@ class JspdAdminService {
     {
         return TenderSubmission::query()
 
-            ->has('failed','=', 2)
+            ->has('failed','>=', 2)
             ->has('scorings','=', 3)
             ->has('verifications','=', 2)
             ->whereHas('user.company', fn($query) =>

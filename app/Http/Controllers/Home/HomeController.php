@@ -109,18 +109,27 @@ class HomeController extends Controller
                             ->count();  
 
         $proposal['success'] = TenderSubmission::query()
+		            ->whereHas('user.company', fn($query) =>
+                              $query->where('is_approved', true)
+                              )
                             ->has('scorings','=', 3)
                             ->has('verifications','=', 2)
-                            ->has('approved','=', 2)
+                            ->has('approved','>=', 2)
                             ->count();  
 
         $proposal['failed'] = TenderSubmission::query()
+	                    ->whereHas('user.company', fn($query) =>
+                              $query->where('is_approved', true)
+                              )
                             ->has('scorings','=', 3)
                             ->has('verifications','=', 2)
-                            ->has('failed','=', 2)
+                            ->has('failed','>=', 2)
                             ->count();  
 
         $proposal['pending'] = TenderSubmission::query()
+                            ->whereHas('user.company', fn($query) =>
+                              $query->where('is_approved', true)
+                              )
                             ->has('scorings','!=', 3)
                             ->has('verifications','!=', 2)
                             ->count();  
