@@ -61,7 +61,7 @@ class TenderRequirementController extends Controller
 
     public function edit(TenderRequirement $tenderRequirement)
     {
-        return view('tender_Requirements.edit',compact('tenderRequirement'));
+        return view('tender_requirements.edit',compact('tenderRequirement'));
     }
 
     public function update(UpdateRequest $request, $id)
