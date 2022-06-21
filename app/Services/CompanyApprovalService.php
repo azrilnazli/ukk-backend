@@ -83,7 +83,8 @@ class CompanyApprovalService {
     }
 
     public function check_bumiputera(){
-        $fields = ['is_bumiputera','bumiputera_registration_number','is_bumiputera_cert_uploaded','bumiputera_expiry_date'];
+        $fields = ['is_bumiputera'];
+        //$fields = ['is_bumiputera','bumiputera_registration_number','is_bumiputera_cert_uploaded','bumiputera_expiry_date'];
         return $this->check($fields);
     }
 
