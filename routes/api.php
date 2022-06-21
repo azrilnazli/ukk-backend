@@ -29,6 +29,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// FE Site Contents
+\App\Http\Controllers\Api\ContentController::routes();
+
 Route::middleware('guest')->post('/auth/register', [AuthController::class, 'register']);
 Route::middleware('guest')->post('/auth/login', [AuthController::class, 'login']);
 Route::middleware('guest')->post('/password/email', [AuthController::class, 'email']);

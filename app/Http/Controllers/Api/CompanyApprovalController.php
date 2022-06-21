@@ -12,7 +12,6 @@ use Log;
 
 class CompanyApprovalController extends Controller
 {
-
     function __construct(){
         $this->service = new \App\Services\CompanyApprovalService;
     }
@@ -22,6 +21,7 @@ class CompanyApprovalController extends Controller
         Route::get('/company-approvals', [CompanyApprovalController::class, 'index'])->name('company-approvals.index');
         Route::get('/company-approvals/search', [CompanyApprovalController::class, 'search'])->name('company-approvals.search');
         Route::get('/company-approvals/create', [CompanyApprovalController::class,'create'])->name('company-approvals.create');
+        Route::get('/company-approvals/allow-request/{tenderDetail}', [CompanyApprovalController::class,'allow_request'])->name('company-approvals.allow-request');
         Route::get('/company-approvals/check-for-approval/{module}', [CompanyApprovalController::class,'check_for_approval'])->name('company-approvals.check-for-approval');
         Route::get('/company-approvals/get-approval-status/{tenderDetail}', [CompanyApprovalController::class,'get_approval_status'])->name('company-approvals.get-approval-status');
         Route::post('/company-approvals/store', [CompanyApprovalController::class,'store'])->name('company-approvals.store');
@@ -32,21 +32,76 @@ class CompanyApprovalController extends Controller
     }
 
     // vendor wants to check his status
+    // status = null,pending,approved,rejected
     public function get_approval_status(TenderDetail $tenderDetail)
     {
+        // get Company data based on loggedIn User
+        $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
 
-        // get current status from CompanyApproval
+        $result = \App\Models\CompanyApproval::query()
+                    ->where('company_id',$company->id)
+                    ->where('tender_detail_id',$tenderDetail->id)
+                    ->first();
 
         // JSON response 200
         return response([
-            'status' =>  'pending',
+            'status' =>  !is_null($result) ? ucFirst($result->status) : 'Not Submitted' ,
         ],200);
     }
 
     // Check vendor submitted documents
     public function check_for_approval($module)
     {
-        return $this->$module();
+        return response([
+            'status' => $this->service->$module()
+        ]);
+    }
+
+    // to check user if user Company data meets TenderRequirement ?
+    public function allow_request(TenderDetail $tenderDetail){
+
+        // get Company data based on loggedIn User
+        $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
+        // load tender requirements
+        $requirements = $tenderDetail->tender_requirements;
+        // set $allow to true
+        $status = true;
+        // run the loop
+        foreach($requirements as $requirement){
+            // run the check
+            $module = $requirement->module;
+            $status =  $this->service->$module(); // return boolean
+            if($status == false){
+                break;
+            }
+        }
+
+        //Log::info('company id ' . $company->id);
+        //Log::info('tender detail id ' . $tenderDetail->id);
+
+        // check CompanyApproval status
+        // only allow when null or rejected
+        // disable if pending or approved
+        // if ($result->first()) { }
+        // if (!$result->isEmpty()) { }
+        // if ($result->count()) { }
+        // if (count($result)) { }
+
+        $result = \App\Models\CompanyApproval::query()
+                            ->where('company_id',$company->id)
+                            ->where('tender_detail_id',$tenderDetail->id)
+                            ->first();
+        if(!is_null($result)){
+            //Log::info('status ' . $result->status);
+            if($result->status == 'pending' OR $result->status == 'rejected'){
+                $status = false;
+            }
+        }
+
+        // return response as JSON
+        return response([
+            'status' => $status // return as boolean
+        ]);
     }
 
     // Vendor click button
@@ -55,7 +110,6 @@ class CompanyApprovalController extends Controller
     public function request_for_approval(Request $request)
     {
         // should check if CompanyData meets TenderDetail->Requirement ?
-
         $company = \App\Models\Company::where('user_id', auth()->user()->id)->first();
 
         if(empty($company)){
@@ -79,167 +133,4 @@ class CompanyApprovalController extends Controller
             'message' =>  $company ? 'success' : 'empty',
         ],200);
     }
-
-
-    public function check_ssm(){
-        $fields = ['ssm_registration_number','is_ssm_cert_uploaded','ssm_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_mof(){
-        $fields = ['mof_registration_number','is_mof_cert_uploaded','mof_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_kkmm_syndicated(){
-        $fields = ['kkmm_syndicated_registration_number','is_kkmm_syndicated_cert_uploaded','kkmm_syndicated_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_kkmm_swasta(){
-        $fields = ['kkmm_swasta_registration_number','is_kkmm_swasta_cert_uploaded','kkmm_swasta_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_finas_fp(){
-        $fields = ['finas_fp_registration_number','is_finas_fp_cert_uploaded','finas_fp_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_finas_fd(){
-        $fields = ['finas_fd_registration_number','is_finas_fd_cert_uploaded','finas_fd_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_credit(){
-        $fields = ['is_credit_cert_uploaded'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_authorization_letter(){
-        $fields = ['is_authorization_letter_cert_uploaded'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_official_company_letter(){
-        $fields = ['is_official_company_letter_cert_uploaded'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_audit(){
-        $fields = ['current_audit_year','is_current_audit_year_cert_uploaded','paid_capital'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_bank(){
-        $fields = ['bank_name','bank_branch','bank_statement_date_start','bank_statement_date_end','bank_account_number'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_bumiputera(){
-        $fields = ['is_bumiputera','bumiputera_registration_number','is_bumiputera_cert_uploaded','bumiputera_expiry_date'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_experiences(){
-        $fields = ['experiences'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_board_of_directors(){
-        $fields = ['board_of_directors'];
-        $status = $this->check($fields);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check_profile(){
-        $fields = ['name','email','phone','address','postcode','city','states'];
-        $status = $this->check($fields);
-        Log::info('check profile ' . $status);
-        return response([
-            'status' => $status
-        ]);
-    }
-
-    public function check($fields) {
-        //$fields = implode(',', $fields);
-        $company = \App\Models\Company::query()
-            //->select('name','email','phone','address','postcode','city','states','board_of_directors','paid_capital','experiences')
-            ->select($fields)
-            ->where('user_id', auth()->user()->id)
-
-            ->first();
-
-        //$completed = true;
-
-        $profile = collect($company);
-
-        if(collect($profile)->isEmpty() == TRUE){
-            return false;
-        }
-
-
-        //Log::info("is-null " . $profile);
-        $is_empty = null;
-        $is_empty = $profile->filter(function($item, $key)  {
-           // Log::info($item . '->' . $key);
-            $forget = [ 'created_at','updated_at'];
-            if(!in_array($key, $forget)){
-                //Log::info("check" . $item);
-                if(is_null($item) || $item == '' || empty($item)){
-                    //Log::info("is-null " . $key);
-                    return true;
-                }
-            }
-            return false;
-
-        });
-
-        return collect($is_empty)->isEmpty();
-
-
-    }
-
-
 }

@@ -22,7 +22,7 @@ class TenderRequirementService {
             //     )
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('tender-details.index'));
+            ->setPath(route('tender-requirements.index'));
     }
 
     public function search($request)
@@ -46,7 +46,7 @@ class TenderRequirementService {
                     )
 
                     ->paginate(50)
-                    ->setPath(route('tender-details.search'));
+                    ->setPath(route('tender-requirements.search'));
 
                     $tenders->appends([
                         'query' => $q

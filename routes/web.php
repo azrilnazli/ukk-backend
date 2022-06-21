@@ -52,6 +52,9 @@ Route::prefix('jobs')->group(function () {
     Route::queueMonitor();
 });
 
+// Content
+\App\Http\Controllers\content\ContentController::routes();
+
 // TenderDetail
 \App\Http\Controllers\tender\TenderDetailController::routes();
 

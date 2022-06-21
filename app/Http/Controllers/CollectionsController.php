@@ -986,8 +986,48 @@ class CollectionsController extends Controller
         } else {
             echo 'set';
         }
+    }
 
+    function test_requirement(){
+        // get Company data
+        $company = \App\Models\Company::where('user_id', 4 )->first();
 
+        // load tenderDetail
+        $tenderDetail = \App\Models\TenderDetail::with('tender_requirements')->find(4);
+
+        //load tender requirements
+        $requirements = $tenderDetail->tender_requirements;
+
+        // load service
+        $this->service = new \App\Services\CompanyApprovalService;
+        // loop tender requirements and check each field is present
+        $allow = true;
+
+        foreach($requirements as $requirement){
+            // echo $requirement->module;
+            // echo PHP_EOL;
+            // run the check
+            // return true or false
+            $module = $requirement->module;
+            echo "checking for $module = ";
+            $allow =  $this->service->$module();
+
+            echo $allow ? 'pass' : 'failed';
+            echo PHP_EOL;
+            if(!$allow){
+                break;
+            }
+        }
+        echo $allow ? 'allow submit button' : 'button is disabled';
+    }
+
+    function test_status(){
+        $company_approval = \App\Models\CompanyApproval::query()
+        ->where('company_id',2)
+        ->where('tender_detail_id',1)
+        ->get('status');
+
+        echo $approval_status = $company_approval->first()->status; // string
     }
 
 
