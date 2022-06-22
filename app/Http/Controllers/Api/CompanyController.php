@@ -473,8 +473,8 @@ class CompanyController extends Controller
             $message = $this->success($company)
         :
             $message =  response([
-            'message' => 'no data',
-        ]);
+                            'message' => 'no data',
+                        ]);
 
         return $message;
     }

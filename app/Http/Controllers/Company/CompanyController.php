@@ -133,7 +133,6 @@ class CompanyController extends Controller
         return redirect('companies')->with('success','Company created successfully');
     }
 
-
     public function edit(Company $company)
     {
         $documents = [

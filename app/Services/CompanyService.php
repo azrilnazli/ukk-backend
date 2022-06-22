@@ -68,6 +68,7 @@ class CompanyService {
     }
 
     public function get_messages($id){
+
         return Comment::query()
                 ->where('company_id', $id)
                 ->orderBy('id', 'desc')

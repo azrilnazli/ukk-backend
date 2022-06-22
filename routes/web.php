@@ -7,7 +7,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(); // Auth
+// Auth
+Auth::routes();
+
+// CompanyApproval
+\App\Http\Controllers\Company\CompanyApprovalController::routes();
+
+// Content
+\App\Http\Controllers\Content\ContentController::routes();
+
+// TenderDetail
+\App\Http\Controllers\Tender\TenderDetailController::routes();
+
+// TenderRequirement
+\App\Http\Controllers\Tender\TenderRequirementController::routes();
+
+// TenderCategory
+\App\Http\Controllers\Tender\TenderCategoryController::routes();
+
+
 
 Route::resource('profile', App\Http\Controllers\Profile\ProfileController::class )->except([ 'create','destroy']);
 Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
@@ -51,18 +69,6 @@ Route::get('/queue/jobs', [App\Http\Controllers\Home\HomeController::class, 'job
 Route::prefix('jobs')->group(function () {
     Route::queueMonitor();
 });
-
-// Content
-\App\Http\Controllers\Content\ContentController::routes();
-
-// TenderDetail
-\App\Http\Controllers\Tender\TenderDetailController::routes();
-
-// TenderRequirement
-\App\Http\Controllers\Tender\TenderRequirementController::routes();
-
-// TenderCategory
-\App\Http\Controllers\Tender\TenderCategoryController::routes();
 
 
 // JSPD - scorings
