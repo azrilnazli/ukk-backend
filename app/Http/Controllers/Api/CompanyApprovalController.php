@@ -18,17 +18,10 @@ class CompanyApprovalController extends Controller
 
     static function routes()
     {
-        Route::get('/company-approvals', [CompanyApprovalController::class, 'index'])->name('company-approvals.index');
-        Route::get('/company-approvals/search', [CompanyApprovalController::class, 'search'])->name('company-approvals.search');
-        Route::get('/company-approvals/create', [CompanyApprovalController::class,'create'])->name('company-approvals.create');
         Route::get('/company-approvals/allow-request/{tenderDetail}', [CompanyApprovalController::class,'allow_request'])->name('company-approvals.allow-request');
         Route::get('/company-approvals/check-for-approval/{module}', [CompanyApprovalController::class,'check_for_approval'])->name('company-approvals.check-for-approval');
         Route::get('/company-approvals/get-approval-status/{tenderDetail}', [CompanyApprovalController::class,'get_approval_status'])->name('company-approvals.get-approval-status');
-        Route::post('/company-approvals/store', [CompanyApprovalController::class,'store'])->name('company-approvals.store');
         Route::post('/company-approvals/request-for-approval', [CompanyApprovalController::class,'request_for_approval'])->name('company-approvals.request-for-approval');
-        Route::get('/company-approvals/{tenderDetail}/edit', [CompanyApprovalController::class,'edit'])->name('company-approvals.edit');
-        Route::put('/company-approvals/{tenderDetail}/edit', [CompanyApprovalController::class,'update'])->name('company-approvals.update');
-        Route::delete('/company-approvals/{tenderDetail}', [CompanyApprovalController::class, 'destroy'])->name('company-approvals.destroy');
     }
 
     // vendor wants to check his status
@@ -64,7 +57,8 @@ class CompanyApprovalController extends Controller
     }
 
     // to check user if user Company data meets TenderRequirement ?
-    public function allow_request(TenderDetail $tenderDetail){
+    public function allow_request(TenderDetail $tenderDetail)
+    {
 
         // set $allow to true
         $status = true;
@@ -72,18 +66,21 @@ class CompanyApprovalController extends Controller
         // get Company data based on loggedIn User
         $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
 
+        // if Company is null ?
         if(is_null($company)){
             // return response as JSON
             return response([
                 'status' => false // return as boolean
             ]);
         }
-        // load tender requirements
+
+        // load tender requirements based on submitted $id
         $requirements = $tenderDetail->tender_requirements;
 
         // run the loop
         foreach($requirements as $requirement){
             // run the check
+            // CompanyData vs TenderRequirement
             $module = $requirement->module;
             $status =  $this->service->$module(); // return boolean
             if($status == false){
@@ -102,6 +99,7 @@ class CompanyApprovalController extends Controller
         // if ($result->count()) { }
         // if (count($result)) { }
 
+        // check against company_id and tender_id
         $result = \App\Models\CompanyApproval::query()
                             ->where('company_id',$company->id)
                             ->where('tender_detail_id',$tenderDetail->id)
@@ -113,7 +111,7 @@ class CompanyApprovalController extends Controller
             }
         }
 
-        // return response as JSON
+        // return final $status
         return response([
             'status' => $status // return as boolean
         ]);

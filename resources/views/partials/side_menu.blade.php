@@ -109,6 +109,12 @@ function active($menu){
   </li> <!-- ./treeview -->
   @endhasrole
 
+  <!-- CompanyApproval -->
+  @hasanyrole('super-admin|admin')
+    @include('partials.nav.company_approvals')
+  @endhasanyrole
+  <!-- ./CompanyApproval -->
+
   @hasrole('JSPD-URUSETIA')
   <li class="nav-item">
     <a href="{{ route('scorings.dashboard') }}" class="nav-link {{ active('scorings.dashboard') }}">
@@ -262,15 +268,6 @@ function active($menu){
 
 
   @hasanyrole('super-admin|admin')
-  <li class="nav-item">
-  <a href="/companies" class="nav-link {{ active('companies') }}">
-      <i class="nav-icon fa fa-users"></i>
-      <p>
-      Vendor
-      </p>
-  </a>
-  </li>
-
 
     <li class="nav-item has-treeview menu-close">
       <a href="#" class="nav-link {{ active('tender_submissions')  }}">

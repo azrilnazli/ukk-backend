@@ -12,6 +12,57 @@ class CompanyApprovalService {
 
     public function __construct(){}
 
+    public function paginate($items = 50){
+        return CompanyApproval::query()
+            ->sortable()
+            ->orderBy('id','desc')
+            ->paginate($items)
+            ->setPath(route('company-approvals.index'));
+    }
+
+    public function search($request)
+    {
+        $q = $request->input('query');
+        $tenders = CompanyApproval::query()
+
+                        ->orWhereHas('company', fn($query) =>
+                            $query->where('name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('email', 'LIKE', '%' . $q . '%')
+                            ->orWhere('id', 'LIKE', '%' . $q . '%')
+                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
+                        )
+                        ->orWhereHas('tender_detail', fn($query) =>
+                            $query->where('title', 'LIKE', '%' . $q . '%')
+                        )
+
+                        ->paginate(50)
+                        ->setPath(route('company-approvals.search'));
+
+                        $tenders->appends([
+                            'query' => $q
+                            ]);
+        return $tenders;
+
+    }
+
+    public function update($request, $id){
+        // need to change cast to boolean in Model
+        if($request->is_approved == 1 ){
+            return CompanyApproval::where('id',$id)->update([
+                'is_approved' => true, // approve or reject
+                'status' => 'approved',
+                'user_id' => auth()->user()->id
+            ]);
+        } else {
+            return CompanyApproval::where('id',$id)->update([
+                'is_approved' => false,
+                'status' => 'rejected',
+                'user_id' => auth()->user()->id
+            ]);
+        }
+    }
+
+
     public function check_field($field) {
 
         $company = Company::query()
