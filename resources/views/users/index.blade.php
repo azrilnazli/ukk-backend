@@ -58,21 +58,6 @@
                 @if($row->company)
                     <br />
                     {{ $row->company->name }} - {{ $row->company->phone }}
-                    @if($row->company->is_approved == 1 && $row->company->is_completed == 1 )
-                    <span class="badge badge-success">Approved</span>
-                    @endif
-
-                    @if($row->company->is_rejected == 1  && $row->company->is_completed == 0 )
-                    <span class="badge badge-danger">Rejected</span>
-                    @endif
-
-                    @if($row->company->is_rejected == 1  && $row->company->is_completed == 1 )
-                    <span class="badge badge-warning">Resubmission</span>
-                    @endif
-
-                    @if($row->company->is_rejected == 0 && $row->company->is_approved == 0 )
-                      <span class="badge badge-info">Pending</span>
-                    @endif
                 @endif
                 <br /><small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small></td>
                 <td class="text-center">
@@ -86,9 +71,7 @@
                 </td>
                 <td class="text-center">
                     @if($row->proposals)
-
-                            {{count($row->proposals) }}
-
+                        {{count($row->proposals) }}
                     @endif
                 </td>
                 <td>
@@ -109,7 +92,7 @@
                   @break
                 @endswitch --}}
                 <span class="badge badge-dark text-uppercase ">{{ $v }}</span>
-              @endforeach 
+              @endforeach
             @endif
             </td>
 
