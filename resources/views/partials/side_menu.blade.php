@@ -21,6 +21,10 @@ function active($menu){
     @endhasanyrole
 
     @hasrole('super-admin')
+        @include('partials.nav.users')
+    @endhasrole
+
+    @hasrole('super-admin')
         @include('partials.nav.contents')
     @endrole
 
@@ -32,25 +36,21 @@ function active($menu){
         @include('partials.nav.company_approvals')
     @endhasanyrole
 
-    @hasrole('JSPD-URUSETIA')
+    @hasanyrole('super-admin|jspd-admin')
+        @include('partials.nav.jspd_admins')
+    @endhasanyrole
+
+    @hasrole('jspd-urusetia')
         @include('partials.nav.scorings-urusetia')
     @endhasrole
 
-    @hasrole('JSPD-PENANDA')
+    @hasrole('jspd-penanda')
         @include('partials.nav.scorings-penanda')
     @endhasrole
 
-    @hasrole('super-admin')
-            @include('partials.nav.users')
-    @endhasrole
-
-    @hasanyrole('super-admin|JSPD-ADMIN')
-            @include('partials.nav.jspd_admins')
-    @endhasanyrole
-
     @hasanyrole('super-admin|admin')
-            @include('partials.nav.tender_submissions')
-            @include('partials.nav.videos')
+        @include('partials.nav.tender_submissions')
+        @include('partials.nav.videos')
     @endhasanyrole
 
-  </ul>
+</ul>

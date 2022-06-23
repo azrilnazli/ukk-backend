@@ -106,7 +106,7 @@ class JspdAdminController extends Controller
     // delete videos
     public function delete($id){
 
-        if(Auth::user()->hasAnyRole(['JSPD-ADMIN','super-admin'])){
+        if(Auth::user()->hasAnyRole(['jspd-admin','super-admin'])){
 
             $tenderSubmission = $this->service->destroy($id);
 

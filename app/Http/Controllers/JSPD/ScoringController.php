@@ -58,20 +58,20 @@ class ScoringController extends Controller
     }
 
     public function tasks(){
-        if(Auth::user()->hasRole('JSPD-PENANDA')){
-            // list proposal assigned to JSPD-PENANDA
+        if(Auth::user()->hasRole('jspd-penanda')){
+            // list proposal assigned to jspd-penanda
             $proposals = $this->scoring->tasks('signers', 50); // relation signers()
         }
 
-        if(Auth::user()->hasRole('JSPD-URUSETIA')){
-            // list proposal assigned to JSPD-PENANDA
+        if(Auth::user()->hasRole('jspd-urusetia')){
+            // list proposal assigned to jspd-penanda
             $proposals = $this->scoring->tasks('urusetias', 50); // relation signers()
         }
 
         return view('JSPD.scorings.tasks')->with(compact('proposals'));
     }
 
-    // used by JSPD-PENANDA to show their task
+    // used by jspd-penanda to show their task
     public function show(TenderSubmission $tenderSubmission)
     {
         // check if current user is assigned in signers
@@ -95,7 +95,7 @@ class ScoringController extends Controller
         return view('JSPD.scorings.show')->with(compact('tenderSubmission','data'));
     }
 
-    // used by JSPD-URUSETIA to show their task
+    // used by jspd-urusetia to show their task
     public function show_verify(TenderSubmission $tenderSubmission)
     {
         if(
@@ -141,15 +141,15 @@ class ScoringController extends Controller
 
     public function search(Request $request){
 
-        if(Auth::user()->hasRole('JSPD-PENANDA')){
-            // list proposal assigned to JSPD-PENANDA
+        if(Auth::user()->hasRole('jspd-penanda')){
+            // list proposal assigned to jspd-penanda
             // echo 'jspd-penanda';
             // dd($request);
             $proposals = $this->scoring->search('signers', $request); // relation signers()
         }
 
-        if(Auth::user()->hasRole('JSPD-URUSETIA')){
-            // list proposal assigned to JSPD-PENANDA
+        if(Auth::user()->hasRole('jspd-urusetia')){
+            // list proposal assigned to jspd-penanda
             // echo 'jspd-urusetia';
             // dd($request);
             $proposals = $this->scoring->search('urusetias', $request); // relation signers()

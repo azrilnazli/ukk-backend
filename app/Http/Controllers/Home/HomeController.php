@@ -64,7 +64,7 @@ class HomeController extends Controller
         }
 
         // Subscriber shall not access!
-        if(Auth::user()->hasAnyRole(['JSPD-PENANDA','JSPD-URUSETIA']))
+        if(Auth::user()->hasAnyRole(['jspd-penanda','jspd-urusetia']))
         {
             return redirect()->to(route('scorings.dashboard'));
         }

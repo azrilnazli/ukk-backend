@@ -97,6 +97,12 @@ class UserRoleController extends Controller
 
         $role = Role::findByName($role); // find the role collection
 
+        // update role name id any
+        if($request->has('name')){
+            $role->name = $request->name;
+            $role->save();
+        }
+
         // list of registered controllers
         $actions = ['list','create','edit','delete'];
         $controllers = collect(Config::get('controller'))

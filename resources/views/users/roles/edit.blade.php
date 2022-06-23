@@ -15,14 +15,19 @@
 @stop
 
 @section('content')
-<form id="update_role" method="POST" action="{{ route('user-roles.update',$role->name) }}">
+<form method="POST" action="{{ route('user-roles.update',$role->name) }}">
     @csrf
     @method('PUT')
 
 
     <div class="card card-secondary">
         <div class="card-header">
-          ROLE : <strong><span class="text-uppercase">{{ $role->name }}</span></strong>
+           <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $role->name) }}" placeholder="role name"  >
+                </div>
+            </div>
+
         </div>
         <div class="card-body">
 
