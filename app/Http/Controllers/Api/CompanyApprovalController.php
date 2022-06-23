@@ -74,6 +74,23 @@ class CompanyApprovalController extends Controller
             ]);
         }
 
+        // company data exists, lets check
+        // load tender requirements based on submitted $id
+        $requirements = $tenderDetail->tender_requirements;
+
+        // run the loop
+        foreach($requirements as $requirement){
+            // run the check
+            // CompanyData vs TenderRequirement
+            $module = $requirement->module;
+            $status =  $this->service->$module(); // return boolean
+            if($status == false){
+                return response([
+                    'status' => $status // return as boolean
+                ]);
+                break;
+            }
+        }
 
 
         //Log::info('company id ' . $company->id);
@@ -93,23 +110,6 @@ class CompanyApprovalController extends Controller
                             ->where('tender_detail_id',$tenderDetail->id)
                             ->first();
         if(!is_null($result)){
-            // company applied for this tender_detail_id
-            // load tender requirements based on submitted $id
-            $requirements = $tenderDetail->tender_requirements;
-
-            // run the loop
-            foreach($requirements as $requirement){
-                // run the check
-                // CompanyData vs TenderRequirement
-                $module = $requirement->module;
-                $status =  $this->service->$module(); // return boolean
-                if($status == false){
-                    return response([
-                        'status' => $status // return as boolean
-                    ]);
-                    break;
-                }
-            }
 
             // return final status
             if($result->status == 'pending' OR $result->status == 'approved'){
