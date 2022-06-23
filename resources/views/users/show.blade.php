@@ -7,7 +7,7 @@
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
         <li class="breadcrumb-item"><a href="/users">{{ __('User Management') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ __(ucfirst($user->name)) }}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __(ucfirst($user->email)) }}</li>
     </ol>
 </nav>
 @stop
