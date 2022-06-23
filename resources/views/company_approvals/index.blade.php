@@ -47,7 +47,7 @@
 
                 <th width="5%">@sortablelink('id','ID')</th>
                 <th>@sortablelink('company.name','Company Name')</th>
-                <th>@sortablelink('tender_detail.title','Tender')</th>
+                <th width="20%%">@sortablelink('tender_detail.title','Tender')</th>
                 <th>@sortablelink('status','Status')</th>
                 <th width="*">Approved by</th>
                 @role('super-admin')
@@ -62,7 +62,9 @@
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td>
                         <span class='badge badge-dark'> {{ optional($row->company)->id }}</span>
-                        {{ optional($row->company)->name }}
+                        <span class="lead">{{ optional($row->company)->name }}</span>
+                        <br />
+                        <span class="small">requested : <em>{{$row->created_at->diffForHumans()}}</em></span>
                     </td>
                     <td>
                         <span class='badge badge-dark'> {{ optional($row->tender_detail)->id }}</span>
