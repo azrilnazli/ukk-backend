@@ -22,7 +22,7 @@
         <a href="{{ route('company-approvals.index') }}" class="nav-link {{ active('company-approvals.index') }}">
           <i class="nav-icon fas fa-question"></i>
           <p>
-            Request for Approval
+            <small>Request for Approval</small>
           </p>
         </a>
       </li>
