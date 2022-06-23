@@ -16,356 +16,41 @@ function active($menu){
 
     <li class="nav-header"></li>
 
-  @hasanyrole('super-admin|admin')
-  <li class="nav-item">
-    <a href="/home" class="nav-link {{ active('home') }}">
-      <i class="nav-icon fas fa-home"></i>
-      <p>
-        Home
-      </p>
-    </a>
-  </li>
-  @endhasanyrole
-
-  @hasrole('super-admin')
-  <li class="nav-item">
-    <a href="{{ route('contents.index') }}" class="nav-link {{ active('contents') }}">
-      <i class="nav-icon fas fa-newspaper"></i>
-      <p>
-        Content
-      </p>
-    </a>
-  </li>
-  @endrole
-
-
-  @hasrole('super-admin')
-  <li class="nav-item has-treeview menu-close">
-    <a href="#" class="nav-link {{ active('tenders')  }}">
-      <i class="nav-icon fas fa-list-alt"></i>
-      <p>
-        Tender
-        <i class="right fas fa-angle-left"></i>
-      </p>
-    </a>
-    <ul class="ml-3 nav nav-treeview">
-        <li class="nav-item">
-            <a href="{{ route('tenders.index') }}" class="nav-link {{ active('tenders.index') }}">
-                <i class="nav-icon fas fa-pencil-alt"></i>
-                <p>
-                    Manage Tender
-                </p>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href="{{ route('tender-details.index') }}" class="nav-link {{ active('tender-details.index')  }}">
-                <i class="nav-icon fa fa-pencil"></i>
-                <p>
-                    Tender Detail
-                </p>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href="{{ route('tender-requirements.index') }}" class="nav-link {{ active('tender-requirements.index')  }}">
-                <i class="nav-icon fa fa-pencil"></i>
-                <p>
-                    Tender Requirement
-                </p>
-            </a>
-        </li>
-
-
-        <li class="nav-item">
-            <a href="{{ route('tender-categories.index') }}" class="nav-link {{ active('tender-categories.index')  }}">
-                <i class="nav-icon fa fa-pencil"></i>
-                <p>
-                    Tender Category
-                </p>
-            </a>
-        </li>
-
-
-        {{-- <li class="nav-item">
-          <a href="{{ route('tenders-categories') }}" class="nav-link {{ active('tenders-categories')  }}">
-            <i class="nav-icon fas fa-check"></i>
-            <p>
-              Tender Category
-            </p>
-          </a>
-        </li> --}}
-
-        {{-- <li class="nav-item">
-          <a href="{{ route('tenders.index') }}" class="nav-link {{ active('tenders.index')  }}">
-            <i class="nav-icon fas fa-times"></i>
-            <p>
-              Tender
-            </p>
-          </a>
-        </li> --}}
-
-    </ul>
-  </li> <!-- ./treeview -->
-  @endhasrole
-
-  <!-- CompanyApproval -->
-  @hasanyrole('super-admin|admin')
-    @include('partials.nav.company_approvals')
-  @endhasanyrole
-  <!-- ./CompanyApproval -->
-
-  @hasrole('JSPD-URUSETIA')
-  <li class="nav-item">
-    <a href="{{ route('scorings.dashboard') }}" class="nav-link {{ active('scorings.dashboard') }}">
-      <i class="nav-icon fas fa-home"></i>
-      <p>
-        Home
-      </p>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a href="{{ route('signers.index') }}" class="nav-link {{ active('signers.index') }} {{ active('signers.search') }}">
-      <i class="nav-icon fas fa-pencil-alt"></i>
-      <p>
-        Assign
-      </p>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a href="{{ route('signers.tasks') }}" class="nav-link {{ active('signers.tasks') }}  ">
-      <i class="nav-icon fas fa-book"></i>
-      <p>
-        Tasks
-      </p>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a href="{{ route('scorings.tasks') }}" class="nav-link {{ active('scorings.tasks') }}  {{ active('scorings.search') }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>
-        Proposal
-      </p>
-    </a>
-  </li>
-  @endhasrole
-
-  @hasrole('JSPD-PENANDA')
-  <li class="nav-item">
-    <a href="{{ route('scorings.dashboard') }}" class="nav-link {{ active('scorings.dashboard') }}">
-      <i class="nav-icon fas fa-home"></i>
-      <p>
-        Home
-      </p>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a href="{{ route('scorings.tasks') }}" class="nav-link {{ active('scorings.tasks') }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>
-        Proposal
-      </p>
-    </a>
-  </li>
-  @endhasrole
-
-
-
-  @hasrole('super-admin')
-  <li class="nav-item has-treeview menu-close">
-    <a href="#" class="nav-link {{ active('users')  }}">
-      <i class="nav-icon fas fa-user"></i>
-      <p>
-        User
-        <i class="right fas fa-angle-left"></i>
-      </p>
-    </a>
-    <ul class="ml-3  nav nav-treeview">
-      <li class="nav-item">
-        <a href="{{ route('users.index') }}" class="nav-link {{ active('users.index') }}">
-          <i class="nav-icon fas fa-users"></i>
-          <p>
-            Users
-          </p>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="{{ route('user-roles.index') }}" class="nav-link {{ active('user-roles.index') }}">
-          <i class="nav-icon fas fa-cubes"></i>
-          <p>
-            Roles
-          </p>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="/permissions" class="nav-link {{ active('permissions') }}">
-          <i class="nav-icon fa fa-lock"></i>
-          <p>
-            Permission
-          </p>
-        </a>
-      </li>
-    </ul>
-  </li> <!-- ./treeview -->
-  @endhasrole
-
-
-  @hasanyrole('super-admin|JSPD-ADMIN|admin')
-  <li class="nav-item has-treeview menu-close">
-    <a href="#" class="nav-link {{ active('jspd-admins')  }}">
-      <i class="nav-icon fas fa-database"></i>
-      <p>
-        JSPD
-        <i class="right fas fa-angle-left"></i>
-      </p>
-    </a>
-    <ul class="ml-3  nav nav-treeview">
-        <li class="nav-item">
-          <a href="{{ route('jspd-admins.index') }}" class="nav-link {{ active('jspd-admins.index')  }}">
-            <i class="nav-icon fas fa-database"></i>
-            <p>
-              Proposal
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('jspd-admins.approved') }}" class="nav-link {{ active('jspd-admins.approved')  }}">
-            <i class="nav-icon fas fa-check"></i>
-            <p>
-              Lulus
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('jspd-admins.failed') }}" class="nav-link {{ active('jspd-admins.failed')  }}">
-            <i class="nav-icon fas fa-times"></i>
-            <p>
-              Gagal
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('jspd-admins.pending') }}" class="nav-link {{ active('jspd-admins.pending')  }}">
-            <i class="nav-icon fas fa-hourglass"></i>
-            <p>
-              Belum Ditanda
-            </p>
-          </a>
-        </li>
-
-
-    </ul>
-  </li> <!-- ./treeview -->
-  @endhasanyrole
-
-
-  @hasanyrole('super-admin|admin')
-
-    <li class="nav-item has-treeview menu-close">
-      <a href="#" class="nav-link {{ active('tender_submissions')  }}">
-        <i class="nav-icon fas fa-list"></i>
-        <p>
-          Proposal
-          <i class="right fas fa-angle-left"></i>
-        </p>
-      </a>
-      <ul class="ml-3  nav nav-treeview">
-
-        <li class="nav-item">
-          <a href="/tender_submissions" class="nav-link {{ active('tender_submissions') }}">
-            <i class="nav-icon fas fa-search"></i>
-            <p>
-              View Proposals
-            </p>
-          </a>
-        </li>
-
-
-      </ul>
-    </li>
-
-    <li class="nav-item has-treeview menu-close">
-      <a href="#" class="nav-link {{ active('videos')  }}">
-        <i class="nav-icon fas fa-video"></i>
-        <p>
-          Video
-          <i class="right fas fa-angle-left"></i>
-        </p>
-      </a>
-      <ul class="ml-3 nav nav-treeview">
-        <li class="nav-item">
-          <a href="/videos" class="nav-link  {{ active('videos.index') }}">
-            <i class="nav-icon fas fa-check"></i>
-            <p>Success</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/videos/failed" class="nav-link  {{ active('videos.failed') }}">
-            <i class="fas fa-times nav-icon"></i>
-            <p>Failed</p>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a href="/videos/encoding_status" class="nav-link  {{ active('videos.encoding_status') }}">
-              <i class="fas fa-upload nav-icon"></i>
-              <p>Realtime Encoding</p>
-            </a>
-          </li>
-
-        <li class="nav-item">
-          <a href="/queue/jobs" class="nav-link  {{ active('videos.jobs') }}">
-            <i class="fas fa-cog nav-icon"></i>
-            <p>Queue Monitor</p>
-          </a>
-        </li>
-      </ul>
-    </li>
+    @hasanyrole('super-admin|admin')
+        @include('partials.nav.home')
     @endhasanyrole
 
-    @hasrole('JSPD')
-    <li class="nav-item">
-        <a href="/home" class="nav-link {{ active('proposals') }}">
-          <i class="nav-icon fas fa-list"></i>
-          <p>
-            All Proposals
-          </p>
-        </a>
-    </li>
+    @hasrole('super-admin')
+        @include('partials.nav.contents')
+    @endrole
 
-    <li class="nav-item">
-        <a href="/home" class="nav-link {{ active('proposals') }}">
-          <i class="nav-icon fas fa-check"></i>
-          <p>
-            Marked
-          </p>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a href="/home" class="nav-link {{ active('proposals') }}">
-          <i class="nav-icon fas fa-hourglass"></i>
-          <p>
-            Pending
-          </p>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a href="/home" class="nav-link {{ active('proposals') }}">
-          <i class="nav-icon fas fa-search"></i>
-          <p>
-            Scores
-          </p>
-        </a>
-    </li>
+    @hasrole('super-admin')
+        @include('partials.nav.tenders')
     @endhasrole
+
+    @hasanyrole('super-admin|admin')
+        @include('partials.nav.company_approvals')
+    @endhasanyrole
+
+    @hasrole('JSPD-URUSETIA')
+        @include('partials.nav.scorings-urusetia')
+    @endhasrole
+
+    @hasrole('JSPD-PENANDA')
+        @include('partials.nav.scorings-penanda')
+    @endhasrole
+
+    @hasrole('super-admin')
+            @include('partials.nav.users')
+    @endhasrole
+
+    @hasanyrole('super-admin|JSPD-ADMIN')
+            @include('partials.nav.jspd_admins')
+    @endhasanyrole
+
+    @hasanyrole('super-admin|admin')
+            @include('partials.nav.tender_submissions')
+            @include('partials.nav.videos')
+    @endhasanyrole
 
   </ul>
