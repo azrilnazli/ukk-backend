@@ -16,29 +16,46 @@ function active($menu){
 
     <li class="nav-header"></li>
 
-    @hasanyrole('super-admin|admin')
+
+    @hasrole('super-admin')
         @include('partials.nav.home')
-    @endhasanyrole
-
-    @hasrole('super-admin')
         @include('partials.nav.users')
-    @endhasrole
-
-    @hasrole('super-admin')
         @include('partials.nav.contents')
-    @endrole
-
-    @hasrole('super-admin')
         @include('partials.nav.tenders')
+        @include('partials.nav.company_approvals')
+        @include('partials.nav.jspd_admins')
+        @include('partials.nav.tender_submissions')
+        @include('partials.nav.videos')
     @endhasrole
 
-    @hasanyrole('super-admin|admin')
+    @hasrole('admin')
+        @include('partials.nav.home')
         @include('partials.nav.company_approvals')
-    @endhasanyrole
-
-    @hasanyrole('super-admin|jspd-admin')
         @include('partials.nav.jspd_admins')
-    @endhasanyrole
+        @include('partials.nav.tender_submissions')
+        @include('partials.nav.videos')
+    @endhasrole
+
+    @hasrole('jspd-ketua')
+        @include('partials.nav.home')
+        @include('partials.nav.company_approvals')
+        @include('partials.nav.jspd_admins')
+        @include('partials.nav.tender_submissions')
+        @include('partials.nav.videos')
+    @endhasrole
+
+    @hasrole('jspd-admin')
+        @include('partials.nav.home')
+        @include('partials.nav.company_approvals')
+        @include('partials.nav.tender_submissions')
+        @include('partials.nav.videos')
+    @endhasrole
+
+    @hasrole('jspd-assistant')
+        @include('partials.nav.home')
+        @include('partials.nav.company_approvals')
+        @include('partials.nav.tender_submissions')
+    @endhasrole
 
     @hasrole('jspd-urusetia')
         @include('partials.nav.scorings-urusetia')
@@ -47,10 +64,5 @@ function active($menu){
     @hasrole('jspd-penanda')
         @include('partials.nav.scorings-penanda')
     @endhasrole
-
-    @hasanyrole('super-admin|admin')
-        @include('partials.nav.tender_submissions')
-        @include('partials.nav.videos')
-    @endhasanyrole
 
 </ul>
