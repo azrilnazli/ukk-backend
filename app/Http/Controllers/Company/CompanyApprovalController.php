@@ -79,7 +79,12 @@ class CompanyApprovalController extends Controller
     {
         $this->service->update($request, $companyApproval->id);
 
-        $this->service->add_comment($request, $companyApproval->company->id, $companyApproval->id); // comment
+        $this->service->add_comment(
+                            $request,
+                            $companyApproval->company->id,
+                            $companyApproval->id,
+                            $companyApproval->tender_detail->id
+                        ); // comment
 
         return redirect()->route('company-approvals.index')->with('success','Company Approval updated successfully.');
     }
