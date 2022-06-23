@@ -74,8 +74,8 @@ class SignerController extends Controller
 
         $assigned_signers = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','signer')->get()->pluck('user_id')->toArray();
         $assigned_admins = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','urusetia')->get()->pluck('user_id')->toArray();
-        $signers = User::role('JSPD-PENANDA')->get(); // list all users in signers category
-        $admins = User::role('JSPD-URUSETIA')->get(); // list all users in signers category
+        $signers = User::role('jspd-penanda')->get(); // list all users in signers category
+        $admins = User::role('jspd-urusetia')->get(); // list all users in signers category
 
         if($tenderSubmission->added_by == 0){ // 0 means not being assigned yet
             return view('JSPD.signers.show')->with(compact('tenderSubmission','signers','admins','assigned_signers','assigned_admins'));

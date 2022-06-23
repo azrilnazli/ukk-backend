@@ -47,11 +47,11 @@
 
                 <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
 
-                @hasrole('JSPD-PENANDA')
+                @hasrole('jspd-penanda')
                 <th width="*" class="text-center">Status</th>
                 @endhasrole
 
-                @hasrole('JSPD-URUSETIA')
+                @hasrole('jspd-urusetia')
                 <th width="*" class="text-center">Owner</th>
 
                 <th width="*" class="text-center">Signed</th>
@@ -69,11 +69,11 @@
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
                     <td>{{ $row->tender->programme_code }}</td>
-                    @hasrole('JSPD-PENANDA')
+                    @hasrole('jspd-penanda')
                     <td class="text-center">{!! optional($row->score)->count() ? '<i class="fas fa-check"></i>' : '<i class="fas fa-hourglass"></i>' !!} </td>
                     @endhasrole
 
-                    @hasrole('JSPD-URUSETIA')
+                    @hasrole('jspd-urusetia')
                     <td class="text-center">
                       {{ optional($row->owner)->name}}
                     </td>
@@ -98,7 +98,7 @@
 
                     <td class="text-center">
 
-                      @hasrole('JSPD-PENANDA')
+                      @hasrole('jspd-penanda')
                         @if( optional($row->score)->count() == 0 )
                         <a class="btn btn-success btn-sm" href="{{ route('scorings.show', $row->id) }}">
                             <i class="fas fa-pencil-alt"></i>
@@ -110,7 +110,7 @@
                         @endif
                       @endhasrole
 
-                      @hasrole('JSPD-URUSETIA')
+                      @hasrole('jspd-urusetia')
                       <a class="btn btn-success btn-sm" href="{{ route('scorings.show_verify', $row->id) }}">
                           <i class="fas fa-pencil-alt"></i>
                       </a>

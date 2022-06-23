@@ -40,7 +40,7 @@
                 <span class="badge badge-dark">{{ $role->id }}</span>
             </td>
             <td>
-                <span class="text-uppercase">{{ $role->name }}</span>
+                <span>{{ $role->name }}</span>
             </td>
 
             <td>
