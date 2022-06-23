@@ -19,13 +19,11 @@ class JspdAdminController extends Controller
         $this->middleware( 'permission:jspd-admin-create',   ['only' => ['create','store']] );
         $this->middleware( 'permission:jspd-admin-edit',     ['only' => ['edit','update']] );
         $this->middleware( 'permission:jspd-admin-delete',   ['only' => ['delete']] );
-
         $this->service = new JspdAdminService;
     }
 
     static function routes()
     {
-        // JSPD - admins
         Route::get('/jspd-admins', [JspdAdminController::class, 'index'])->name('jspd-admins.index');
         Route::get('/jspd-admins/approved', [JspdAdminController::class, 'approved'])->name('jspd-admins.approved');
         Route::get('/jspd-admins/failed', [JspdAdminController::class, 'failed'])->name('jspd-admins.failed');
