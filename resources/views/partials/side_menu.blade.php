@@ -31,7 +31,6 @@ function active($menu){
     @hasrole('admin')
         @include('partials.nav.home')
         @include('partials.nav.company_approvals')
-        @include('partials.nav.jspd_admins')
         @include('partials.nav.tender_submissions')
         @include('partials.nav.videos')
     @endhasrole
