@@ -27,7 +27,7 @@ class CompanyController extends Controller
 
     static function routes()
     {
-        Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+
         Route::get('/companies/search', [CompanyController::class, 'search'])->name('companies.search');
         Route::get('/companies/requested', [CompanyController::class, 'requested'])->name('companies.requested');
         Route::get('/companies/is_approved', [CompanyController::class, 'is_approved'])->name('companies.is_approved');
@@ -35,6 +35,7 @@ class CompanyController extends Controller
         Route::get('/companies/is_rejected', [CompanyController::class, 'is_rejected'])->name('companies.is_rejected');
         Route::get('/companies/is_new', [CompanyController::class, 'is_new'])->name('companies.is_new');
         Route::get('/companies/is_resubmit', [CompanyController::class, 'is_resubmit'])->name('companies.is_resubmit');
+        Route::resource('companies', CompanyController::class);
     }
 
 
