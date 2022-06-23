@@ -51,7 +51,7 @@
                 <dd class="col-sm-9">{{ optional($company->user)->email}}</dd>
 
                 <dt class="col-sm-2">Registered On</dt>
-                <dd class="col-sm-9">{{ optional($company->user)->created_at }} , {{ optional($company->user)->created_at->diffForHumans() }}</dd>
+                <dd class="col-sm-9">{{ $company->created_at }} ~ <small> {{ $company->created_at->diffForHumans() }}</small></dd>
 
             </dl>
         </div>
