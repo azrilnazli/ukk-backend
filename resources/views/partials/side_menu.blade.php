@@ -195,7 +195,7 @@ function active($menu){
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('roles') }}" class="nav-link {{ active('roles') }}">
+        <a href="{{ route('user-roles.index') }}" class="nav-link {{ active('user-roles.index') }}">
           <i class="nav-icon fas fa-cubes"></i>
           <p>
             Roles

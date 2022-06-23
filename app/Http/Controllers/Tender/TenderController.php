@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Services\TenderService;
 use App\Http\Requests\Tender\Tender\StoreRequest;
 use App\Http\Requests\Tender\Tender\UpdateRequest;
+use Route;
 
 class TenderController extends Controller
 {
@@ -23,6 +24,12 @@ class TenderController extends Controller
         $this->middleware('permission:tender-delete', ['only' => ['destroy']]);
 
         $this->tender = new TenderService;
+    }
+
+    static function routes()
+    {
+        Route::get('/tenders/search', [TenderController::class, 'search'])->name('tenders.search');
+        Route::resource('tenders', TenderController::class );
     }
 
     public function index()

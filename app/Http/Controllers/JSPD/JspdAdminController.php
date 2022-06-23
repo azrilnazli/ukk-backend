@@ -9,6 +9,7 @@ use App\Models\Scoring;
 use Auth;
 use App\Services\JspdAdminService;
 use App\Http\Requests\JspdAdmin\StoreApprovalRequest;
+use Route;
 
 class JspdAdminController extends Controller
 {
@@ -20,6 +21,23 @@ class JspdAdminController extends Controller
         $this->middleware( 'permission:jspd-admin-delete',   ['only' => ['delete']] );
 
         $this->service = new JspdAdminService;
+    }
+
+    static function routes()
+    {
+        // JSPD - admins
+        Route::get('/jspd-admins', [JspdAdminController::class, 'index'])->name('jspd-admins.index');
+        Route::get('/jspd-admins/approved', [JspdAdminController::class, 'approved'])->name('jspd-admins.approved');
+        Route::get('/jspd-admins/failed', [JspdAdminController::class, 'failed'])->name('jspd-admins.failed');
+        Route::get('/jspd-admins/pending', [JspdAdminController::class, 'pending'])->name('jspd-admins.pending');
+        Route::get('/jspd-admins/search', [JspdAdminController::class, 'search'])->name('jspd-admins.search');
+        Route::get('/jspd-admins/dashboard', [JspdAdminController::class, 'dashboard'])->name('jspd-admins.dashboard');
+        Route::get('/jspd-admins/create', [JspdAdminController::class,'create'])->name('jspd-admins.create');
+        Route::get('/jspd-admins/{role}/edit', [JspdAdminController::class,'edit'])->name('jspd-admins.edit');
+        Route::put('/jspd-admins/{role}/edit', [JspdAdminController::class,'update'])->name('jspd-admins.update');
+        Route::delete('/jspd-admins/{role}', [JspdAdminController::class, 'delete'])->name('jspd-admins.destroy');
+        Route::get('/jspd-admins/{tenderSubmission}', [JspdAdminController::class, 'show'])->name('jspd-admins.show');
+        Route::post('/jspd-admins/{tenderSubmission}', [JspdAdminController::class,'store'])->name('jspd-admins.store');
     }
 
     public function dashboard(){}

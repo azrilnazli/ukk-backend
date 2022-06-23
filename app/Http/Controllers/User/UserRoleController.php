@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Config;
+use Illuminate\Support\Facades\Route;
 
 
 class UserRoleController extends Controller
@@ -22,6 +23,15 @@ class UserRoleController extends Controller
         $this->middleware('permission:role-create', ['only' => ['create','store']]);
         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
+
+    static function routes() {
+        Route::get('/user-roles', [UserRoleController::class, 'index'])->name('user-roles.index');
+        Route::get('/user-roles/create', [UserRoleController::class,'create'])->name('user-roles.create');
+        Route::post('/user-roles', [UserRoleController::class,'store'])->name('user-roles.store');
+        Route::get('/user-roles/{role}/edit', [UserRoleController::class,'edit'])->name('user-roles.edit');
+        Route::put('/user-roles/{role}/edit', [UserRoleController::class,'update'])->name('user-roles.update');
+        Route::delete('/user-roles/{role}', [UserRoleController::class, 'delete'])->name('user-roles.destroy');
     }
 
     public function index()
@@ -43,7 +53,7 @@ class UserRoleController extends Controller
 
         $role = Role::create($validated); // create Role
 
-        return redirect('roles')->with('success','Role ' . $role->name . ' successfully created.'); // redirect on success
+        return redirect('user-roles')->with('success','Role ' . $role->name . ' successfully created.'); // redirect on success
 
     }
 
@@ -117,12 +127,12 @@ class UserRoleController extends Controller
             }
         });
         //$role->syncPermissions($request->get('controllers'));
-        return redirect('roles')->with('success','Role ' . $role->name . ' successfully updated.'); // redirect on success
+        return redirect('user-roles')->with('success','Role ' . $role->name . ' successfully updated.'); // redirect on success
     }
     public function delete(Role $role){
 
         if($role->delete()){
-            return redirect('roles')->with('success','Role ' . $role->name . ' successfully deleted.'); // redirect on success
+            return redirect('user-roles')->with('success','Role ' . $role->name . ' successfully deleted.'); // redirect on success
         }
     }
 

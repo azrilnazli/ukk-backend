@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Route;
 
 class UserController extends Controller
 {
@@ -20,13 +20,19 @@ class UserController extends Controller
     {
 
         //$this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','show']]);
-        
+
         $this->middleware('permission:user-list', ['only' => ['index','show','search']]);
         $this->middleware('permission:user-create', ['only' => ['create','store']]);
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
 
         $this->user = new UserService;
+    }
+
+    static function routes()
+    {
+        Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+        Route::resource('users', UserController::class );
     }
 
     public function index()
@@ -42,14 +48,14 @@ class UserController extends Controller
         return view('users.index')->with(compact('data'));
     }
 
- 
+
     public function create()
     {
         $roles = $this->user->getRoles();
         return view('users.create', compact('roles'));
     }
 
- 
+
     public function store(StoreUserRequest $request)
     {
         $this->user->store($request);
@@ -64,7 +70,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-     
+
         $roles = $this->user->getRoles();
         return view('users.edit',compact(['user','roles']));
     }

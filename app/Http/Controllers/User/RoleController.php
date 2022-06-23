@@ -11,21 +11,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Config;
-
+use Log;
 
 class RoleController extends Controller
 {
     function __construct()
     {
-
         $this->middleware('permission:role-list', ['only' => ['index','show','search']]);
         $this->middleware('permission:role-create', ['only' => ['create','store']]);
         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
+
+
     public function index()
     {
+        Log::info('Roles');
         $roles = Role::with('permissions')->get();
         return View('users.roles.index', compact('roles'));
     }

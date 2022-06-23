@@ -30,6 +30,7 @@ use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
 
 use App\Services\VideoService;
+use Route;
 
 class VideoController extends Controller
 {
@@ -43,6 +44,51 @@ class VideoController extends Controller
 
         $this->video = new VideoService;
     }
+
+    static function routes()
+    {
+        Route::post('/videos/store_video', [VideoController::class, 'store_video'])->name('videos.store_video');
+        Route::get('/videos/{video}/progress', [VideoController::class, 'progress'])->name('videos.progress');
+        Route::get('/videos/{video}/status', [VideoController::class, 'status'])->name('videos.status');
+        Route::get('/videos/{video}/delayed_redirect', [VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
+        Route::get('/videos/failed', [VideoController::class, 'failed'])->name('videos.failed');
+        Route::get('/videos/encoding_status', [VideoController::class, 'encoding_status']);
+
+        Route::resource('videos', VideoController::class );
+
+
+        // route for HLS playlist request
+        Route::get('/assets/{video}/{playlist}', function ( $video, $playlist ) {
+
+            return FFMpeg::dynamicHLSPlaylist()
+
+                // http://admin.test/storage/streaming/15/m3u8/playlist.m3u8 --> master playlist
+                ->fromDisk("streaming") // public storage for m3u8
+                ->open("$video/m3u8/$playlist")
+                // secret key resolver
+                ->setKeyUrlResolver(function($key) use ($video) {
+                    return route('secret.key',['video' => $video, 'key' => $key]);
+                })
+                // requeste will look for referenced playlist
+                // eg playlist_0_400.m3u8 , playlist_0_500.m3u8
+                ->setPlaylistUrlResolver(function($playlist) use ($video) {
+                    return route('assets', ['video' => $video, 'playlist' => $playlist]);
+                })
+                # actual disk for media
+                ->setMediaUrlResolver(function($media) use ($video) {
+                    return Storage::disk('streaming')->url($video .'/m3u8/'. $media);
+                });
+        })->name('assets')->middleware('auth'); // {{ route('assets', ['video' => $data->id, 'playlist' => 'playlist.m3u8']) }}
+        //->middleware('auth');
+        # secret key
+        // the get url can be change and will be dynamically
+        // alterred in playlist file
+        Route::get('/storage/streaming/{video}/m3u8/{key}', function($video,$key){
+            return Storage::disk('assets')->download( $video .'/secrets/'. $key);
+        })->name('secret.key')->middleware('auth');
+
+    }
+
     /**
      * Display a listing of the resource.
      *

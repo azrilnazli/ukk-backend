@@ -11,6 +11,7 @@ use App\Models\Scoring;
 use App\Models\User;
 use App\Services\SignerService;
 use App\Http\Requests\Signer\StoreRequest;
+use Route;
 
 class SignerController extends Controller
 {
@@ -22,6 +23,21 @@ class SignerController extends Controller
         $this->middleware( 'permission:signer-delete',   ['only' => ['delete']] );
 
         $this->signer = new SignerService;
+    }
+
+    static function routes()
+    {
+        // JSPD - signers
+        Route::get('/signers', [SignerController::class, 'index'])->name('signers.index');
+        Route::get('/signers/tasks', [SignerController::class, 'tasks'])->name('signers.tasks');
+        Route::get('/signers/search', [SignerController::class, 'search'])->name('signers.search');
+        Route::get('/signers/dashboard', [SignerController::class, 'dashboard'])->name('signers.dashboard');
+        Route::get('/signers/create', [SignerController::class,'create'])->name('signers.create');
+        Route::get('/signers/{role}/edit', [SignerController::class,'edit'])->name('signers.edit');
+        Route::put('/signers/{role}/edit', [SignerController::class,'update'])->name('signers.update');
+        Route::delete('/signers/{role}', [SignerController::class, 'delete'])->name('signers.destroy');
+        Route::get('/signers/{tenderSubmission}', [SignerController::class, 'show'])->name('signers.show');
+        Route::post('/signers/{tenderSubmission}', [SignerController::class,'store'])->name('signers.store');
     }
 
     // signer-list
