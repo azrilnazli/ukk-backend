@@ -15,6 +15,7 @@ class CompanyService {
     public function paginate($items = 50){
         return Company::query()
             ->sortable()
+            ->whereNotNull('name')
             ->orderBy('id','desc')
             ->paginate($items)
             ->setPath('companies');
