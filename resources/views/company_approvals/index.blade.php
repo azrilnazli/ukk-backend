@@ -75,17 +75,21 @@
                             :
                             "<span class='badge badge-dark'>nobody</span>"
                     !!}</td>
-                    @role('super-admin')
+
                     <td>
                       <form action="{{ route('company-approvals.destroy', $row->id)}}" method="post">
                         @csrf @method('DELETE')
-                      <a class="btn btn-success btn-sm" href="{{ route('company-approvals.edit', $row->id) }}">
-                          <i class="fas fa-pencil-alt"></i>
-                      </a>
+                        @hasanyrole('admin|super-admin')
+                        <a class="btn btn-success btn-sm" href="{{ route('company-approvals.edit', $row->id) }}">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        @endhasanyrole
+                        @role('super-admin')
                         <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
-                      </form>
+                        @endrole
+                    </form>
                     </td>
-                    @endrole
+
                 </tr>
                 @endforeach
             </tbody>

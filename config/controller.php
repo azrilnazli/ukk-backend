@@ -2,7 +2,11 @@
 
 // controller name used in Role & Permission
 return [
+
+    'home',
+
     'user',
+    'profile',
     'role',
     'video',
     'dashboard',
