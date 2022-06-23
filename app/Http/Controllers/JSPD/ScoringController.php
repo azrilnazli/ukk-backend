@@ -13,6 +13,7 @@ use App\Services\ScoringService;
 use App\Http\Requests\Scoring\StoreScoringRequest;
 use App\Http\Requests\Scoring\StoreVerificationRequest;
 use Auth;
+use Route;
 
 class ScoringController extends Controller
 {
@@ -24,6 +25,25 @@ class ScoringController extends Controller
         $this->middleware( 'permission:scoring-delete',   ['only' => ['delete']] );
 
         $this->scoring = new ScoringService;
+    }
+
+    static function routes()
+    {
+        // JSPD - scorings
+        Route::get('/scorings', [ScoringController::class, 'index'])->name('scorings.index');
+        Route::get('/scorings/tasks', [ScoringController::class, 'tasks'])->name('scorings.tasks');
+        Route::get('/scorings/search', [ScoringController::class, 'search'])->name('scorings.search');
+        Route::get('/scorings/dashboard', [ScoringController::class, 'dashboard'])->name('scorings.dashboard');
+        Route::get('/scorings/create', [ScoringController::class,'create'])->name('scorings.create');
+        Route::get('/scorings/{company}/company', [ScoringController::class,'company'])->name('scorings.company');
+        Route::get('/scorings/{role}/edit', [ScoringController::class,'edit'])->name('scorings.edit');
+        Route::put('/scorings/{role}/edit', [ScoringController::class,'update'])->name('scorings.update');
+        Route::delete('/scorings/{role}', [ScoringController::class, 'delete'])->name('scorings.destroy');
+        Route::post('/scorings/{tenderSubmission}', [ScoringController::class,'store'])->name('scorings.store');
+        Route::post('/scorings/{tenderSubmission}/verification', [ScoringController::class,'store_verification'])->name('scorings.store_verification');
+        Route::get('/scorings/{tenderSubmission}', [ScoringController::class, 'show'])->name('scorings.show');
+        Route::get('/scorings/{tenderSubmission}/verify', [ScoringController::class, 'show_verify'])->name('scorings.show_verify');
+        Route::post('/scorings/{tenderSubmission}/verify', [ScoringController::class,'store_verify'])->name('scorings.store_verify');
     }
 
     // scoring-list

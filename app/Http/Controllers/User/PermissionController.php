@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Config;
+use Route;
 
 
 class PermissionController extends Controller
@@ -23,6 +24,11 @@ class PermissionController extends Controller
         $this->middleware( 'permission:permission-delete',   ['only' => ['delete']] );
     }
 
+    static function routes()
+    {
+        Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions');
+    }
+
     public function index()
     {
         //$permissions = Permission::with('roles')->get();
@@ -32,12 +38,12 @@ class PermissionController extends Controller
         //$roles = Role::with('permissions')->get()->pluck('permissions.name', 'id');
         $roles = Role::with('permissions')->get();
         //dd($roles);
-        
+
         return View('users.permissions.index', compact('permissions','roles'));
     }
 
     public function delete(Role $role){
- 
+
         if($role->delete()){
             return redirect('roles')->with('success','Role ' . $role->name . ' successfully deleted.'); // redirect on success
         }

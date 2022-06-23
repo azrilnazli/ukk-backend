@@ -6,16 +6,16 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="/users">{{ __('Users') }}</a></li>
-        <li class="breadcrumb-item"><a href="/roles">{{ __('Roles') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ __('Users') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('user-roles.index') }}">{{ __('Roles') }}</a></li>
         <li class="breadcrumb-item active">{{ $role->name }}</li>
- 
+
     </ol>
 </nav>
 @stop
 
 @section('content')
-<form id="update_role" method="POST" action="{{ route('roles.update',$role->name) }}">
+<form id="update_role" method="POST" action="{{ route('user-roles.update',$role->name) }}">
     @csrf
     @method('PUT')
 
@@ -28,7 +28,7 @@
 
 
             <div class="row">
-         
+
                 @foreach($controllers as $key => $value)
                 <div class="col-lg-4">
                     <div class="card card-info ">
@@ -38,30 +38,30 @@
                         <div class="card-body">
                             @foreach($value as $controller )
                                 <div class="form-check">
-                       
+
                                     @if( $role->permissions->count() > 0 )
                                         @foreach($role->permissions as $permission)
                                             {{-- <span style="color:red"> {{ $permission->name  }}</span> <br /> --}}
                                             @if($controller == $permission->name)
                                             <input checked value="{{ $controller }} " name="controllers[]" class="form-check-input" type="checkbox" value="1" />
                                             @break
-                                            @else  
+                                            @else
                                             <input value="{{ $controller }} " name="controllers[]" class="form-check-input" type="checkbox" value="0" />
-                                            @endif 
+                                            @endif
                                         @endforeach
                                     @else
                                     <input value="{{ $controller }} " name="controllers[]" class="form-check-input" type="checkbox" value="0" />
-                                    @endif    
-                        
-                                       
+                                    @endif
+
+
                                     <label class="form-check-label text-muted">
-                                        {{ str_replace($key . '-','', $controller) }}   
+                                        {{ str_replace($key . '-','', $controller) }}
                                     </label>
                                 </div>
                             @endforeach
                         </div>
                     </div>
-                </div>    
+                </div>
                 @endforeach
             </div>
 
@@ -70,19 +70,10 @@
         <div class="card-footer">
             <button id="submit" class="btn btn-primary" >Submit</button>
 
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='/roles'">
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('user-roles.index') }}'">
                 Cancel
             </button>
         </div>
       </div>
-</form>   
-
-<script>
-    $( document ).ready(function() {
-          $( "#submit" ).click(function() {
-          //alert( "Handler for .click() called." );
-          $("#update_role").submit();
-        });
-    });
-</script>
+</form>
 @stop

@@ -6,7 +6,8 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="/roles">{{ __('Role Management') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ __('Users') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('user-roles.index') }}">{{ __('Roles') }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ __('Create') }}</li>
     </ol>
 </nav>
@@ -16,7 +17,7 @@
 @section('content')
 
 
-<form id="create_role" method="POST" action="{{ route('roles.store') }}">
+<form id="create_role" method="POST" action="{{ route('user-roles.store') }}">
 @csrf
 
 <!-- Horizontal Form -->
@@ -27,7 +28,7 @@
         </div><!-- /.card-header -->
 
 
-        <div class="card-body">        
+        <div class="card-body">
             <div class="form-group row">
                 <label for="name" class="col-form-label text-md-right ">{{ __('Name') }} </label>
 
@@ -44,14 +45,14 @@
         </div>
 
         <div class="card-footer">
-            
+
             <button id="submit" class="btn btn-primary" >Submit</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='/users'">
-                Cancel 
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('user-roles.index') }}'">
+                Cancel
             </button>
         </div>
     </div>
-</form>    
+</form>
 
 
 @endsection

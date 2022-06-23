@@ -12,11 +12,16 @@ use Illuminate\Support\Facades\Storage;
 use Validator;
 use Image;
 use Hash;
-
+use Route;
 use Auth;
 
 class ProfileController extends Controller
 {
+
+    static function routes()
+    {
+        Route::resource('profile', ProfileController::class )->except([ 'create','destroy']);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +32,7 @@ class ProfileController extends Controller
         // get current user profile
         $user = User::find(Auth::user()->id);
         $avatar = null;
-        
+
         if(Storage::disk('public')->exists("/avatars/" . Auth::user()->id . '.png')){
             $avatar = Storage::disk('public')->url("/avatars/" . Auth::user()->id . '.png');
         }
@@ -54,11 +59,11 @@ class ProfileController extends Controller
         }
         $user->save();
 
-        // Profile 
+        // Profile
         $profile = Profile::firstOrNew(['user_id' =>  Auth::user()->id ]);
         $profile->phone = $request['phone'];
         $profile->address = $request['address'];
-        
+
 
         // Photo
         if($request->hasFile('imgupload'))

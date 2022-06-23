@@ -17,6 +17,7 @@ use Storage;
 use Hash;
 use Auth;
 use Session;
+use Route;
 
 class HomeController extends Controller
 {
@@ -28,6 +29,20 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    static function routes()
+    {
+        // HomeController
+        Route::get('/', function () {
+            return view('welcome');
+        });
+
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/queue/jobs', [HomeController::class, 'jobs'])->name('videos.jobs');
+        Route::prefix('jobs')->group(function () {
+            Route::queueMonitor();
+        });
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
 use App\Services\TenderSubmissionService;
+use Route;
 
 
 class TenderSubmissionController extends Controller
@@ -25,6 +26,12 @@ class TenderSubmissionController extends Controller
         $this->middleware('permission:tender-submission--delete', ['only' => ['destroy']]);
 
         $this->tender = new TenderSubmissionService;
+    }
+
+    static function routes()
+    {
+        Route::get('/tender_submissions/search', [TenderSubmissionController::class, 'search'])->name('tender_submissions.search');
+        Route::resource('tender_submissions', TenderSubmissionController::class );
     }
 
     public function index()

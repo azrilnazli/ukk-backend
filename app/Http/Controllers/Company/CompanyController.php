@@ -9,6 +9,7 @@ use App\Services\CompanyService;
 use App\Http\Requests\Company\StoreRequest;
 use App\Http\Requests\Company\UpdateRequest;
 use App\Http\Controllers\Controller;
+use Route;
 
 class CompanyController extends Controller
 {
@@ -22,6 +23,17 @@ class CompanyController extends Controller
          $this->middleware('permission:company-delete', ['only' => ['destroy']]);
 
          $this->company = new CompanyService;
+    }
+
+    static function routes()
+    {
+        Route::get('/companies/search', [CompanyController::class, 'search'])->name('companies.search');
+        Route::get('/companies/requested', [CompanyController::class, 'requested'])->name('companies.requested');
+        Route::get('/companies/is_approved', [CompanyController::class, 'is_approved'])->name('companies.is_approved');
+        Route::get('/companies/is_pending', [CompanyController::class, 'is_pending'])->name('companies.is_pending');
+        Route::get('/companies/is_rejected', [CompanyController::class, 'is_rejected'])->name('companies.is_rejected');
+        Route::get('/companies/is_new', [CompanyController::class, 'is_new'])->name('companies.is_new');
+        Route::get('/companies/is_resubmit', [CompanyController::class, 'is_resubmit'])->name('companies.is_resubmit');
     }
 
 
