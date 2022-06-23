@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Create User')
+@section('title', 'Show User')
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
