@@ -48,7 +48,7 @@
 
 <div class="row mt-4">
     <div class=" col-12">
-    <div class="card card-info">
+    <div class="card card-dark">
       <div class="card-header">
         <h3 class="card-title"><label class="badge badge-warning p-2 text-uppercase ">{{$video->user->company->id}}</label> Proposal by {{ $video->user->company->name }} </h3>
       </div>

@@ -8,7 +8,7 @@
 <!-- Horizontal Form -->
     <div class="row">
         <div class="col">
-        <div class="card card-info">
+        <div class="card card-dark">
             <div class="card-header">Registered Company </div>
             <div class="card-body">
                 <!-- Total -->
@@ -42,7 +42,7 @@
 <!-- Horizontal Form -->
 <div class="row">
     <div class="col">
-        <div class="card card-info">
+        <div class="card card-dark">
             <div class="card-header">Video </div>
             <div class="card-body">
 
