@@ -16,9 +16,6 @@ function active($menu){
 
     <li class="nav-header"></li>
 
-    @hasanyrole('super-admin|admin')
-        @include('partials.nav.home')
-    @endhasanyrole
 
     @hasrole('super-admin')
         @include('partials.nav.home')
