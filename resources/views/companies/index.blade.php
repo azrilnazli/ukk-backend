@@ -42,8 +42,8 @@
             <thead>
 
                 <th width="8%">@sortablelink('id', 'ID')</th>
-                <th width="20%">@sortablelink('name','Company Name')</th>
-                <th width="*">Email</th>
+                <th width="*">@sortablelink('name','Company Name')</th>
+                <th width="20%">Email</th>
 
                 <th width="12%" class="text-center">Actions</th>
 
@@ -53,8 +53,12 @@
                 @foreach($data as $row)
                 <tr>
                     <td><span class="badge badge-dark">{{$row->id }}</span></td>
-                    <td>{{ $row->name  }}</td>
-                    <td><strong>{{$row->email }}</strong> ~ <span class="small"><em>{{$row->created_at->diffForHumans()}}</em></span></td>
+                    <td>
+                        <span class="lead">{{ $row->name  }}</span>
+                        <br />
+                        <span class="small">registered : <em>{{$row->created_at->diffForHumans()}}</em></span>
+                    </td>
+                    <td>{{$row->email }}</td>
 
                     <td class="text-center">
                       <form action="{{ route('companies.destroy', $row->id)}}" method="post">
