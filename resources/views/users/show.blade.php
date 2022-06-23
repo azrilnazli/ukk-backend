@@ -74,27 +74,6 @@
                         <dt class="col-sm-4 text-right text-uppercase">company id</dt>
                         <dd class="col-sm-8 text-left"><span class="badge badge-warning"> {{ $user->company->id }}</span></dd>
 
-                        <dt class="col-sm-4 text-right text-uppercase">Is Approved ?</dt>
-                        <dd class="col-sm-8 text-left">
-
-
-                            @if($user->company->is_approved == 1 && $user->company->is_completed == 1 )
-                            <span class="badge badge-success">Approved</span>
-                            @endif
-
-                            @if($user->company->is_rejected == 1  && $user->company->is_completed == 0 )
-                            <span class="badge badge-danger">Rejected</span>
-                            @endif
-
-                            @if($user->company->is_rejected == 1  && $user->company->is_completed == 1 )
-                            <span class="badge badge-warning">Resubmission</span>
-                            @endif
-
-                            @if($user->company->is_rejected == 0 && $user->company->is_approved == 0 )
-                              <span class="badge badge-info">Pending</span>
-                            @endif
-
-                        </dd>
 
                         <dt class="col-sm-4 text-right text-uppercase">company name</dt>
                         <dd class="col-sm-8 text-left">{{ $user->company->name }}</dd>
@@ -107,7 +86,7 @@
 
                 </dl>
             </div>
-            <div class="card-footer text-muted">Submitted <span>{{ \Carbon\Carbon::parse($user->company->created_at)->diffForHumans() }}</div>
+            <div class="card-footer text-muted">Created <span>{{ \Carbon\Carbon::parse($user->company->created_at)->diffForHumans() }}</div>
         </div>
     </div>
 </div>
