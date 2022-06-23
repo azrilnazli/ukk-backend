@@ -75,11 +75,12 @@ class CompanyService {
                 ->get();
     }
 
-    public function add_comment($request, $id){
+    public function add_comment($request, $company_id, $tender_detail_id){
         return Comment::query()
                 ->create([
                     'user_id' => Auth::user()->id,
-                    'company_id' => $id,
+                    'company_id' => $company_id,
+                    'tender_detail_id' => $tender_detail_id,
                     'message' => $request['message']
                 ]);
     }

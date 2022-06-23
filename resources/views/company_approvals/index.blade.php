@@ -48,7 +48,7 @@
                 <th width="5%">@sortablelink('id','ID')</th>
                 <th>@sortablelink('company.name','Company Name')</th>
                 <th>@sortablelink('tender_detail.title','Tender')</th>
-                <th>@sortablelink('tender_detail.status','Status')</th>
+                <th>@sortablelink('status','Status')</th>
                 <th width="*">Approved by</th>
                 @role('super-admin')
                 <th width="12%"><span class="badge badge-dark">Actions</span></th>

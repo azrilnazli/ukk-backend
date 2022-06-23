@@ -69,17 +69,17 @@ class CompanyApprovalController extends Controller
         $company = $companyApproval->company;
 
         // Comment
-        $messages = $this->company->get_messages($company->id);
+        $comments = $this->service->get_comments($companyApproval->id);
 
         // render View
-        return view('company_approvals.edit',compact('company','documents','messages','companyApproval'));
+        return view('company_approvals.edit',compact('company','documents','comments','companyApproval'));
     }
 
     public function update(UpdateRequest $request, CompanyApproval $companyApproval)
     {
         $this->service->update($request, $companyApproval->id);
 
-        $this->company->add_comment($request, $companyApproval->company->id); // comment
+        $this->service->add_comment($request, $companyApproval->company->id, $companyApproval->id); // comment
 
         return redirect()->route('company-approvals.index')->with('success','Company Approval updated successfully.');
     }
