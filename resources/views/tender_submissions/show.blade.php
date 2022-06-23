@@ -26,7 +26,7 @@
 @section('content')
 <div class="row mt-4">
     <div class=" col-12">
-    <div class="card card-info">
+    <div class="card card-dark">
       <div class="card-header">
         <div class="card-title">
           <label class="badge badge-warning p-2 text-uppercase ">

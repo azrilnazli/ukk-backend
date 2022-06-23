@@ -36,7 +36,7 @@
 
                 @foreach($controllers as $key => $value)
                 <div class="col-lg-4">
-                    <div class="card card-info ">
+                    <div class="card card-dark ">
                         <div class="card-header">
                             <span class="h5 text-uppercase">{{ str_replace('_',' ',$key) }}</span>
                         </div>

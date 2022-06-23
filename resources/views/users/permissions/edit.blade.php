@@ -9,7 +9,7 @@
         <li class="breadcrumb-item"><a href="/users">{{ __('Users') }}</a></li>
         <li class="breadcrumb-item"><a href="/roles">{{ __('Roles') }}</a></li>
         <li class="breadcrumb-item active">{{ $role->name }}</li>
- 
+
     </ol>
 </nav>
 @stop
@@ -28,40 +28,40 @@
 
 
             <div class="row">
-         
+
                 @foreach($controllers as $key => $value)
                 <div class="col-lg-4">
-                    <div class="card card-info ">
+                    <div class="card card-dark ">
                         <div class="card-header">
                             <span class="h5 text-uppercase">{{ str_replace('_',' ',$key) }}</span>
                         </div>
                         <div class="card-body">
                             @foreach($value as $controller )
                                 <div class="form-check">
-                       
+
                                     @if( $role->permissions->count() > 0 )
                                         @foreach($role->permissions as $permission)
                                             {{-- <span style="color:red"> {{ $permission->name  }}</span> <br /> --}}
                                             @if($controller == $permission->name)
                                             <input checked value="{{ $controller }} " name="controllers[]" class="form-check-input" type="checkbox" value="1" />
                                             @break
-                                            @else  
+                                            @else
                                             <input value="{{ $controller }} " name="controllers[]" class="form-check-input" type="checkbox" value="0" />
-                                            @endif 
+                                            @endif
                                         @endforeach
                                     @else
                                     <input value="{{ $controller }} " name="controllers[]" class="form-check-input" type="checkbox" value="0" />
-                                    @endif    
-                        
-                                       
+                                    @endif
+
+
                                     <label class="form-check-label text-muted">
-                                        {{ str_replace($key . '-','', $controller) }}   
+                                        {{ str_replace($key . '-','', $controller) }}
                                     </label>
                                 </div>
                             @endforeach
                         </div>
                     </div>
-                </div>    
+                </div>
                 @endforeach
             </div>
 
@@ -75,7 +75,7 @@
             </button>
         </div>
       </div>
-</form>   
+</form>
 
 <script>
     $( document ).ready(function() {

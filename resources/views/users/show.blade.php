@@ -22,7 +22,7 @@
 <!-- Horizontal Form -->
 <div class="row">
     <div class="col">
-        <div class="card card-info">
+        <div class="card card-dark">
             <div class="card-header">User Info</div>
             <div class="card-body">
 
@@ -56,7 +56,7 @@
 @if ($user->company)
 <div class="row">
     <div class="col">
-        <div class="card card-info">
+        <div class="card card-dark">
             <div class="card-header">Company Info</div>
             <div class="card-body">
 
@@ -97,7 +97,7 @@
 @if( count($user->proposals) > 0 )
 <div class="row">
     <div class="col">
-        <div class="card card-info">
+        <div class="card card-dark">
             <div class="card-header">Proposal</div>
             <div class="card-body">
                 <table class="table">
@@ -232,7 +232,7 @@
 @if(count($user->company->comments) > 0 )
 <div class="row">
     <div class="col">
-        <div class="card card-info">
+        <div class="card card-dark">
             <div class="card-header">Comment</div>
             <div class="card-body pl-5 pr-5">
                 <label>Comments </label>
