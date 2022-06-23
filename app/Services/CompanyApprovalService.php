@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Models\TenderSubmission;
 use App\Models\CompanyApproval;
+use App\Models\Comment;
 use App\Models\Company;
 use Auth;
 use Storage;
@@ -60,6 +61,24 @@ class CompanyApprovalService {
                 'user_id' => auth()->user()->id
             ]);
         }
+    }
+
+    public function get_comments($company_approval_id){
+
+        return Comment::query()
+                ->where('company_approval_id', $company_approval_id)
+                ->orderBy('id', 'desc')
+                ->get();
+    }
+
+    public function add_comment($request, $company_id,$company_approval_id){
+        return Comment::query()
+                ->create([
+                    'user_id' => Auth::user()->id,
+                    'company_id' => $company_id,
+                    'company_approval_id' => $company_approval_id,
+                    'message' => $request['message']
+                ]);
     }
 
 

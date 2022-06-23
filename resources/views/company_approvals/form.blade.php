@@ -8,11 +8,11 @@
             Administration
         </div><!-- /.card-header -->
 
-        @if( count($messages) != 0 )
+        @if( count($comments) != 0 )
         <div class="card-body pl-5 pr-5">
             <div class="form-group">
                 <label>Previous Conversation</label>
-                @foreach($messages as $comment)
+                @foreach($comments as $comment)
                     <div class="alert alert-light text-dark "  role="alert">
                         Message by <span class="badge badge-dark">
                             {{ optional($comment->user)->name }}
