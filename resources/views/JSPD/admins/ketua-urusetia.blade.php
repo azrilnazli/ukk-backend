@@ -33,7 +33,8 @@
       </label>
 
       <div class="mt-2">
-        <button   @if(  !empty($tenderSubmission->approval) && $tenderSubmission->approval->pluck('user_id')->contains( auth()->user()->id )) checked disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+        <button
+            @if(  !empty($tenderSubmission->approval)  )) checked disabled @endif id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.index') }}'">
             Cancel
         </button>
