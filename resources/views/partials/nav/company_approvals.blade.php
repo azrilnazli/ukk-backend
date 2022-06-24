@@ -27,5 +27,14 @@
         </a>
       </li>
 
+      <li class="nav-item">
+        <a href="/tender_submissions" class="nav-link {{ active('tender_submissions') }}">
+          <i class="nav-icon fas fa-search"></i>
+          <p>
+           <small> View Proposals </small>
+          </p>
+        </a>
+      </li>
+
     </ul>
   </li> <!-- ./treeview -->
