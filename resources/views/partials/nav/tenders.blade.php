@@ -6,7 +6,7 @@
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
-    <ul class="ml-3 nav nav-treeview">
+    <ul class="ml-1 nav nav-treeview">
         <li class="nav-item">
             <a href="{{ route('tenders.index') }}" class="nav-link {{ active('tenders.index') }}">
                 <i class="nav-icon fas fa-pencil-alt"></i>
