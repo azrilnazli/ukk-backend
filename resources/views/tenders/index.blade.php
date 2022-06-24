@@ -18,7 +18,7 @@
 <form method="GET"  action="{{ route('tenders.search') }}">
   @csrf
   <div class="row mt-5">
-    <div class="col-3">
+    <div class="col-6">
       <input required type="text" name="query" class="form-control" placeholder="Search">
     </div>
     <div class="col">

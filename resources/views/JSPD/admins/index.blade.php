@@ -17,7 +17,7 @@
 <form method="GET"  action="{{ route('jspd-admins.search') }}">
   @csrf
   <div class="row ">
-    <div class="col">
+    <div class="col-6">
       <input required type="text" name="query" class="form-control" placeholder="Search">
     </div>
     <div class="col">
@@ -47,7 +47,7 @@
     </div>
 
 
-  
+
 
     <div class="card-body p-0">
       <div class="table-responsive">
@@ -96,9 +96,9 @@
                       <span class="badge badge-dark">SELESAI</span>
                     @else
                         @if($row->owner)
-                                  
-                                  @if( optional($row->scorings)->count() == 3 )  
-                                      @if( optional($row->verifications)->count() == 2 ) 
+
+                                  @if( optional($row->scorings)->count() == 3 )
+                                      @if( optional($row->verifications)->count() == 2 )
 
                                           @if(count( $row->approved ) > 1)
                                               <span class="badge badge-success">LULUS</span>
@@ -106,15 +106,15 @@
                                               <span class="badge badge-danger">GAGAL</span>
                                           @endif
 
-                                      @else   
+                                      @else
                                         <span class="badge badge-warning">BELUM DISAHKAN OLEH URUSETIA</span>
                                       @endif
                                   @else
                                     <span class="badge badge-warning">BELUM DITANDA OLEH PENANDA</span>
                                   @endif
-                        @else    
+                        @else
                           <span class="badge badge-warning">PROPOSAL BELUM ASSIGN</span>
-                        @endif   
+                        @endif
                     @endif
                     </td>
                     <td class="text-center">
