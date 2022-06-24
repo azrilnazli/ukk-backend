@@ -8,7 +8,7 @@
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
-    <ul class="ml-3  ml-1 nav nav-treeview">
+    <ul class="ml-1  ml-1 nav nav-treeview">
       <li class="nav-item">
         <a href="{{ route('companies.index') }}" class="nav-link {{ active('companies.index') }}">
           <i class="nav-icon fa fa-cloud-upload"></i>
