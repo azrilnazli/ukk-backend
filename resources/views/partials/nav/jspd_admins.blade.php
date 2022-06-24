@@ -11,7 +11,7 @@
           <a href="{{ route('jspd-admins.index') }}" class="nav-link {{ active('jspd-admins.index')  }}">
             <i class="nav-icon fas fa-database"></i>
             <p>
-              Proposal
+              <small>Proposal</small>
             </p>
           </a>
         </li>
@@ -19,7 +19,7 @@
           <a href="{{ route('jspd-admins.approved') }}" class="nav-link {{ active('jspd-admins.approved')  }}">
             <i class="nav-icon fas fa-check"></i>
             <p>
-              Lulus
+              <small>Lulus</small>
             </p>
           </a>
         </li>
@@ -28,7 +28,7 @@
           <a href="{{ route('jspd-admins.failed') }}" class="nav-link {{ active('jspd-admins.failed')  }}">
             <i class="nav-icon fas fa-times"></i>
             <p>
-              Gagal
+              <small>Gagal</small>
             </p>
           </a>
         </li>
@@ -37,7 +37,7 @@
           <a href="{{ route('jspd-admins.pending') }}" class="nav-link {{ active('jspd-admins.pending')  }}">
             <i class="nav-icon fas fa-hourglass"></i>
             <p>
-              Belum Ditanda
+              <small>Belum Ditanda</small>
             </p>
           </a>
         </li>
