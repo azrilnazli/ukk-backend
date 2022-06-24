@@ -16,7 +16,7 @@
 <form method="GET"  action="{{ route('users.search') }}">
   @csrf
   <div class="row mt-5">
-    <div class="col-lg-5">
+    <div class="col-md-6">
       <input required type="text" name="query" class="form-control" placeholder="Search">
     </div>
     <div class="col">
@@ -24,7 +24,6 @@
     </div>
   </div>
 </form>
-
 
 <div class="card card-dark mt-3">
   <div class="card-header clearfix">

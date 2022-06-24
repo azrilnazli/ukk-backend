@@ -18,7 +18,7 @@
 <form method="GET"  action="{{ route('tender_submissions.search') }}">
   @csrf
   <div class="row mt-5">
-    <div class="col-5">
+    <div class="col-6">
       <input required type="text" name="query" class="form-control" placeholder="Search">
     </div>
     <div class="col">
@@ -68,11 +68,11 @@
                         @endif
                       <td class="text-center">
 
-                    
+
                         <a class="btn btn-success btn-sm" href="{{ route('tender_submissions.show', $row->id) }}">
                             <i class="fas fa-search"></i>
                         </a>
-                   
+
 
                       </td>
                   </tr>

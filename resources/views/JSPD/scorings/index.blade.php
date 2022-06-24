@@ -18,7 +18,7 @@
 <form method="GET"  action="{{ route('scorings.search') }}">
   @csrf
   <div class="row mt-5">
-    <div class="col-5">
+    <div class="col-6">
       <input required type="text" name="query" class="form-control" placeholder="Search">
     </div>
     <div class="col">
@@ -60,7 +60,7 @@
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
                     <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
                     <td>{{ $row->tender->programme_code }}</td>
-                   
+
                     <td class="text-center">
                       <a class="btn btn-success btn-sm" href="{{ route('scorings.show', $row->id) }}">
                           <i class="fas fa-pencil-alt"></i>

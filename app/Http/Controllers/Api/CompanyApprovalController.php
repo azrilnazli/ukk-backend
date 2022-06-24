@@ -9,6 +9,7 @@ use App\Models\TenderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Log;
+use Carbon\Carbon;
 
 class CompanyApprovalController extends Controller
 {
@@ -18,10 +19,49 @@ class CompanyApprovalController extends Controller
 
     static function routes()
     {
+        Route::get('/company-approvals/get-comment/{tenderDetail}', [CompanyApprovalController::class,'get_comment'])->name('company-approvals.get-comment');
         Route::get('/company-approvals/allow-request/{tenderDetail}', [CompanyApprovalController::class,'allow_request'])->name('company-approvals.allow-request');
         Route::get('/company-approvals/check-for-approval/{module}', [CompanyApprovalController::class,'check_for_approval'])->name('company-approvals.check-for-approval');
         Route::get('/company-approvals/get-approval-status/{tenderDetail}', [CompanyApprovalController::class,'get_approval_status'])->name('company-approvals.get-approval-status');
         Route::post('/company-approvals/request-for-approval', [CompanyApprovalController::class,'request_for_approval'])->name('company-approvals.request-for-approval');
+    }
+
+    // on show latest message
+    public function get_comment(TenderDetail $tenderDetail)
+    {
+
+
+        // get Company data based on loggedIn User
+        $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
+        if(is_null($company)){
+            // return response as JSON
+            return response([
+                'status' => false // return as boolean
+            ]);
+        }
+
+        // get latest comment based on
+        // company->id and $tender_detail->id
+        $result = \App\Models\Comment::query()
+                    ->where('company_id', $company->id)
+                    ->where('tender_detail_id', $tenderDetail->id)
+                    ->orderBy('id', 'DESC')
+                    ->first();
+
+        // Log::info($result);
+        // JSON response 200
+        if($result){
+            return response([
+                'status' => true,
+                'comment' => $result->message,
+                'date' => Carbon::parse($result->created_at)->diffForHumans(),
+            ],200);
+        } else {
+            return response([
+                'status' =>  false,
+            ],200);
+        }
+
     }
 
     // vendor wants to check his status
