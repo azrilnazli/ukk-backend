@@ -11,7 +11,7 @@
         <a href="{{ route('users.index') }}" class="nav-link {{ active('users.index') }}">
           <i class="nav-icon fas fa-users"></i>
           <p>
-            Users
+            <small>  Users</small>
           </p>
         </a>
       </li>
@@ -20,7 +20,7 @@
         <a href="{{ route('user-roles.index') }}" class="nav-link {{ active('user-roles.index') }}">
           <i class="nav-icon fas fa-cubes"></i>
           <p>
-            Roles
+            <small> Roles</small>
           </p>
         </a>
       </li>
@@ -29,7 +29,7 @@
         <a href="/permissions" class="nav-link {{ active('permissions') }}">
           <i class="nav-icon fa fa-lock"></i>
           <p>
-            Permission
+            <small> Permission</small>
           </p>
         </a>
       </li>
