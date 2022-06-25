@@ -58,7 +58,7 @@ class ScoringService {
                             // ->orWhere('type', 'LIKE', '%' . $q . '%')
                             // ->orWhere('duration', 'LIKE', '%' . $q . '%')
                             // ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                            // ->orWhere('tender_category', 'LIKE', '%' . $q . '%')
+                            // ->orWhere('programme_category', 'LIKE', '%' . $q . '%')
                         )
 
                         ->paginate(50)
@@ -147,7 +147,7 @@ class ScoringService {
         //     'channel' => $request['channel'],
         //     'language' => $request['language'],
         //     'programme_code' => $request['programme_code'],
-        //     'tender_category' => $request['tender_category'],
+        //     'programme_category' => $request['programme_category'],
         //     'title' => $request['title'],
         //     'description' => $request['description'],
         // ]);

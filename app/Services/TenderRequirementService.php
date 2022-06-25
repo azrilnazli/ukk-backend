@@ -38,7 +38,7 @@ class TenderRequirementService {
 
                     )
                     ->orWhereHas('tender', fn($query) =>
-                        $query->where('tender_category', 'LIKE', '%' . $q . '%')
+                        $query->where('programme_category', 'LIKE', '%' . $q . '%')
                         ->orWhere('type', 'LIKE', '%' . $q . '%')
                         ->orWhere('duration', 'LIKE', '%' . $q . '%')
                         ->orWhere('channel', 'LIKE', '%' . $q . '%')

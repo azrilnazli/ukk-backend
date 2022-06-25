@@ -11,7 +11,7 @@ class Tender extends Model
 {
     use HasFactory;
     use Sortable;
-    public $sortable = ['id','tender_category','programme_code', 'created_at', 'updated_at'];
+    public $sortable = ['id','programme_category','programme_code', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
 
 

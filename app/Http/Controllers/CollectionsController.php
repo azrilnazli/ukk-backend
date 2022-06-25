@@ -1030,6 +1030,44 @@ class CollectionsController extends Controller
         echo $approval_status = $company_approval->first()->status; // string
     }
 
+    function migrate_company(){
+        // create CompanyApproval
+        // type = sambung_siri = tender_detail_id = 2
+        // type = swasta = tender_detail_id = 2
+        $proposals = \App\Models\TenderSubmission::query()
+                    ->has('user.company')
+                    ->get();
+        foreach($proposals as $proposal){
+            //echo $proposal->user_id;
+
+            if(!$proposal->user->company->is_approved){
+
+
+                echo "company id - " . $proposal->user->company->id;
+                echo PHP_EOL;
+                echo "tender type - " . $proposal->tender->type;
+                echo PHP_EOL;
+
+            }
+
+                // rejected company
+                // if(!$proposal->user->company->is_approved){
+
+                //     echo "proposal id  - " . $proposal->tender->id;
+                //     echo " | tender type - " . $proposal->tender->type;
+                //     echo " | category - " . $proposal->tender->programme_category;
+                //     echo " | code - " . $proposal->tender->programme_code;
+                //     //echo PHP_EOL;
+                //     echo " | company name - " . $proposal->user->company->name;
+                //     echo " | date  - " . $proposal->tender->updated_at;
+                //     echo PHP_EOL;
+                // }
+            }
+
+
+
+            // based on company id, check proposal type
+        }
 
 
 }// class

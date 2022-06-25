@@ -28,22 +28,22 @@
         <div class="card-title">
           Proposal by {{ $tenderSubmission->user->company->name }}
           @include('JSPD.scorings.modal_contents')
-        </div>    
+        </div>
         <div class="card-item text-right">
-          <span class="badge badge-warning text-uppercase">PROPOSAL ID</span> : {{ $tenderSubmission->id}}     
-          <span class="badge badge-warning text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->tender_category }}
+          <span class="badge badge-warning text-uppercase">PROPOSAL ID</span> : {{ $tenderSubmission->id}}
+          <span class="badge badge-warning text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->programme_category }}
           <span class="badge badge-warning text-uppercase ">CODE</span> : {{ $tenderSubmission->tender->programme_code }}
           <span class="badge badge-warning text-uppercase ">CHANNEL</span> : {{ $tenderSubmission->tender->channel }}
         </div>
       </div>
- 
-   
+
+
     <div class="card-body bg-light">@include('JSPD.signers.form_disabled')</div>
     <div class="card-footer bg-light">
-  
+
         <button disabled id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('signers.tasks') }}'">
-            Cancel 
+            Cancel
         </button>
         <script>
           $( document ).ready(function() {
@@ -53,8 +53,8 @@
               });
           });
           </script>
-     
-    </div>  
+
+    </div>
   </div>
 
 </form>

@@ -78,7 +78,7 @@
               </td>
 
               <td>
-                <span class="lead">{{ $row->tender->channel }} : {{ $row->tender->tender_category }} ( {{ $row->tender->programme_code }} )</span>
+                <span class="lead">{{ $row->tender->channel }} : {{ $row->tender->programme_category }} ( {{ $row->tender->programme_code }} )</span>
                 <br />
                 <small>
 

@@ -43,7 +43,7 @@
 
                 <th width="*">Company</th>
 
-                <th width="*">@sortablelink('tender.tender_category', 'Category')</th>
+                <th width="*">@sortablelink('tender.programme_category', 'Category')</th>
 
                 <th width="*" class="text-center">@sortablelink('tender.programme_code', 'Programme Code')</th>
 
@@ -61,7 +61,7 @@
                   <tr>
                       <td><h1 class="badge badge-dark">{{$row->tender_submission->id }}</h1></td>
                       <td> @if(isset( $row->tender_submission->user->company))<span class="badge badge-warning">{{  $row->tender_submission->user->company->id }}</span> {{  $row->tender_submission->user->company->name }}@endif</td>
-                      <td>{{ $row->tender_submission->tender->type }} - {{ $row->tender_submission->tender->tender_category }}</td>
+                      <td>{{ $row->tender_submission->tender->type }} - {{ $row->tender_submission->tender->programme_category }}</td>
                       <td class="text-center">{{ $row->tender_submission->tender->programme_code }}</td>
                       {{-- <td class="text-center">{{ $row->signers->count() }}</td>
                       <td class="text-center">{{ $row->urusetia->count() }}</td> --}}
