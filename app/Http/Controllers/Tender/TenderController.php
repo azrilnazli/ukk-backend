@@ -46,11 +46,14 @@ class TenderController extends Controller
 
     public function create()
     {
-        $tenderCategories = TenderCategory::all();
+        //$tenderCategories = TenderCategory::all();
+        $tenderDetails = \App\Models\TenderDetail::all();
         $types = Tender::types(); // tender types
-        $languages = Tender::get_languages();
+        //$languages = Tender::get_languages();
+        $languages =  \App\Models\Language::all();
         $channels = Tender::channels();
-        return view('tenders.create', compact('languages','channels','types','tenderCategories'));
+
+        return view('tenders.create', compact('languages','channels','types','tenderDetails'));
     }
 
     public function store(StoreRequest $request)
@@ -62,11 +65,13 @@ class TenderController extends Controller
     public function edit(Tender $tender)
     {
 
-        $tenderCategories = TenderCategory::all();
+        //$tenderCategories = TenderCategory::all();
+        $tenderDetails = \App\Models\TenderDetail::all();
         $types = Tender::types(); // tender types
-        $languages = Tender::get_languages();
+        //$languages = Tender::get_languages();
+        $languages =  \App\Models\Language::all();
         $channels = Tender::channels();
-        return view('tenders.edit',compact('tender','languages','channels','types','tenderCategories'));
+        return view('tenders.edit',compact('tender','languages','channels','types','tenderDetails'));
     }
 
     public function update(UpdateRequest $request, $id)

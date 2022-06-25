@@ -7,15 +7,15 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="/tenders">{{ __('Tender Management') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tender List</li>
+        <li class="breadcrumb-item"><a href="/tenders">{{ __('Tender Languages') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tender Language List</li>
     </ol>
 </nav>
 @stop
 
 @section('content')
 
-<form method="GET"  action="{{ route('tenders.search') }}">
+<form method="GET"  action="{{ route('tender-languages.search') }}">
   @csrf
   <div class="row mt-5">
     <div class="col-6">
@@ -30,10 +30,10 @@
 <div class="card card-dark mt-3">
 
     <div class="card-header clearfix">
-      <h3 class="card-title">Total Tenders ( {{ $tenders->total() }} )</h3>
+      <h3 class="card-title">Total ( {{ $tenders->total() }} )</h3>
 
       <div class="card-tools">
-        <a class="btn-sm btn-primary " href="{{ route('tenders.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
+        <a class="btn-sm btn-primary " href="{{ route('tender-languages.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
       </div>
 
     </div>
@@ -46,14 +46,8 @@
             <thead>
 
                 <th width="5%">ID</th>
-                <th>Channel</th>
-                <th>Type</th>
-                <th>Category</th>
-                <th>Code</th>
-                <th>Duration</th>
-                <th>Episode</th>
-                <th>Proposal</th>
-                <th>Language</th>
+                <th>Title</th>
+
 
                 {{-- <th width="*">Added by</th> --}}
                 @role('super-admin')
@@ -66,26 +60,13 @@
 
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
-                    <td>{{$row->channel }}</td>
-                    <td>{{ optional($row->tender_detail)->title }}</td>
+                    <td>{{$row->title }}</td>
 
-                    <td>{{$row->programme_category }}</td>
-                    <td>{{$row->programme_code }} </td>
-
-                    <td>{{$row->duration }}</td>
-                    <td>{{$row->number_of_episode }}</td>
-                    <td>@if($row->proposals) {{ $row->proposals->count() }} @endif</td>
-                    <td>
-                      @foreach( $row->languages as $language )
-                      <span class="badge badge-warning">{{$language->title}}</span>
-                      @endforeach
-
-                    </td>
                     @role('super-admin')
                     <td>
-                      <form action="{{ route('tenders.destroy', $row->id)}}" method="post">
+                      <form action="{{ route('tender-languages.destroy', $row->id)}}" method="post">
                         @csrf @method('DELETE')
-                      <a class="btn btn-success btn-sm" href="{{ route('tenders.edit', $row->id) }}">
+                      <a class="btn btn-success btn-sm" href="{{ route('tender-languages.edit', $row->id) }}">
                           <i class="fas fa-pencil-alt"></i>
                       </a>
                         <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
@@ -94,13 +75,6 @@
                     @endrole
                 </tr>
 
-                <tr>
-                  <td colspan=10>
-                    <div class="alert alert-light" role="alert">
-                    {!! nl2br($row->description) !!}
-                    </div>
-                  </td>
-              </tr>
 
                 @endforeach
             </tbody>

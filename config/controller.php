@@ -15,6 +15,7 @@ return [
 
     'tender',
     'tender-requirement',
+    'tender-language',
     'tender-detail',
     'tender-submission',
 

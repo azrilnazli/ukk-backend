@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTenderLanguagesTable extends Migration
+class AddColumnToTendersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateTenderLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tender_languages', function (Blueprint $table) {
-            $table->id();
-            $table->string('title')->nullable();
-            $table->timestamps();
+        Schema::table('tenders', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\TenderDetail::class)->nullable(); // TenderDetail
         });
     }
 
@@ -27,6 +25,9 @@ class CreateTenderLanguagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tender_languages');
+        Schema::table('tenders', function (Blueprint $table) {
+            //
+            $table->dropColumn('tender_detail_id');
+        });
     }
 }

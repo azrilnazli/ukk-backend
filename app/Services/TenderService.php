@@ -13,7 +13,7 @@ class TenderService {
 
     public function paginate($items = 50){
         return Tender::query()
-                    ->with('tender_category')
+                    ->with('tender_detail')
                     ->orderBy('id','desc')
                     ->paginate($items)
                     ->setPath(route('tenders.index'));
@@ -53,7 +53,12 @@ class TenderService {
         //         'description' => $request['description'],
         //     ]);
 
-        return Tender::create($request->except(['_token','_method']));
+        $tender = Tender::create($request->except(['_token','_method']));
+
+        // ManyToMany with TenderLanguage
+        $tender->languages()->sync($request->input('languages'));
+
+        return $tender;
     }
 
     public function find($id){
@@ -70,7 +75,13 @@ class TenderService {
         //     'description' => $request['description'],
         // ]);
 
-        return Tender::where('id',$id)->update($request->except(['_token','_method']));
+        $tender = Tender::where('id',$id)->update($request->except(['_token','_method']));
+
+        // ManyToMany with TenderLanguage
+        $tender->languages()->sync($request->input('languages'));
+
+        return $tender;
+
     }
 
     public function destroy($id){

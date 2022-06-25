@@ -64,7 +64,7 @@
     <label for="login_text" class="col-md-4 col-form-label text-md-right"></label>
     <div class="col-md-6">
         <button id="submit" class="btn btn-primary" >Submit</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='/tenders'">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('tender-requirements.index')}}'">
             Cancel
         </button>
     </div>
