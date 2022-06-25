@@ -33,7 +33,7 @@ class TenderDetailController extends Controller
                     ->orderBy('id','DESC')
                     ->get();
 
-        Log::info($tenders);
+        //Log::info($tenders);
 
 
         return response([

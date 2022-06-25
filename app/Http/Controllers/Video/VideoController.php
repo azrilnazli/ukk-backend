@@ -351,7 +351,7 @@ class VideoController extends Controller
 
     public function conversion_progress(Video $video)
     {
-        Log::info($video);
+        //Log::info($video);
 
         if($video->is_processing == 1){
             // check video status

@@ -548,9 +548,9 @@ class CompanyController extends Controller
 
         //Log::info($company->id);
         if($request->hasFile('selectedFile')){ // if exists
-            Log::info($request);
+            //Log::info($request);
             // delete existing document
-            Log::info('delete existing doc');
+            //Log::info('delete existing doc');
             Storage::disk('companies')->delete( $company->id .'/'. $request->document);
 
             // move to folder
@@ -561,9 +561,9 @@ class CompanyController extends Controller
                 'companies' // disk
             );
 
-            Log::info($company->id);
+            //Log::info($company->id);
             if(Storage::disk('companies')->exists($company->id) .'/'. $request->document){
-                Log::info('file exists');
+                //Log::info('file exists');
                 $uploaded = true;
 
                 DB::table('companies')
