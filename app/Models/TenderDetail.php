@@ -5,10 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class TenderDetail extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $appends = array('expired');
+
+    /**
+     * Get the end date.
+     *
+     * @return string
+     */
+
+    public function getExpiredAttribute()
+    {
+        return \Carbon\Carbon::parse($this->end)->diffForHumans();
+    }
 
     /**
      * The TenderRequirement that belong to the TenderDetail.
@@ -25,4 +38,6 @@ class TenderDetail extends Model
     {
         return $this->hasMany(CompanyApproval::class);
     }
+
+
 }

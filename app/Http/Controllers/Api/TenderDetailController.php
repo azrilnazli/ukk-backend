@@ -7,6 +7,7 @@ use App\Traits\ApiResponser;
 use App\Models\TenderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Log;
 
 class TenderDetailController extends Controller
 {
@@ -31,6 +32,9 @@ class TenderDetailController extends Controller
                     ->where('is_active', true )
                     ->orderBy('id','DESC')
                     ->get();
+
+        Log::info($tenders);
+
 
         return response([
             'message' =>  !empty($tenders) ? 'success' : 'empty',
