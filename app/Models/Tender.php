@@ -14,9 +14,6 @@ class Tender extends Model
     public $sortable = ['id','tender_category','programme_code', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
 
-    // protected $casts = [
-    //     'languages' => 'array',
-    // ];
 
     /**
      * Category belongsTo User
@@ -34,13 +31,6 @@ class Tender extends Model
         return $this->hasMany(TenderSubmission::class);
     }
 
-    /**
-     * Tender belongsTo TenderCategory
-     */
-    // public function tender_category()
-    // {
-    //     return $this->belongsTo(TenderCategory::class);
-    // }
 
     /**
      * Tender belongsTo TenderDetail
@@ -51,27 +41,14 @@ class Tender extends Model
     }
 
     /**
-     * The Tenderthat belongsToMany to TenderLanguage
+     *  Tender belongsToMany to Language
      */
     public function languages()
     {
         return $this->belongsToMany(Language::class);
     }
 
-    // enum | type of tender
-    public static function types(){
 
-        $name = 'type';
-        $instance = new Tender; // create an instance of the model to be able to get the table name
-        $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$instance->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
-        preg_match('/^enum\((.*)\)$/', $type, $matches);
-        $enum = array();
-        foreach(explode(',', $matches[1]) as $value){
-            $v = trim( $value, "'" );
-            $enum[] = $v;
-        }
-        return $enum;
-    }
 
     // enum | duration
     public static function duration(){
@@ -88,20 +65,7 @@ class Tender extends Model
         return $enum;
     }
 
-    // enum | language
-    // public static function get_languages(){
 
-    //     $name = 'language';
-    //     $instance = new Tender; // create an instance of the model to be able to get the table name
-    //     $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$instance->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
-    //     preg_match('/^enum\((.*)\)$/', $type, $matches);
-    //     $enum = array();
-    //     foreach(explode(',', $matches[1]) as $value){
-    //         $v = trim( $value, "'" );
-    //         $enum[] = $v;
-    //     }
-    //     return $enum;
-    // }
 
     // enum | channel
     public static function channels(){
@@ -118,18 +82,5 @@ class Tender extends Model
         return $enum;
     }
 
-    // public function setLanguagesAttribute($value)
-    // {
-    //     $this->attributes['languages'] = json_encode($value);
-    // }
 
-    // public function getLanguagesAttribute($value)
-    // {
-    //     return $this->attributes['languages'] = json_decode($value);
-    // }
-
-    // public function getDescriptionAttribute($value)
-    // {
-    //     return $this->attributes['description'] =nl2br($value);
-    // }
 }

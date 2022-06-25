@@ -74,10 +74,11 @@ class TenderService {
         //     'title' => $request['title'],
         //     'description' => $request['description'],
         // ]);
-
-        $tender = Tender::where('id',$id)->update($request->except(['_token','_method']));
+        $tender = Tender::find($id);
+        $tender->update($request->except(['_token','_method','languages']));
 
         // ManyToMany with TenderLanguage
+        //dd($request->input('languages'));
         $tender->languages()->sync($request->input('languages'));
 
         return $tender;
