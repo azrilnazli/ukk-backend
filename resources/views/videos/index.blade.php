@@ -98,7 +98,7 @@
                 <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
                 <a class="btn btn-primary btn-sm " href="{{ route('videos.show', $row->id) }} ">
-                    <i class="fas fa-search"></i> VIEW
+                    <i class="fas fa-search"></i>
 
                 </a>
                 @role('super-admin')
