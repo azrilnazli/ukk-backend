@@ -36,6 +36,16 @@
 
 
         <li class="nav-item">
+            <a href="{{ route('tender-languages.index') }}" class="nav-link {{ active('tender-languages.index')  }}">
+                <i class="nav-icon fa fa-pencil"></i>
+                <p>
+                    <small>  Tender Language </small>
+                </p>
+            </a>
+        </li>
+
+
+        <li class="nav-item">
             <a href="{{ route('tender-categories.index') }}" class="nav-link {{ active('tender-categories.index')  }}">
                 <i class="nav-icon fa fa-pencil"></i>
                 <p>

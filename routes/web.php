@@ -23,6 +23,9 @@ Auth::routes();
 // TenderRequirement
 \App\Http\Controllers\Tender\TenderRequirementController::routes();
 
+// TenderLanguage
+\App\Http\Controllers\Tender\TenderLanguageController::routes();
+
 // TenderCategory
 \App\Http\Controllers\Tender\TenderCategoryController::routes();
 

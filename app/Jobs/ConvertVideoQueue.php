@@ -101,7 +101,7 @@ class ConvertVideoQueue implements ShouldQueue
             ->format($file) // extracts file informations
             ->get('format_long_name');
 
-        Log::info($format);
+        //Log::info($format);
 
         // Calculate the script execution time
         // End the clock time in seconds

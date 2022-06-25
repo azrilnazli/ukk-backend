@@ -1,47 +1,28 @@
 
-        {{-- <div class="form-group row">
-            <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Tender Type') }}</label>
 
-            <div class="col-md-6">
-                <select  name="type" class="form-control @error('type') is-invalid @enderror">
-                    <option value="0">Choose type </option>
-                    <option disabled>--------------------</option>
-                    @foreach($types as $key => $type)
-                    <option
-                    @if ($type == old('type', isset($tender->type) ? $tender->type : null )) selected="selected" @endif
-                    value="{{$type}}">{{$type}}</option>
-                    @endforeach
-                </select>
-                @error('channel')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        </div> --}}
 
         <div class="form-group row">
             <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Tender Category') }}</label>
 
             <div class="col-md-6">
                 <select
-                    name="tender_category_id"
+                    name="tender_detail_id"
                     class="form-control
-                    @error('tender_category_id') is-invalid @enderror"
+                    @error('tender_detail_id') is-invalid @enderror"
                 />
-                    <option value="0">Choose Tender Category </option>
+                    <option value="0">Choose Tender Detail </option>
                     <option disabled>--------------------</option>
-                    @foreach($tenderCategories as $category)
+                    @foreach($tenderDetails as $detail)
                     <option
                     @if (
-                        $category->id == old(
-                                        'tender_category_id',
-                                        !empty($tender) ? $tender->tender_category_id : null
+                        $detail->id == old(
+                                        'tender_detail_id',
+                                        !empty($tender) ? $tender->tender_detail_id : null
                                         )
                         )
                         selected="selected"
                     @endif
-                    value="{{$category->id}}">{{$category->title}}</option>
+                    value="{{$detail->id}}">{{$detail->title}}</option>
                     @endforeach
                 </select>
                 @error('channel')
@@ -73,42 +54,6 @@
             </div>
         </div>
 
-         <div class="form-group row">
-
-            <label for="classification" class="col-md-4 col-form-label text-md-right">{{ __('Language') }}</label>
-            <div class="col-md-6">
-                {{-- @foreach($languages as $key => $language)
-                <input
-                    type="checkbox"
-                    name="languages[]"
-                    value="{{$language}}"
-
-                    > {{$language}} <br />
-                @endforeach --}}
-
-                @if(!empty($tender))
-                    @php
-                        $current_languages = collect($tender->languages);
-                    @endphp
-                @endif
-                @foreach($languages as $key => $language)
-                <div class="form-check">
-                    <input
-                        value="{{ $language }}"
-                        name="languages[]"
-                        class="form-check-input"
-                        @if(!empty($tender))
-                            @if( $current_languages->contains($language)) checked @endif
-                        @endif
-                        type="checkbox"  />
-                    <label class="form-check-label text-muted">
-                        {{ $language }}
-                    </label>
-                </div>
-                @endforeach
-
-            </div>
-        </div>
 
         <div class="form-group row">
             <label for="programme_category" class="col-md-4 col-form-label text-md-right">{{ __('Programme Category') }}</label>
@@ -198,6 +143,32 @@
             </div>
         </div>
 
+
+
+        <div class="form-group row">
+            <label for="proposal_text" class="col-md-4 col-form-label text-md-right">{{ __('Languages') }}</label>
+
+            <div class="col-md-6 mt-2">
+                @if($languages)
+                    @foreach($languages as $language)
+                    <div class="form-check">
+                        <input
+                            value="{{ $language->id }}"
+                            name="languages[]"
+                            class="form-check-input"
+                            @if(!empty($tender))
+                                @if( $tender->languages->pluck('id')->contains($language->id)) checked @endif
+                            @endif
+                            type="checkbox"  />
+                        <label class="form-check-label text-muted">
+                            {{ ucWords(str_replace('-',' ',$language->title)) }}
+                        </label>
+                    </div>
+                    @endforeach
+                @endif
+
+            </div>
+        </div>
 
         <div class="form-group row">
             <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>

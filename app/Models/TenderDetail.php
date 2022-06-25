@@ -38,5 +38,13 @@ class TenderDetail extends Model
         return $this->hasMany(CompanyApproval::class);
     }
 
+    /**
+     * TenderDetail hasMany Tender
+     */
+    public function tenders()
+    {
+        return $this->hasMany(Tender::class);
+    }
+
 
 }
