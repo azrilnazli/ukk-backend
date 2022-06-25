@@ -96,6 +96,7 @@ class CompanyApprovalController extends Controller
     }
 
     // to check user if user Company data meets TenderRequirement ?
+
     public function allow_request(TenderDetail $tenderDetail)
     {
 
@@ -110,6 +111,7 @@ class CompanyApprovalController extends Controller
         if ($date_now > $date_end) {
             // return response as JSON
             return response([
+                'message' => 'expired',
                 'status' => false // return as boolean
             ]);
         }
@@ -121,6 +123,7 @@ class CompanyApprovalController extends Controller
         if(is_null($company)){
             // return response as JSON
             return response([
+                'message' => 'no company data',
                 'status' => false // return as boolean
             ]);
         }
@@ -137,6 +140,7 @@ class CompanyApprovalController extends Controller
             $status =  $this->service->$module(); // return boolean
             if($status == false){
                 return response([
+                    'message' => 'no company data - ' . $module,
                     'status' => false // return as boolean
                 ]);
                 break;
@@ -167,11 +171,18 @@ class CompanyApprovalController extends Controller
             if($result->status == 'pending' OR $result->status == 'approved'){
 
                 return response([
+                    'message' => 'status is ' . $result->status,
                     'status' => false // return as boolean
                 ]);
 
             }
         }
+
+        // if passed all above checks
+        return response([
+            'message' => 'passed',
+            'status' => true // return as boolean
+        ]);
 
 
     }
