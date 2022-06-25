@@ -48,12 +48,12 @@ class TenderController extends Controller
     {
         //$tenderCategories = TenderCategory::all();
         $tenderDetails = \App\Models\TenderDetail::all();
-        $types = Tender::types(); // tender types
+        //$types = Tender::types(); // tender types
         //$languages = Tender::get_languages();
         $languages =  \App\Models\Language::all();
         $channels = Tender::channels();
 
-        return view('tenders.create', compact('languages','channels','types','tenderDetails'));
+        return view('tenders.create', compact('languages','channels','tenderDetails'));
     }
 
     public function store(StoreRequest $request)
@@ -67,17 +67,17 @@ class TenderController extends Controller
 
         //$tenderCategories = TenderCategory::all();
         $tenderDetails = \App\Models\TenderDetail::all();
-        $types = Tender::types(); // tender types
+        //$types = Tender::types(); // tender types
         //$languages = Tender::get_languages();
         $languages =  \App\Models\Language::all();
         $channels = Tender::channels();
-        return view('tenders.edit',compact('tender','languages','channels','types','tenderDetails'));
+        return view('tenders.edit',compact('tender','languages','channels','tenderDetails'));
     }
 
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, Tender $tender)
     {
-        $this->tender->update($request, $id);
-        return redirect()->route('tenders.index', $id)->with('success','Tender updated.');
+        $this->tender->update($request, $tender->id);
+        return redirect()->route('tenders.index', $tender->id)->with('success','Tender updated.');
     }
 
     public function destroy($id)
