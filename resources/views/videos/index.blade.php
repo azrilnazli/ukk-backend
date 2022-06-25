@@ -83,7 +83,6 @@
                 <small>
 
                     Duration: <strong>{{ $row->tender->number_of_episode }} X {{ $row->tender->duration }}'</strong> <br />
-                    Language: <strong>{{ implode(',', $row->tender->languages) }}</strong> <br />
 
                     Updated:  <strong>{{ $row->created_at  }}</strong> <i>{{ $row->updated_at->diffForHumans() }}</i> <br />
 
