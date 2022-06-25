@@ -74,7 +74,7 @@
                         @if(isset($row->user->company))
                         <span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}
                         <br />
-                        <small>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</small>
+                        <small>{{ $row->tender->type }} - {{ $row->tender->programme_category }}</small>
                         @endif</td>
 
                     <td>{{ $row->tender->programme_code }}</td>

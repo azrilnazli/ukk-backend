@@ -29,7 +29,7 @@ class TenderService {
                     ->where('channel', 'LIKE', '%' . $q . '%')
                     ->orWhere('id', 'LIKE', '%' . $q . '%')
                     ->orWhere('type', 'LIKE', '%' . $q . '%')
-                    ->orWhere('tender_category', 'LIKE', '%' . $q . '%')
+                    ->orWhere('programme_category', 'LIKE', '%' . $q . '%')
                     ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
                     ->orWhere('duration', 'LIKE', '%' . $q . '%')
 
@@ -48,7 +48,7 @@ class TenderService {
         //         'channel' => $request['channel'],
         //         'language' => $request['language'],
         //         'programme_code' => $request['programme_code'],
-        //         'tender_category' => $request['tender_category'],
+        //         'programme_category' => $request['programme_category'],
         //         'title' => $request['title'],
         //         'description' => $request['description'],
         //     ]);
@@ -70,7 +70,7 @@ class TenderService {
         //     'channel' => $request['channel'],
         //     'language' => $request['language'],
         //     'programme_code' => $request['programme_code'],
-        //     'tender_category' => $request['tender_category'],
+        //     'programme_category' => $request['programme_category'],
         //     'title' => $request['title'],
         //     'description' => $request['description'],
         // ]);

@@ -1,7 +1,7 @@
 
 
     <div class="col card bg-light">
- 
+
       {{-- <div class="card-header">
         <div class="card-title">
           <label class="badge badge-warning p-2 text-uppercase ">{{$tenderSubmission->user->company->id}}</label> Proposal by {{ $tenderSubmission->user->company->name }}
@@ -9,7 +9,7 @@
 
       </div> --}}
       {{-- <div class="card-item text-right">
-        <span class="badge badge-warning text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->tender_category }}
+        <span class="badge badge-warning text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->programme_category }}
         <span class="badge badge-warning text-uppercase ">CODE</span> : {{ $tenderSubmission->tender->programme_code }}
         <span class="badge badge-warning text-uppercase ">CHANNEL</span> : {{ $tenderSubmission->tender->channel }}
       </div>
@@ -64,7 +64,7 @@
 
                 </div>
         </div>
-   
+
         @endif
       @endif
 
@@ -75,7 +75,7 @@
         <div style="height:500px" id="document"></div>
         <script>PDFObject.embed("/storage/proposals/{{$tenderSubmission->id}}/proposal.pdf", "#document");</script>
       </div>
- 
+
       @endif
       <!-- /.card-body -->
 

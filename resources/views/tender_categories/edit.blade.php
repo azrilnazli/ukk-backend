@@ -26,7 +26,7 @@
     </div><!-- /.card-header -->
 
     <div class="card-body">
-        @include('tender_category.form')
+        @include('programme_category.form')
     </div><!-- /.card-body -->
 
 </div><!-- /.card -->

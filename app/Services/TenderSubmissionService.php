@@ -41,7 +41,7 @@ class TenderSubmissionService {
 
                         )
                         ->orWhereHas('tender', fn($query) =>
-                            $query->where('tender_category', 'LIKE', '%' . $q . '%')
+                            $query->where('programme_category', 'LIKE', '%' . $q . '%')
                             ->orWhere('type', 'LIKE', '%' . $q . '%')
                             ->orWhere('duration', 'LIKE', '%' . $q . '%')
                             ->orWhere('channel', 'LIKE', '%' . $q . '%')
@@ -64,7 +64,7 @@ class TenderSubmissionService {
         //         'channel' => $request['channel'],
         //         'language' => $request['language'],
         //         'programme_code' => $request['programme_code'],
-        //         'tender_category' => $request['tender_category'],
+        //         'programme_category' => $request['programme_category'],
         //         'title' => $request['title'],
         //         'description' => $request['description'],
         //     ]);
@@ -81,7 +81,7 @@ class TenderSubmissionService {
         //     'channel' => $request['channel'],
         //     'language' => $request['language'],
         //     'programme_code' => $request['programme_code'],
-        //     'tender_category' => $request['tender_category'],
+        //     'programme_category' => $request['programme_category'],
         //     'title' => $request['title'],
         //     'description' => $request['description'],
         // ]);

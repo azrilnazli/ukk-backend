@@ -29,16 +29,16 @@
           Proposal by {{ $tenderSubmission->user->company->name }}
           @include('JSPD.scorings.modal_contents')
           @include('JSPD.scorings.modal_company')
-        </div>    
+        </div>
         <div class="card-item text-right">
-          <span class="badge badge-warning text-uppercase">PROPOSAL ID</span> : {{ $tenderSubmission->id}}     
-          <span class="badge badge-warning text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->tender_category }}
+          <span class="badge badge-warning text-uppercase">PROPOSAL ID</span> : {{ $tenderSubmission->id}}
+          <span class="badge badge-warning text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->programme_category }}
           <span class="badge badge-warning text-uppercase ">CODE</span> : {{ $tenderSubmission->tender->programme_code }}
           <span class="badge badge-warning text-uppercase ">CHANNEL</span> : {{ $tenderSubmission->tender->channel }}
         </div>
         </div>
     </div>
-   
+
     <div class="card-body">
       @include('JSPD.scorings.form')
     </div>
@@ -47,12 +47,12 @@
       <div class="form-group">
         <h5>Pengesahan</h5>
         <div class="form-check">
-            <input 
-              class="form-check-input @error('pengesahan_comply') is-invalid @enderror" 
-              @if(!empty($data)) disabled @endif 
-              type="checkbox" 
-              name="pengesahan_comply" 
-              value=1 
+            <input
+              class="form-check-input @error('pengesahan_comply') is-invalid @enderror"
+              @if(!empty($data)) disabled @endif
+              type="checkbox"
+              name="pengesahan_comply"
+              value=1
               @if(old('pengesahan_comply',  optional($data)->pengesahan_comply) == 1) checked @endif
               />
               @error('pengesahan_comply')
@@ -60,8 +60,8 @@
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
               </span>
-              @enderror 
-       
+              @enderror
+
 
         </div>
         <label class="form-check-label ml-3">
@@ -72,13 +72,13 @@
               {{ \Carbon\Carbon::parse( optional($data)->created_at ? optional($data)->created_at : date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}}
             </p>
         </label>
-    </div>  
+    </div>
 
       <div class="mt-5">
-        
+
         <button type="button" @if(!empty($data)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('scorings.tasks') }}'">
-            Cancel 
+            Cancel
         </button>
         @include('JSPD.scorings.modal_submit')
         <script>

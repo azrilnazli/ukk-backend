@@ -111,7 +111,7 @@
                     <tr>
                         <td><span class="badge badge-warning">{{$proposal->id}}</span></td>
                         <td>
-                            {{$proposal->tender->type}}-{{$proposal->tender->tender_category}}
+                            {{$proposal->tender->type}}-{{$proposal->tender->programme_category}}
                             <br />
                             <small>
                             Submitted <span>{{ \Carbon\Carbon::parse($proposal->created_at)->diffForHumans() }}<br />

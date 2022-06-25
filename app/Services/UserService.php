@@ -44,7 +44,7 @@ class UserService {
                     )
 
                     ->orWhereHas('proposals.tender', fn($query) =>
-                        $query->where('tender_category', 'LIKE', '%' . $q . '%')
+                        $query->where('programme_category', 'LIKE', '%' . $q . '%')
                         ->orWhere('type', 'LIKE', '%' . $q . '%')
                         ->orWhere('channel', 'LIKE', '%' . $q . '%')
                         ->orWhere('programme_code', 'LIKE', '%' . $q . '%')

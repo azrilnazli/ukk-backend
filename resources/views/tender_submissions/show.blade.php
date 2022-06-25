@@ -36,7 +36,7 @@
 
       </div>
       <div class="card-body bg-secondary">
-        <span class="badge badge-info text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->tender_category }}
+        <span class="badge badge-info text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->programme_category }}
         <span class="badge badge-info text-uppercase ">CODE</span> : {{ $tenderSubmission->tender->programme_code }}
         <span class="badge badge-info text-uppercase ">CHANNEL</span> : {{ $tenderSubmission->tender->channel }}
 

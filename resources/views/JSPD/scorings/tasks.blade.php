@@ -43,7 +43,7 @@
 
                 <th width="*">Company</th>
 
-                <th width="*">@sortablelink('tender.tender_category', 'Category')</th>
+                <th width="*">@sortablelink('tender.programme_category', 'Category')</th>
 
                 <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
 
@@ -67,7 +67,7 @@
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
-                    <td>{{ $row->tender->type }} - {{ $row->tender->tender_category }}</td>
+                    <td>{{ $row->tender->type }} - {{ $row->tender->programme_category }}</td>
                     <td>{{ $row->tender->programme_code }}</td>
                     @hasrole('jspd-penanda')
                     <td class="text-center">{!! optional($row->score)->count() ? '<i class="fas fa-check"></i>' : '<i class="fas fa-hourglass"></i>' !!} </td>
