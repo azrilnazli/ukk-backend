@@ -1030,25 +1030,35 @@ class CollectionsController extends Controller
         echo $approval_status = $company_approval->first()->status; // string
     }
 
-    function migrate_company(){
+    function migrate_company_approved(){
         // create CompanyApproval
         // type = sambung_siri = tender_detail_id = 2
         // type = swasta = tender_detail_id = 2
         $proposals = \App\Models\TenderSubmission::query()
                     ->has('user.company')
+                    ->distinct()
                     ->get();
-        foreach($proposals as $proposal){
+        foreach($proposals as $key => $proposal){
             //echo $proposal->user_id;
 
-            if(!$proposal->user->company->is_approved){
+            if($proposal->user->company->is_approved){
 
 
-                echo "company id - " . $proposal->user->company->id;
-                echo PHP_EOL;
-                echo "tender type - " . $proposal->tender->type;
-                echo PHP_EOL;
+                // echo "company id - " . $proposal->user->company->id;
+                // echo PHP_EOL;
+                // echo "tender type - " . $proposal->tender->type;
+                // echo PHP_EOL;
+
+                if($proposal->tender->type){
+                    $company[] = array(
+                        'id' => $proposal->user->company->id,
+                        'type' => $proposal->tender->type,
+                    );
+                }
+
 
             }
+
 
                 // rejected company
                 // if(!$proposal->user->company->is_approved){
@@ -1063,10 +1073,97 @@ class CollectionsController extends Controller
                 //     echo PHP_EOL;
                 // }
             }
+            $collection = collect($company)->unique()->each( function($val, $key) {
+
+                // create CompanyApproval instance
+                if($val['type'] == "SAMBUNG SIRI"){
+                    echo $val['id'];
+                    echo " - ";
+                    echo $val['type'];
+                    echo PHP_EOL;
+
+                    $data['tender_detail_id'] = 1;
+                    $data['company_id'] = $val['id'];
+                    $data['is_approved'] = 1;
+                    $data['status'] = 'approved';
+
+                    \App\Models\CompanyApproval::create($data);
+
+                }
+
+                if($val['type'] == "SWASTA"){
+                    echo $val['id'];
+                    echo " - ";
+                    echo $val['type'];
+                    echo PHP_EOL;
+
+                    $data['tender_detail_id'] = 2;
+                    $data['company_id'] = $val['id'];
+                    $data['is_approved'] = 1;
+                    $data['status'] = 'approved';
+
+                    \App\Models\CompanyApproval::create($data);
+
+                }
+            });
+
+            echo "total : " . $collection->count();
+
+        }
 
 
 
-            // based on company id, check proposal type
+        public function migrate_company_failed(){
+            echo "syarikat gagal : ";
+            $companies = \App\Models\Company::query()
+            ->where('is_approved', false)
+            ->distinct()
+            ->get();
+
+            foreach($companies as $company){
+                $data['tender_detail_id'] = 1;
+                $data['company_id'] = $company->id;
+                $data['is_approved'] = 0;
+                $data['status'] = 'rejected';
+
+                \App\Models\CompanyApproval::create($data);
+            }
+
+
+        }
+
+        public function sambungsiri_swasta(){
+            echo "syarikat lulus : ";
+            echo \App\Models\Company::query()
+            ->where('is_approved', true)
+            ->get()
+            ->count();
+        }
+
+        public function pdf_only(){
+            echo "pdf only : ";
+            echo \App\Models\TenderSubmission::query()
+                                ->whereHas('user.company', fn($query) =>
+                                    $query->where('is_approved', true)
+                                )
+                                ->where('is_pdf_cert_uploaded','=', true)
+                                ->whereHas('video', fn($query) =>
+                                    $query->where('is_ready', false)
+                                )
+                                ->count();
+        }
+
+        public function video_only(){
+            echo "video only : ";
+            echo \App\Models\TenderSubmission::query()
+                                ->whereHas('video', fn($query) =>
+                                    $query->where('is_ready', true)
+                                )
+                                ->whereHas('user.company', fn($query) =>
+                                    $query->where('is_approved', true)
+                                )
+                                //->where('is_pdf_cert_uploaded','=', false)
+                                ->count();
         }
 
 
