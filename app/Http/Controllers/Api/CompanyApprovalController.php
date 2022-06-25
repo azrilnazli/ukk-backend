@@ -30,7 +30,6 @@ class CompanyApprovalController extends Controller
     public function get_comment(TenderDetail $tenderDetail)
     {
 
-
         // get Company data based on loggedIn User
         $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
         if(is_null($company)){
@@ -103,6 +102,18 @@ class CompanyApprovalController extends Controller
         // set $allow to true
         $status = true;
 
+        // check end date
+        $expired = $tenderDetail->end;
+        $date_now = time(); //current timestamp
+        $date_end = strtotime($expired); // expired date
+
+        if ($date_now > $date_end) {
+            // return response as JSON
+            return response([
+                'status' => false // return as boolean
+            ]);
+        }
+
         // get Company data based on loggedIn User
         $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
 
@@ -126,7 +137,7 @@ class CompanyApprovalController extends Controller
             $status =  $this->service->$module(); // return boolean
             if($status == false){
                 return response([
-                    'status' => $status // return as boolean
+                    'status' => false // return as boolean
                 ]);
                 break;
             }
@@ -149,18 +160,20 @@ class CompanyApprovalController extends Controller
                             ->where('company_id',$company->id)
                             ->where('tender_detail_id',$tenderDetail->id)
                             ->first();
+
         if(!is_null($result)){
 
             // return final status
             if($result->status == 'pending' OR $result->status == 'approved'){
-                $status = false;
+
+                return response([
+                    'status' => false // return as boolean
+                ]);
+
             }
         }
 
-        // return final $status
-        return response([
-            'status' => $status // return as boolean
-        ]);
+
     }
 
     // Vendor click button
