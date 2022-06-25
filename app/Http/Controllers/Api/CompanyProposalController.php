@@ -81,7 +81,7 @@ class CompanyProposalController extends Controller
         ->where('user_id' , auth()->user()->id)
         ->first();
 
-        Log::info($company->is_approved);
+        //Log::info($company->is_approved);
         if($company->is_approved == 1 ){
 
              // list all proposals by user
@@ -140,14 +140,14 @@ class CompanyProposalController extends Controller
             // upload to temp dir
             $this->video->upload($request['file']);
 
-            Log::info($request);
-            Log::info(gmdate("Y-m-d H:i:s"));
+            //Log::info($request);
+            //Log::info(gmdate("Y-m-d H:i:s"));
             $start_time = strtotime($request['start_time']);
             $end_time =   strtotime(gmdate("Y-m-d H:i:s"));
 
             $uploading_duration =  round($end_time - $start_time); // in microtime
-            Log::info($end_time);
-            Log::info($start_time);
+            //Log::info($end_time);
+            //Log::info($start_time);
             $data = [
                 'user_id'       => Auth::user()->id,
                 'tender_id'       => $request->tender_id,

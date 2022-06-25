@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Actions;
 use Log;
@@ -8,7 +8,7 @@ class Utilities {
 
     // contstructor
     public function __construct(){
-        Log::info("Utilities initiated"); 
+        //Log::info("Utilities initiated");
     }
 
     function secondsToMinute($seconds) {
@@ -31,15 +31,15 @@ class Utilities {
         }
     }
 
-    
+
     function getUserId($sent_token = null){
-    
+
         [$id, $token] = explode('|', $sent_token, 2);
         $token_data = DB::table('personal_access_tokens')->where('token', hash('sha256', $token))->first();
         return $token_data->tokenable_id;
- 
+
     }
 
-    
-        
-} 
+
+
+}
