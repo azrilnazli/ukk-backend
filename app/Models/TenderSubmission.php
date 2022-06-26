@@ -19,6 +19,11 @@ class TenderSubmission extends Model
         return $this->belongsTo(Tender::class);
     }
 
+    public function tender_detail()
+    {
+        return $this->belongsTo(TenderDetail::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

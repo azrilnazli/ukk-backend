@@ -39,11 +39,27 @@ class TenderDetail extends Model
     }
 
     /**
+     * The TenderDetail hasMany CompanyApproval.
+     */
+    public function company_approvals_approved()
+    {
+        return $this->hasMany(CompanyApproval::class)->where('is_approved', TRUE);
+    }
+
+    /**
      * TenderDetail hasMany Tender
      */
     public function tenders()
     {
         return $this->hasMany(Tender::class);
+    }
+
+    /**
+     * TenderDetail hasMany TenderSubmission
+     */
+    public function tender_submissions()
+    {
+        return $this->hasMany(TenderSubmission::class);
     }
 
 
