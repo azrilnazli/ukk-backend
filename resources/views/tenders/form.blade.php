@@ -102,7 +102,7 @@
         <div class="form-group row">
             <label for="number_of_episode" class="col-md-4 col-form-label text-md-right">{{ __('Number of Episode') }}</label>
 
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <input
                     id="number_of_episode"
                     type="text"
@@ -124,7 +124,7 @@
         <div class="form-group row">
             <label for="duration" class="col-md-4 col-form-label text-md-right">{{ __('Duration per Episode') }}</label>
 
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <input
                     id="duration"
                     type="text"
