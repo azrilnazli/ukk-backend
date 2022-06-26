@@ -18,6 +18,30 @@
                     </div>
                 </div>
                 <!-- ./ Total -->
+
+                <!-- Approval -->
+                <div class="col-md-2">
+                    <div class="info-box bg-secondary">
+                            {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                            <div class="info-box-content">
+                                    <span class="info-box-text"><small>Request for Approval</small></span>
+                                    <span class="info-box-number">{{ $approval['total'] }}</span>
+                            </div>
+                    </div>
+                </div>
+                <!-- ./ Approval -->
+                <!-- Proposal -->
+                <div class="col-md-2">
+                    <div class="info-box bg-secondary">
+                            {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
+                            <div class="info-box-content">
+                                    <span class="info-box-text">Total Proposal</span>
+                                    <span class="info-box-number">{{ $proposal['total'] }}</span>
+                            </div>
+                    </div>
+                </div>
+                <!-- ./ Proposal -->
+
                 <!-- Comment -->
                 <div class="col-md-2">
                     <div class="info-box bg-secondary">
@@ -43,7 +67,7 @@
                 <div class="card-footer text-muted ">
                     <div class="card-text ">Company by State</div>
                     @foreach($states as $state)
-                        <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
+                    <button type="button" class="p-1 m-2 btn btn-dark btn-sm">
                         <span class="text-uppercase">{{ $state->states}}</span> <span class="badge badge-light">{{ $state->count }}</span>
                     </button>
                     @endforeach

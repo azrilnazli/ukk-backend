@@ -77,6 +77,9 @@ class HomeController extends Controller
         // comment related
         $comment['total'] = Comment::query()->count();
 
+        // approval related
+        $approval['total'] = \App\Models\CompanyApproval::query()->count();
+
         // tender related
         $tenderDetails = \App\Models\TenderDetail::all();
 
@@ -187,6 +190,7 @@ class HomeController extends Controller
         return view('home')->with(compact(
 
             'company',
+            'approval',
             'tenderDetails',
             'comment',
             'proposal',
