@@ -55,13 +55,13 @@ class HomeController extends Controller
 
 
         // Subscriber shall not access!
-        if(Auth::user()->hasRole('pembekal'))
-        {
-            // do something
-            Auth::logout();
-            Session::flush();
-            return redirect()->to('https://ukk.rtm.gov.my');
-        }
+        // if(Auth::user()->hasRole('subscriber'))
+        // {
+        //     // do something
+        //     Auth::logout();
+        //     Session::flush();
+        //     return redirect()->to('https://ukk.rtm.gov.my');
+        // }
 
         // Subscriber shall not access!
         if(Auth::user()->hasAnyRole(['jspd-penanda','jspd-urusetia']))
