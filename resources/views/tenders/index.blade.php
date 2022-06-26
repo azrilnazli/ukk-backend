@@ -53,7 +53,7 @@
                 <th>Duration</th>
                 <th>Episode</th>
                 <th>Proposal</th>
-                <th>Language</th>
+
 
                 {{-- <th width="*">Added by</th> --}}
                 @role('super-admin')
@@ -75,12 +75,7 @@
                     <td>{{$row->duration }}</td>
                     <td>{{$row->number_of_episode }}</td>
                     <td>@if($row->proposals) {{ $row->proposals->count() }} @endif</td>
-                    <td>
-                      @foreach( $row->languages as $language )
-                      <span class="badge badge-warning">{{$language->title}}</span>
-                      @endforeach
 
-                    </td>
                     @role('super-admin')
                     <td>
                       <form action="{{ route('tenders.destroy', $row->id)}}" method="post">
@@ -96,7 +91,12 @@
 
                 <tr>
                   <td colspan=10>
-                    <div class="alert alert-light" role="alert">
+                    LANGUAGES :
+                    @foreach( $row->languages as $language )
+                    <span class="badge badge-warning">{{$language->title}}</span>
+                    @endforeach
+
+                    <div class="alert border-light mt-2" style="background-color:lightyellow" role="alert">
                     {!! nl2br($row->description) !!}
                     </div>
                   </td>
