@@ -55,7 +55,8 @@
 
                 @if($row->company)
                     <br />
-                    <span class="badge badge-dark">{{ $row->company->name }} - {{ $row->company->phone }}</span>
+                    <span class="badge badge-dark">{{ $row->company->name }}</span> -
+                    <span class="badge badge-warning">{{ $row->company->phone }}</span>
                 @endif
                 <br /><small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small>
             </td>
