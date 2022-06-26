@@ -3,11 +3,10 @@
     <div class="col">
         <div class="card card-dark">
             <div class="card-header">Saringan </div>
+
             <div class="card-body">
-
+                <!-- Total -->
                 <div class="row">
-
-                    <!-- Registered -->
                     <div class="col-md-2">
                         <div class="info-box bg-secondary">
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
@@ -17,10 +16,13 @@
                                 </div>
                         </div>
                     </div>
-                    <!-- ./ Registered -->
-
+                </div>
+                <!-- ./ Total -->
+            </div>
+            <div class="card-body">
+                <div class="row">
                     <!-- Registered -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="info-box bg-secondary">
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
@@ -58,6 +60,7 @@
                     </div>
                     <!-- ./ Registered -->
 
+
                     <!-- Registered -->
                     <div class="col-md-2">
                         <div class="info-box bg-secondary">
@@ -69,7 +72,11 @@
                         </div>
                     </div>
                     <!-- ./ Registered -->
+                </div>
+            </div>
 
+            <div class="card-body">
+                <div class="row">
                     <!-- Registered -->
                     <div class="col-md-2">
                         <div class="info-box bg-secondary">
@@ -104,9 +111,8 @@
                         </div>
                     </div>
                     <!-- ./ Registered -->
-
-                </div> <!-- ./row -->
-            </div>
+                </div><!-- ./ Row -->
+            </div><!-- ./ Card-Body -->
 
         </div>
     </div>
