@@ -6,7 +6,10 @@
         @endif
     </div>
     <div class="card-body">
-
+        <dl class="row">
+            <dt class="col-sm-2">ID</dt>
+            <dd class="col-sm-6 text-uppercase"><span class="badge badge-dark">{{ $approval->id }}<span></dd>
+        </dl>
 
         <dl class="row">
             <dt class="col-sm-2">Status</dt>
