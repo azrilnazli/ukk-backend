@@ -1030,90 +1030,125 @@ class CollectionsController extends Controller
         echo $approval_status = $company_approval->first()->status; // string
     }
 
-    function migrate_company_approved(){
-        // create CompanyApproval
-        // type = sambung_siri = tender_detail_id = 2
-        // type = swasta = tender_detail_id = 2
-        $proposals = \App\Models\TenderSubmission::query()
-                    ->has('user.company')
-                    ->distinct()
-                    ->get();
-        foreach($proposals as $key => $proposal){
-            //echo $proposal->user_id;
+    // function migrate_company_approved(){
+    //     // create CompanyApproval
+    //     // type = sambung_siri = tender_detail_id = 2
+    //     // type = swasta = tender_detail_id = 2
+    //     $proposals = \App\Models\TenderSubmission::query()
+    //                 ->has('user.company')
+    //                 ->distinct()
+    //                 ->get();
+    //     foreach($proposals as $key => $proposal){
+    //         //echo $proposal->user_id;
 
-            if($proposal->user->company->is_approved){
-
-
-                // echo "company id - " . $proposal->user->company->id;
-                // echo PHP_EOL;
-                // echo "tender type - " . $proposal->tender->type;
-                // echo PHP_EOL;
-
-                if($proposal->tender->type){
-                    $company[] = array(
-                        'id' => $proposal->user->company->id,
-                        'type' => $proposal->tender->type,
-                    );
-                }
+    //         if($proposal->user->company->is_approved){
 
 
-            }
+    //             // echo "company id - " . $proposal->user->company->id;
+    //             // echo PHP_EOL;
+    //             // echo "tender type - " . $proposal->tender->type;
+    //             // echo PHP_EOL;
+
+    //             if($proposal->tender->type){
+    //                 $company[] = array(
+    //                     'id' => $proposal->user->company->id,
+    //                     'type' => $proposal->tender->type,
+    //                 );
+    //             }
 
 
-                // rejected company
-                // if(!$proposal->user->company->is_approved){
+    //         }
 
-                //     echo "proposal id  - " . $proposal->tender->id;
-                //     echo " | tender type - " . $proposal->tender->type;
-                //     echo " | category - " . $proposal->tender->programme_category;
-                //     echo " | code - " . $proposal->tender->programme_code;
-                //     //echo PHP_EOL;
-                //     echo " | company name - " . $proposal->user->company->name;
-                //     echo " | date  - " . $proposal->tender->updated_at;
-                //     echo PHP_EOL;
-                // }
-            }
-            $collection = collect($company)->unique()->each( function($val, $key) {
 
-                // create CompanyApproval instance
-                if($val['type'] == "SAMBUNG SIRI"){
-                    echo $val['id'];
-                    echo " - ";
-                    echo $val['type'];
+    //             // rejected company
+    //             // if(!$proposal->user->company->is_approved){
+
+    //             //     echo "proposal id  - " . $proposal->tender->id;
+    //             //     echo " | tender type - " . $proposal->tender->type;
+    //             //     echo " | category - " . $proposal->tender->programme_category;
+    //             //     echo " | code - " . $proposal->tender->programme_code;
+    //             //     //echo PHP_EOL;
+    //             //     echo " | company name - " . $proposal->user->company->name;
+    //             //     echo " | date  - " . $proposal->tender->updated_at;
+    //             //     echo PHP_EOL;
+    //             // }
+    //         }
+    //         $collection = collect($company)->unique()->each( function($val, $key) {
+
+    //             // create CompanyApproval instance
+    //             if($val['type'] == "SAMBUNG SIRI"){
+    //                 echo $val['id'];
+    //                 echo " - ";
+    //                 echo $val['type'];
+    //                 echo PHP_EOL;
+
+    //                 $data['tender_detail_id'] = 1;
+    //                 $data['company_id'] = $val['id'];
+    //                 $data['is_approved'] = 1;
+    //                 $data['status'] = 'approved';
+
+    //                 \App\Models\CompanyApproval::create($data);
+
+    //             }
+
+    //             if($val['type'] == "SWASTA"){
+    //                 echo $val['id'];
+    //                 echo " - ";
+    //                 echo $val['type'];
+    //                 echo PHP_EOL;
+
+    //                 $data['tender_detail_id'] = 2;
+    //                 $data['company_id'] = $val['id'];
+    //                 $data['is_approved'] = 1;
+    //                 $data['status'] = 'approved';
+
+    //                 \App\Models\CompanyApproval::create($data);
+
+    //             }
+    //         });
+
+    //         echo "total : " . $collection->count();
+
+    //     }
+
+
+        public function migrate_company_approved(){
+            echo "syarikat lulus : ";
+            $companies = \App\Models\Company::query()
+            ->where('is_approved', true)
+            ->distinct()
+            ->get();
+
+            foreach($companies as $company){
+                //$data['tender_detail_id'] = 1;
+
+                // check which tender that company applied ?
+                if($company->user->has('proposals')){
+                    foreach($company->user->proposals as $proposal){
+
+                        echo $proposal->tender->type;
+                        echo PHP_EOL;
+                        if($proposal->tender->type == "SAMBUNG SIRI"){
+                            $data['tender_detail_id'] = 1;
+                        }
+                        if($proposal->tender->type == "SWASTA"){
+                            $data['tender_detail_id'] = 2;
+                        }
+                    }
+                } else {
+                    echo 'tiada';
+                        $data['tender_detail_id'] = 0;
                     echo PHP_EOL;
-
-                    $data['tender_detail_id'] = 1;
-                    $data['company_id'] = $val['id'];
-                    $data['is_approved'] = 1;
-                    $data['status'] = 'approved';
-
-                    \App\Models\CompanyApproval::create($data);
-
                 }
 
-                if($val['type'] == "SWASTA"){
-                    echo $val['id'];
-                    echo " - ";
-                    echo $val['type'];
-                    echo PHP_EOL;
-
-                    $data['tender_detail_id'] = 2;
-                    $data['company_id'] = $val['id'];
-                    $data['is_approved'] = 1;
-                    $data['status'] = 'approved';
-
-                    \App\Models\CompanyApproval::create($data);
-
-                }
-            });
-
-            echo "total : " . $collection->count();
-
+                $data['company_id'] = $company->id;
+                $data['is_approved'] = 1;
+                $data['status'] = 'approved';
+                \App\Models\CompanyApproval::create($data);
+            }
         }
 
-
-
-        public function migrate_company_failed(){
+        public function migrate_company_rejected(){
             echo "syarikat gagal : ";
             $companies = \App\Models\Company::query()
             ->where('is_approved', false)
@@ -1121,15 +1156,13 @@ class CollectionsController extends Controller
             ->get();
 
             foreach($companies as $company){
-                $data['tender_detail_id'] = 1;
+                $data['tender_detail_id'] = 0;
                 $data['company_id'] = $company->id;
                 $data['is_approved'] = 0;
                 $data['status'] = 'rejected';
 
                 \App\Models\CompanyApproval::create($data);
             }
-
-
         }
 
         public function sambungsiri_swasta(){

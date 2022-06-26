@@ -51,7 +51,7 @@
                 <th>@sortablelink('status','Status')</th>
                 <th width="*">Approved by</th>
                 @role('super-admin')
-                <th width="12%"><span class="badge badge-dark">Actions</span></th>
+                <th width="18%"><span class="badge badge-dark">Actions</span></th>
                 @endrole
             </thead>
 
@@ -87,6 +87,9 @@
                         </a>
                         @endhasanyrole
                         @role('super-admin')
+                        <a class="btn btn-warning btn-sm" href="{{ route('company-approvals.admin_edit', $row->id) }}">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
                         <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
                         @endrole
                     </form>
