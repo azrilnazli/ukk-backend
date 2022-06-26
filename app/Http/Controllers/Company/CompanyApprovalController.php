@@ -6,6 +6,7 @@ use App\Models\CompanyApproval;
 use App\Services\CompanyApprovalService;
 use App\Http\Requests\Company\CompanyApproval\StoreRequest;
 use App\Http\Requests\Company\CompanyApproval\UpdateRequest;
+use App\Http\Requests\Company\CompanyApproval\AdminUpdateRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,10 @@ class CompanyApprovalController extends Controller
         Route::get('/company-approvals/search', [CompanyApprovalController::class, 'search'])->name('company-approvals.search');
         Route::get('/company-approvals/{companyApproval}/edit', [CompanyApprovalController::class,'edit'])->name('company-approvals.edit');
         Route::put('/company-approvals/{companyApproval}/edit', [CompanyApprovalController::class,'update'])->name('company-approvals.update');
+
+        Route::get('/company-approvals/{companyApproval}/admin_edit', [CompanyApprovalController::class,'admin_edit'])->name('company-approvals.admin_edit');
+        Route::put('/company-approvals/{companyApproval}/admin_edit', [CompanyApprovalController::class,'admin_update'])->name('company-approvals.admin_update');
+
         Route::delete('/company-approvals/{companyApproval}', [CompanyApprovalController::class, 'destroy'])->name('company-approvals.destroy');
     }
 
@@ -46,6 +51,20 @@ class CompanyApprovalController extends Controller
         return view('company_approvals.index')->with(compact('companyApprovals'));
     }
 
+    public function admin_edit(CompanyApproval $companyApproval){
+        $tenderDetails = \App\Models\TenderDetail::all();
+       // dd($companyApproval);
+        return view('company_approvals.admin_edit',compact('companyApproval','tenderDetails'));
+    }
+
+    public function admin_update(AdminUpdateRequest $request, CompanyApproval $companyApproval){
+
+
+        CompanyApproval::where('id',$companyApproval->id)->update($request->except(['_token','_method']));
+        return redirect()
+                ->route('company-approvals.admin_edit', $companyApproval->id)
+                ->with('success','Company Approval updated successfully.');
+    }
 
 
     public function edit(CompanyApproval $companyApproval)
