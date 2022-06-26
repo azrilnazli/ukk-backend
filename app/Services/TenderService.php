@@ -28,11 +28,13 @@ class TenderService {
         $tenders = Tender::query()
                     ->where('channel', 'LIKE', '%' . $q . '%')
                     ->orWhere('id', 'LIKE', '%' . $q . '%')
-                    ->orWhere('type', 'LIKE', '%' . $q . '%')
                     ->orWhere('programme_category', 'LIKE', '%' . $q . '%')
                     ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
                     ->orWhere('duration', 'LIKE', '%' . $q . '%')
+                    ->orWhereHas('tender_detail', fn($query) =>
+                            $query->where('title', 'LIKE', '%' . $q . '%')
 
+                    )
 
                     ->paginate(50);
 
