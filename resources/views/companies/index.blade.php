@@ -27,6 +27,11 @@
   </div>
 </form>
 
+    <div class="card-tools mt-3">
+      {{-- {{ $data->links() }} --}}
+      {!! $data->appends(\Request::except('page'))->render() !!}
+    </div>
+
 
 <div class="card card-dark mt-3">
 
@@ -43,6 +48,8 @@
 
                 <th width="8%">@sortablelink('id', 'ID')</th>
                 <th width="*">@sortablelink('name','Company Name')</th>
+                <th class="text-center">Request for Approval</th>
+                <th class="text-center">Total Proposals</th>
                 <th width="20%">Email</th>
 
                 <th width="12%" class="text-center">Actions</th>
@@ -58,15 +65,15 @@
                         <br />
                         <span class="small">registered : <em>{{$row->created_at->diffForHumans()}}</em></span>
                     </td>
-                    <td>{{$row->email }}</td>
+                    <td class="text-center">{{ optional($row->company_approvals)->count() }}</td>
+                    <td class="text-center">{{ $row->user ? $row->user->proposals->count() : 0 }}</td>
+                    <td class="text-center">{{$row->email }}</td>
 
                     <td class="text-center">
                       <form action="{{ route('companies.destroy', $row->id)}}" method="post">
                         @csrf @method('DELETE')
-
-
                       </a>
-                      <a class="btn btn-success btn-sm" href="{{ route('companies.edit', $row->id) }}">
+                      <a class="btn btn-success btn-sm" href="{{ route('companies.show', $row->id) }}">
                           <i class="fas fa-search"></i>
 
                       </a>
