@@ -27,6 +27,11 @@ class CompanyApprovalService {
         $q = $request->input('query');
         $tenders = CompanyApproval::query()
 
+
+                        ->orWhere('status', 'LIKE', '%' . $q . '%')
+                        // ->orWhere('id', 'LIKE', '%' . $q . '%')
+                        // ->orWhere('phone', 'LIKE', '%' . $q . '%')
+
                         ->orWhereHas('company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
