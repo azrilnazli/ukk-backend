@@ -55,7 +55,7 @@ class HomeController extends Controller
 
 
         // Subscriber shall not access!
-        if(Auth::user()->hasRole('subscriber'))
+        if(Auth::user()->hasRole('pembekal'))
         {
             // do something
             Auth::logout();
