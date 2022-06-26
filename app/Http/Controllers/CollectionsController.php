@@ -1236,8 +1236,6 @@ class CollectionsController extends Controller
                     $proposal->tender_detail_id = 2;
                     $proposal->save();
                 }
-
-
             });
         }
 
@@ -1252,6 +1250,30 @@ class CollectionsController extends Controller
                 \App\Models\TenderSubmission::destroy($value->id);
                 echo PHP_EOL;
             });
+        }
+
+        function add_tender_detail_id_to_tender(){
+            \App\Models\Tender::query()
+            ->get()
+            ->each( function($value,$key) {
+                echo "TenderID " . $value->id;
+                // get Tender Type
+                echo " with Type = " . $type = $value->type;
+                echo PHP_EOL;
+
+                if($type == "SAMBUNG SIRI"){
+                    $tender = \App\Models\Tender::find($value->id);
+                    $tender->tender_detail_id = 1;
+                    $tender->save();
+                }
+
+                if($type == "SWASTA"){
+                    $tender = \App\Models\Tender::find($value->id);
+                    $tender->tender_detail_id = 2;
+                    $tender->save();
+                }
+            });
+
         }
 
 
