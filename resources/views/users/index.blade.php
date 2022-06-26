@@ -17,7 +17,8 @@
   @csrf
   <div class="row mt-5">
     <div class="col-md-6">
-      <input required type="text" name="query" class="form-control" placeholder="Search">
+
+      <input required type="text" name="query" value="{{ old('query', !empty($_GET['query']) ? $_GET['query'] : null ) }}"    class="form-control" placeholder="Search">
     </div>
     <div class="col">
       <button type="submit" class="btn btn-primary">Submit</button>
