@@ -1199,5 +1199,60 @@ class CollectionsController extends Controller
                                 ->count();
         }
 
+        function add_company_id_to_proposal(){
+            \App\Models\TenderSubmission::query()
+            ->has('user.company')
+            ->get()
+            ->each( function($value, $key){
+
+                echo "ProposalId " . $value->id . " has CompanyId = ";
+                // company->id
+                echo $value->user->company->id;
+                echo PHP_EOL;
+                $proposal = \App\Models\TenderSubmission::find($value->id);
+                $proposal->company_id = $value->user->company->id;
+                $proposal->save();
+            });
+        }
+
+        function add_tender_detail_id_to_proposal(){
+            \App\Models\TenderSubmission::query()
+            ->has('tender')
+            ->get()
+            ->each( function($value, $key){
+
+                echo "ProposalId " . $value->id . " has TenderType = ";
+                // company->id
+                echo $type = $value->tender->type;
+                echo PHP_EOL;
+                if($type == "SAMBUNG SIRI"){
+                    $proposal = \App\Models\TenderSubmission::find($value->id);
+                    $proposal->tender_detail_id = 1;
+                    $proposal->save();
+                }
+
+                if($type == "SWASTA"){
+                    $proposal = \App\Models\TenderSubmission::find($value->id);
+                    $proposal->tender_detail_id = 2;
+                    $proposal->save();
+                }
+
+
+            });
+        }
+
+        function delete_proposal_with_no_company(){
+            \App\Models\TenderSubmission::query()
+            ->doesntHave('user.company')
+            ->get()
+            ->each( function($value, $key){
+
+                echo "ProposalId " . $value->id . " deleted";
+                // company->id
+                \App\Models\TenderSubmission::destroy($value->id);
+                echo PHP_EOL;
+            });
+        }
+
 
 }// class
