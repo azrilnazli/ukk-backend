@@ -77,15 +77,14 @@ class HomeController extends Controller
         // comment related
         $comment['total'] = Comment::query()->count();
 
+        // tender related
+        $tenderDetails = \App\Models\TenderDetail::all();
+
 
         // video related
         $video['total'] = Video::query()->count();
         $video['success'] = Video::query()->where('duration','!=', 0)->count();
         $video['failed'] = Video::query()->where('duration','=', 0)->count();
-
-
-
-
 
 
         // state related
@@ -101,10 +100,6 @@ class HomeController extends Controller
                         return $val;
                     });
        // dd($states);
-
-        $state['selangor'] = Company::query()
-        ->where('states', 'LIKE', '%selangor%')
-        ->count();
 
 
         //dd($total);
@@ -136,16 +131,68 @@ class HomeController extends Controller
 
        //dd($video);
 
+       // proposal related
+       $proposal['total'] = TenderSubmission::query()
+       // ->whereHas('user.company', fn($query) =>
+       //         $query->where('is_approved', true)
+       //     )
+       ->has('user.approved_company')
+       ->count();
+
+        $proposal['assigned'] = TenderSubmission::query()
+        ->has('user.approved_company')
+        ->where('added_by','!=',0)
+        ->count();
+
+        $proposal['signed'] = TenderSubmission::query()
+        ->has('scorings','=', 3)
+        ->count();
+
+        $proposal['verified'] = TenderSubmission::query()
+        ->has('verifications','=', 2)
+        ->count();
+
+        $proposal['approved'] = TenderSubmission::query()
+        ->has('approval','=', 1)
+        ->count();
+
+        $proposal['signers'] = TenderSubmission::query()
+        ->has('signers','=', 3)
+        ->has('urusetias','=', 2)
+        ->count();
+
+        $proposal['success'] = TenderSubmission::query()
+        ->has('scorings','=', 3)
+        ->has('verifications','=', 2)
+        ->has('approved','=', 2)
+        ->count();
+
+        $proposal['failed'] = TenderSubmission::query()
+        ->has('scorings','=', 3)
+        ->has('verifications','=', 2)
+        ->has('failed','=', 2)
+        ->count();
+
+        $proposal['pending'] = TenderSubmission::query()
+        ->has('scorings','!=', 3)
+        ->has('verifications','!=', 2)
+        ->count();
+
+        $roles = \Spatie\Permission\Models\Role::query()
+                ->withCount('users')
+                ->whereNotIn('name', ['user'])
+                ->get();
 
 
         return view('home')->with(compact(
 
             'company',
-
+            'tenderDetails',
             'comment',
-
+            'proposal',
             'video',
             'states',
+            'roles',
 
         ));
     }
