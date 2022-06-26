@@ -16,6 +16,7 @@ class CompanyApprovalService {
     public function paginate($items = 50){
         return CompanyApproval::query()
             ->sortable()
+            ->orderBy('tender_detail_id','desc')
             ->orderBy('id','desc')
             ->paginate($items)
             ->setPath(route('company-approvals.index'));
