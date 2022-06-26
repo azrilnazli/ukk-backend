@@ -70,9 +70,9 @@ class HomeController extends Controller
         }
 
         $company['total'] = Company::query()->count();
-        $user['total'] = User::query()->count();
-        $user['admin'] = User::role('admin')->count(); ;
-        $user['vendor'] = User::role('subscriber')->count(); ;
+        // $user['total'] = User::query()->count();
+        // $user['admin'] = User::role('admin')->count(); ;
+        // $user['vendor'] = User::role('subscriber')->count(); ;
 
         // comment related
         $comment['total'] = Comment::query()->count();
