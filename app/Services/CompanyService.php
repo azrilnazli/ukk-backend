@@ -15,6 +15,7 @@ class CompanyService {
     public function paginate($items = 50){
         return Company::query()
             ->sortable()
+            ->with('company_approvals','user.proposals')
             ->whereNotNull('name')
             ->orderBy('id','desc')
             ->paginate($items)
@@ -33,10 +34,11 @@ class CompanyService {
     public function search($request)
     {
         $query = $request->input('query');
-        return Company::where([['title', 'like', "{$query}%"]])
+        return Company::query()
+                        ->where('name', 'like', "{$query}%")
+                        ->orWhere('id', "{$query}%")
                         ->paginate(10)
                         ->setPath(route('companies.search'));
-
     }
 
     public function create($request){
@@ -68,7 +70,7 @@ class CompanyService {
         }
     }
 
-    public function get_messages($id){
+    public function get_comments($id){
 
         return Comment::query()
                 ->where('company_id', $id)

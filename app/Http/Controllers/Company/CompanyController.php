@@ -10,6 +10,7 @@ use App\Http\Requests\Company\StoreRequest;
 use App\Http\Requests\Company\UpdateRequest;
 use App\Http\Controllers\Controller;
 use Route;
+use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
@@ -29,11 +30,6 @@ class CompanyController extends Controller
     {
         Route::get('/companies/search', [CompanyController::class, 'search'])->name('companies.search');
         Route::get('/companies/requested', [CompanyController::class, 'requested'])->name('companies.requested');
-        Route::get('/companies/is_approved', [CompanyController::class, 'is_approved'])->name('companies.is_approved');
-        Route::get('/companies/is_pending', [CompanyController::class, 'is_pending'])->name('companies.is_pending');
-        Route::get('/companies/is_rejected', [CompanyController::class, 'is_rejected'])->name('companies.is_rejected');
-        Route::get('/companies/is_new', [CompanyController::class, 'is_new'])->name('companies.is_new');
-        Route::get('/companies/is_resubmit', [CompanyController::class, 'is_resubmit'])->name('companies.is_resubmit');
         Route::resource('companies', CompanyController::class);
     }
 
@@ -67,67 +63,6 @@ class CompanyController extends Controller
         return view('companies.index')->with(compact('data'));
     }
 
-    public function is_new()
-    {
-        $companies = Company::query()
-                        ->sortable()
-                        ->orderBy('created_at','desc')
-                        ->where('is_completed', false )
-                        ->where('is_approved', false )
-                        ->where('is_rejected', false )
-                        ->get();
-        return view('companies.all')->withCompanies($companies);
-    }
-
-    public function is_resubmit()
-    {
-        $companies = Company::query()
-                        ->sortable()
-                        ->orderBy('updated_at','desc')
-                        ->where('is_completed', true)
-                        ->where('is_rejected', true)
-                        ->get();
-        return view('companies.all')->withCompanies($companies);
-    }
-
-    public function is_pending()
-    {
-        $companies = Company::query()
-                        ->sortable()
-                        ->orderBy('updated_at','desc')
-                        ->where('is_completed', true )
-                        ->where('is_approved', false )
-                        ->where('is_rejected', false )
-                        ->get();
-        return view('companies.all')->withCompanies($companies);
-    }
-
-    public function is_approved()
-    {
-        $companies = Company::query()
-                        ->sortable()
-                        ->orderBy('updated_at','desc')
-                        ->where('is_approved', true)
-                        ->get();
-        return view('companies.all')->withCompanies($companies);
-    }
-
-    public function is_rejected()
-    {
-        $companies = Company::query()
-                        ->sortable()
-                        ->orderBy('updated_at','desc')
-                        ->where('is_completed', false )
-                        ->where('is_rejected', true)
-                        ->get();
-        return view('companies.all')->withCompanies($companies);
-    }
-
-    public function requested()
-    {
-        $data = $this->company->requested();
-        return view('companies.index')->with(compact('data'));
-    }
 
 
     public function create()
@@ -135,9 +70,27 @@ class CompanyController extends Controller
         return view('companies.create');
     }
 
-    public function show()
+
+    public function show(Company $company)
     {
-        return view('companies.create');
+        $documents = [
+            'ssm',
+            'mof',
+            'finas_fp',
+            'finas_fd',
+            'kkmm_swasta',
+            'kkmm_syndicated',
+            'bank',
+            'audit',
+            'credit',
+            'bumiputera',
+            'authorization_letter',
+            'official_company_letter'
+        ];
+
+        // previous comments
+        $comments = $this->company->get_comments($company->id);
+        return view('companies.show',compact(['company','documents','comments']));
     }
 
     public function store(StoreRequest $request)
