@@ -1,6 +1,4 @@
 @foreach($company->user->proposals as $proposal)
-
-
 <div class="card card-secondary">
     <div class="card-header">
         <strong><span class="badge badge-dark">{{ $proposal->id }}</span>

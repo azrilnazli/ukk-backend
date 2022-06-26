@@ -41,8 +41,7 @@
           <tr>
             <th width="2%">ID</th>
             <th width="40%">E-Mail</th>
-            <th class="text-center" width="10%">Comments</th>
-            <th class="text-center" width="10%">Proposal</th>
+
             <th width="8%">Role</th>
             <th width="12%"></th>
           </tr>
@@ -56,40 +55,14 @@
 
                 @if($row->company)
                     <br />
-                    {{ $row->company->name }} - {{ $row->company->phone }}
+                    <span class="badge badge-dark">{{ $row->company->name }} - {{ $row->company->phone }}</span>
                 @endif
-                <br /><small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small></td>
-                <td class="text-center">
-                    @php $comments = 0 @endphp
-                    @if($row->company)
-                        @if($row->company->comments)
-                            @php $comments = count($row->company->comments)  @endphp
-                        @endif
-                    @endif
-                    {{ $comments }}
-                </td>
-                <td class="text-center">
-                    @if($row->proposals)
-                        {{count($row->proposals) }}
-                    @endif
-                </td>
+                <br /><small> registered on  {{ $row->created_at }} around {{ $row->created_at->diffForHumans()  }}</small>
+            </td>
+
                 <td>
             @if(!empty($row->getRoleNames()))
               @foreach($row->getRoleNames() as $v)
-               {{-- @switch($v)
-                  @case('super-admin')
-                  <span class="badge badge-danger  text-uppercase ">{{ $v }}</span>
-                  @break
-                  @case('admin')
-                  <span class="badge badge-warning  text-uppercase">{{ $v }}</span>
-                  @break
-                  @case('user')
-                  <span class="badge badge-primary  text-uppercase">{{ $v }}</span>
-                  @break
-                  @case('subscriber')
-                  <span class="badge badge-success  text-uppercase">vendor</span>
-                  @break
-                @endswitch --}}
                 <span class="badge badge-dark text-uppercase ">{{ $v }}</span>
               @endforeach
             @endif
