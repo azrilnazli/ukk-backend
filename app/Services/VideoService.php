@@ -38,7 +38,7 @@ class VideoService {
             ->orderBy('updated_at','desc')
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath('videos');
+            ->setPath(route('videos.index'));
     }
 
     public function failed($item = null)

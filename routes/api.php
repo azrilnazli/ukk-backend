@@ -51,6 +51,9 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     // CompanyApproval
     \App\Http\Controllers\Api\CompanyApprovalController::routes();
 
+    // CompanyProposal
+    \App\Http\Controllers\Api\CompanyProposalController::routes();
+
     // Tender
     \App\Http\Controllers\Api\TenderController::routes();
 
@@ -135,13 +138,7 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
     Route::get('/company/check_approval_status', [CompanyController::class, 'check_approval_status']);
     Route::post('/company/request_for_approval', [CompanyController::class, 'request_for_approval']);
 
-    // company proposals
-    Route::post('/proposal/upload_video', [CompanyProposalController::class, 'upload_video']);
-    Route::get('/proposal/{proposal_id}/get_video', [CompanyProposalController::class, 'get_video']);
-    Route::post('/proposal/upload_pdf', [CompanyProposalController::class, 'upload_pdf']);
-    Route::get('/proposal/{proposal_id}/get_pdf', [CompanyProposalController::class, 'get_pdf']);
-    Route::get('/proposal/my_proposal', [CompanyProposalController::class, 'my_proposal']);
-    Route::post('/proposal/destroy', [CompanyProposalController::class, 'destroy']);
+
 
     // video
     Route::get('/video/encoding_status', [VideoController::class, 'encoding_status'])->name('videos.encoding_status'); // API
@@ -159,7 +156,6 @@ Route::get('/movie/{id}/play', [MovieController::class, 'show']); //test
 
 // route for HLS playlist request
 Route::get('/movie/{video}/{playlist}/{token}', function (  $video, $playlist, $token ) {
-
 
     return FFMpeg::dynamicHLSPlaylist()
         // http://admin.test/storage/streaming/15/m3u8/playlist.m3u8 --> master playlist

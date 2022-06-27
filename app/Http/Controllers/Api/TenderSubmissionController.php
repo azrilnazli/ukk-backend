@@ -46,35 +46,48 @@ class TenderSubmissionController extends Controller
         $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
 
         // Create new
-        $proposal = TenderSubmission::create($request->except(['_token','_method']));
-        $proposal->company_id = $company->id;
-        $proposal->save();
+        $tenderSubmission = TenderSubmission::create($request->except(['_token','_method']));
+        $tenderSubmission->company_id = $company->id;
+
+        if( $tenderSubmission->save() ){
+
+            // JSON response
+            return response([
+                'status' => true,
+                'message' => 'Your application was successful.',
+                'tender_submission_id' => $tenderSubmission->id
+            ],200);
+
+        }
+
+        // JSON response
+        return response([
+            'status' => false,
+            'message' => 'Server error.'
+        ],423);
+
 
         // // create video instance
-        // $video = Video::firstOrNew([
+        // $video = \App\Models\Video::firstOrNew([
         //     'user_id' => auth()->user()->id ,
-        //     'tender_id' =>  $request->tender_id,
-        //     'tender_submission_id' => $proposal->id
+        //     'company_id' =>  $company->id,
+        //     'tender_submission_id' => $tenderSubmission->id
         // ]);
 
         // $video->user_id = auth()->user()->id;
-        // $video->tender_submission_id =  $proposal->id;
+        // $video->tender_submission_id =  $tenderSubmission->id;
         // $video->tender_id =  $request->tender_id;
         // $video->save();
 
         // // create video placeholder
-        // $this->video = new VideoService;
+        // $this->video = new \App\Services\VideoService;
         // $this->video->createProgressFile($video->id);
         // $this->video->createDirectory($video->id);
 
         // //save video->id to Proposal
-        // $proposal->video_id =  $video->id;
-        // $proposal->save();
+        // $tenderSubmission->video_id =  $video->id;
+        // $tenderSubmission->save();
 
-        // JSON response
-        return response([
-            'id' => $proposal->id,
-            'video_id' => $video->id,
-        ]);
+
     }
 }

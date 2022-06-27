@@ -55,3 +55,5 @@ Auth::routes();
 
 // Video
 \App\Http\Controllers\Video\VideoController::routes();
+
+
