@@ -81,7 +81,7 @@ class CompanyApprovalController extends Controller
                     ->where('tender_detail_id',$tenderDetail->id)
                     ->first();
 
-        if($result->status){
+        if(!empty($result->status)){
             // JSON response 200
             return response([
                 'status' =>  $result->status  ,
