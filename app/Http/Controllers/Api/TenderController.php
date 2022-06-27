@@ -22,10 +22,22 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Route;
+
 class TenderController extends Controller
 {
 
     function __construct(){ }
+
+    static function routes(){
+        Route::get('/tenders/sambung_siri', [TenderController::class, 'sambung_siri']);
+        Route::get('/tenders/swasta', [TenderController::class, 'swasta']);
+        //Route::get('/tenders/{type}/get_tenders', [TenderController::class, 'get_tenders']);
+        Route::get('/tenders/{tenderDetail}/get_tenders', [TenderController::class, 'getTenders']);
+        Route::get('/tender/{id}', [TenderController::class, 'show']);
+        Route::get('/proposal/show/{tender_id}', [TenderController::class, 'show_proposal']);
+        Route::post('/tender/update_proposal', [TenderController::class, 'update_proposal']);
+    }
 
     function show_proposal($tender_id){
         $proposal = TenderSubmission::query()
@@ -49,6 +61,8 @@ class TenderController extends Controller
         }
         return response($message);
     }
+
+
 
     function update_proposal(StoreTenderSubmissionRequest $request){
 
@@ -98,6 +112,21 @@ class TenderController extends Controller
         ]);
     }
 
+    function getTenders(\App\Models\TenderDetail $tenderDetail){
+
+        // check is Company Approved for TenderDetail
+
+        // return tenders
+        $tenders = \App\Models\Tender::query()
+                        ->with(['languages','tender_detail'])
+                        ->where('tender_detail_id' , $tenderDetail->id)
+                        ->get();
+
+        return response([
+            'status' => true, // return as boolean
+            'tenders' => $tenders,
+        ]);
+    }
 
     function get_tenders($type){
         $company = Company::query()
@@ -151,7 +180,6 @@ class TenderController extends Controller
 
 
     }
-
 
     function show($id){
         $tender = Tender::query()

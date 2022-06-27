@@ -42,19 +42,17 @@ Route::group(['middleware' => ['auth:sanctum','throttle:none'] ], function () {
         return auth()->user();
     });
 
+    // TenderSubmission
+    \App\Http\Controllers\Api\TenderSubmissionController::routes();
+
     // TenderDetail
     \App\Http\Controllers\Api\TenderDetailController::routes();
 
     // CompanyApproval
     \App\Http\Controllers\Api\CompanyApprovalController::routes();
 
-    // tenders
-    Route::get('/tenders/sambung_siri', [TenderController::class, 'sambung_siri']);
-    Route::get('/tenders/swasta', [TenderController::class, 'swasta']);
-    Route::get('/tenders/{type}/get_tenders', [TenderController::class, 'get_tenders']);
-    Route::get('/tender/{id}', [TenderController::class, 'show']);
-    Route::get('/proposal/show/{tender_id}', [TenderController::class, 'show_proposal']);
-    Route::post('/tender/update_proposal', [TenderController::class, 'update_proposal']);
+    // Tender
+    \App\Http\Controllers\Api\TenderController::routes();
 
     // movies
     Route::get('/movies', [MovieController::class, 'index']);
