@@ -36,8 +36,7 @@
         <a class="btn-sm btn-primary " href="{{ route('tenders.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
       </div>
 
-    </div>
-    <!-- /.card-header -->
+    </div><!-- /.card-header -->
 
 
     <div class="card-body p-0">
@@ -63,7 +62,6 @@
 
             <tbody>
                 @foreach($tenders as $row)
-
                 <tr>
                     <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
                     <td>{{$row->channel }}</td>
@@ -88,7 +86,6 @@
                     </td>
                     @endrole
                 </tr>
-
                 <tr>
                   <td colspan=10>
                     LANGUAGES :
@@ -101,23 +98,18 @@
                     </div>
                   </td>
               </tr>
-
-                @endforeach
+              @endforeach
             </tbody>
-
         </table>
-
     </div>
+  </div><!-- /.card-body -->
 
-    </div><!-- /.card-body -->
-
-    <div class="card-footer clearfix">
-      <div class="card-tools">
-        {{ $tenders->links() }}
-      </div>
+  <div class="card-footer clearfix">
+    <div class="card-tools">
+      {{ $tenders->links() }}
     </div>
-
-
   </div>
-  <!-- /.card -->
+
+</div>
+<!-- /.card -->
 @stop
