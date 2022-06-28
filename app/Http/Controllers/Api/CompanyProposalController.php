@@ -113,23 +113,23 @@ class CompanyProposalController extends Controller
 
              // list all proposals by user
              $proposals = TenderSubmission::query()
-                        ->with('tender')
+                        ->with('tender.tender_detail','video')
                         ->where('company_id' , $company->id)
                         ->get();
 
             // count total number for sambung siri
-            $total['sambung_siri'] = $proposals->where('tender.type','SAMBUNG SIRI')->count();
-            $total['swasta'] = $proposals->where('tender.type','SWASTA')->count();
+            //$total['sambung_siri'] = $proposals->where('tender.type','SAMBUNG SIRI')->count();
+            //$total['swasta'] = $proposals->where('tender.type','SWASTA')->count();
 
             if (!$proposals->isEmpty()) {
                 return response([
-                    'uploaded' => true,
+                    'status' => true,
                     'proposals' => $proposals,
-                    'total' => $total
+                    //'total' => $total
                 ]);
             } else {
                 return response([
-                    'uploaded' => false,
+                    'status' => false,
                 ]);
             }
 

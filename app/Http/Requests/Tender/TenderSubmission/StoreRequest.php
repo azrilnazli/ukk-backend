@@ -27,10 +27,21 @@ class StoreRequest extends FormRequest
         return [
 
             // company profile
-            'theme' => ['required', 'string', 'max:255'],
-            'genre' => ['required', 'string', 'max:255'],
-            'concept' => ['required', 'string', new MaxWordsRule(1000)],
+            // 'theme' => ['required', 'string', 'max:255'],
+            // 'genre' => ['required', 'string', 'max:255'],
+            // 'concept' => ['required', 'string', new MaxWordsRule(1000)],
+
             'synopsis' => ['required', 'string', new MaxWordsRule(1000)],
+            'published_year' => ['required','integer'],
+            'casts' => ['required','string', 'max:255'],
+            'languages' => ['required','string', 'max:255'],
+            'total_episode' => ['required','string', 'max:255'],
+            'duration' => ['required','string', 'max:255'],
+            'country' => ['required','string', 'max:255'],
+            'price_episode' => ['required','string', 'max:255'],
+            'price_overall' => ['required','string', 'max:255'],
+            'rules' => ['required','string', 'max:255'],
+            'informations' => ['required','string', 'max:255'],
 
             "selectedFile" => "sometimes|mimes:pdf|max:1000000",
         ];
