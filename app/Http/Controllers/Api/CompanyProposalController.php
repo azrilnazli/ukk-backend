@@ -109,7 +109,7 @@ class CompanyProposalController extends Controller
 
         //Log::info($company->is_approved);
         //if($company->is_approved == 1 ){
-        if( $company->id ){
+        if( $company ){
 
              // list all proposals by user
              $proposals = TenderSubmission::query()
