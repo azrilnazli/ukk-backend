@@ -123,13 +123,13 @@ class CompanyProposalController extends Controller
 
             if (!$proposals->isEmpty()) {
                 return response([
-                    'status' => true,
+                    'uploaded' => true,
                     'proposals' => $proposals,
                     //'total' => $total
                 ]);
             } else {
                 return response([
-                    'status' => false,
+                    'uploaded' => false,
                 ]);
             }
 
