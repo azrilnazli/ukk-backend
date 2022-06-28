@@ -49,6 +49,9 @@ class TenderSubmissionController extends Controller
         $tenderSubmission = TenderSubmission::create($request->except(['_token','_method']));
         $tenderSubmission->company_id = $company->id;
 
+        $proposal = TenderSubmission::with('tender.tender_detail')->find($tenderSubmission->id);
+        $tenderSubmission->tender_detail_id = $proposal->tender->tender_detail->id;
+
         if( $tenderSubmission->save() ){
 
             // JSON response

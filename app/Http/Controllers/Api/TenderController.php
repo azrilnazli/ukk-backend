@@ -148,14 +148,28 @@ class TenderController extends Controller
 
         // check if Company TenderSubmission count exceed quota
         $max = $tenderDetail->max;
-        $applied = \App\Models\Company::query()
-                    ->whereHas('tender_submissions', function($query) use ($tenderDetail) {
-                        $query->where('tender_detail_id', $tenderDetail->id);
-                    })
-                    ->count();
+        // $applied = \App\Models\Company::query()
+        //             ->where('user_id' , auth()->user()->id)
+        //             ->whereHas('tender_submissions', function($query) use ($tenderDetail) {
+        //                 $query->where('tender_detail_id', $tenderDetail->id);
+        //             })
+        //             ->get()
+        //             ->count();
+
+         $applied = \App\Models\Company::query()
+                    ->select('id')
+                    ->where('user_id' , auth()->user()->id)
+                    ->has('tender_submissions')
+                    ->withCount([
+                        'tender_submissions' => function ($q) use ($tenderDetail) {
+                                                    $q->where('tender_detail_id', $tenderDetail->id);
+                                                }
+                    ])
+                    ->first();
 
         // calculate if equal or more
-        if($applied >= $max){
+        if($applied->tender_submissions_count >= $max){
+        //    if(true){
             return response(
                 [
                     'status' => false,
