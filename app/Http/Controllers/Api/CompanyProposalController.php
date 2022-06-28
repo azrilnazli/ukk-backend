@@ -103,13 +103,13 @@ class CompanyProposalController extends Controller
     public function my_proposal(){
         // check if user's company is_approved = trye
         $company = Company::query()
-        ->where('user_id' , auth()->user()->id)
-        ->first();
+                    ->where('user_id' , auth()->user()->id)
+                    ->first();
+
 
         //Log::info($company->is_approved);
         //if($company->is_approved == 1 ){
-        if( true ){
-
+        if( $company->id ){
 
              // list all proposals by user
              $proposals = TenderSubmission::query()
@@ -136,8 +136,8 @@ class CompanyProposalController extends Controller
         } else {
             return response(
                 [
-                    'title' => 'Status Error',
-                    'message' => 'Restricted area!. You are not eligible to participate.'
+                    'title' => 'Error',
+                    'message' => 'Please complete your Company Profile in My Account.'
                 ]
                 ,422);
         }
