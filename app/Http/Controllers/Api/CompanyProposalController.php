@@ -115,7 +115,6 @@ class CompanyProposalController extends Controller
              $proposals = TenderSubmission::query()
                         ->with('tender.tender_detail','video')
                         ->where('company_id' , $company->id)
-                        ->whereHas
                         ->get();
 
 
@@ -236,7 +235,7 @@ class CompanyProposalController extends Controller
                     'is_processing' => $proposal->video->is_processing,
                     'video_id' => $proposal->video_id,
                 ];
-            }
+
 
         } else {
 
