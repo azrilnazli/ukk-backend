@@ -26,32 +26,33 @@ return [
         $this->encode('720p',2500,1280,720);
         $this->encode('1080p',3500,1920,1080);
     */
-    'max' => '1080p',
+
+    'max' => '360p',
     'profiles' => [
-        '240p' => [
-            'bitrate' => 400,
-            'width'   => 426,
-            'height'  => 240
-            ],
+        // '240p' => [
+        //     'bitrate' => 400,
+        //     'width'   => 426,
+        //     'height'  => 240
+        //     ],
         '360p' => [
             'bitrate' => 700,
             'width'   => 640,
             'height'  => 360
             ],
-        '480p' => [
-            'bitrate' => 1100,
-            'width'   => 854,
-            'height'  => 480
-            ],
-        '720p' => [
-            'bitrate' => 2500,
-            'width'   => 1280,
-            'height'  => 720
-            ],                                    
-        '1080p' => [
-            'bitrate' => 4000,
-            'width'   => 1920,
-            'height'  => 1080
-            ],                        
+        // '480p' => [
+        //     'bitrate' => 1100,
+        //     'width'   => 854,
+        //     'height'  => 480
+        //     ],
+        // '720p' => [
+        //     'bitrate' => 2500,
+        //     'width'   => 1280,
+        //     'height'  => 720
+        //     ],
+        // '1080p' => [
+        //     'bitrate' => 4000,
+        //     'width'   => 1920,
+        //     'height'  => 1080
+        //     ],
     ]
 ];
