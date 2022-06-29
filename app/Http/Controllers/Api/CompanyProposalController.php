@@ -235,7 +235,7 @@ class CompanyProposalController extends Controller
                     'is_processing' => $proposal->video->is_processing,
                     'video_id' => $proposal->video_id,
                 ];
-
+            }
         } else {
 
             $message = [
