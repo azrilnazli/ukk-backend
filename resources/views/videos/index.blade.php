@@ -70,7 +70,7 @@
                 </ul>
               </td>
               <td>
-                <span>{{ $row->user->company->name }}</span>
+                <span>{{ optional($row->user->company)->name }}</span>
 
               </td>
 
