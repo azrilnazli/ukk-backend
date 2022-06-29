@@ -217,6 +217,7 @@ class CompanyProposalController extends Controller
 
         $proposal = TenderSubmission::query()
                     ->with('video')
+                    ->has('video')
                     ->where(['id' =>  $proposal_id ])
                     ->first();
         // check if video was uploaded
