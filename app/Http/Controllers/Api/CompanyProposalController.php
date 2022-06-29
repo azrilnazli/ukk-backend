@@ -113,17 +113,15 @@ class CompanyProposalController extends Controller
 
              // list
              $proposals = TenderSubmission::query()
-                        ->with('tender.tender_detail','video')
-                        ->where('company_id' , $company->id)
-                        ->get();
-
-
+                            ->with('tender.tender_detail','video')
+                            ->where('company_id' , $company->id)
+                            ->orderBy('id','DESC')
+                            ->get();
 
             if (!$proposals->isEmpty()) {
                 return response([
                     'uploaded' => true,
                     'proposals' => $proposals,
-                    //'total' => $total
                 ]);
             } else {
                 return response([
