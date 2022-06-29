@@ -111,15 +111,14 @@ class CompanyProposalController extends Controller
         //if($company->is_approved == 1 ){
         if( $company ){
 
-             // list all proposals by user
+             // list
              $proposals = TenderSubmission::query()
                         ->with('tender.tender_detail','video')
                         ->where('company_id' , $company->id)
+                        ->whereHas
                         ->get();
 
-            // count total number for sambung siri
-            //$total['sambung_siri'] = $proposals->where('tender.type','SAMBUNG SIRI')->count();
-            //$total['swasta'] = $proposals->where('tender.type','SWASTA')->count();
+
 
             if (!$proposals->isEmpty()) {
                 return response([
@@ -229,13 +228,15 @@ class CompanyProposalController extends Controller
         //Log::info($proposal);
 
         // by default video_is is null
-        if( $proposal->video->is_ready || $proposal->video->is_processing ){
-            $message = [
-                'exists' => true,
-                'is_ready' => $proposal->video->is_ready,
-                'is_processing' => $proposal->video->is_processing,
-                'video_id' => $proposal->video_id,
-            ];
+        if($proposal){
+            if( $proposal->video->is_ready || $proposal->video->is_processing ){
+                $message = [
+                    'exists' => true,
+                    'is_ready' => $proposal->video->is_ready,
+                    'is_processing' => $proposal->video->is_processing,
+                    'video_id' => $proposal->video_id,
+                ];
+            }
 
         } else {
 

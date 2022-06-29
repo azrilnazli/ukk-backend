@@ -167,16 +167,18 @@ class TenderController extends Controller
                     ])
                     ->first();
 
-        // calculate if equal or more
-        if($applied->tender_submissions_count >= $max){
-        //    if(true){
-            return response(
-                [
-                    'status' => false,
-                    'title' => 'TENDER QUOTA ERROR',
-                    'message' => 'Your have exceeded the tender quota.'
-                ]
-                ,422);
+        if($applied){
+            // calculate if equal or more
+            if($applied->tender_submissions_count >= $max){
+            //    if(true){
+                return response(
+                    [
+                        'status' => false,
+                        'title' => 'TENDER QUOTA ERROR',
+                        'message' => 'Your have exceeded the tender quota.'
+                    ]
+                    ,422);
+            }
         }
 
         // all checks passed, now return the tenders
