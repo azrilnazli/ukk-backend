@@ -236,7 +236,6 @@ class CompanyProposalController extends Controller
                     'video_id' => $proposal->video_id,
                 ];
 
-
         } else {
 
             $message = [
