@@ -231,8 +231,8 @@ class CompanyProposalController extends Controller
            // if( $proposal->video->is_ready || $proposal->video->is_processing ){
                 $message = [
                     'exists' => true,
-                    'is_ready' => $proposal->video->is_ready,
-                    'is_processing' => $proposal->video->is_processing,
+                    'is_ready' => $proposal->video->is_ready ? true : false,
+                    'is_processing' => $proposal->video->is_processing ? true : false,
                     'video_id' => $proposal->video_id,
                 ];
            // }
