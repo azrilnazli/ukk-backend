@@ -14,9 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'UKK TVCMS'),
-    'frontend_url' => 'https://ukk.rtm.gov.my',
-
-
+    'frontend_url' => env('FRONTEND_URL','http://localhost:3000'),
 
     /*
     |--------------------------------------------------------------------------

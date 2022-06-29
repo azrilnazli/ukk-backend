@@ -36,16 +36,16 @@
             <tr>
               <th width="2%">ID</th>
               <th width="5%">Snapshot</th>
-              <th width="30%">Company</th>
-              <th width="30%">Details</th>
+              <th width="18%">Company</th>
+              <th width="*">Tender</th>
 
-              <th width="35%"></th>
+              <th width="15%" class="text-center">Actions</th>
             </tr>
           </thead>
 
 
           @foreach($data as $row)
-          @if (  isset($row->user->company) &&  $row->user->company->is_approved == TRUE )
+
           <tbody>
             <tr>
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
@@ -56,7 +56,7 @@
                         class=""
 
                         @if($row->processing == 0)
-                          style="height:150px"
+                          style="height:75px"
                           src="{{ Storage::disk('streaming')->url( $row->id . '/thumbnails/poster.jpg')}}?{{rand()}}"
                         @else
                           style="width:100px"
@@ -70,30 +70,17 @@
                 </ul>
               </td>
               <td>
-                ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
-                Status: {!! $row->user->company->is_approved ? '<span class="badge badge-success">Approved</span>' : '<span class="badge badge-danger">Rejected</span>' !!}</span><br />
-                Company: <strong>{{ $row->user->company->name }}</strong> <br />
-                Email: <strong>{{ $row->user->company->email }}</strong> <br />
-                Phone: <strong>{{ $row->user->company->phone }}</strong> <br />
+                <span>{{ $row->user->company->name }}</span>
+
               </td>
 
               <td>
-                <span class="lead">{{ $row->tender->channel }} : {{ $row->tender->programme_category }} ( {{ $row->tender->programme_code }} )</span>
-                <br />
-                <small>
+                <span>{{ $row->tender->channel }} : {{ $row->tender->programme_category }} ( {{ $row->tender->programme_code }} )</span>
 
-                    Duration: <strong>{{ $row->tender->number_of_episode }} X {{ $row->tender->duration }}'</strong> <br />
-
-                    Updated:  <strong>{{ $row->created_at  }}</strong> <i>{{ $row->updated_at->diffForHumans() }}</i> <br />
-
-                    Length:  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->duration)->cascade()->forHumans() }}</strong> @endif<br />
-                    Proccesed in :  @if($row->processing == 1) <span style="color:red">still processing</span> @else <strong>{{ \Carbon\CarbonInterval::seconds($row->processing_duration)->cascade()->forHumans() }}</strong> @endif<br />
-
-                </small>
               </td>
 
 
-              <td class="float-right">
+              <td class="text-center">
 
                 <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
@@ -113,7 +100,7 @@
               </td>
             </tr>
           </tbody>
-          @endif
+
           @endforeach
 
 

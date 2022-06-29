@@ -1276,5 +1276,19 @@ class CollectionsController extends Controller
 
         }
 
+        function count_proposal(){
+            // $proposal = TenderSubmission::with('tender.tender_detail')->find(2);
+            // dd($proposal->tender->tender_detail->id);
+            $applied = \App\Models\Company::query()
+            ->select('id')
+            ->where('user_id' , 4)
+            ->has('tender_submissions')
+            ->withCount([ 'tender_submissions' => function ($q) {
+                    $q->where('tender_detail_id', 3);
+                }])
+            ->first();
+           dd($applied);
+        }
+
 
 }// class

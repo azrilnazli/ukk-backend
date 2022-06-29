@@ -13,7 +13,7 @@ class TenderService {
 
     public function paginate($items = 50){
         return Tender::query()
-                    ->with('tender_detail')
+                    //->with('tender_detail')
                     ->orderBy('id','desc')
                     ->paginate($items)
                     ->setPath(route('tenders.index'));

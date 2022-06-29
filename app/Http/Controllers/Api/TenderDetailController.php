@@ -28,6 +28,7 @@ class TenderDetailController extends Controller
     function index()
     {
         $tenders = TenderDetail::query()
+                    ->withCount('tenders')
                     ->with('tender_requirements')
                     ->where('is_active', true )
                     ->orderBy('id','DESC')

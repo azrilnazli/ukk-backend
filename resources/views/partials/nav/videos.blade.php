@@ -9,16 +9,11 @@
     <ul class="ml-1 nav nav-treeview">
       <li class="nav-item">
         <a href="/videos" class="nav-link  {{ active('videos.index') }}">
-            <small><i class="nav-icon fas fa-check"></i>
-          <p>Success</p></small>
+            <small><i class="nav-icon fas fa-list-alt"></i>
+          <p>Videos</p></small>
         </a>
       </li>
-      <li class="nav-item">
-        <a href="/videos/failed" class="nav-link  {{ active('videos.failed') }}">
-            <small><i class="fas fa-times nav-icon"></i>
-          <p>Failed</p></small>
-        </a>
-      </li>
+
       <li class="nav-item">
           <a href="/videos/encoding_status" class="nav-link  {{ active('videos.encoding_status') }}">
             <small><i class="fas fa-upload nav-icon"></i>

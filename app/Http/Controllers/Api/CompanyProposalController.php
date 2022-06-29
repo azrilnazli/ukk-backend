@@ -34,6 +34,10 @@ use FFMpeg\Format\Video\X264;
 use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
 use File;
+use Illuminate\Filesystem\Filesystem;
+
+
+use Route;
 
 
 class CompanyProposalController extends Controller
@@ -44,17 +48,34 @@ class CompanyProposalController extends Controller
         $this->video = new VideoService;
     }
 
+    static function routes(){
+        // company proposals
+        Route::post('/proposal/upload_video', [CompanyProposalController::class, 'upload_video']);
+        Route::get('/proposal/{proposal_id}/get_video', [CompanyProposalController::class, 'get_video']);
+        Route::post('/proposal/upload_pdf', [CompanyProposalController::class, 'upload_pdf']);
+        Route::get('/proposal/{proposal_id}/get_pdf', [CompanyProposalController::class, 'get_pdf']);
+        Route::get('/proposal/my_proposal', [CompanyProposalController::class, 'my_proposal']);
+        Route::post('/proposal/destroy', [CompanyProposalController::class, 'destroy']);
+    }
+
     public function destroy(Request $request){
 
+        $company = Company::query()
+                    ->where('user_id' , auth()->user()->id)
+                    ->first();
+
         // get collection
-        $proposal = TenderSubmission::query()->where('id',$request->proposal_id)->where('user_id', auth()->user()->id)->first();
+        $proposal = TenderSubmission::query()
+                        ->where('id',$request->proposal_id)
+                        ->where('company_id', $company->id)
+                        ->first();
 
         // check ownership
         if($proposal == null ) return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
 
         // destroy video DB
-        if($proposal->video){
-            if($proposal->video->is_ready == true){
+        if($proposal->has('video')){
+            if($proposal->video){
                 $video = new VideoService;
                 $video->delete($proposal->video->id);
             }
@@ -63,42 +84,46 @@ class CompanyProposalController extends Controller
 
         // destroy folder
         Storage::disk('proposals')->deleteDirectory( $request->proposal_id ); // proposal dir
-        //$file = new Filesystem;
-        //$file->cleanDirectory('storage/app/public/proposals/' . $request->proposal_id);
+        $file = new Filesystem;
+        $file->cleanDirectory('storage/app/public/proposals/' . $request->proposal_id);
 
         // destroy proposal
-        $proposal->delete();
+        if( $proposal->delete() ){
 
-        return response([
-            'proposal_id' => $request->proposal_id,
-            'destroyed' => true,
-        ]);
+            return response([
+                'proposal_id' => $request->proposal_id,
+                'destroyed' => true,
+            ]);
+        } else {
+            return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
+        }
+
     }
 
     public function my_proposal(){
         // check if user's company is_approved = trye
         $company = Company::query()
-        ->where('user_id' , auth()->user()->id)
-        ->first();
+                    ->where('user_id' , auth()->user()->id)
+                    ->first();
+
 
         //Log::info($company->is_approved);
-        if($company->is_approved == 1 ){
+        //if($company->is_approved == 1 ){
+        if( $company ){
 
-             // list all proposals by user
+             // list
              $proposals = TenderSubmission::query()
-                        ->with('tender')
-                        ->where('user_id' , auth()->user()->id)
+                        ->with('tender.tender_detail','video')
+                        ->where('company_id' , $company->id)
                         ->get();
 
-            // count total number for sambung siri
-            $total['sambung_siri'] = $proposals->where('tender.type','SAMBUNG SIRI')->count();
-            $total['swasta'] = $proposals->where('tender.type','SWASTA')->count();
+
 
             if (!$proposals->isEmpty()) {
                 return response([
                     'uploaded' => true,
                     'proposals' => $proposals,
-                    'total' => $total
+                    //'total' => $total
                 ]);
             } else {
                 return response([
@@ -107,26 +132,30 @@ class CompanyProposalController extends Controller
             }
 
         } else {
-            return response(['title' => 'Status Error', 'message' => 'Restricted area!. You are not eligible to participate.'],422);
+            return response(
+                [
+                    'title' => 'Error',
+                    'message' => 'Please complete your Company Profile in My Account.'
+                ]
+                ,422);
         }
     }
 
-    // only accept PDF
+    // only accept VIDEO
     public function upload_video(StoreVideoRequest $request){
         // log to laravel.log
         //Log::info($request);
 
         // get folder ID ( User hasOne Company)
         $company = DB::table('companies')
-
-        // select required fields
-        ->select(
-            DB::raw('companies.id'),
-        )
-        // belongs to who ?
-        ->where('user_id', auth()->user()->id) // user_id
-        // get the Collection
-        ->first();
+                    // select required fields
+                    ->select(
+                        DB::raw('companies.id'),
+                    )
+                    // belongs to who ?
+                    ->where('user_id', auth()->user()->id) // user_id
+                    // get the Collection
+                    ->first();
 
         //Log::info($company->id);
         if($request->hasFile('file')){ // if exists
@@ -155,8 +184,6 @@ class CompanyProposalController extends Controller
                 'filesize'  => $request->file('file')->getSize(),
                 'original_filename'  => $request->file('file')->getClientOriginalName(),
                 'uploading_duration' => $uploading_duration,
-
-
              ];
 
             $video = $this->video->api_store($data, Auth::user()->id );
@@ -200,14 +227,15 @@ class CompanyProposalController extends Controller
         //Log::info($proposal);
 
         // by default video_is is null
-        if( $proposal->video->is_ready || $proposal->video->is_processing ){
-            $message = [
-                'exists' => true,
-                'is_ready' => $proposal->video->is_ready,
-                'is_processing' => $proposal->video->is_processing,
-                'video_id' => $proposal->video_id,
-            ];
-
+        if($proposal){
+            if( $proposal->video->is_ready || $proposal->video->is_processing ){
+                $message = [
+                    'exists' => true,
+                    'is_ready' => $proposal->video->is_ready,
+                    'is_processing' => $proposal->video->is_processing,
+                    'video_id' => $proposal->video_id,
+                ];
+            }
         } else {
 
             $message = [

@@ -41,6 +41,14 @@ class Company extends Model
         return $this->hasMany(CompanyApproval::class);
     }
 
+    /**
+     * Company hasMany TenderSubmissions
+     */
+    public function tender_submissions()
+    {
+        return $this->hasMany(TenderSubmission::class);
+    }
+
     // states to lower case
     public function setStatesAttribute($value)
     {

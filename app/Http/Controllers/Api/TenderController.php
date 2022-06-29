@@ -114,9 +114,74 @@ class TenderController extends Controller
 
     function getTenders(\App\Models\TenderDetail $tenderDetail){
 
-        // check is Company Approved for TenderDetail
+        // check if Company exists ?
+        $company = \App\Models\Company::query()
+                    ->where('user_id' , auth()->user()->id)
+                    ->first();
+        if(!$company){
+            return response(
+                [
+                    'status' => false,
+                    'title' => 'COMPANY ERROR',
+                    'message' => 'Your company was not exist.'
+                ]
+                ,422);
+        }
 
-        // return tenders
+
+        // check if Company was Approved for TenderDetail
+        $result = \App\Models\CompanyApproval::query()
+                            ->where('company_id',$company->id)
+                            ->where('tender_detail_id',$tenderDetail->id)
+                            ->where('is_approved', true)
+                            ->first();
+
+        if(!$result){
+            return response(
+                [
+                    'status' => false,
+                    'title' => 'APPROVAL ERROR',
+                    'message' => 'Your company was not approved for this tender.'
+                ]
+                ,422);
+        }
+
+        // check if Company TenderSubmission count exceed quota
+        $max = $tenderDetail->max;
+        // $applied = \App\Models\Company::query()
+        //             ->where('user_id' , auth()->user()->id)
+        //             ->whereHas('tender_submissions', function($query) use ($tenderDetail) {
+        //                 $query->where('tender_detail_id', $tenderDetail->id);
+        //             })
+        //             ->get()
+        //             ->count();
+
+         $applied = \App\Models\Company::query()
+                    ->select('id')
+                    ->where('user_id' , auth()->user()->id)
+                    ->has('tender_submissions')
+                    ->withCount([
+                        'tender_submissions' => function ($q) use ($tenderDetail) {
+                                                    $q->where('tender_detail_id', $tenderDetail->id);
+                                                }
+                    ])
+                    ->first();
+
+        if($applied){
+            // calculate if equal or more
+            if($applied->tender_submissions_count >= $max){
+            //    if(true){
+                return response(
+                    [
+                        'status' => false,
+                        'title' => 'TENDER QUOTA ERROR',
+                        'message' => 'Your have exceeded the tender quota.'
+                    ]
+                    ,422);
+            }
+        }
+
+        // all checks passed, now return the tenders
         $tenders = \App\Models\Tender::query()
                         ->with(['languages','tender_detail'])
                         ->where('tender_detail_id' , $tenderDetail->id)

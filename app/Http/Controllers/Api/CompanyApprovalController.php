@@ -81,10 +81,17 @@ class CompanyApprovalController extends Controller
                     ->where('tender_detail_id',$tenderDetail->id)
                     ->first();
 
-        // JSON response 200
-        return response([
-            'status' =>  !is_null($result) ? ucFirst($result->status) : 'Not Submitted' ,
-        ],200);
+        if(!empty($result->status)){
+            // JSON response 200
+            return response([
+                'status' =>  $result->status  ,
+            ],200);
+        } else {
+            // JSON response 200
+            return response([
+                'status' =>  'Not requested'  ,
+            ],200);
+        }
     }
 
     // Check vendor submitted documents
