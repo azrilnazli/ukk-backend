@@ -7,3 +7,5 @@ php artisan queue:listen --timeout=0
 -- make sure to configure ffmpeg, check path in config file 
 php artisan db:seed --class=VideoTableSeeder
 php artisan video:copy
+
+

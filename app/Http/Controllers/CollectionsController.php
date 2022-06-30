@@ -1242,12 +1242,14 @@ class CollectionsController extends Controller
         function delete_proposal_with_no_company(){
             \App\Models\TenderSubmission::query()
             ->doesntHave('user.company')
+            //->with('user.company')
+
             ->get()
             ->each( function($value, $key){
 
-                echo "ProposalId " . $value->id . " deleted";
-                // company->id
-                \App\Models\TenderSubmission::destroy($value->id);
+                echo "ProposalId " . $value->id . " ";
+                // // company->id
+                // \App\Models\TenderSubmission::destroy($value->id);
                 echo PHP_EOL;
             });
         }
@@ -1288,6 +1290,14 @@ class CollectionsController extends Controller
                 }])
             ->first();
            dd($applied);
+        }
+
+        function copy(){
+            /*
+            scp -r root@***:/var/www/ukk-backend/storage/app/public/streaming/886 /var/www/ukk-backend/storage/app/public/streaming/886
+            scp -r root@***:/var/www/ukk-backend/storage/assets/886 /var/www/ukk-backend/storage/assets/886
+            scp -r root@***:/var/www/ukk-backend/storage/app/public/proposals/886 /var/www/ukk-backend/storage/app/public/proposals/886
+            */
         }
 
 
