@@ -1292,5 +1292,13 @@ class CollectionsController extends Controller
            dd($applied);
         }
 
+        function copy(){
+            /*
+            scp -r root@***:/var/www/ukk-backend/storage/app/public/streaming/886 /var/www/ukk-backend/storage/app/public/streaming/886
+            scp -r root@***:/var/www/ukk-backend/storage/assets/886 /var/www/ukk-backend/storage/assets/886
+            scp -r root@***:/var/www/ukk-backend/storage/app/public/proposals/886 /var/www/ukk-backend/storage/app/public/proposals/886
+            */
+        }
+
 
 }// class
