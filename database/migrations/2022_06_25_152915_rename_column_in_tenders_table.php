@@ -14,7 +14,7 @@ class RenameColumnInTendersTable extends Migration
     public function up()
     {
         Schema::table('tenders', function (Blueprint $table) {
-            $table->renameColumn('programme_category','programme_category');
+           //$table->renameColumn('programme_category','programme_category');
         });
     }
 

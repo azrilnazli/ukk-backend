@@ -1242,12 +1242,14 @@ class CollectionsController extends Controller
         function delete_proposal_with_no_company(){
             \App\Models\TenderSubmission::query()
             ->doesntHave('user.company')
+            //->with('user.company')
+
             ->get()
             ->each( function($value, $key){
 
-                echo "ProposalId " . $value->id . " deleted";
-                // company->id
-                \App\Models\TenderSubmission::destroy($value->id);
+                echo "ProposalId " . $value->id . " ";
+                // // company->id
+                // \App\Models\TenderSubmission::destroy($value->id);
                 echo PHP_EOL;
             });
         }
