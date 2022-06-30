@@ -100,7 +100,7 @@
                     </i>
 
                 </a>
-                  <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
+                  <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
                 </form>
                 @endrole
               </td>

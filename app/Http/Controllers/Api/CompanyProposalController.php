@@ -69,9 +69,9 @@ class CompanyProposalController extends Controller
 
         // get collection
         $proposal = TenderSubmission::query()
-                        ->where('id',$request->proposal_id)
-                        ->where('company_id', $company->id)
-                        ->first();
+                    ->where('id',$request->proposal_id)
+                    ->where('company_id', $company->id)
+                    ->first();
 
         // check ownership
         if($proposal == null ) return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
