@@ -60,6 +60,9 @@ class CompanyProposalController extends Controller
 
     public function destroy(Request $request){
 
+        // disable
+        return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
+
         $company = Company::query()
                     ->where('user_id' , auth()->user()->id)
                     ->first();
