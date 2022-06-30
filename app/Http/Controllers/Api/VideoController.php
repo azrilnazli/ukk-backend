@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Route;
 
 class VideoController extends Controller
 {
@@ -21,6 +22,35 @@ class VideoController extends Controller
     function __construct()
     {
         //$this->video = new VideoService;
+    }
+
+    static function routes(){
+
+        Route::get('/videos/{video}/metadata', [VideoController::class, 'show']);
+        Route::get('/videos/{video}/status', [VideoController::class, 'status']);
+
+        Route::get('/video/encoding_status', [VideoController::class, 'encoding_status']); // API
+        Route::get('/video/{video}/conversion_progress', [\App\Http\Controllers\Video\VideoController::class, 'conversion_progress']);
+        Route::get('/video/{video}/is_playable', [\App\Http\Controllers\Video\VideoController::class, 'is_playable']);
+
+    }
+
+    public function show(Video $video)
+    {
+
+        $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
+        if(is_null($company)){
+            // return response as JSON
+            return response([
+                'status' => false // return as boolean
+            ]);
+        }
+
+        return response([
+            'status' => true, // return as boolean
+            'video' => $video
+        ]);
+
     }
 
     function encoding_status(){

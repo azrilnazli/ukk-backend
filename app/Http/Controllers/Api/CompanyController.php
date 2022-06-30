@@ -16,12 +16,85 @@ use App\Http\Controllers\Controller;
 // Form Validation
 use App\Http\Requests\Company\CompanyRequest;
 use App\Http\Requests\Company\StoreVideoRequest;
+use Route;
 
 class CompanyController extends Controller
 {
     use ApiResponser;
 
     function __construct(){
+    }
+
+    static function routes(){
+         // company
+    Route::post('/company/upload', [CompanyController::class, 'upload']);
+
+    Route::get('/company/board_of_directors', [CompanyController::class, 'board_of_directors']);
+    Route::get('/company/check_board_of_directors', [CompanyController::class, 'check_board_of_directors']);
+    Route::post('/company/update_board_of_directors', [CompanyController::class, 'update_board_of_directors']);
+
+    Route::get('/company/experiences', [CompanyController::class, 'experiences']);
+    Route::get('/company/check_experiences', [CompanyController::class, 'check_experiences']);
+    Route::post('/company/update_experiences', [CompanyController::class, 'update_experiences']);
+
+    Route::get('/company/audit', [CompanyController::class, 'audit']);
+    Route::get('/company/check_audit', [CompanyController::class, 'check_audit']);
+    Route::post('/company/update_audit', [CompanyController::class, 'update_audit']);
+
+    Route::get('/company/credit', [CompanyController::class, 'credit']);
+    Route::get('/company/check_credit', [CompanyController::class, 'check_credit']);
+    Route::post('/company/update_credit', [CompanyController::class, 'update_credit']);
+
+    Route::get('/company/authorization_letter', [CompanyController::class, 'authorization_letter']);
+    Route::get('/company/check_authorization_letter', [CompanyController::class, 'check_authorization_letter']);
+    Route::post('/company/update_authorization_letter', [CompanyController::class, 'update_authorization_letter']);
+
+    Route::get('/company/official_company_letter', [CompanyController::class, 'official_company_letter']);
+    Route::get('/company/check_official_company_letter', [CompanyController::class, 'check_official_company_letter']);
+    Route::post('/company/update_official_company_letter', [CompanyController::class, 'update_official_company_letter']);
+
+    Route::get('/company/bumiputera', [CompanyController::class, 'bumiputera']);
+    Route::get('/company/check_bumiputera', [CompanyController::class, 'check_bumiputera']);
+    Route::post('/company/update_bumiputera', [CompanyController::class, 'update_bumiputera']);
+
+    Route::get('/company/bank', [CompanyController::class, 'bank']);
+    Route::get('/company/check_bank', [CompanyController::class, 'check_bank']);
+    Route::post('/company/update_bank', [CompanyController::class, 'update_bank']);
+
+    Route::get('/company/profile', [CompanyController::class, 'profile']);
+    Route::get('/company/check_profile', [CompanyController::class, 'check_profile']);
+    Route::post('/company/update_profile', [CompanyController::class, 'update_profile']);
+
+    Route::get('/company/mof', [CompanyController::class, 'mof']);
+    Route::get('/company/check_mof', [CompanyController::class, 'check_mof']);
+    Route::post('/company/update_mof', [CompanyController::class, 'update_mof']);
+
+    Route::get('/company/finas_fp', [CompanyController::class, 'finas_fp']);
+    Route::get('/company/check_finas_fp', [CompanyController::class, 'check_finas_fp']);
+    Route::post('/company/update_finas_fp', [CompanyController::class, 'update_finas_fp']);
+
+    Route::get('/company/finas_fd', [CompanyController::class, 'finas_fd']);
+    Route::get('/company/check_finas_fd', [CompanyController::class, 'check_finas_fd']);
+    Route::post('/company/update_finas_fd', [CompanyController::class, 'update_finas_fd']);
+
+    Route::get('/company/ssm', [CompanyController::class, 'ssm']);
+    Route::get('/company/check_ssm', [CompanyController::class, 'check_ssm']);
+    Route::post('/company/update_ssm', [CompanyController::class, 'update_ssm']);
+
+    Route::get('/company/kkmm_syndicated', [CompanyController::class, 'kkmm_syndicated']);
+    Route::get('/company/check_kkmm_swasta', [CompanyController::class, 'check_kkmm_swasta']);
+    Route::post('/company/update_kkmm_syndicated', [CompanyController::class, 'update_kkmm_syndicated']);
+
+    Route::get('/company/kkmm_swasta', [CompanyController::class, 'kkmm_swasta']);
+    Route::get('/company/check_kkmm_syndicated', [CompanyController::class, 'check_kkmm_syndicated']);
+    Route::post('/company/update_kkmm_swasta', [CompanyController::class, 'update_kkmm_swasta']);
+
+    // administration
+    Route::get('/company/check_for_approval', [CompanyController::class, 'check_for_approval']);
+    Route::get('/company/check_is_completed', [CompanyController::class, 'check_is_completed']);
+    Route::get('/company/get_comments', [CompanyController::class, 'get_comments']);
+    Route::get('/company/check_approval_status', [CompanyController::class, 'check_approval_status']);
+    Route::post('/company/request_for_approval', [CompanyController::class, 'request_for_approval']);
     }
 
     function profile(){

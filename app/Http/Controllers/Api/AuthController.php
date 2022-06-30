@@ -29,6 +29,7 @@ use App\Http\Requests\Auth\NewPasswordRequest;
 
 // User Service
 use App\Services\UserService;
+use Route;
 
 
 class AuthController extends Controller
@@ -42,12 +43,30 @@ class AuthController extends Controller
         //$this->user_id =  $request->user()->id;
     }
 
+    static function guestRoutes(){
+        Route::middleware('guest')->post('/auth/register', [AuthController::class, 'register']);
+        Route::middleware('guest')->post('/auth/login', [AuthController::class, 'login']);
+        Route::middleware('guest')->post('/password/email', [AuthController::class, 'email']);
+        Route::middleware('guest')->post('/password/reset', [AuthController::class, 'reset_password']);
+    }
+
+    static function routes(){
+        // user
+        Route::post('/user/update', [AuthController::class, 'update']);
+        Route::get('/user/my_account', [AuthController::class, 'my_account']);
+        Route::post('/user/check_password', [AuthController::class, 'check_password']);
+        Route::post('/user/new_password', [AuthController::class, 'new_password']);
+        Route::get('/user/statistics', [MovieController::class, 'statistics']);
+        Route::post('/auth/logout', [AuthController::class, 'logout']);
+
+    }
+
     public function register(RegisterRequest $request)
     {
 
         $request['role'] = 'subscriber';
         $token = $this->user->register($request);
-    
+
         return $this->success([
             'token' => $token
         ]);
@@ -56,9 +75,9 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-   
+
         $validated = $request->validated();
-        
+
         if (!Auth::attempt($validated)) {
             return $this->error('Credentials not match', 401);
         }
@@ -120,7 +139,7 @@ class AuthController extends Controller
         // error
         return response([
             'message' => __($status)
-        ],422);       
+        ],422);
     }
 
     // handle user profile update
@@ -131,7 +150,7 @@ class AuthController extends Controller
         $user->lastname = $request->lastname;
         $user->save();
 
-        // // Profile 
+        // // Profile
         $profile = Profile::firstOrNew(['user_id' => auth()->user()->id ]);
         $profile->phone = $request->phone;
         $profile->address = $request->address;
@@ -140,7 +159,7 @@ class AuthController extends Controller
         $profile->states = $request->states;
         $profile->save();
 
-        
+
         // JSON response
         return response([
             'message' => 'Account updated',
@@ -152,9 +171,9 @@ class AuthController extends Controller
         // start from statistics table
         $user = DB::table('users')
         // join all tables
-        ->join('profiles', 'profiles.user_id', '=', 'users.id') 
+        ->join('profiles', 'profiles.user_id', '=', 'users.id')
         // select required fields
-        ->select(       
+        ->select(
             DB::raw('users.firstname'),
             DB::raw('users.lastname'),
             DB::raw('users.email'),
@@ -169,7 +188,7 @@ class AuthController extends Controller
         // get the Collection
         ->first();
 
-        $user ?    
+        $user ?
             $message = response([
                 'firstname' => $user->firstname  ,
                 'lastname' => $user->lastname,
@@ -180,10 +199,10 @@ class AuthController extends Controller
                 'city' => $user->city,
                 'states' => $user->states,
             ])
-        : 
+        :
             $message = response([
                 'message' => 'not exist' ,
-    
+
             ]);
 
             return $message;
@@ -191,23 +210,23 @@ class AuthController extends Controller
 
     public function check_password(CheckPasswordRequest $request)
     {
- 
+
             $credentials = [
                 'email' =>auth()->user()->email,
                 'password' =>  $request->current_password,
             ];
-            
+
             if (!Auth::guard('web')->attempt($credentials)) {
                 return response([
                     'message' => 'Wrong password'
-                ],401);  
+                ],401);
             }
-    
+
             return $this->success([
                 'email'   => auth()->user()->email,
                 'message' => 'Authenticated'
             ]);
-        
+
     }
 
     public function new_password(NewPasswordRequest $request)
@@ -220,8 +239,8 @@ class AuthController extends Controller
             // if (!$user->save()) {
             //     return response([
             //         'message' => 'Cannot update password'
-            //     ],401); 
-            // } 
+            //     ],401);
+            // }
 
             return $this->success([
                 'message' => 'Password change is successful'

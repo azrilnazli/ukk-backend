@@ -11,6 +11,19 @@ class Video extends Model
     use HasFactory;
     use Sortable;
     public $sortable = ['id', 'is_ready','created_at', 'updated_at'];
+    protected $appends = [ 'length','date' ];
+   // protected $appends = array('expired');
+
+    public function getLengthAttribute()
+    {
+        //return \Carbon\Carbon::parse($this->end)->diffForHumans();
+        return \Carbon\CarbonInterval::seconds($this->duration)->cascade()->forHumans();
+    }
+
+    public function getDateAttribute()
+    {
+        return \Carbon\Carbon::parse($this->created_at)->diffForHumans();
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +38,7 @@ class Video extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-              
+
     }
 
 

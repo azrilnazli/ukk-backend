@@ -17,16 +17,59 @@ use App\Actions\Stats;
 use App\Actions\Logger;
 use App\Actions\Utilities;
 
+use Route;
+
 class MovieController extends Controller
 {
     use ApiResponser;
-    
+
+    static function routes(){
+        // movies
+        Route::get('/movies', [MovieController::class, 'index']);
+        Route::post('/movies/statistics', [MovieController::class, 'store']);
+
+
+        Route::get('/movie/{id}/play', [MovieController::class, 'show']); //test
+
+        // route for HLS playlist request
+        Route::get('/movie/{video}/{playlist}/{token}', function (  $video, $playlist, $token ) {
+
+            return FFMpeg::dynamicHLSPlaylist()
+                // http://admin.test/storage/streaming/15/m3u8/playlist.m3u8 --> master playlist
+                ->fromDisk("streaming") // public storage for m3u8
+                ->open("$video/m3u8/$playlist")
+
+                // secret key resolver
+                ->setKeyUrlResolver( function($key) use ($video, $token) {
+                    return route('api.secret.key',['video' => $video, 'key' => $key, 'access_token' => $token]);
+                })
+                // requeste will look for referenced playlist
+                // eg playlist_0_400.m3u8 , playlist_0_500.m3u8
+                ->setPlaylistUrlResolver( function($playlist) use ($video, $token) {
+                    return route('api.movie', ['video' => $video, 'playlist' => $playlist, 'token' => $token, 'access_token' => $token]);
+                })
+                // actual disk for media
+                ->setMediaUrlResolver(function($media) use ($video, $token) {
+                    return Storage::disk('streaming')->url($video .'/m3u8/'. $media . '?access_token=' . $token);
+                });
+        })->name('api.movie')->middleware('auth:sanctum');
+
+
+
+        # secret key
+        // the get url can be change and will be dynamically
+        // alterred in playlist file
+        Route::get('/storage/streaming/{video}/m3u8/{key}', function($video,$key){
+            return Storage::disk('assets')->download( $video .'/secrets/'. $key);
+        })->name('api.secret.key')->middleware('auth:sanctum');
+    }
+
     function index(){
     //return response()->json(Video::all());
 
        $videos = Video::paginate(8)
                 ->setPath('');
-        
+
        return response()->json($videos);
     }
 
