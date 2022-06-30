@@ -54,14 +54,15 @@ class MovieController extends Controller
                 });
         })->name('api.movie')->middleware('auth:sanctum');
 
-
-
         # secret key
         // the get url can be change and will be dynamically
         // alterred in playlist file
         Route::get('/storage/streaming/{video}/m3u8/{key}', function($video,$key){
             return Storage::disk('assets')->download( $video .'/secrets/'. $key);
         })->name('api.secret.key')->middleware('auth:sanctum');
+
+        # download original.mp4
+
     }
 
     function index(){

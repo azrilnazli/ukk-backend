@@ -22,6 +22,11 @@ use Illuminate\Support\Facades\Route;
 // Movie
 \App\Http\Controllers\Api\MovieController::routes();
 
+// MP4
+Route::get('/video/{video}/play', function($video){
+    return Storage::disk('assets')->download( $video .'/original.mp4');
+})->name('api.original_video')->middleware('guest');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
