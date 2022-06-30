@@ -5,7 +5,7 @@ namespace App\Http\Requests\Tender\TenderSubmission;
 use App\Rules\MaxWordsRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,17 +31,17 @@ class StoreRequest extends FormRequest
             // 'genre' => ['required', 'string', 'max:255'],
             // 'concept' => ['required', 'string', new MaxWordsRule(1000)],
 
-            'synopsis' => ['required', 'string', new MaxWordsRule(1000)],
-            'published_year' => ['required','integer'],
-            'casts' => ['required','string', 'max:255'],
-            'languages' => ['required','string', 'max:255'],
-            'total_episode' => ['required','string', 'max:255'],
-            'duration' => ['required','string', 'max:255'],
-            'country' => ['required','string', 'max:255'],
-            'price_episode' => ['required','regex:/^[0-9]*(\.[0-9]{0,2})?$/'],
-            'price_overall' => ['required','regex:/^[0-9]*(\.[0-9]{0,2})?$/'],
-            'rules' => ['required','string', 'max:255'],
-            'informations' => ['required','string', 'max:255'],
+            'synopsis' => ['sometimes', 'string', new MaxWordsRule(1000)],
+            'published_year' => ['sometimes','integer'],
+            'casts' => ['sometimes','string', 'max:255'],
+            'languages' => ['sometimes','string', 'max:255'],
+            'total_episode' => ['sometimes','string', 'max:255'],
+            'duration' => ['sometimes','string', 'max:255'],
+            'country' => ['sometimes','string', 'max:255'],
+            'price_episode' => ['sometimes','regex:/^[0-9]*(\.[0-9]{0,2})?$/'],
+            'price_overall' => ['sometimes','regex:/^[0-9]*(\.[0-9]{0,2})?$/'],
+            'rules' => ['sometimes','string', 'max:255'],
+            'informations' => ['sometimes','string', 'max:255'],
 
             "selectedFile" => "sometimes|mimes:pdf|max:1000000",
         ];

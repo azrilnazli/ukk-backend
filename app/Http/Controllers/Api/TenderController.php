@@ -35,27 +35,10 @@ class TenderController extends Controller
         //Route::get('/tenders/{type}/get_tenders', [TenderController::class, 'get_tenders']);
         Route::get('/tenders/{tenderDetail}/get_tenders', [TenderController::class, 'getTenders']);
         Route::get('/tender/{id}', [TenderController::class, 'show']);
-        Route::get('/proposal/show/{tender_id}', [TenderController::class, 'show_proposal']);
         Route::post('/tender/update_proposal', [TenderController::class, 'update_proposal']);
     }
 
-    function show_proposal($tender_id){
-        $proposal = TenderSubmission::find($tender_id);
 
-        if( $proposal ){
-            $message = [
-                'status' => true,
-                'proposal' => $proposal,
-            ];
-
-        } else {
-            $message = [
-                'status' => false,
-                'message' => 'Requested data not exist on our server'
-            ];
-        }
-        return response($message);
-    }
 
 
 

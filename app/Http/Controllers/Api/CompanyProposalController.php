@@ -50,12 +50,25 @@ class CompanyProposalController extends Controller
 
     static function routes(){
         // company proposals
+        Route::get('/proposal/my_proposal', [CompanyProposalController::class, 'my_proposal']);
+
+        Route::get('/proposal/{tenderSubmission}', [CompanyProposalController::class, 'show']);
+
         Route::post('/proposal/upload_video', [CompanyProposalController::class, 'upload_video']);
         Route::get('/proposal/{proposal_id}/get_video', [CompanyProposalController::class, 'get_video']);
         Route::post('/proposal/upload_pdf', [CompanyProposalController::class, 'upload_pdf']);
         Route::get('/proposal/{proposal_id}/get_pdf', [CompanyProposalController::class, 'get_pdf']);
-        Route::get('/proposal/my_proposal', [CompanyProposalController::class, 'my_proposal']);
         Route::post('/proposal/destroy', [CompanyProposalController::class, 'destroy']);
+    }
+
+    function show(TenderSubmission $tenderSubmission){
+
+        $message = [
+            'status' => true,
+            'tender_submission' => $tenderSubmission,
+        ];
+
+        return response($message);
     }
 
     public function destroy(Request $request){
@@ -135,6 +148,7 @@ class CompanyProposalController extends Controller
         } else {
             return response(
                 [
+                    'uploaded' => false,
                     'title' => 'Error',
                     'message' => 'Please complete your Company Profile in My Account.'
                 ]
@@ -180,7 +194,7 @@ class CompanyProposalController extends Controller
             //Log::info($start_time);
             $data = [
                 'user_id'       => Auth::user()->id,
-                'tender_id'       => $request->tender_id,
+                'company_id' =>  $company->id,
                 'tender_submission_id'  => $request->proposal_id,
                 'filesize'  => $request->file('file')->getSize(),
                 'original_filename'  => $request->file('file')->getClientOriginalName(),
@@ -241,15 +255,18 @@ class CompanyProposalController extends Controller
         } else {
 
             $message = [
-                'exists' => 'false',
+                'exists' => false,
             ];
         }
         return response($message);
     }
 
     function upload_pdf(UploadPDFRequest $request){
-        if($request->hasFile('file')){ // if exists
 
+        // should check proposal owned by user
+
+        // copy the file
+        if($request->hasFile('file')){ // if exists
             // move to folder
             $request->file('file')
             ->storeAs(
@@ -259,7 +276,7 @@ class CompanyProposalController extends Controller
             );
 
             $message = [
-                'exists' => 'false',
+                'exists' => false,
             ];
 
             if(Storage::disk('proposals')->exists($request->proposal_id) .'/proposal.pdf'){
@@ -294,7 +311,7 @@ class CompanyProposalController extends Controller
 
         } else {
             $message = [
-                'exists' => 'false',
+                'exists' => false,
             ];
         }
         return response($message);
