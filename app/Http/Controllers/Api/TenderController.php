@@ -40,23 +40,18 @@ class TenderController extends Controller
     }
 
     function show_proposal($tender_id){
-        $proposal = TenderSubmission::query()
-                    ->where(
-                        [
-                            'user_id' =>  auth()->user()->id,
-                            'tender_id'  => $tender_id
-                        ])
-                    ->first();
+        $proposal = TenderSubmission::find($tender_id);
 
         if( $proposal ){
             $message = [
-                'exists' => true,
+                'status' => true,
                 'proposal' => $proposal,
             ];
 
         } else {
             $message = [
-                'exists' => false,
+                'status' => false,
+                'message' => 'Requested data not exist on our server'
             ];
         }
         return response($message);

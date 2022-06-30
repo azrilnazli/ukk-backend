@@ -61,7 +61,7 @@ class CompanyProposalController extends Controller
     public function destroy(Request $request){
 
         // disable
-        return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
+        //return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
 
         $company = Company::query()
                     ->where('user_id' , auth()->user()->id)
@@ -69,9 +69,9 @@ class CompanyProposalController extends Controller
 
         // get collection
         $proposal = TenderSubmission::query()
-                    ->where('id',$request->proposal_id)
-                    ->where('company_id', $company->id)
-                    ->first();
+                        ->where('id',$request->proposal_id)
+                        ->where('company_id', $company->id)
+                        ->first();
 
         // check ownership
         if($proposal == null ) return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
