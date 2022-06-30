@@ -9,6 +9,7 @@ use App\Models\TenderSubmission;
 
 // Form Validation
 use App\Http\Requests\Tender\TenderSubmission\StoreRequest;
+use App\Http\Requests\Tender\TenderSubmission\UpdateRequest;
 
 use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\Storage;
@@ -27,18 +28,20 @@ class TenderSubmissionController extends Controller
     static function routes(){
         Route::get('/tender-submissions/{tenderSubmission}', [TenderSubmissionController::class, 'show']);
         Route::post('/tender-submissions/store', [TenderSubmissionController::class, 'store']);
+        Route::post('/tender-submissions/{TenderSubmission}/edit', [TenderSubmissionController::class,'update']);
     }
 
-    // pembekal request show tender
     function show(TenderSubmission $tenderSubmission){
-        // check pembekal status ( CompanyApproval=> is_approved)
+
+        // check if logged user is owner
 
         // JSON Response
         return response([
-            'status' => true, // return as boolean
-            'message' => $tenderSubmission->id,
+            'status' =>  $tenderSubmission ? true : false, // return as boolean
+            'tender_submission' => $tenderSubmission,
         ]);
     }
+
 
     // pembekal apply tender
     function store(StoreRequest $request){
@@ -69,28 +72,49 @@ class TenderSubmissionController extends Controller
             'message' => 'Server error.'
         ],423);
 
+    }
 
-        // // create video instance
-        // $video = \App\Models\Video::firstOrNew([
-        //     'user_id' => auth()->user()->id ,
-        //     'company_id' =>  $company->id,
-        //     'tender_submission_id' => $tenderSubmission->id
-        // ]);
+    function update(UpdateRequest $request, $tenderSubmissionId){
 
-        // $video->user_id = auth()->user()->id;
-        // $video->tender_submission_id =  $tenderSubmission->id;
-        // $video->tender_id =  $request->tender_id;
-        // $video->save();
+        // get Company Data
+        $company = \App\Models\Company::where('user_id', auth()->user()->id )->first();
 
-        // // create video placeholder
-        // $this->video = new \App\Services\VideoService;
-        // $this->video->createProgressFile($video->id);
-        // $this->video->createDirectory($video->id);
-
-        // //save video->id to Proposal
-        // $tenderSubmission->video_id =  $video->id;
-        // $tenderSubmission->save();
+        //check if logged user is owner
+        $check = TenderSubmission::query()
+                        ->where('id',$tenderSubmissionId)
+                        ->where('company_id', $company->id)
+                        ->first();
+        if(!$check){
+            // JSON Response
+            return response([
+                'status' => false, // return as boolean
+                'message' => 'Invalid data.'
+            ],423);
+        }
 
 
+        $proposal = TenderSubmission::find($tenderSubmissionId);
+        if(!$proposal){
+            // JSON Response
+            return response([
+                'status' => false, // return as boolean
+                'message' => 'Data not found.' . $proposal->id
+            ],423);
+        }
+
+        // now save the data
+        if($proposal->update($request->except(['_token','_method']))){
+            // JSON Response
+            return response([
+                'status' => true, // return as boolean
+                'message' => 'Your proposal was updated.'
+            ],200);
+        } else {
+            // JSON Response
+            return response([
+                'status' => false, // return as boolean
+                'message' => 'Cannot save data.'
+            ],423);
+        }
     }
 }

@@ -38,8 +38,8 @@ class StoreRequest extends FormRequest
             'total_episode' => ['required','string', 'max:255'],
             'duration' => ['required','string', 'max:255'],
             'country' => ['required','string', 'max:255'],
-            'price_episode' => ['required','integer'],
-            'price_overall' => ['required','integer'],
+            'price_episode' => ['required','regex:/^[0-9]*(\.[0-9]{0,2})?$/'],
+            'price_overall' => ['required','regex:/^[0-9]*(\.[0-9]{0,2})?$/'],
             'rules' => ['required','string', 'max:255'],
             'informations' => ['required','string', 'max:255'],
 

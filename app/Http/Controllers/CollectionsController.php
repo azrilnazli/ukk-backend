@@ -1300,5 +1300,13 @@ class CollectionsController extends Controller
             */
         }
 
+        function test_proposal(){
+            $tenderSubmission = \App\Models\TenderSubmission::query()
+            ->where('id',1819)
+            ->where('company_id', 762)
+            ->first();
+            dd($tenderSubmission);
+        }
+
 
 }// class
