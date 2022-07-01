@@ -49,7 +49,12 @@ class TenderSubmissionController extends Controller
     // TenderProgrammeCode $tenderProgrammeCode
     public function show(TenderSubmission $tenderSubmission)
     {
-        return view('tender_submissions.show')->with(compact('tenderSubmission'));
+        $unwanted = ['id','is_video','user_id','video_id','tender_id','company_id','tender_detail_id','created_at','updated_at','is_scoring_completed','is_verification_completed','is_pdf_cert_uploaded','added_by'];
+        $columns = $tenderSubmission->getTableColumns();
+        $fields = array_diff($columns,$unwanted);
+
+
+        return view('tender_submissions.show')->with(compact('tenderSubmission','fields'));
     }
 
 
