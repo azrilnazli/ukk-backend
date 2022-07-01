@@ -35,20 +35,21 @@
 
       </div>
       <div class="card-body bg-secondary">
-        <span class="badge badge-info text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->programme_category }}
-        <span class="badge badge-info text-uppercase ">CODE</span> : {{ $tenderSubmission->tender->programme_code }}
+        <span class="badge badge-info text-uppercase ">TENDER</span> : {{ $tenderSubmission->tender->tender_detail->title }}
+        <span class="badge badge-info text-uppercase ">CODE</span> : {{ $tenderSubmission->tender->programme_category }} - {{ $tenderSubmission->tender->programme_code }}
         <span class="badge badge-info text-uppercase ">CHANNEL</span> : {{ $tenderSubmission->tender->channel }}
 
       </div>
 
-
+      @foreach($fields as $field)
       <div class="card-body">
-        <span class="badge badge-dark">Theme</span>
+        <span class="badge badge-dark text-uppercase">{{ str_replace('_',' ',$field)}}</span>
         <div class="alert alert-light">
-        <span class="lead">{{ $tenderSubmission->theme }}</span>
+        <span class="lead">{{ $tenderSubmission->$field }}</span>
         </div>
       </div>
       <hr />
+      @endforeach
 
 
       @if($tenderSubmission->video)
@@ -62,9 +63,9 @@
                     <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
                     data-setup='{
                     "fluid": true,
-                    "poster": "{{ Storage::disk('streaming')->url($tenderSubmission->video_id . '/thumbnails/poster.jpg')}}"
+                    "poster": "{{ Storage::disk('streaming')->url($tenderSubmission->video->id . '/thumbnails/poster.jpg')}}"
                     }'>
-                        <source src=" {{ route('assets', ['video' =>$tenderSubmission->video_id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
+                        <source src=" {{ route('assets', ['video' =>$tenderSubmission->video->id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
 
                     </video-js>
 
