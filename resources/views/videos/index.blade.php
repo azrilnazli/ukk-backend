@@ -37,8 +37,6 @@
               <th width="2%">ID</th>
               <th width="5%">Snapshot</th>
               <th width="18%">Company</th>
-              <th width="*">Tender</th>
-              <th width="*">Programme</th>
               <th width="*">Date</th>
 
               <th width="15%" class="text-center">Actions</th>
@@ -74,12 +72,7 @@
               <td>
                 <span>{{ optional($row->user->company)->name }}</span>
               </td>
-              <td>
-                <span>{{ $row->tender->tender_detail->title }} </span>
-              </td>
-              <td>
-                <span>{{ $row->tender->channel }} : {{ $row->tender->programme_category }} ( {{ $row->tender->programme_code }} )</span>
-              </td>
+
 
               <td>
                 {{ $row->created_at }}
