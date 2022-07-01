@@ -14,10 +14,20 @@ class TenderSubmission extends Model
     public $sortable = ['id', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
 
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+
     public function tender()
     {
         return $this->belongsTo(Tender::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
 
     public function tender_detail()
     {

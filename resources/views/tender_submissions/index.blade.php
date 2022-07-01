@@ -8,7 +8,7 @@
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
         <li class="breadcrumb-item"><a href="route('tender_submissions.index')">{{ __('Tender Submission') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tender List</li>
+        <li class="breadcrumb-item active" aria-current="page">Proposal List</li>
     </ol>
 </nav>
 @stop
@@ -43,7 +43,8 @@
 
                 <th width="*">Company</th>
 
-                <th width="*">@sortablelink('tender.programme_category', 'Category')</th>
+                <th width="*">Tender</th>
+
 
                 <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
 
@@ -55,12 +56,13 @@
 
             <tbody>
                 @foreach($proposals as $row)
-                  @if(isset($row->user->company))
+
                   <tr>
                       <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
-                      <td> @if(isset($row->user->company))<span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}@endif</td>
-                      <td>{{ $row->tender->type }} - {{ $row->tender->programme_category }}</td>
-                      <td>{{ $row->tender->programme_code }}</td>
+                      <td><span class="badge badge-warning">{{ $row->company->id }}</span> {{ $row->company->name }}</td>
+                      <td>{{ $row->tender->tender_detail->title }}</td>
+                      <td>{{ $row->tender->programme_category }}-{{ $row->tender->programme_code }}</td>
+
                       <td>{!! $row->is_pdf_cert_uploaded ? '<span class="text-primary"><i class="fas fa-file-pdf"></i>' : '' !!} </td>
                       <td>
                         @if(isset($row->video))
@@ -73,11 +75,9 @@
                             <i class="fas fa-search"></i>
                         </a>
 
-
                       </td>
                   </tr>
 
-                  @endif
                 @endforeach
             </tbody>
 

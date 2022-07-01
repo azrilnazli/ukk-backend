@@ -30,8 +30,7 @@
       <div class="card-header">
         <div class="card-title">
           <label class="badge badge-warning p-2 text-uppercase ">
-            {{$tenderSubmission->user->company->id}}</label> Proposal by {{ $tenderSubmission->user->company->name }}
-
+            {{$tenderSubmission->company->id}}</label> Proposal by {{ $tenderSubmission->company->name }}
           </div>
 
       </div>
@@ -41,32 +40,22 @@
         <span class="badge badge-info text-uppercase ">CHANNEL</span> : {{ $tenderSubmission->tender->channel }}
 
       </div>
+
+
       <div class="card-body">
-        <h2>Theme</h2>
-        {{ $tenderSubmission->theme }}
+        <span class="badge badge-dark">Theme</span>
+        <div class="alert alert-light">
+        <span class="lead">{{ $tenderSubmission->theme }}</span>
+        </div>
       </div>
       <hr />
-      <div class="card-body">
-        <h2>Genre</h2>
-        {{ $tenderSubmission->genre }}
-      </div>
-      <hr />
-      <div class="card-body">
-        <h2>Concept</h2>
-        {{ $tenderSubmission->concept }}
-      </div>
-      <hr />
-      <div class="card-body">
-        <h2>Synopsis</h2>
-        {{ $tenderSubmission->synopsis }}
-      </div>
-      <hr />
+
 
       @if($tenderSubmission->video)
         @if($tenderSubmission->video->is_ready)
 
         <div class="card-body">
-            <h2>Video</h2>
+            <span class="badge badge-dark">Video</span>
 
                 <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
 
@@ -97,12 +86,12 @@
 
       @if($tenderSubmission->is_pdf_cert_uploaded)
       <div class="card-body">
-        <h2>PDF</h2>
+        <span class="badge badge-dark">PDF</span>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js" integrity="sha512-g16L6hyoieygYYZrtuzScNFXrrbJo/lj9+1AYsw+0CYYYZ6lx5J3x9Yyzsm+D37/7jMIGh0fDqdvyYkNWbuYuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <div style="height:500px" id="document"></div>
         <script>PDFObject.embed("/storage/proposals/{{$tenderSubmission->id}}/proposal.pdf", "#document");</script>
       </div>
-      <hr />
+
       @endif
       <!-- /.card-body -->
       <div class="card-footer">
