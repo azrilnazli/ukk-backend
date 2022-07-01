@@ -195,7 +195,7 @@ class CompanyProposalController extends Controller
             $data = [
                 'user_id'       => Auth::user()->id,
                 'company_id' =>  $company->id,
-                'tender_submission_id'  => $request->proposal_id,
+                'tender_submission_id'  => $request->tender_submission_id,
                 'filesize'  => $request->file('file')->getSize(),
                 'original_filename'  => $request->file('file')->getClientOriginalName(),
                 'uploading_duration' => $uploading_duration,
@@ -214,9 +214,11 @@ class CompanyProposalController extends Controller
             $video->save();
 
             // save video_id in TenderSubmission
-            $proposal =   TenderSubmission::find($request->proposal_id);
-            $proposal->video_id = $video->id;
-            $proposal->save();
+            // $proposal =   TenderSubmission::find($request->proposal_id);
+            // Log::info($video->id);
+
+            // $proposal->video_id = $video->id;
+            // $proposal->save();
 
             // send video for processing
             $this->dispatch(new ConvertVideoQueue($video));
@@ -249,7 +251,7 @@ class CompanyProposalController extends Controller
                     'exists' => true,
                     'is_ready' => $proposal->video->is_ready ? true : false,
                     'is_processing' => $proposal->video->is_processing ? true : false,
-                    'video_id' => $proposal->video_id,
+                    'video_id' => $proposal->video->id,
                 ];
            // }
         } else {
