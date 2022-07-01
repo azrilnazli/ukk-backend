@@ -42,14 +42,17 @@
       </div>
 
       @foreach($fields as $field)
-      <div class="card-body">
-        <span class="badge badge-dark text-uppercase">{{ str_replace('_',' ',$field)}}</span>
-        <div class="alert alert-light">
-        <span class="lead">{{ $tenderSubmission->$field }}</span>
+        @if($tenderSubmission->$field)
+        <div class="card-body">
+            <span class="badge badge-dark text-uppercase">{{ str_replace('_',' ',$field)}}</span>
+            <div class="alert alert-light">
+            <span class="lead">{{ $tenderSubmission->$field }}</span>
+            </div>
         </div>
-      </div>
-      <hr />
+        <hr />
+        @endif
       @endforeach
+
 
 
       @if($tenderSubmission->video)
