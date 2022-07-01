@@ -1,4 +1,6 @@
 <?php
+
+
 // Home
 \App\Http\Controllers\Home\HomeController::routes();
 
@@ -55,5 +57,7 @@ Auth::routes();
 
 // Video
 \App\Http\Controllers\Video\VideoController::routes();
+
+
 
 
