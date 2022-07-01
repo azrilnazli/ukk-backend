@@ -62,7 +62,8 @@
 
 
               <pre>
-                Filename : {{ $tenderSubmission->video->original_filename }}
+
+                Filename : <a href="/original_video/{{$tenderSubmission->id}}/original.mp4">{{ $tenderSubmission->video->original_filename }}</a>
                 Duration : {{ $tenderSubmission->video->length  }}
               </pre>
         <hr />
