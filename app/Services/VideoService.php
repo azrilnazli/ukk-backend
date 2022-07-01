@@ -16,6 +16,7 @@ use File;
 use Auth;
 use DB;
 use Config;
+use Log;
 
 use FFMpeg;
 use FFMpeg\FFProbe;
@@ -116,7 +117,7 @@ class VideoService {
         ]);
     }
 
-    public function api_store($request, $user_id)
+    public function api_store($request, $company_id)
     {
         // return Video::create([
         //     'user_id'       => $user_id,
@@ -131,7 +132,8 @@ class VideoService {
 
 
         $video = Video::firstOrNew([
-            'user_id' =>  $user_id ,
+            'user_id' =>  $request['user_id'] ,
+            'company_id' =>  $request['company_id'] ,
             'tender_submission_id' => $request['tender_submission_id']
         ]);
 
@@ -144,7 +146,7 @@ class VideoService {
         $video->duration =  0;
 
         $video->save();
-
+        //Log::info($video);
         return $video;
 
     }
