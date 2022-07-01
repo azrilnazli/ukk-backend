@@ -18,6 +18,7 @@ use DB;
 use Config;
 use Log;
 
+
 use App\Jobs\ConvertVideo;
 use App\Jobs\ConvertVideoQueue;
 
@@ -56,6 +57,10 @@ class VideoController extends Controller
 
         Route::resource('videos', VideoController::class );
 
+
+        Route::get('/video/{video}/play', function($video){
+            return Storage::disk('assets')->download( $video .'/original.mp4');
+        })->name('original_video')->middleware('guest');
 
         // route for HLS playlist request
         Route::get('/assets/{video}/{playlist}', function ( $video, $playlist ) {

@@ -66,7 +66,7 @@
                       <td>{!! $row->is_pdf_cert_uploaded ? '<span class="text-primary"><i class="fas fa-file-pdf"></i>' : '' !!} </td>
                       <td>
                         @if(isset($row->video))
-                        {!! $row->video->is_ready ? '<span class="text-red"><i class="fas fa-video"></i></span>' : '' !!} </td>
+                        {!! $row->video->is_ready ? '<span class="text-red"><i class="fas fa-video"></i></span>' : '<span class="text-warning"><i class="fas fa-hourglass"></i></span>' !!} </td>
                         @endif
                       <td class="text-center">
 
