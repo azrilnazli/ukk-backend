@@ -20,7 +20,7 @@ class TenderSubmissionService {
     {
         return TenderSubmission::query()
             ->sortable()
-            ->whereHas('user.company', fn($query) =>
+            ->whereHas('company.company_approvals', fn($query) =>
                 $query->where('is_approved', true)
                 )
             ->orderBy('id','desc')
