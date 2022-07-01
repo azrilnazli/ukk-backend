@@ -60,28 +60,11 @@
         <div class="card-body">
             <span class="badge badge-dark">RAW Video</span>
 
-            <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
-            data-setup='{
-            "fluid": true,
-            "poster": "{{ Storage::disk('streaming')->url($tenderSubmission->video->id . '/thumbnails/poster.jpg')}}"
-            }'>
-                <source src=" {{ route('original_video', ['video' =>$tenderSubmission->video->id]) }} " type="video/mp4">
 
-            </video-js>
-
-            <script src="/js/videojs/video.js"></script>
-            <script src="/js/videojs//videojs-http-streaming.js"></script>
-            <script src="/js/videojs/videojs-contrib-quality-levels.js"></script>
-            <script src="/js/videojs/videojs-hls-quality-selector.min.js"></script>
-
-            <script>
-                var player = videojs('my_video_1');
-                player.hlsQualitySelector();
-            </script>
-                <div class="max-w-6xl w-full mx-auto sm:px-6 lg:px-8">
-                    <a href="/api/video/{{ $tenderSubmission->video->id }}/play" class="btn btn-primary">SAVE AS ({{ $tenderSubmission->video->original_filename }})</a>
-                </div>
-        </div>
+              <pre>
+                Filename : {{ $tenderSubmission->video->original_filename }}
+                Duration : {{ $tenderSubmission->video->length  }}
+              </pre>
         <hr />
 
       @endif
