@@ -1308,5 +1308,16 @@ class CollectionsController extends Controller
             dd($tenderSubmission);
         }
 
+        function encode(){
+
+            // App\Jobs\ConvertVideoQueue
+            // send failed job to onQueue('failed_jobs')
+            // $this->dispatch(new ConvertVideoQueue($video));
+            //$job = new \App\Jobs\ConvertVideoQueue;
+            $video = \App\Models\Video::find(4);
+            $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue("encode")->onConnection('database'); // Dispatchable
+            dispatch($job);
+        }
+
 
 }// class
