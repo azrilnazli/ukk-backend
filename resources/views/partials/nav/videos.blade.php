@@ -17,13 +17,19 @@
       <li class="nav-item">
           <a href="/videos/encoding_status" class="nav-link  {{ active('videos.encoding_status') }}">
             <small><i class="fas fa-upload nav-icon"></i>
-            <p>Realtime Encoding</p></small>
+            <p><small>Uploaded Encoding Status</small></p></small>
           </a>
         </li>
         <li class="nav-item">
+            <a href="/videos/failed_status" class="nav-link  {{ active('videos.encoding_status') }}">
+              <small><i class="fas fa-upload nav-icon text-red"></i>
+              <p class="text-red"><small>Failed Encoding Status</small></p></small>
+            </a>
+          </li>
+        <li class="nav-item">
             <a href="/videos/failed" class="nav-link  {{ active('videos.failed') }}">
                 <small><i class="text-danger nav-icon fas fa-stop"></i>
-              <p>Failed</p></small>
+              <p class="text-red">Failed</p></small>
             </a>
           </li>
 

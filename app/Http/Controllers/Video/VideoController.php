@@ -54,6 +54,7 @@ class VideoController extends Controller
         Route::get('/videos/{video}/delayed_redirect', [VideoController::class, 'delayed_redirect'])->name('videos.delayed_redirect');
         Route::get('/videos/failed', [VideoController::class, 'failed'])->name('videos.failed');
         Route::get('/videos/encoding_status', [VideoController::class, 'encoding_status']);
+        Route::get('/videos/failed_status', [VideoController::class, 'failed_status']);
 
         Route::resource('videos', VideoController::class );
 
@@ -411,6 +412,11 @@ class VideoController extends Controller
     public function encoding_status(){
 
         return view('videos.encoding_status');
+    }
+
+    public function failed_status(){
+
+        return view('videos.failed_status');
     }
 
 }
