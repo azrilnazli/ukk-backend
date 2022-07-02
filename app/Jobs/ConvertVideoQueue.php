@@ -53,7 +53,8 @@ class ConvertVideoQueue implements ShouldQueue
         $this->video->update([
             'is_failed' => false,
             'is_ready' => false,
-            'is_processing' => true
+            'is_processing' => true,
+            'job_id' => $this->job->uuid() // to match with failed jobs
         ]);
 
         //    $this->video->is_processing = true;
@@ -159,7 +160,7 @@ class ConvertVideoQueue implements ShouldQueue
             'bitrate' => $bitrate,
             'format' => $format,
             'asset_size' => $this->getFolderSize($id),
-            'job_id' =>$this->job->uuid() // to match with failed jobs
+            'job_id' => $this->job->uuid() // to match with failed jobs
         ]);
 
         // $this->video->proposal->update([
