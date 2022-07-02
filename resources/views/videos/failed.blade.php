@@ -51,7 +51,7 @@
           <tbody>
             <tr>
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
-              <td class="text-center">
+              <td>
                {{ $row->original_filename}}
               </td>
               <td>
