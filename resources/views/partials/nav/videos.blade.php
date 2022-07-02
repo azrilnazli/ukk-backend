@@ -20,6 +20,12 @@
             <p>Realtime Encoding</p></small>
           </a>
         </li>
+        <li class="nav-item">
+            <a href="/videos/failed" class="nav-link  {{ active('videos.failed') }}">
+                <small><i class="text-danger nav-icon fas fa-stop"></i>
+              <p>Failed</p></small>
+            </a>
+          </li>
 
       <li class="nav-item">
         <a href="/queue/jobs" class="nav-link  {{ active('videos.jobs') }}">
