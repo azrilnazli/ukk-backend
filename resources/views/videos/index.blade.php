@@ -52,18 +52,13 @@
               <td class="text-center">
                 <ul class="list-inline">
                     <li class="list-inline-item">
+                        @if($row->is_ready == 1 )
                         <a href="{{ route('videos.show', $row->id) }}"><img
-                        class=""
-
-                        @if($row->processing == 0)
+                          class=""
                           style="height:75px"
                           src="{{ Storage::disk('streaming')->url( $row->id . '/thumbnails/poster.jpg')}}?{{rand()}}"
-                        @else
-                          style="width:100px"
-                          src="{{ asset( 'images/loader.gif' )}}"
-
-                        @endif
                         /></a>
+                        @endif
 
                     </li>
 

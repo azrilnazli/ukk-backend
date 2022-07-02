@@ -18,7 +18,7 @@
 <div class="card card-dark">
 
     <div class="card-header clearfix">
-      <h3 class="card-title">Total Failed Videos ( {{ $data->total() }} )</h3>
+      <h3 class="card-title">Total Videos ( {{ $data->total() }} )</h3>
 
       {{-- <div class="card-tools">
         <a class="btn-sm btn-primary " href="{{ route('videos.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
@@ -35,54 +35,75 @@
           <thead>
             <tr>
               <th width="2%">ID</th>
-              <th width="50%">Company</th>
-              <th width="50%">Details</th>
+              <th width="5%">Filename</th>
+              <th width="15%">Format</th>
+              <th width="15%">Length</th>
+              <th width="18%">Company</th>
+              <th width="*">Date</th>
 
-              {{-- <th width="25%" class="text-center">Actions</th> --}}
+              <th width="20%" class="text-center">Actions</th>
             </tr>
           </thead>
 
 
           @foreach($data as $row)
-          {{-- @if (  isset($row->user->company) &&  $row->user->company->is_approved == TRUE ) --}}
+
           <tbody>
             <tr>
               <td><span class="badge badge-dark">{{ $row->id }}</span></td>
+              <td class="text-center">
+               {{ $row->original_filename}}
+              </td>
               <td>
-
-
-                  Company ID: <span class="badge badge-warning">{{ $row->user->company->id }}</span><br />
-                  Company Status: {!! $row->user->company->is_approved ? '<span class="badge badge-success">Approved</span>' : '<span class="badge badge-danger">Rejected</span>' !!}</span><br />
-                  Company Name: <strong>{{ $row->user->company->name }}</strong> <br />
-                  Email: <strong>{{ $row->user->company->email }}</strong> <br />
-                  Phone: <strong>{{ $row->user->company->phone }}</strong> <br />
-
+                <span>  {{ $row->format}}</span>
               </td>
 
               <td>
-                <span class="lead">{{ $row->tender->channel }} : {{ $row->tender->programme_category }} ( {{ $row->tender->programme_code }} )</span>
-                <br />
-                <small>
-
-                    Duration: <strong>{{ $row->tender->number_of_episode }} X {{ $row->tender->duration }}'</strong> <br />
-                    Language: <strong>{{ implode(',', $row->tender->languages) }}</strong> <br />
-
-                    Date:  <strong>{{ $row->created_at  }}</strong> <i>{{ $row->created_at->diffForHumans() }}</i> <br />
-
-                </small>
+                <span>  {{ $row->length}}</span>
+              </td>
+              <td>
+                <span>{{ optional($row->user->company)->name }}</span>
               </td>
 
 
-              {{-- <td class="text-center">
+              <td>
+                {{ $row->created_at }}
+              </td>
+
+
+              <td class="text-center">
 
                 <form action="{{ route('videos.destroy', $row->id)}}" method="post">
                   @csrf @method('DELETE')
-                  <button class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
+                <a class="btn btn-primary btn-sm " href="{{ route('videos.show', $row->id) }} ">
+                    <i class="fas fa-search"></i>
+
+                </a>
+                @role('super-admin')
+                {{-- <a class="btn btn-success btn-sm  @if($row->processing == 1) disabled  @endif " href="{{ route('videos.edit', $row->id) }}">
+                    <i class="fas fa-pencil-alt">
+                    </i> --}}
+
+                </a>
+                  <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm   type="submit"><i class="fas fa-trash"></i></button>
                 </form>
-              </td>             --}}
+                @endrole
+              </td>
             </tr>
+
+            @if($row->exception)
+            <tr>
+                <td colspan="7">
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Error</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $row->exception }}</textarea>
+                  </div>
+                </td>
+            </tr>
+            @endif
           </tbody>
-          {{-- @endif --}}
+
           @endforeach
 
 
