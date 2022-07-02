@@ -138,8 +138,8 @@ class VideoService {
         $video->original_filename = $request['original_filename'];
         $video->uploading_duration =  $request['uploading_duration'];
         $video->filesize =  $request['filesize'];
-        $video->is_ready =  0;
-        $video->is_processing = 1;
+        $video->is_ready =  false;
+        $video->is_processing = false;
         $video->duration =  0;
 
         $video->save();

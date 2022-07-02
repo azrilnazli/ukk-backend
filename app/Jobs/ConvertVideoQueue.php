@@ -47,13 +47,21 @@ class ConvertVideoQueue implements ShouldQueue
     {
 
         // echo $this->job->getJobId();
-        echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]\n";
+        if($this->video->company){
+            echo "Job sent by " . $this->video->company->name . " [ id-".$this->video->id."]" . PHP_EOL;
+        }else{
+            echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]" . PHP_EOL;
+        }
 
+
+        $media = FFMpeg::fromDisk('assets')->open( $this->video->id . '/original.mp4');
+        $duration =  $media->getDurationInSeconds();
         // Update Video Model
         $this->video->update([
             'is_failed' => false,
             'is_ready' => false,
             'is_processing' => true,
+            'duration' => $duration,
             'job_id' => $this->job->uuid() // to match with failed jobs
         ]);
 
