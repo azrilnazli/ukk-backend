@@ -58,7 +58,7 @@ class VideoController extends Controller
 
         // query videos where is_processing = true
         $collection = Video::query()
-                    //->select('id','original_filename')
+                    ->select('id','original_filename')
                     ->where('is_processing', true)
                     ->where('is_failed', false)
                     ->get()
