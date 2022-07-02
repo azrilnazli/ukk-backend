@@ -97,7 +97,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Error</label>
-                    <textarea class="form-control bg-warning" id="exampleFormControlTextarea1" rows="5">{{ $row->exception }}</textarea>
+                    <textarea class="form-control bg-light" id="exampleFormControlTextarea1" rows="5">{{ $row->exception }}</textarea>
                   </div>
                 </td>
             </tr>
