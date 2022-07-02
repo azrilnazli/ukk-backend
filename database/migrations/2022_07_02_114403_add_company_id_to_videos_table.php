@@ -15,7 +15,7 @@ class AddCompanyIdToVideosTable extends Migration
     {
         Schema::table('videos', function (Blueprint $table) {
             //
-            $table->foreignIdFor(\App\Models\Company::class)->nullable(); // Company
+           // $table->foreignIdFor(\App\Models\Company::class)->nullable(); // Company
         });
     }
 
@@ -28,7 +28,7 @@ class AddCompanyIdToVideosTable extends Migration
     {
         Schema::table('videos', function (Blueprint $table) {
             //
-            $table->dropColumn('company_id');
+           // $table->dropColumn('company_id');
         });
     }
 }

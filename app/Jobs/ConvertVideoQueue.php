@@ -78,7 +78,6 @@ class ConvertVideoQueue implements ShouldQueue
      */
     public function failed($exception)
     {
-
         // delete existing job from onQueue('default')
         $this->delete(); // InteractsWithQueue
 
@@ -91,7 +90,6 @@ class ConvertVideoQueue implements ShouldQueue
 
         // send failed job to onQueue('failed_jobs')
         $this->dispatch(\App\Models\Video::find($this->video->id))->onQueue('failed_jobs'); // Dispatchable
-
     }
 
 
