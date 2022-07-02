@@ -146,6 +146,7 @@ class ConvertVideoQueue implements ShouldQueue
             'height' => $height,
             'is_processing' => false, // done processing
             'is_ready' => true, // ready to stream
+            'is_failed' => false, // ready to stream
             'processing_duration' => $processing_duration,
             'bitrate' => $bitrate,
             'format' => $format,

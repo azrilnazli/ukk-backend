@@ -12,7 +12,7 @@ class PingJobCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'video:encode';
+    protected $signature = 'ping';
 
     /**
      * The console command description.
@@ -40,8 +40,8 @@ class PingJobCommand extends Command
     {
         for($i=0; $i <= 100; $i++)
         {
-            PingJob::dispatch($i);    
-             
+            PingJob::dispatch($i);
+
         }
         echo "Send 100 videos for encoding" . PHP_EOL;
     }
