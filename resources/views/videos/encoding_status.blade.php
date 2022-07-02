@@ -57,9 +57,9 @@
                       $.each(JSON.parse(data.encoding), function(key, value) {
                          console.log(value); // display to console
                          cards = cards.add(createCard(value));
-
                      })
 
+                     $('#total').html(data.total);
                      $('#videos').html(cards);
                  },
                  error: function(error){
@@ -74,8 +74,9 @@
 
         function createCard(cardData) {
             var cardTemplate = [
-                '<p><strong>video id : </strong>' + cardData.id + ' - <strong>filename :</strong> ' + cardData.original_filename + '</p>',
-
+                '<small>video id <span class="badge badge-dark text-uppercase">' + cardData.id + '</span> - filename <span class="badge badge-dark text-uppercase">' + cardData.original_filename + '</span>',
+                ' - company <span class="badge badge-dark text-uppercase">' + cardData.company.name + '</span> - date <span class="badge badge-dark text-uppercase">' + cardData.date+ '</span>',
+                ' - size <span class="badge badge-dark text-uppercase">' + cardData.uploaded_size + '</span> - length <span class="badge badge-dark text-uppercase">' + cardData.length + '</span></small><br />',
                 '<div class="progress">',
                     '<div style="width:'+ cardData.progress +'%" id="progressbar_'+ cardData.id +'" class="progress-bar" role="progressbar">'+ cardData.progress +'%</div>',
                 '</div>'
@@ -90,7 +91,7 @@
 
 <div class="card card-dark">
     <div class="card-header">
-        Video Processing Live Monitoring ( Uploaded Videos )
+        Video Processing Live Monitoring ( <strong><span id="total"></span></strong> Uploaded Videos )
     </div>
 
     <div class="card-body">

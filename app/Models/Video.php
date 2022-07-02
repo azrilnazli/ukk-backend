@@ -60,6 +60,16 @@ class Video extends Model
 
     }
 
+    /**
+     * Video belongsTo Company
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+
+    }
+
+
 
    /**
      * Get the Category that owns the Video.

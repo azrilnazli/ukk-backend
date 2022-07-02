@@ -193,7 +193,7 @@ class CompanyProposalController extends Controller
             //Log::info($end_time);
             //Log::info($start_time);
             $data = [
-                'user_id'       => Auth::user()->id,
+                'user_id' => Auth::user()->id,
                 'company_id' =>  $company->id,
                 'tender_submission_id'  => $request->tender_submission_id,
                 'filesize'  => $request->file('file')->getSize(),
