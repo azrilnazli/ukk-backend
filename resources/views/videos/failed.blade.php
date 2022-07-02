@@ -19,34 +19,29 @@
 
     <div class="card-header clearfix">
       <h3 class="card-title">Total Videos ( {{ $data->total() }} )</h3>
-
-      {{-- <div class="card-tools">
-        <a class="btn-sm btn-primary " href="{{ route('videos.create') }}" role="button"><i class="fas fa-plus"></i> Create</a>
-      </div>
-   --}}
     </div>
     <!-- /.card-header -->
 
 
-    <div class="card-body p-0">
-
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th width="2%">ID</th>
-              <th width="5%">Filename</th>
-              <th width="15%">Format</th>
-              <th width="15%">Length</th>
-              <th width="18%">Company</th>
-              <th width="*">Date</th>
-
-              <th width="20%" class="text-center">Actions</th>
-            </tr>
-          </thead>
 
 
           @foreach($data as $row)
+          <div class="card-body p-2 mt-2" >
+          <div class="alert   rounded">
+            <table class="table">
+              <thead>
+                <tr class="bg-secondary">
+                  <th width="2%">ID</th>
+                  <th width="5%">Filename</th>
+                  <th width="15%">Format</th>
+                  <th width="15%">Size</th>
+                  <th width="15%">Length</th>
+                  <th width="18%">Company</th>
+                  <th width="*">Date</th>
+
+                  <th width="20%" class="text-center">Actions</th>
+                </tr>
+              </thead>
 
           <tbody>
             <tr>
@@ -58,6 +53,9 @@
                 <span>  {{ $row->format}}</span>
               </td>
 
+              <td>
+                <span>  {{ $row->uploaded_size}}</span>
+              </td>
               <td>
                 <span>  {{ $row->length}}</span>
               </td>
@@ -93,7 +91,7 @@
 
             @if($row->exception)
             <tr>
-                <td colspan="7">
+                <td colspan="8">
 
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Error</label>
@@ -103,15 +101,17 @@
             </tr>
             @endif
           </tbody>
-
-          @endforeach
-
-
         </table>
-      </div>
-
     </div>
-    <!-- /.card-body -->
+</div>
+<!-- /.card-body -->
+    @endforeach
+
+
+
+
+
+
 
     <div class="card-footer clearfix">
       <div class="card-tools">
