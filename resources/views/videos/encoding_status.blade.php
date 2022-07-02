@@ -74,12 +74,12 @@
 
         function createCard(cardData) {
             var cardTemplate = [
-                '<small>video id <span class="badge badge-dark text-uppercase">' + cardData.id + '</span> - filename <span class="badge badge-dark text-uppercase">' + cardData.original_filename + '</span>',
+                '<div class="mt-2"><small>video id <span class="badge badge-dark text-uppercase">' + cardData.id + '</span> - filename <span class="badge badge-dark text-uppercase">' + cardData.original_filename + '</span>',
                 ' - company <span class="badge badge-dark text-uppercase">' + cardData.company.name + '</span> - date <span class="badge badge-dark text-uppercase">' + cardData.date+ '</span>',
                 ' - size <span class="badge badge-dark text-uppercase">' + cardData.uploaded_size + '</span> - length <span class="badge badge-dark text-uppercase">' + cardData.length + '</span></small><br />',
                 '<div class="progress">',
                     '<div style="width:'+ cardData.progress +'%" id="progressbar_'+ cardData.id +'" class="progress-bar" role="progressbar">'+ cardData.progress +'%</div>',
-                '</div>'
+                '</div></div>'
             ];
 
             return $(cardTemplate.join(''));
