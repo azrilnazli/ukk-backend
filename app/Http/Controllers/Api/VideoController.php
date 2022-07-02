@@ -30,6 +30,7 @@ class VideoController extends Controller
         Route::get('/videos/{video}/status', [VideoController::class, 'status']);
 
         Route::get('/video/encoding_status', [VideoController::class, 'encoding_status']); // API
+        Route::get('/video/failed_status', [VideoController::class, 'failed_status']); // API
         Route::get('/video/{video}/conversion_progress', [\App\Http\Controllers\Video\VideoController::class, 'conversion_progress']);
         Route::get('/video/{video}/is_playable', [\App\Http\Controllers\Video\VideoController::class, 'is_playable']);
 
@@ -59,6 +60,32 @@ class VideoController extends Controller
         $collection = Video::query()
                     ->select('id','original_filename')
                     ->where('is_processing', true)
+                    ->where('is_failed', false)
+                    ->get()
+                    ->map( function($val, $key)  {
+
+                        if(Storage::disk('assets')->exists($val->id . "/progress_all.txt")) {
+                            $val['progress'] =  Storage::disk('assets')
+                                                ->get( $val->id . "/progress_all.txt" );
+                            return $val;
+                        }
+                    })
+                    ->toJson();
+
+        return response()->json([
+            'message' => 'request accepted',
+            'encoding' => $collection,
+            'count' => Video::query()->where('is_processing', true)->count()
+        ]);
+    }
+
+    function failed_status(){
+
+        // query videos where is_processing = true
+        $collection = Video::query()
+                    ->select('id','original_filename')
+                    ->where('is_processing', true)
+                    ->where('is_failed', true)
                     ->get()
                     ->map( function($val, $key)  {
 

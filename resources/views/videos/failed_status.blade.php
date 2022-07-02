@@ -14,6 +14,7 @@
 @stop
 
 
+
  @section('content')
 
  <script type="text/javascript">
@@ -22,7 +23,7 @@
          function getEncodingStatus(){
              $.ajax({
                  type: 'GET', // mode is GET
-                 url: '/api/video/encoding_status', // laravel api route
+                 url: '/api/video/failed_status', // laravel api route
                  dataType: 'json', // JSON
                  success: function (data) { // response 200
 
@@ -91,7 +92,7 @@
 
 <div class="card card-dark">
     <div class="card-header">
-        Video Processing Live Monitoring ( Uploaded Videos )
+        Video Processing Live Monitoring ( failed videos )
     </div>
 
     <div class="card-body">

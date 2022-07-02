@@ -48,6 +48,14 @@ class ConvertVideoQueue implements ShouldQueue
 
         // echo $this->job->getJobId();
         echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]\n";
+
+        // Update Video Model
+        $this->video->update([
+            'is_failed' => false,
+            'is_ready' => false,
+            'is_processing' => true
+        ]);
+
         //    $this->video->is_processing = true;
         //    $this->video->is_ready = false;
         //    $this->video->save();
