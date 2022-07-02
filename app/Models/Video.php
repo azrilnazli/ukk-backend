@@ -11,7 +11,7 @@ class Video extends Model
     use HasFactory;
     use Sortable;
     public $sortable = ['id', 'is_ready','created_at', 'updated_at'];
-    protected $appends = [ 'length','date' ];
+    protected $appends = [ 'length','date','uploaded_size' ];
    // protected $appends = array('expired');
 
     public function getLengthAttribute()
