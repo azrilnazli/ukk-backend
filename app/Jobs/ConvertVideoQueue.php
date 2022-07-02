@@ -12,22 +12,23 @@ use FFMpeg\Format\Video\X264;
 use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
 use FFMpeg\FFProbe;
+use App\Jobs\ConvertVideoQueue;
 
+// use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
-
 use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 
 class ConvertVideoQueue implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    use IsMonitored;
+    use IsMonitored,Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    //public $backoff = 3; // 3 secs before retrying
     public $video;
     public $job;
     public $width;
@@ -38,19 +39,23 @@ class ConvertVideoQueue implements ShouldQueue
 
     public function __construct(Video $video)
     {
-        $this->video = $video;
+        $this->video = \App\Models\Video::find($video->id);
         $this->startTime = microtime(true);
     }
 
     public function handle()
     {
 
-       // echo $this->job->getJobId();
-       echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]\n";
+        // echo $this->job->getJobId();
+        echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]\n";
         //    $this->video->is_processing = true;
         //    $this->video->is_ready = false;
         //    $this->video->save();
 
+
+
+
+        // $this->fail();
         // encode video to multibitrate
         $this->createMultiBitrate($this->video->id);
 
@@ -64,6 +69,31 @@ class ConvertVideoQueue implements ShouldQueue
         $this->updateMetadata($this->video->id);
 
     }
+
+    /**
+     * Handle a job failure.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    public function failed($exception)
+    {
+
+        // delete existing job from onQueue('default')
+        $this->delete(); // InteractsWithQueue
+
+        // Update Video Model
+        $this->video->update([
+            'is_failed' => true,
+            'is_ready' => false,
+            'exception' => $exception,
+        ]);
+
+        // send failed job to onQueue('failed_jobs')
+        $this->dispatch(\App\Models\Video::find($this->video->id))->onQueue('failed_jobs'); // Dispatchable
+
+    }
+
 
     function createMultiBitrate($id){
         // from config

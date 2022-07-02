@@ -201,7 +201,7 @@ class CompanyProposalController extends Controller
                 'uploading_duration' => $uploading_duration,
              ];
 
-            $video = $this->video->api_store($data, Auth::user()->id );
+            $video = $this->video->api_store($data, Auth::user()->id ); // save data to Video
             $this->video->createProgressFile($video->id);
             $this->video->createDirectory($video->id);
 
