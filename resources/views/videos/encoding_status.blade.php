@@ -75,8 +75,7 @@
         function createCard(cardData) {
             var cardTemplate = [
                 '<p><strong>video id : </strong>' + cardData.id + ' - <strong>filename :</strong> ' + cardData.original_filename + '</p>',
-                '<p><small><strong>company : </strong>' + cardData.company.name + ' - <strong>uploaded :</strong> ' + cardData.date+ '</small></p>',
-                '<p><strong>size : </strong>' + cardData.uploaded_size + ' - <strong>length :</strong> ' + cardData.length + '</p>',
+
                 '<div class="progress">',
                     '<div style="width:'+ cardData.progress +'%" id="progressbar_'+ cardData.id +'" class="progress-bar" role="progressbar">'+ cardData.progress +'%</div>',
                 '</div>'
