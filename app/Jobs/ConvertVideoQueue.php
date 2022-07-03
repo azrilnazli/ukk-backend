@@ -17,6 +17,7 @@ use App\Jobs\ConvertVideoQueue;
 // use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Storage;
 use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 
-class ConvertVideoQueue implements ShouldQueue
+class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
 {
     use IsMonitored,Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
