@@ -105,7 +105,8 @@ class ConvertVideoQueue implements ShouldQueue
 
         // Update Video Model
         $this->video->update([
-            'is_failed' => true,
+            'is_reencode' => true, // send for reencode
+            'is_failed' => false,
             'is_ready' => false,
             'is_processing' => false,
             'exception' => $exception,
