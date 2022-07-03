@@ -50,7 +50,7 @@
 
              $.ajax({
                  type: 'GET', // mode is GET
-                 url: '/api/video/encoding_status', // laravel api route
+                 url: '/api/video/failed_status', // laravel api route
                  dataType: 'json', // JSON
                  success: function (data) { // response 200
 
