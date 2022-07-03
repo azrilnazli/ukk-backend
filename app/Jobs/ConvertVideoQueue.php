@@ -60,9 +60,11 @@ class ConvertVideoQueue implements ShouldQueue
         $duration =  $media->getDurationInSeconds();
         // Update Video Model
         $this->video->update([
+            'is_reencode' => false,
             'is_failed' => false,
             'is_ready' => false,
             'is_processing' => true,
+
             'duration' => $duration,
             'job_id' => $this->job->uuid() // to match with failed jobs
         ]);
@@ -171,14 +173,17 @@ class ConvertVideoQueue implements ShouldQueue
             'duration' =>$duration,
             'width' => $width,
             'height' => $height,
-            'is_processing' => false, // done processing
-            'is_ready' => true, // ready to stream
-            'is_failed' => false, // ready to stream
+
             'processing_duration' => $processing_duration,
             'bitrate' => $bitrate,
             'format' => $format,
             'asset_size' => $this->getFolderSize($id),
-            'job_id' => $this->job->uuid() // to match with failed jobs
+            'job_id' => $this->job->uuid(), // to match with failed jobs
+
+            'is_reencode' => false,
+            'is_failed' => false,
+            'is_ready' => true,
+            'is_processing' => false,
         ]);
 
         // $this->video->proposal->update([
