@@ -73,7 +73,7 @@ class ConvertVideoFailed implements ShouldQueue
 
 
 
-        // $this->fail();
+         $this->fail();
         // encode video to multibitrate
         $this->createMultiBitrate($this->video->id);
 
