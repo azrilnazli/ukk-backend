@@ -266,80 +266,88 @@ class ConvertVideoQueue implements ShouldQueue
             }
         )
 
-        ->addFormat($quality, function($media) {
-            $media->scale($this->width, $this->height);
-        })
-
-
-        ->onProgress(function ($percentage) use ($id) {
-
-            // write to file
-           // echo "Exporting to encrypted HLS for $this->quality at  {$percentage}%  \n";
-            Storage::disk('assets')->put( $id . "/progress_$this->quality.txt" , $percentage);
-            Storage::disk('streaming')->put( $id . "/progress_$this->quality.txt" , $percentage);
-
-            // store to db
-            $quality = $this->quality;
-
-
-            // 5 profiles each is 20%
-            $previous = 0;
-            if($quality == '240p'){
-
-                $total = ($percentage/5);
-                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+        ->addFormat
+        (
+            $quality,
+            function($media)
+            {
+                $media->scale($this->width, $this->height);
             }
+        )
 
-            if($quality == '360p'){
 
-                $previous = 20;
-                $total = (($percentage/5) + $previous);
-                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+        ->onProgress
+        (
+            function ($percentage) use ($id)
+            {
 
-                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+                // write to file
+                // echo "Exporting to encrypted HLS for $this->quality at  {$percentage}%  \n";
+                Storage::disk('assets')->put( $id . "/progress_$this->quality.txt" , $percentage);
+                Storage::disk('streaming')->put( $id . "/progress_$this->quality.txt" , $percentage);
+
+                // store to db
+                $quality = $this->quality;
+
+
+                // 5 profiles each is 20%
+                $previous = 0;
+                if($quality == '240p'){
+
+                    $total = ($percentage/5);
+                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+                }
+
+                if($quality == '360p'){
+
+                    $previous = 20;
+                    $total = (($percentage/5) + $previous);
+                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+                }
+
+                if($quality == '480p'){
+
+                    $previous = 40;
+                    $total = (($percentage/5) + $previous);
+                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+                }
+
+                if($quality == '720p'){
+
+                    $previous = 60;
+                    $total = (($percentage/5) + $previous);
+                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+                }
+
+                if($quality == '1080p'){
+
+                    $previous = 80;
+                    $total = (($percentage/5) + $previous);
+                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                    //echo "PROGRESS {$id} :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
+                }
+
+                echo "VIDEO ID ({$id}) :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
+
+
+                // write to progress_all.txt
+            // Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
             }
-
-            if($quality == '480p'){
-
-                $previous = 40;
-                $total = (($percentage/5) + $previous);
-                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
-            }
-
-            if($quality == '720p'){
-
-                $previous = 60;
-                $total = (($percentage/5) + $previous);
-                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
-            }
-
-            if($quality == '1080p'){
-
-                $previous = 80;
-                $total = (($percentage/5) + $previous);
-                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                //echo "PROGRESS {$id} :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
-            }
-
-            echo "VIDEO ID ({$id}) :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
-
-
-            // write to progress_all.txt
-           // Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-
-        })
+        )
         ->toDisk('streaming')
         ->save( $id . "/m3u8/playlist_$this->quality.m3u8");
 
