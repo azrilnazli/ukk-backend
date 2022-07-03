@@ -95,7 +95,7 @@
 
                     <div class="form-group">
                         <label>Original Video : </label>
-                        <a href="http://202.165.14.246:8080/{{ $row->id }}/original.mp4" target="_blank">{{$row->original_filename}}</a>
+                        <a class="text-dark" href="http://202.165.14.246:8080/{{ $row->id }}/original.mp4" target="_blank">{{$row->original_filename}}</a>
                     </div>
 
                     <div class="form-group">
