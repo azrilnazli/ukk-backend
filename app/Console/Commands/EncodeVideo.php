@@ -45,7 +45,8 @@ class EncodeVideo extends Command
                         ->where('is_processing', true)
                         ->get();
             foreach($videos as $video){
-                $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue('encode')->onConnection('database'); // Dispatchable
+                echo "Dispatch" .$video->id. " to re-encode";
+                $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue('re-encode')->onConnection('database'); // Dispatchable
                 dispatch($job);
             }
 
