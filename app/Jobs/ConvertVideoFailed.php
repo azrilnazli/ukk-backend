@@ -62,6 +62,7 @@ class ConvertVideoFailed implements ShouldQueue, ShouldBeUnique
         $this->video->update([
             'is_failed' => false,
             'is_ready' => false,
+            'is_reencode' => false,
             'is_processing' => true,
 
             'duration' => $duration,
