@@ -64,7 +64,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
 
-        $request['role'] = 'subscriber';
+        $request['role'] = 'pembekal';
         $token = $this->user->register($request);
 
         return $this->success([
