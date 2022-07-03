@@ -38,7 +38,7 @@ return [
             'driver' => 'database',
             'table' => 'jobs',
             'queue' => 'default',
-            'retry_after' => 0,
+            'retry_after' => 100,
             'after_commit' => false,
         ],
 

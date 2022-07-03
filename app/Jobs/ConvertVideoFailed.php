@@ -24,9 +24,10 @@ use Illuminate\Support\Facades\Storage;
 use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 
-class ConvertVideoQueue implements ShouldQueue
+class ConvertVideoFailed implements ShouldQueue
 {
     use IsMonitored,Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
 
     //public $backoff = 3; // 3 secs before retrying
     public $video;
@@ -54,8 +55,6 @@ class ConvertVideoQueue implements ShouldQueue
         }
 
 
-        $this->fail();
-
         $media = FFMpeg::fromDisk('assets')->open( $this->video->id . '/original.mp4');
         $duration =  $media->getDurationInSeconds();
         // Update Video Model
@@ -74,8 +73,7 @@ class ConvertVideoQueue implements ShouldQueue
 
 
 
-
-
+        // $this->fail();
         // encode video to multibitrate
         $this->createMultiBitrate($this->video->id);
 
@@ -98,25 +96,19 @@ class ConvertVideoQueue implements ShouldQueue
      */
     public function failed($exception)
     {
-        // delete existing job from onQueue('default')
-        $this->delete(); // InteractsWithQueue
 
         // Update Video Model
         $this->video->update([
             'is_failed' => true,
             'is_ready' => false,
             'is_processing' => false,
+            'is_reencode' => true,
             'exception' => $exception,
         ]);
 
-        // get Video collection
-        $video = \App\Models\Video::find($this->video->id);
-        // send to ConvertVideoFailed
-        $job =  ( new \App\Jobs\ConvertVideoFailed($video) )->onQueue('failed_jobs')->onConnection('database'); // Dispatchable
-        dispatch($job);
+        // delete existing job from onQueue('default')
+        $this->delete(); // InteractsWithQueue
 
-        // send failed job to onQueue('failed_jobs')
-        //$this->dispatch(\App\Models\Video::find($this->video->id))->onQueue('failed_jobs'); // Dispatchable
     }
 
 
