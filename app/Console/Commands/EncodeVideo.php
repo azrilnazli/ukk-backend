@@ -44,7 +44,8 @@ class EncodeVideo extends Command
             // ['created_at', '>=', Carbon::now()->subHours(24)->toDateTimeString()]
             $videos = \App\Models\Video::query()
                         //->where('is_processing', true)
-                        ->where('updated_at', '>=' , \Carbon\Carbon::now()->addHours(2)->toDateTimeString() )
+                        ->where('is_reencode', true)
+                        //->where('updated_at', '>=' , \Carbon\Carbon::now()->addHours(2)->toDateTimeString() )
                         ->get();
             foreach($videos as $video){
                 echo "Dispatch video=" .$video->id. " to re-encode".PHP_EOL;
