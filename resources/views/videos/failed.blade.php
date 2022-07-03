@@ -93,7 +93,12 @@
             <tr>
                 <td colspan="8">
 
-                <div class="form-group">
+                    <div class="form-group">
+                        <label>Original Video : </label>
+                        <a href="http://202.165.14.246:8080/{{ $row->id }}/original.mp4" target="_blank">{{$row->original_filename}}</a>
+                    </div>
+
+                    <div class="form-group">
                     <label>Encoding Progress : </label>
                     {{ $row->encoding_progress }} %
                     </div>
