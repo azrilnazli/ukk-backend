@@ -86,6 +86,7 @@ class VideoController extends Controller
                     //->select('id','original_filename')
                     ->with('company')
                     ->where('is_processing', true)
+                    ->where('is_reencode', false)
                     ->get()
                     ->map( function($val, $key)  {
 
