@@ -13,6 +13,7 @@ class CreateLanguageTenderTable extends Migration
      */
     public function up()
     {
+        //Schema::dropIfExists('language_tender');
         Schema::create('language_tender', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Tender::class)->nullable(); // Tender

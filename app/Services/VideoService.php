@@ -35,7 +35,7 @@ class VideoService {
     public function paginate($item = null)
     {
         return Video::query()
-            ->where('duration','!=', 0)
+            ->where('is_ready',true)
             ->orderBy('updated_at','desc')
             ->orderBy('id','desc')
             ->paginate($item)
