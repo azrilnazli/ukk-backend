@@ -21,6 +21,7 @@
       <a class="nav-item nav-link " id="nav-approval-tab" data-toggle="tab" href="#nav-approval" role="tab">REQUEST FOR APPROVAL</a>
       <a class="nav-item nav-link " id="nav-proposal-tab" data-toggle="tab" href="#nav-proposal" role="tab">PROPOSALS</a>
       <a class="nav-item nav-link " id="nav-comments-tab" data-toggle="tab" href="#nav-comments" role="tab">COMMENTS</a>
+      <a class="nav-item nav-link " id="nav-videos-tab" data-toggle="tab" href="#nav-videos" role="tab">VIDEOS</a>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -38,6 +39,10 @@
 
     <div class="tab-pane fade p-2" id="nav-comments" role="tabpanel">
         @include('companies.partials.comments')
+    </div>
+
+    <div class="tab-pane fade p-2" id="nav-videos" role="tabpanel">
+        @include('companies.partials.videos')
     </div>
 
 

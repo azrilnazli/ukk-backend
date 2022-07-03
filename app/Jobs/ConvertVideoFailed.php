@@ -63,6 +63,7 @@ class ConvertVideoFailed implements ShouldQueue, ShouldBeUnique
             'is_failed' => false,
             'is_ready' => false,
             'is_processing' => true,
+
             'duration' => $duration,
             'job_id' => $this->job->uuid() // to match with failed jobs
         ]);

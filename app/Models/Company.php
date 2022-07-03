@@ -49,6 +49,14 @@ class Company extends Model
         return $this->hasMany(TenderSubmission::class);
     }
 
+    /**
+     * Company hasMany Videos
+     */
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
+
     // states to lower case
     public function setStatesAttribute($value)
     {
