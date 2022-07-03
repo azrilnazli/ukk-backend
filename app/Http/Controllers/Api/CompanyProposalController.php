@@ -202,6 +202,8 @@ class CompanyProposalController extends Controller
              ];
 
             $video = $this->video->api_store($data, Auth::user()->id ); // save data to Video
+
+
             $this->video->createProgressFile($video->id);
             $this->video->createDirectory($video->id);
 
@@ -249,6 +251,7 @@ class CompanyProposalController extends Controller
            // if( $proposal->video->is_ready || $proposal->video->is_processing ){
                 $message = [
                     'exists' => true,
+                    'video' => $proposal->video,
                     'is_ready' => $proposal->video->is_ready ? true : false,
                     'is_processing' => $proposal->video->is_processing ? true : false,
                     'video_id' => $proposal->video->id,
