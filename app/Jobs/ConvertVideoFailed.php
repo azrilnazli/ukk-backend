@@ -49,9 +49,9 @@ class ConvertVideoFailed implements ShouldQueue
 
         // echo $this->job->getJobId();
         if($this->video->company){
-            echo "Job sent by " . $this->video->company->name . " [ id-".$this->video->id."]" . PHP_EOL;
+            echo "Re-Encode by " . $this->video->company->name . " [ id-".$this->video->id."]" . PHP_EOL;
         }else{
-            echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]" . PHP_EOL;
+            echo "Re Encode by " . $this->video->user->email . " [ id-".$this->video->id."]" . PHP_EOL;
         }
 
 
@@ -66,14 +66,6 @@ class ConvertVideoFailed implements ShouldQueue
             'job_id' => $this->job->uuid() // to match with failed jobs
         ]);
 
-        //    $this->video->is_processing = true;
-        //    $this->video->is_ready = false;
-        //    $this->video->save();
-
-
-
-
-         $this->fail();
         // encode video to multibitrate
         $this->createMultiBitrate($this->video->id);
 
