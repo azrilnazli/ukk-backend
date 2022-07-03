@@ -23,15 +23,15 @@
       <li class="nav-item">
           <a href="/videos/encoding_status" class="nav-link  {{ active('videos.uploaded_encoding_status') }}">
             <small><i class="fas fa-upload nav-icon"></i>
-            <p><small>Uploaded Encoding Status</small></p></small>
+            <p><small>Encoding Status</small></p></small>
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="/videos/failed_status" class="nav-link  {{ active('videos.failed_encoding_status') }}">
               <small><i class="fas fa-upload nav-icon text-warning"></i>
               <p class="text-warning"><small>Re-Encode Status</small></p></small>
             </a>
-          </li>
+          </li> --}}
 
 
       <li class="nav-item">
