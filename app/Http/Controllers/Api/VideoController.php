@@ -29,8 +29,8 @@ class VideoController extends Controller
         Route::get('/videos/{video}/metadata', [VideoController::class, 'show']);
         Route::get('/videos/{video}/status', [VideoController::class, 'status']);
 
-        Route::get('/video/encoding_status', [VideoController::class, 'encoding_status']); // API
-        Route::get('/video/failed_status', [VideoController::class, 'failed_status']); // API
+        Route::get('/video/encoding_status', [VideoController::class, 'encoding_status'])->name('videos.uploaded_encoding_status'); // API
+        Route::get('/video/failed_status', [VideoController::class, 'failed_status'])->name('videos.failed_encoding_status'); // API
         Route::get('/video/{video}/conversion_progress', [\App\Http\Controllers\Video\VideoController::class, 'conversion_progress']);
         Route::get('/video/{video}/is_playable', [VideoController::class, 'is_playable']);
         Route::get('/video/{video}/is_processing', [VideoController::class, 'is_processing']);
@@ -86,7 +86,6 @@ class VideoController extends Controller
                     //->select('id','original_filename')
                     ->with('company')
                     ->where('is_processing', true)
-                    ->where('is_failed', false)
                     ->get()
                     ->map( function($val, $key)  {
 
@@ -113,8 +112,7 @@ class VideoController extends Controller
         $collection = Video::query()
                     //->select('id','original_filename')
                     ->with('company')
-                    ->where('is_processing', true)
-                    ->where('is_failed', true)
+                    ->where('is_reencode', true)
                     ->get()
                     ->map( function($val, $key)  {
 
