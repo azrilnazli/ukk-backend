@@ -59,7 +59,15 @@ class User extends Authenticatable
      */
     public function video()
     {
-        return $this->hasOne(Video::class);
+        return $this->hasOne(Video::class)->orderBy('id', 'desc');
+    }
+
+    /**
+     * User hasMany Videos
+     */
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
     }
 
     /**
