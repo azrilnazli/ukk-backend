@@ -42,8 +42,7 @@ class EncodeVideo extends Command
     {
             // process all failed videos on queue=encode
             $videos = \App\Models\Video::query()
-                        ->where('is_failed', true)
-                        ->where('is_reencode', false)
+                        ->where('is_processing', true)
                         ->get();
             foreach($videos as $video){
                 $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue('encode')->onConnection('database'); // Dispatchable
