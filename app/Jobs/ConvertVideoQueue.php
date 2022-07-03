@@ -53,9 +53,6 @@ class ConvertVideoQueue implements ShouldQueue
             echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]" . PHP_EOL;
         }
 
-
-        $this->fail();
-
         $media = FFMpeg::fromDisk('assets')->open( $this->video->id . '/original.mp4');
         $duration =  $media->getDurationInSeconds();
         // Update Video Model
@@ -68,14 +65,6 @@ class ConvertVideoQueue implements ShouldQueue
             'duration' => $duration,
             'job_id' => $this->job->uuid() // to match with failed jobs
         ]);
-
-        //    $this->video->is_processing = true;
-        //    $this->video->is_ready = false;
-        //    $this->video->save();
-
-
-
-
 
 
         // encode video to multibitrate
