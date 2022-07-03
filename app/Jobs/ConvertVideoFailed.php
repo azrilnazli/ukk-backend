@@ -25,9 +25,10 @@ use Illuminate\Support\Facades\Storage;
 use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 
-class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
+class ConvertVideoFailed implements ShouldQueue, ShouldBeUnique
 {
     use IsMonitored,Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
 
     //public $backoff = 3; // 3 secs before retrying
     public $video;
@@ -49,24 +50,22 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
 
         // echo $this->job->getJobId();
         if($this->video->company){
-            echo "Job sent by " . $this->video->company->name . " [ id-".$this->video->id."]" . PHP_EOL;
+            echo "Re-Encode by " . $this->video->company->name . " [ id-".$this->video->id."]" . PHP_EOL;
         }else{
-            echo "Job sent by " . $this->video->user->email . " [ id-".$this->video->id."]" . PHP_EOL;
+            echo "Re Encode by " . $this->video->user->email . " [ id-".$this->video->id."]" . PHP_EOL;
         }
+
 
         $media = FFMpeg::fromDisk('assets')->open( $this->video->id . '/original.mp4');
         $duration =  $media->getDurationInSeconds();
         // Update Video Model
         $this->video->update([
-            'is_reencode' => false,
             'is_failed' => false,
             'is_ready' => false,
             'is_processing' => true,
-
             'duration' => $duration,
             'job_id' => $this->job->uuid() // to match with failed jobs
         ]);
-
 
         // encode video to multibitrate
         $this->createMultiBitrate($this->video->id);
@@ -90,26 +89,19 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
      */
     public function failed($exception)
     {
-        // delete existing job from onQueue('default')
-        $this->delete(); // InteractsWithQueue
 
         // Update Video Model
         $this->video->update([
-            'is_reencode' => true, // send for reencode
-            'is_failed' => false,
+            'is_failed' => true, // total fail
             'is_ready' => false,
             'is_processing' => false,
+            'is_reencode' => false,
             'exception' => $exception,
         ]);
 
-        // get Video collection
-        $video = \App\Models\Video::find($this->video->id);
-        // send to ConvertVideoFailed
-        $job =  ( new \App\Jobs\ConvertVideoFailed($video) )->onQueue('failed_jobs')->onConnection('database'); // Dispatchable
-        dispatch($job);
+        // delete existing job from onQueue('default')
+        $this->delete(); // InteractsWithQueue
 
-        // send failed job to onQueue('failed_jobs')
-        //$this->dispatch(\App\Models\Video::find($this->video->id))->onQueue('failed_jobs'); // Dispatchable
     }
 
 
@@ -171,10 +163,10 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
             'asset_size' => $this->getFolderSize($id),
             'job_id' => $this->job->uuid(), // to match with failed jobs
 
-            'is_reencode' => false,
             'is_failed' => false,
             'is_ready' => true,
             'is_processing' => false,
+            'is_reencode' => false,
         ]);
 
         // $this->video->proposal->update([
@@ -272,88 +264,80 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
             }
         )
 
-        ->addFormat
-        (
-            $quality,
-            function($media)
-            {
-                $media->scale($this->width, $this->height);
+        ->addFormat($quality, function($media) {
+            $media->scale($this->width, $this->height);
+        })
+
+
+        ->onProgress(function ($percentage) use ($id) {
+
+            // write to file
+           // echo "Exporting to encrypted HLS for $this->quality at  {$percentage}%  \n";
+            Storage::disk('assets')->put( $id . "/progress_$this->quality.txt" , $percentage);
+            Storage::disk('streaming')->put( $id . "/progress_$this->quality.txt" , $percentage);
+
+            // store to db
+            $quality = $this->quality;
+
+
+            // 5 profiles each is 20%
+            $previous = 0;
+            if($quality == '240p'){
+
+                $total = ($percentage/5);
+                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
-        )
 
+            if($quality == '360p'){
 
-        ->onProgress
-        (
-            function ($percentage) use ($id)
-            {
+                $previous = 20;
+                $total = (($percentage/5) + $previous);
+                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
 
-                // write to file
-                // echo "Exporting to encrypted HLS for $this->quality at  {$percentage}%  \n";
-                Storage::disk('assets')->put( $id . "/progress_$this->quality.txt" , $percentage);
-                Storage::disk('streaming')->put( $id . "/progress_$this->quality.txt" , $percentage);
-
-                // store to db
-                $quality = $this->quality;
-
-
-                // 5 profiles each is 20%
-                $previous = 0;
-                if($quality == '240p'){
-
-                    $total = ($percentage/5);
-                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
-                }
-
-                if($quality == '360p'){
-
-                    $previous = 20;
-                    $total = (($percentage/5) + $previous);
-                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
-                }
-
-                if($quality == '480p'){
-
-                    $previous = 40;
-                    $total = (($percentage/5) + $previous);
-                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
-                }
-
-                if($quality == '720p'){
-
-                    $previous = 60;
-                    $total = (($percentage/5) + $previous);
-                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                    //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
-                }
-
-                if($quality == '1080p'){
-
-                    $previous = 80;
-                    $total = (($percentage/5) + $previous);
-                    Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
-                    Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
-
-                    //echo "PROGRESS {$id} :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
-                }
-
-                echo "VIDEO ID ({$id}) :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
-
-
-                // write to progress_all.txt
-            // Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
             }
-        )
+
+            if($quality == '480p'){
+
+                $previous = 40;
+                $total = (($percentage/5) + $previous);
+                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+            }
+
+            if($quality == '720p'){
+
+                $previous = 60;
+                $total = (($percentage/5) + $previous);
+                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                //echo "TOTAL :: Exporting to encrypted HLS for $quality at  {$total}%  \n";
+            }
+
+            if($quality == '1080p'){
+
+                $previous = 80;
+                $total = (($percentage/5) + $previous);
+                Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+                Storage::disk('streaming')->put( $id . "/progress_all.txt" , $total);
+
+                //echo "PROGRESS {$id} :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
+            }
+
+            echo "VIDEO ID ({$id}) :: Exporting to encrypted HLS for {$quality} at  {$total}%  \n";
+
+
+            // write to progress_all.txt
+           // Storage::disk('assets')->put( $id . "/progress_all.txt" , $total);
+
+        })
         ->toDisk('streaming')
         ->save( $id . "/m3u8/playlist_$this->quality.m3u8");
 

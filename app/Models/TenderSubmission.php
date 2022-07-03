@@ -41,7 +41,7 @@ class TenderSubmission extends Model
 
     public function video()
     {
-        return $this->hasOne(Video::class)->where('is_ready', true);
+        return $this->hasOne(Video::class);
     }
 
     public function allowed_users(){

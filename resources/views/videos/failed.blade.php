@@ -89,17 +89,24 @@
               </td>
             </tr>
 
-            @if($row->exception)
+
             <tr>
                 <td colspan="8">
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Error</label>
+                    <label>Encoding Progress : </label>
+                    {{ $row->encoding_progress }} %
+                    </div>
+
+                    @if($row->exception)
+                    <div class="form-group">
+                    <label>Error</label>
                     <textarea class="form-control bg-light" id="exampleFormControlTextarea1" rows="5">{{ $row->exception }}</textarea>
-                  </div>
+                    </div>
+                    @endif
                 </td>
             </tr>
-            @endif
+
           </tbody>
         </table>
     </div>

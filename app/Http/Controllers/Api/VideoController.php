@@ -29,11 +29,36 @@ class VideoController extends Controller
         Route::get('/videos/{video}/metadata', [VideoController::class, 'show']);
         Route::get('/videos/{video}/status', [VideoController::class, 'status']);
 
-        Route::get('/video/encoding_status', [VideoController::class, 'encoding_status']); // API
-        Route::get('/video/failed_status', [VideoController::class, 'failed_status']); // API
+        Route::get('/video/encoding_status', [VideoController::class, 'encoding_status'])->name('videos.uploaded_encoding_status'); // API
+        Route::get('/video/failed_status', [VideoController::class, 'failed_status'])->name('videos.failed_encoding_status'); // API
         Route::get('/video/{video}/conversion_progress', [\App\Http\Controllers\Video\VideoController::class, 'conversion_progress']);
-        Route::get('/video/{video}/is_playable', [\App\Http\Controllers\Video\VideoController::class, 'is_playable']);
+        Route::get('/video/{video}/is_playable', [VideoController::class, 'is_playable']);
+        Route::get('/video/{video}/is_processing', [VideoController::class, 'is_processing']);
+    }
 
+
+    public function is_processing(Video $video)
+    {
+
+        $status = false;
+        if($video->is_processing == TRUE){
+            $status = true;
+        }
+        return response([
+            'is_processing' => $status,
+        ]);
+    }
+
+    public function is_playable(Video $video)
+    {
+
+        $status = false;
+        if($video->is_ready == TRUE){
+            $status = true;
+        }
+        return response([
+            'is_playable' => $status,
+        ]);
     }
 
     public function show(Video $video)
@@ -61,7 +86,7 @@ class VideoController extends Controller
                     //->select('id','original_filename')
                     ->with('company')
                     ->where('is_processing', true)
-                    ->where('is_failed', false)
+                    ->where('is_reencode', false)
                     ->get()
                     ->map( function($val, $key)  {
 
@@ -88,8 +113,7 @@ class VideoController extends Controller
         $collection = Video::query()
                     //->select('id','original_filename')
                     ->with('company')
-                    ->where('is_processing', true)
-                    ->where('is_failed', true)
+                    ->where('is_reencode', true)
                     ->get()
                     ->map( function($val, $key)  {
 
