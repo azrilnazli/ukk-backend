@@ -263,14 +263,15 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
         $media->exportForHLS()
         //->withEncryptionKey($encryptionKey)
 
-        ->withRotatingEncryptionKey
-        (
-            function( $filename, $contents) use ($id)
-            {
-                $path =  $id . '/secrets/' . $filename;
-                Storage::disk('assets')->put( $path, $contents);
-            }
-        )
+        // disable encryption
+        // ->withRotatingEncryptionKey
+        // (
+        //     function( $filename, $contents) use ($id)
+        //     {
+        //         $path =  $id . '/secrets/' . $filename;
+        //         Storage::disk('assets')->put( $path, $contents);
+        //     }
+        // )
 
         ->addFormat
         (
