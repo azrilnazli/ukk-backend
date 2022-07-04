@@ -158,8 +158,6 @@ class CompanyProposalController extends Controller
 
     // only accept VIDEO
     public function upload_video(StoreVideoRequest $request){
-        // log to laravel.log
-        //Log::info($request);
 
         // get folder ID ( User hasOne Company)
         $company = DB::table('companies')
@@ -174,10 +172,6 @@ class CompanyProposalController extends Controller
 
         //Log::info($company->id);
         if($request->hasFile('file')){ // if exists
-
-            //  // upload to temp dir disk('uploads')
-            // $uploading_duration = $this->video->upload($request->file('file')); // tested OK
-
 
             $file =  $request['file']; // uploaded video
 
@@ -203,27 +197,25 @@ class CompanyProposalController extends Controller
 
             $video = $this->video->api_store($data, Auth::user()->id ); // save data to Video
 
-
             $this->video->createProgressFile($video->id);
             $this->video->createDirectory($video->id);
 
             $path = basename($request->file('file')->getPathName() );
-            //Log::info($path);
             $this->video->api_moveVideoToStorage($path,$video->id);
 
             // save max height to db
             $video->max_resolution =  $this->video->getMaxResolution($video->id);
             $video->save();
 
-            // save video_id in TenderSubmission
-            // $proposal =   TenderSubmission::find($request->proposal_id);
-            // Log::info($video->id);
-
-            // $proposal->video_id = $video->id;
-            // $proposal->save();
-
             // send video for processing
-            $this->dispatch(new ConvertVideoQueue($video));
+            \Illuminate\Support\Facades\Bus::chain([
+                new \App\Jobs\BeforeConvertVideo($video), // before
+                new \App\Jobs\ConvertVideoQueue($video),  // encode
+                new \App\Jobs\AfterConvertVideo($video)  // after
+            ])
+            ->onQueue('default')
+            ->onConnection('database')
+            ->dispatch();
         }
 
         return response([

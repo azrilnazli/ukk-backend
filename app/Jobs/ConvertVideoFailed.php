@@ -91,15 +91,18 @@ class ConvertVideoFailed implements ShouldQueue, ShouldBeUnique
      */
     public function failed($exception)
     {
+        // get Video collection
+        $video = \App\Models\Video::find($this->video->id);
 
         // Update Video Model
-        $this->video->update([
-            'is_failed' => true, // total fail
+        $video->update([
+            'is_reencode' => false, // send for reencode
+            'is_failed' => true,
             'is_ready' => false,
             'is_processing' => false,
-            'is_reencode' => false,
             'exception' => $exception,
         ]);
+
 
         // delete existing job from onQueue('default')
         $this->delete(); // InteractsWithQueue
@@ -152,9 +155,9 @@ class ConvertVideoFailed implements ShouldQueue, ShouldBeUnique
 
         // duration & processing
 
-        //$video =  Video::find($this->video->id);
+        $video =  Video::find($this->video->id);
 
-        $this->video->update([
+        $video->update([
             'duration' =>$duration,
             'width' => $width,
             'height' => $height,
