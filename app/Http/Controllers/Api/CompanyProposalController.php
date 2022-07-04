@@ -127,10 +127,10 @@ class CompanyProposalController extends Controller
         //if($company->is_approved == 1 ){
         if( $company ){
 
-             // list
+             // list all proposals
              $proposals = TenderSubmission::query()
                             ->with('tender.tender_detail','video')
-                            ->where('company_id' , $company->id)
+                            ->where('company_id' , $company->id) // use company id
                             ->orderBy('id','DESC')
                             ->get();
 
