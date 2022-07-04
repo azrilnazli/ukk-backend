@@ -20,7 +20,7 @@ class JspdAdminService {
             ->whereHas('tender_detail', fn($query) =>
                 $query->where('id', [1,2])
             )
-            ->whereHas('user.company', fn($query) =>
+            ->orWhereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
             ->orderBy('id','desc')
@@ -35,7 +35,10 @@ class JspdAdminService {
             ->has('approved','>=', 2)
             ->has('scorings','=', 3)
             ->has('verifications','=', 2)
-            ->whereHas('user.company', fn($query) =>
+            ->whereHas('tender_detail', fn($query) =>
+                $query->where('id', [1,2])
+             )
+            ->orWhereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
             ->orderBy('id','desc')
@@ -53,7 +56,7 @@ class JspdAdminService {
             ->whereHas('tender_detail', fn($query) =>
                 $query->where('id', [1,2])
             )
-            ->whereHas('user.company', fn($query) =>
+            ->orWhereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
             ->orderBy('id','desc')
@@ -71,7 +74,7 @@ class JspdAdminService {
             ->whereHas('tender_detail', fn($query) =>
                 $query->where('id', [1,2])
             )
-            ->whereHas('user.company', fn($query) =>
+            ->orWhereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
             ->orderBy('id','desc')
