@@ -42,10 +42,12 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
     {
         $this->video = \App\Models\Video::find($video->id);
         $this->startTime = microtime(true);
+
     }
 
     public function handle()
     {
+        //$this->job->fail();
 
         // echo $this->job->getJobId();
         if($this->video->company){
@@ -58,10 +60,10 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
         $duration =  $media->getDurationInSeconds();
         // Update Video Model
         $this->video->update([
-            'is_reencode' => false,
-            'is_failed' => false,
-            'is_ready' => false,
-            'is_processing' => true,
+            // 'is_reencode' => false,
+            // 'is_failed' => false,
+            // 'is_ready' => false,
+            // 'is_processing' => true,
 
             'duration' => $duration,
             'job_id' => $this->job->uuid() // to match with failed jobs
@@ -92,23 +94,22 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
     {
 
         // get Video collection
-        $video = \App\Models\Video::find($this->video->id);
+         $video = \App\Models\Video::find($this->video->id);
 
         // Update Video Model
         $video->update([
-            'is_reencode' => true, // send for reencode
-            'is_failed' => false,
-            'is_ready' => false,
-            'is_processing' => false,
             'exception' => $exception,
+            'is_processing' => false
         ]);
 
         // send to ConvertVideoFailed
-        $job =  ( new \App\Jobs\ConvertVideoFailed($video) )->onQueue('failed_jobs')->onConnection('database'); // Dispatchable
-        dispatch($job);
+        // $job =  (
+        //             new \App\Jobs\ConvertVideoFailed($video) // re-encode
+        //         )->onQueue('failed_jobs')->onConnection('database'); // Dispatchable
+        // dispatch($job);
 
         // delete existing job from onQueue('default')
-        $this->delete(); // InteractsWithQueue
+        //$this->delete(); // InteractsWithQueue
 
 
         // send failed job to onQueue('failed_jobs')
@@ -172,12 +173,13 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
             'bitrate' => $bitrate,
             'format' => $format,
             'asset_size' => $this->getFolderSize($id),
-            'job_id' => $this->job->uuid(), // to match with failed jobs
 
-            'is_reencode' => false,
-            'is_failed' => false,
-            'is_ready' => true,
-            'is_processing' => false,
+
+            //'job_id' => $this->job->uuid(), // to match with failed jobs
+            // 'is_reencode' => false,
+            // 'is_failed' => false,
+            // 'is_ready' => true,
+            // 'is_processing' => false,
         ]);
 
         // $this->video->proposal->update([
