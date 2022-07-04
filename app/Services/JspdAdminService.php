@@ -17,6 +17,9 @@ class JspdAdminService {
     {
         return TenderSubmission::query()
             ->sortable()
+            ->whereHas('tender_detail', fn($query) =>
+                $query->where('id', [1,2])
+            )
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
@@ -47,6 +50,9 @@ class JspdAdminService {
             ->has('failed','>=', 2)
             ->has('scorings','=', 3)
             ->has('verifications','=', 2)
+            ->whereHas('tender_detail', fn($query) =>
+                $query->where('id', [1,2])
+            )
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
@@ -62,6 +68,9 @@ class JspdAdminService {
 
             ->has('scorings','!=', 3)
             ->has('verifications','!=', 2)
+            ->whereHas('tender_detail', fn($query) =>
+                $query->where('id', [1,2])
+            )
             ->whereHas('user.company', fn($query) =>
                 $query->where('is_approved', true)
                 )
@@ -75,7 +84,9 @@ class JspdAdminService {
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
-
+                       ->whereHas('tender_detail', fn($query) =>
+                            $query->where('id', [1,2])
+                        )
                         ->orWhereHas('user.approved_company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
