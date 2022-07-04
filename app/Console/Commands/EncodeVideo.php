@@ -44,7 +44,8 @@ class EncodeVideo extends Command
             // ['created_at', '>=', Carbon::now()->subHours(24)->toDateTimeString()]
             $videos = \App\Models\Video::query()
                         //->where('is_processing', true)
-                        ->where('is_reencode', true)
+                        ->where('is_failed', true)
+                        ->orderBy('duration', ASC)
                         //->where('updated_at', '>=' , \Carbon\Carbon::now()->addHours(2)->toDateTimeString() )
                         ->get();
             foreach($videos as $video){
