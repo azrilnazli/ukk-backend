@@ -90,11 +90,12 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
      */
     public function failed($exception)
     {
-        // delete existing job from onQueue('default')
-        $this->delete(); // InteractsWithQueue
+
+        // get Video collection
+        $video = \App\Models\Video::find($this->video->id);
 
         // Update Video Model
-        $this->video->update([
+        $video->update([
             'is_reencode' => true, // send for reencode
             'is_failed' => false,
             'is_ready' => false,
@@ -102,11 +103,13 @@ class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
             'exception' => $exception,
         ]);
 
-        // get Video collection
-        $video = \App\Models\Video::find($this->video->id);
         // send to ConvertVideoFailed
         $job =  ( new \App\Jobs\ConvertVideoFailed($video) )->onQueue('failed_jobs')->onConnection('database'); // Dispatchable
         dispatch($job);
+
+        // delete existing job from onQueue('default')
+        $this->delete(); // InteractsWithQueue
+
 
         // send failed job to onQueue('failed_jobs')
         //$this->dispatch(\App\Models\Video::find($this->video->id))->onQueue('failed_jobs'); // Dispatchable
