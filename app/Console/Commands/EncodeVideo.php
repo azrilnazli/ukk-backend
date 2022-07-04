@@ -14,7 +14,7 @@ class EncodeVideo extends Command
      *
      * @var string
      */
-    protected $signature = 'video:encode';
+    protected $signature = 'video:encode {field}';
 
     /**
      * The console command description.
@@ -40,16 +40,19 @@ class EncodeVideo extends Command
      */
     public function handle()
     {
+
+            $field = $this->argument('field');
+
             // process all failed videos on queue=encode
             // ['created_at', '>=', Carbon::now()->subHours(24)->toDateTimeString()]
             $videos = \App\Models\Video::query()
                         //->where('is_processing', true)
-                        ->where('is_failed', true)
+                        ->where($field, true)
                         ->orderBy('duration', 'ASC')
                         //->where('updated_at', '>=' , \Carbon\Carbon::now()->addHours(2)->toDateTimeString() )
                         ->get();
             foreach($videos as $video){
-                echo "Dispatch video=" .$video->id. " to re-encode".PHP_EOL;
+                echo "Dispatch video=" .$video->id. " to encoding pipeline default.".PHP_EOL;
 
                 $v = \App\Models\Video::find($video->id);
                 $v->is_reencode = true;
@@ -58,7 +61,7 @@ class EncodeVideo extends Command
                 $v->is_ready = false;
                 $v->save();
 
-                $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue('encode')->onConnection('database'); // Dispatchable
+                $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue('default')->onConnection('database'); // Dispatchable
                 dispatch($job);
             }
 
