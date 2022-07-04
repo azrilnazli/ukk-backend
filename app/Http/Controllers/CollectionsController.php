@@ -1369,5 +1369,35 @@ class CollectionsController extends Controller
             // echo $query->count();
         }
 
+        function add_tender_id(){
+            // list tender_submission_id from scorings
+            $query = \App\Models\Scoring::query()
+                    ->has('tender')
+                    ->orderBy('id','ASC')
+                    ->get();
+
+            $query->each(function($value,$key){
+
+                echo "Scoring  ID-" . $value->id;
+                   echo " Proposal ID-" . $value->tender_submission_id;
+                    echo "  Tender ID-" . $value->tender_id . PHP_EOL;
+
+                    // update
+                    $proposal = \App\Models\TenderSubmission::find($value->tender_submission_id);
+                    if($proposal){
+                        $proposal->tender_id =  $value->tender->id ;
+
+                       if($proposal->save()) {
+                        echo "saved" . PHP_EOL;
+                       }
+                    }
+
+            });
+
+
+
+           // echo $query->count();
+        }
+
 
 }// class

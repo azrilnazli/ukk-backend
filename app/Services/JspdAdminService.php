@@ -16,13 +16,17 @@ class JspdAdminService {
     public function paginate($item = 50)
     {
         return TenderSubmission::query()
-            ->sortable()
-            ->whereHas('tender_detail', fn($query) =>
-                $query->where('id', [1,2])
-            )
-            ->orWhereHas('user.company', fn($query) =>
-                $query->where('is_approved', true)
-                )
+            ->has('user.approved_company')
+            ->whereIn('tender_detail_id',[1,2])
+            //->sortable()
+            // ->whereHas('tender.tender_detail', fn($query) =>
+            //     $query->where('id', [1,2])
+            // )
+
+            // need to check company_approvals
+            // ->orWhereHas('user.company', fn($query) =>
+            //     $query->where('is_approved', true)
+            //     )
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('jspd-admins.index'));
@@ -35,12 +39,8 @@ class JspdAdminService {
             ->has('approved','>=', 2)
             ->has('scorings','=', 3)
             ->has('verifications','=', 2)
-            ->whereHas('tender_detail', fn($query) =>
-                $query->where('id', [1,2])
-             )
-            ->orWhereHas('user.company', fn($query) =>
-                $query->where('is_approved', true)
-                )
+            ->has('user.approved_company')
+            ->whereIn('tender_detail_id',[1,2])
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('jspd-admins.approved'));
@@ -53,12 +53,8 @@ class JspdAdminService {
             ->has('failed','>=', 2)
             ->has('scorings','=', 3)
             ->has('verifications','=', 2)
-            ->whereHas('tender_detail', fn($query) =>
-                $query->where('id', [1,2])
-            )
-            ->orWhereHas('user.company', fn($query) =>
-                $query->where('is_approved', true)
-                )
+            ->has('user.approved_company')
+            ->whereIn('tender_detail_id',[1,2])
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('jspd-admins.failed'));
@@ -71,12 +67,8 @@ class JspdAdminService {
 
             ->has('scorings','!=', 3)
             ->has('verifications','!=', 2)
-            ->whereHas('tender_detail', fn($query) =>
-                $query->where('id', [1,2])
-            )
-            ->orWhereHas('user.company', fn($query) =>
-                $query->where('is_approved', true)
-                )
+            ->has('user.approved_company')
+            ->whereIn('tender_detail_id',[1,2])
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('jspd-admins.pending'));
@@ -87,9 +79,8 @@ class JspdAdminService {
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
-                       ->whereHas('tender_detail', fn($query) =>
-                            $query->where('id', [1,2])
-                        )
+
+
                         ->orWhereHas('user.approved_company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
