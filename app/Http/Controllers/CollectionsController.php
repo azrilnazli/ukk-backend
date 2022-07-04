@@ -1379,8 +1379,8 @@ class CollectionsController extends Controller
             $query->each(function($value,$key){
 
                 echo "Scoring  ID-" . $value->id;
-                   echo " Proposal ID-" . $value->tender_submission_id;
-                    echo "  Tender ID-" . $value->tender_id . PHP_EOL;
+                echo " Proposal ID-" . $value->tender_submission_id;
+                echo "  Tender ID-" . $value->tender_id . PHP_EOL;
 
                     // update
                     $proposal = \App\Models\TenderSubmission::find($value->tender_submission_id);
@@ -1397,6 +1397,20 @@ class CollectionsController extends Controller
 
 
            // echo $query->count();
+        }
+
+        function empty_proposal(){
+            \App\Models\TenderSubmission::query()
+            ->whereNull('user_id')
+            ->whereNull('tender_id')
+            ->whereNull('tender_detail_id')
+            ->whereNull('company_id')
+            //->has('signers')
+            ->get()
+            ->each(function($value,$key){
+                echo $value->id . PHP_EOL;
+                echo $value->created_at . PHP_EOL;
+            });
         }
 
 
