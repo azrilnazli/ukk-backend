@@ -1360,13 +1360,13 @@ class CollectionsController extends Controller
             });
 
 
-            unset($query);
-
-            $query = \App\Models\TenderSubmission::query()
-            ->whereNull('user_id')
-            //->has('company')
-            ->get();
-            echo $query->count();
+            // unset($query);
+            // // empty user_id but not with company->id
+            // $query = \App\Models\TenderSubmission::query()
+            // ->whereNull('user_id')
+            // //->has('company')
+            // ->get();
+            // echo $query->count();
         }
 
 
