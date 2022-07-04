@@ -51,7 +51,7 @@ class TenderSubmissionController extends Controller
         // Create new
         $tenderSubmission = TenderSubmission::create($request->except(['_token','_method']));
         $tenderSubmission->company_id = $company->id;
-
+        $tenderSubmission->user_id = auth()->user()->id;
 
         $proposal = TenderSubmission::with('tender.tender_detail')->find($tenderSubmission->id);
         //Log::info($proposal);

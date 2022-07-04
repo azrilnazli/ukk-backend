@@ -212,7 +212,8 @@ class CompanyApprovalController extends Controller
         // companyApproval
         $companyApproval = CompanyApproval::firstOrNew([
             'tender_detail_id' => $request->input('tender_detail_id'),
-            'company_id' => $company->id
+            'company_id' => $company->id,
+            'user_id' => auth()->user()->id
         ]);
 
         $companyApproval->status = 'pending';

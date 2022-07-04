@@ -1319,5 +1319,55 @@ class CollectionsController extends Controller
             dispatch($job);
         }
 
+        function tenderSubmission(){
+
+            $proposals = \App\Models\TenderSubmission::query()
+                        //->whereNotNull('tender_detail_id')
+                        ->whereNull('tender_detail_id')
+                        ->with('tender_detail')
+
+                        ->get();
+
+            $proposals->each( function($val, $key) {
+                echo $val->id . PHP_EOL;
+
+                //echo $val->tender_detail->title . PHP_EOL;
+                });
+                echo "##################" . PHP_EOL;
+                echo $proposals->count();
+
+        }
+
+        function add_user_id_to_tender_submissions_table(){
+            // list all proposals without user_id
+            $query = \App\Models\TenderSubmission::query()
+            ->whereNull('user_id')
+            ->has('company')
+            ->get();
+
+            $query->each( function($value, $key){
+
+                #echo "userid :" . $user_id = $value->company->user->id . PHP_EOL;
+
+                #echo $value->id . PHP_EOL;
+                $ts =  \App\Models\TenderSubmission::find($value->id);
+
+                // echo "Proposal ID : " . $ts->id . PHP_EOL;
+                $ts->user_id = $value->company->user->id;
+                if( $ts->save() ){
+                    echo "Proposal id: ".$ts->id. " updated with user id: ". $ts->user_id . PHP_EOL;
+                }
+            });
+
+
+            unset($query);
+
+            $query = \App\Models\TenderSubmission::query()
+            ->whereNull('user_id')
+            //->has('company')
+            ->get();
+            echo $query->count();
+        }
+
 
 }// class
