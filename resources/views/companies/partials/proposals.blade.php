@@ -8,11 +8,11 @@
             {{ $proposal->tender->programme_category }} - {{ $proposal->tender->programme_code }}</strong>
     </div>
     <div class="card-body">
-        <span class="badge badge-dark">THEME</span>
-        <p class="lead">{{ $proposal->theme }}</p>
-        <hr />
         <span class="badge badge-dark">SYNOPSIS</span>
         <p class="">{{ $proposal->synopsis }}</p>
+        <a class="btn btn-success btn-sm" href="{{ route('tender_submissions.show', $proposal->id) }}">
+            <i class="fas fa-search"></i> VIEW
+        </a>
     </div>
 </div>
 @endforeach
