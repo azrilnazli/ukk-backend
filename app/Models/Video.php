@@ -42,7 +42,7 @@ class Video extends Model
 
     public function getDateAttribute()
     {
-        return \Carbon\Carbon::parse($this->created_at)->diffForHumans();
+        return \Carbon\Carbon::parse($this->updated_at)->diffForHumans();
     }
 
     public function getUploadedSizeAttribute()
