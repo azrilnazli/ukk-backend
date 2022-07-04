@@ -257,14 +257,14 @@ class ConvertVideoFailed implements ShouldQueue, ShouldBeUnique
         $media->exportForHLS()
         //->withEncryptionKey($encryptionKey)
 
-        ->withRotatingEncryptionKey
-        (
-            function( $filename, $contents) use ($id)
-            {
-                $path =  $id . '/secrets/' . $filename;
-                Storage::disk('assets')->put( $path, $contents);
-            }
-        )
+        // ->withRotatingEncryptionKey
+        // (
+        //     function( $filename, $contents) use ($id)
+        //     {
+        //         $path =  $id . '/secrets/' . $filename;
+        //         Storage::disk('assets')->put( $path, $contents);
+        //     }
+        // )
 
         ->addFormat($quality, function($media) {
             $media->scale($this->width, $this->height);
