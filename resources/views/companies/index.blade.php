@@ -46,13 +46,11 @@
         <table class="table table-condensed table-striped">
             <thead>
 
-                <th width="8%">@sortablelink('id', 'ID')</th>
+                <th width="5%">@sortablelink('id', 'ID')</th>
                 <th width="*">@sortablelink('name','Company Name')</th>
-                <th class="text-center">Request for Approval</th>
-                <th class="text-center">Total Proposals</th>
-                <th width="20%">Email</th>
-
-                <th width="12%" class="text-center">Actions</th>
+                <th class="text-center" width="12%">Proposals</th>
+                <th width="8%" class="text-center">Videos</th>
+                <th width="8%" class="text-center">Actions</th>
 
             </thead>
 
@@ -65,9 +63,8 @@
                         <br />
                         <span class="small">registered : <em>{{$row->created_at->diffForHumans()}}</em></span>
                     </td>
-                    <td class="text-center">{{ optional($row->company_approvals)->count() }}</td>
                     <td class="text-center">{{ $row->user ? $row->user->proposals->count() : 0 }}</td>
-                    <td class="text-center">{{$row->email }}</td>
+                    <td class="text-center">{{ $row->videos ? $row->videos->count() : 0 }}</td>
 
                     <td class="text-center">
                       <form action="{{ route('companies.destroy', $row->id)}}" method="post">
@@ -82,7 +79,6 @@
                         @endhasrole
                       </form>
                     </td>
-
 
                 </tr>
                 @endforeach
