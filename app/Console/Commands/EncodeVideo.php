@@ -54,15 +54,25 @@ class EncodeVideo extends Command
             foreach($videos as $video){
                 echo "Dispatch video=" .$video->id. " to encoding pipeline default.".PHP_EOL;
 
-                $v = \App\Models\Video::find($video->id);
-                $v->is_reencode = true;
-                $v->is_failed = false;
-                $v->is_processing = true;
-                $v->is_ready = false;
-                $v->save();
+                // send video for processing
+                \Illuminate\Support\Facades\Bus::chain([
+                    new \App\Jobs\BeforeConvertVideo($video), // before
+                    new \App\Jobs\ConvertVideoQueue($video),  // encode
+                    new \App\Jobs\AfterConvertVideo($video)  // after
+                ])
+                ->onQueue('default')
+                ->onConnection('database')
+                ->dispatch();
 
-                $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue('default')->onConnection('database'); // Dispatchable
-                dispatch($job);
+                // $v = \App\Models\Video::find($video->id);
+                // $v->is_reencode = true;
+                // $v->is_failed = false;
+                // $v->is_processing = true;
+                // $v->is_ready = false;
+                // $v->save();
+
+                // $job =  ( new \App\Jobs\ConvertVideoQueue($video) )->onQueue('default')->onConnection('database'); // Dispatchable
+                // dispatch($job);
             }
 
     }

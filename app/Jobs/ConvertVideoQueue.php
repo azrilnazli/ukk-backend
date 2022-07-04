@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Storage;
 use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 
-class ConvertVideoQueue implements ShouldQueue,ShouldBeUnique
+class ConvertVideoQueue implements ShouldQueue
 {
     use IsMonitored,Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
