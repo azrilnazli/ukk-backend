@@ -1319,5 +1319,24 @@ class CollectionsController extends Controller
             dispatch($job);
         }
 
+        function tenderSubmission(){
+
+            $proposals = \App\Models\TenderSubmission::query()
+                        //->whereNotNull('tender_detail_id')
+                        ->whereNull('tender_detail_id')
+                        ->with('tender_detail')
+
+                        ->get();
+
+            $proposals->each( function($val, $key) {
+                echo $val->id . PHP_EOL;
+
+                //echo $val->tender_detail->title . PHP_EOL;
+                });
+                echo "##################" . PHP_EOL;
+                echo $proposals->count();
+
+        }
+
 
 }// class
