@@ -9,9 +9,9 @@
     <ul class="ml-1  nav nav-treeview">
         <li class="nav-item">
           <a href="{{ route('jspd-admins.index') }}" class="nav-link {{ active('jspd-admins.index')  }}">
-            <i class="nav-icon fas fa-database"></i>
+            <i class="nav-icon fas fa-list-alt"></i>
             <p>
-              <small>Proposal</small>
+              <small>Proposal List</small>
             </p>
           </a>
         </li>
@@ -19,7 +19,7 @@
           <a href="{{ route('jspd-admins.approved') }}" class="nav-link {{ active('jspd-admins.approved')  }}">
             <i class="nav-icon fas fa-check"></i>
             <p>
-              <small>Lulus</small>
+              <small>Approved Proposal</small>
             </p>
           </a>
         </li>
@@ -28,20 +28,39 @@
           <a href="{{ route('jspd-admins.failed') }}" class="nav-link {{ active('jspd-admins.failed')  }}">
             <i class="nav-icon fas fa-times"></i>
             <p>
-              <small>Gagal</small>
+              <small>Rejected Proposal</small>
             </p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="{{ route('jspd-admins.pending') }}" class="nav-link {{ active('jspd-admins.pending')  }}">
+          <a href="{{ route('jspd-admins.awaiting') }}" class="nav-link {{ active('jspd-admins.awaiting')  }}">
             <i class="nav-icon fas fa-hourglass"></i>
             <p>
-              <small>Belum Ditanda</small>
+              <small>Pending Proposal</small>
             </p>
           </a>
         </li>
 
+
+
+
+        <li class="nav-item">
+            <a href="{{ route('jspd-admins.pending_tasks') }}" class="nav-link {{ active('jspd-admins.pending_tasks') }}">
+            <i class="nav-icon fas fa-hourglass"></i>
+            <small>
+                Proposal to sign
+            </small>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('jspd-admins.finished_tasks') }}" class="nav-link {{ active('jspd-admins.finished_tasks') }}">
+            <i class="nav-icon fas fa-check"></i>
+            <small>
+                Signed Proposal
+            </small>
+            </a>
+        </li>
 
     </ul>
   </li> <!-- ./treeview -->

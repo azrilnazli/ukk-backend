@@ -53,7 +53,7 @@
 
                 <th width="5%">@sortablelink('id', 'ID')</th>
                 <th width="*">Company</th>
-                <th width="*">@sortablelink('tender.programme_code', 'Programme Code')</th>
+                <th width="*">Tender</th>
                 <th width="*" class="text-center">Owner</th>
                 <th width="*" class="text-center">PENANDA</th>
                 <th width="*" class="text-center">URUSETIA</th>
@@ -70,11 +70,15 @@
                     <td>
                         @if(isset($row->user->company))
                         <span class="badge badge-warning">{{ $row->user->company->id }}</span> {{ $row->user->company->name }}
-                        <br />
-                        <small>{{ $row->tender->type }} - {{ $row->tender->programme_category }}</small>
+
+
                         @endif</td>
 
-                    <td>{{ $row->tender->programme_code }}</td>
+                    <td>
+                        {{ $row->tender->programme_category }} [ {{ $row->tender->programme_code }} ]
+                        <br />
+                        <small>{{ $row->tender->tender_detail->title }}  </small>
+                    </td>
                     <td class="text-center">
                       {{ optional($row->owner)->name}}
                     </td>

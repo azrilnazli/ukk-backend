@@ -24,10 +24,12 @@ class JspdAdminController extends Controller
 
     static function routes()
     {
+        Route::get('/jspd-admins/pending_tasks', [JspdAdminController::class, 'pending_tasks'])->name('jspd-admins.pending_tasks');
+        Route::get('/jspd-admins/finished_tasks', [JspdAdminController::class, 'finished_tasks'])->name('jspd-admins.finished_tasks');
         Route::get('/jspd-admins', [JspdAdminController::class, 'index'])->name('jspd-admins.index');
         Route::get('/jspd-admins/approved', [JspdAdminController::class, 'approved'])->name('jspd-admins.approved');
         Route::get('/jspd-admins/failed', [JspdAdminController::class, 'failed'])->name('jspd-admins.failed');
-        Route::get('/jspd-admins/pending', [JspdAdminController::class, 'pending'])->name('jspd-admins.pending');
+        Route::get('/jspd-admins/awaiting', [JspdAdminController::class, 'awaiting'])->name('jspd-admins.awaiting');
         Route::get('/jspd-admins/search', [JspdAdminController::class, 'search'])->name('jspd-admins.search');
         Route::get('/jspd-admins/dashboard', [JspdAdminController::class, 'dashboard'])->name('jspd-admins.dashboard');
         Route::get('/jspd-admins/create', [JspdAdminController::class,'create'])->name('jspd-admins.create');
@@ -48,11 +50,18 @@ class JspdAdminController extends Controller
         return view('JSPD.admins.index', compact('proposals'));
     }
 
-    public function approved(){
+    public function pending_tasks(){
+        $proposals = $this->service->pending_tasks(50);
+        return view('JSPD.admins.index', compact('proposals'));
+    }
+    public function finished_tasks(){
+        $proposals = $this->service->finished_tasks(50);
+        return view('JSPD.admins.index', compact('proposals'));
+    }
 
+    public function approved(){
         $proposals = $this->service->approved(50);
         return view('JSPD.admins.index', compact('proposals'));
-
     }
 
     public function failed(){
@@ -62,9 +71,9 @@ class JspdAdminController extends Controller
 
     }
 
-    public function pending(){
+    public function awaiting(){
 
-        $proposals = $this->service->pending(50);
+        $proposals = $this->service->awaiting(50);
         return view('JSPD.admins.index', compact('proposals'));
 
     }
