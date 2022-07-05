@@ -47,9 +47,9 @@
 
         <li class="nav-item">
             <a href="{{ route('jspd-admins.pending_tasks') }}" class="nav-link {{ active('jspd-admins.pending_tasks') }}">
-            <i class="nav-icon fas fa-hourglass"></i>
+            <i class="nav-icon fas fa-search"></i>
             <small>
-                Proposal to sign
+                Proposal to approve
             </small>
             </a>
         </li>
@@ -57,7 +57,7 @@
             <a href="{{ route('jspd-admins.finished_tasks') }}" class="nav-link {{ active('jspd-admins.finished_tasks') }}">
             <i class="nav-icon fas fa-check"></i>
             <small>
-                Signed Proposal
+                Approved Proposal
             </small>
             </a>
         </li>
