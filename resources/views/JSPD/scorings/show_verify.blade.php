@@ -11,7 +11,7 @@
       <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
           <li class="breadcrumb-item"><a href="{{ route('scorings.tasks') }}">{{ __('Tasks') }}</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Proposal Scoring</li>
+          <li class="breadcrumb-item active" aria-current="page">Proposal Verification</li>
       </ol>
   </nav>
 @stop
@@ -22,40 +22,40 @@
       <div class="card-header bg-secondary">
         @include('JSPD.scorings.header')
       </div>
-    
+
       <div class="card-body">
-         @include('JSPD.scorings.contents') 
+         @include('JSPD.scorings.contents')
       </div>
 
-      <div class="card-footer">
-       
-                  <div class="row">
-               
-
-                    @if( count($tenderSubmission->verifications) == 0)
-
-                      <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-form')</div>
-
-                    @elseif(  count($tenderSubmission->verifications) == 1  )
-                      
-                      @if( !$tenderSubmission->verifications->pluck('user_id')->contains( auth()->user()->id ))
-                          <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-form')</div>
-                      @endif
-                      
-                      
-                      @foreach($tenderSubmission->verifications as $verification)
-                        <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-1')</div>
-                      @endforeach  
 
 
-                    @elseif(  count($tenderSubmission->verifications) == 2 )
-                        @foreach($tenderSubmission->verifications as $verification)
-                          <div class="col m-1 p-2 bg-info rounded">@include('JSPD.scorings.urusetia-1')</div>
-                        @endforeach 
-                    @endif 
-              
-                  </div>
-      </div>
+    <div class="row">
+
+
+            @if( count($tenderSubmission->verifications) == 0)
+
+                <div class="col m-1 p-2 bg-dark rounded">@include('JSPD.scorings.urusetia-form')</div>
+
+            @elseif(  count($tenderSubmission->verifications) == 1  )
+
+                @if( !$tenderSubmission->verifications->pluck('user_id')->contains( auth()->user()->id ))
+                    <div class="col m-1 p-2 bg-dark rounded">@include('JSPD.scorings.urusetia-form')</div>
+                @endif
+
+
+                @foreach($tenderSubmission->verifications as $verification)
+                <div class="col m-1 p-2 bg-dark rounded">@include('JSPD.scorings.urusetia-1')</div>
+                @endforeach
+
+
+            @elseif(  count($tenderSubmission->verifications) == 2 )
+                @foreach($tenderSubmission->verifications as $verification)
+                    <div class="col m-1 p-2 bg-dark rounded">@include('JSPD.scorings.urusetia-1')</div>
+                @endforeach
+            @endif
+
+    </div>
+
   </div>
 
 @stop

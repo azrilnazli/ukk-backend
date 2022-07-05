@@ -32,13 +32,38 @@ class SignerService {
             ->setPath(route('signers.index'));
     }
 
+    // find TenderSubmission that tasked to logged user ( urusetia-1)
+    public function tasks($item=50){
+        return TenderSubmission::query()
+            //->sortable()
+
+            // check if this company approved for this TenderDetail
+            // TenderSubmission belongsTo TenderDetail
+            // CompanyApproval belongsTo Company
+            // ->whereHas('user.company.company_approvals', fn($query) =>
+            //      $query->where('is_approved', true)
+            //  )
+
+            // Owner of TenderSubmission
+            ->whereHas(
+                'owner',
+                function($query)
+                {
+                    $query->where('added_by', auth()->user()->id );
+                }
+            )
+            ->orderBy('id','desc')
+            ->paginate($item)
+            ->setPath(route('signers.tasks'));
+    }
+
     public function search($request)
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
 
-                        ->orWhereHas('user.approved_company', fn($query) =>
+                        ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
                             ->orWhere('id', 'LIKE', '%' . $q . '%')
@@ -47,10 +72,12 @@ class SignerService {
                         )
                         ->orWhereHas('tender', fn($query) =>
                             $query->where('programme_category', 'LIKE', '%' . $q . '%')
-                            ->orWhere('type', 'LIKE', '%' . $q . '%')
                             ->orWhere('duration', 'LIKE', '%' . $q . '%')
                             ->orWhere('channel', 'LIKE', '%' . $q . '%')
                             ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                        )
+                        ->orWhereHas('tender.tender_detail', fn($query) =>
+                            $query->where('title', 'LIKE', '%' . $q . '%')
                         )
 
                         ->paginate(50)

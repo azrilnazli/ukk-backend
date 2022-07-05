@@ -47,6 +47,7 @@ class SignerController extends Controller
     // list all proposal for urusetia to assign
     public function index()
     {
+
         $proposals = $this->signer->paginate();
         return view('JSPD.signers.index')->with(compact('proposals'));
     }
@@ -54,16 +55,9 @@ class SignerController extends Controller
     // tasks assigned to user()->id
     public function tasks()
     {
-        $proposals = Signer::query()
-                        ->select('tender_submission_id')
-                        ->whereHas('tender_submission.user.company', fn($query) =>
-                            $query->where('is_approved', true)
-                        )
-                        // ->groupBy('tender_submission_id')
-                        // ->with('tender_submission.user','tender_submission.tender','user')
-                        ->where('user_id',auth()->user()->id) // assigned task to urusetia
-                        ->paginate(50)
-                        ->setPath(route('signers.tasks'));
+        $proposals = $this->signer->tasks();
+
+        //dd($proposals);
 
         return view('JSPD.signers.tasks')->with(compact('proposals'));
     }

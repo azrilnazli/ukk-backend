@@ -14,8 +14,14 @@ class Company extends Model
     use Sortable;
 
     protected $guarded = ['id'];
+    protected $appends = [ 'fields'];
 
     public $sortable = ['id', 'name', 'email', 'status','created_at', 'updated_at'];
+
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+
 
     /**
      * Company belongsTo User

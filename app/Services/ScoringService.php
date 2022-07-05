@@ -30,12 +30,54 @@ class ScoringService {
     public function tasks($type,$item = 50){
         return TenderSubmission::query()
         ->sortable()
-        ->whereHas($type, fn($query) =>
-            $query->where('user_id', auth()->user()->id )
-            )
+        // who is the owner of this TenderSubmission ?
+        ->whereHas(
+            $type, // Relation type ( signers , urusetias, owner)
+            function($query)
+            {
+                $query->where('user_id', auth()->user()->id );
+            }
+        )
+        // ->whereHas($type, fn($query) =>
+        //     $query->where('user_id', auth()->user()->id )
+        //     )
         ->orderBy('id','desc')
         ->paginate($item)
         ->setPath(route('scorings.tasks'));
+    }
+
+    public function pending_tasks($relation_type,$score_type,$item = 50){
+        return TenderSubmission::query()
+        ->sortable()
+        // who is the owner of this TenderSubmission ?
+        ->whereHas(
+            $relation_type, // Relation type ( signers , urusetias, owner)
+            function($query)
+            {
+                $query->where('user_id', auth()->user()->id );
+            }
+        )
+        ->doesntHave($score_type) // yet to be signed
+        ->orderBy('id','desc')
+        ->paginate($item)
+        ->setPath(route('scorings.pending_tasks'));
+    }
+
+    public function finished_tasks($relation_type,$score_type,$item = 50){
+        return TenderSubmission::query()
+        ->sortable()
+        // who is the owner of this TenderSubmission ?
+        ->whereHas(
+            $relation_type, // Relation type ( signers , urusetias, owner)
+            function($query)
+            {
+                $query->where('user_id', auth()->user()->id );
+            }
+        )
+        ->has($score_type) // yet to be signed
+        ->orderBy('id','desc')
+        ->paginate($item)
+        ->setPath(route('scorings.finished_tasks'));
     }
 
     public function search($type,$request)
