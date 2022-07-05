@@ -50,7 +50,7 @@ class TenderSubmissionController extends Controller
     public function show(TenderSubmission $tenderSubmission)
     {
 
-        $fields = $this->tender->fields();
+        $fields = $this->tender->fields($tenderSubmission);
 
         return view('tender_submissions.show')->with(compact('tenderSubmission','fields'));
     }
