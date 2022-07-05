@@ -46,9 +46,9 @@
                     <video-js id="my_video_1" class="vjs-default-skin vjs-big-play-centered" controls preload="auto"
                     data-setup='{
                     "fluid": true,
-                    "poster": "{{ Storage::disk('streaming')->url($tenderSubmission->video_id . '/thumbnails/poster.jpg')}}"
+                    "poster": "{{ Storage::disk('streaming')->url($tenderSubmission->video->id . '/thumbnails/poster.jpg')}}"
                     }'>
-                        <source src=" {{ route('assets', ['video' =>$tenderSubmission->video_id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
+                        <source src=" {{ route('assets', ['video' =>$tenderSubmission->video->id, 'playlist' => 'playlist.m3u8']) }} " type="application/x-mpegURL">
 
                     </video-js>
 
