@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Scoring Proposal List')
-
+@section('title', 'Proposal Signers')
 
 @section('head')
 <link href="/css/video-js.css" rel="stylesheet" />
@@ -13,7 +12,7 @@
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ route('signers.index') }}">{{ __('Signers Index') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Proposal Scoring</li>
+        <li class="breadcrumb-item active" aria-current="page">Proposal Signers</li>
     </ol>
 </nav>
 @stop
@@ -27,7 +26,7 @@
     <div class="card-header">
         <div class="card-title">
           Proposal by {{ $tenderSubmission->user->company->name }}
-          @include('JSPD.scorings.modal_contents')
+          @include('JSPD.scorings.modal_tender_submission')
         </div>
         <div class="card-item text-right">
           <span class="badge badge-warning text-uppercase">PROPOSAL ID</span> : {{ $tenderSubmission->id}}

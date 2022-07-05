@@ -1,7 +1,9 @@
 <?php
 namespace App\Services\Pitching;
 
-use App\Models\Signer;
+use App\Models\PitchingSigner;
+use App\Models\PitchingUrusetia;
+use App\Models\PitchingOwner;
 use App\Models\TenderSubmission;
 use Auth;
 
@@ -24,11 +26,11 @@ class SignerService {
             // check if this company approved for this TenderDetail
             // TenderSubmission belongsTo TenderDetail
             // CompanyApproval belongsTo Company
-             ->whereHas('user.company.company_approvals', fn($query) =>
+            ->whereHas('user.company.company_approvals', fn($query) =>
                  $query->where('is_approved', true)
              )
-             // approved by JSPD
-             ->has('approval')
+            // approved by JSPD
+            ->has('approval')
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('pitching-signers.index'));
@@ -56,14 +58,13 @@ class SignerService {
             )
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('signers.tasks'));
+            ->setPath(route('pitching-signers.tasks'));
     }
 
     public function search($request)
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
-
 
                         ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
@@ -83,7 +84,7 @@ class SignerService {
                         )
 
                         ->paginate(50)
-                        ->setPath(route('signers.search'));
+                        ->setPath(route('pitching-signers.search'));
 
                         $tenders->appends([
                             'query' => $q
@@ -92,49 +93,67 @@ class SignerService {
 
     }
 
+    public function storeOwner($tenderSubmission){
 
-    public function store($request,$type, $tenderSubmission){
-        // delete existing data
-        Signer::query()
+        $owner = PitchingOwner::firstOrNew([
+            'user_id' =>  auth()->user()->id ,
+            'tender_submission_id' => $tenderSubmission->id
+        ]);
+
+        $owner->user_id = auth()->user()->id ;
+        $owner->tender_submission_id = $tenderSubmission->id;
+        $owner->save();
+    }
+
+
+    public function storeSigner($request, $tenderSubmission){
+        // delete existing data in PitchingSigner
+        PitchingSigner::query()
         ->where([
             'tender_submission_id' =>  $tenderSubmission->id,
-            'type' => $type
         ])
         ->delete();
 
         // store signers
-        $signers = collect($request)
-                    ->each( function($value , $key) use ($tenderSubmission, $type){
+        collect($request)
+        ->each( function($value , $key) use ($tenderSubmission){
 
-                        // populate new data
-                        $signer = Signer::firstOrNew([
-                            'user_id' =>  $value ,
-                            'type' => $type,
-                            'tender_submission_id' => $tenderSubmission->id
-                        ]);
-
-                        $signer->user_id = $value;
-                        $signer->type = $type;
-                        $signer->tender_submission_id = $tenderSubmission->id;
-                        $signer->added_by = auth()->user()->id;
-                        $signer->save();
-                    });
-
-
-        // to add himself as urusetia
-        if($type == 'urusetia'){
-
-            // urusetia add himself
-            $signer = Signer::firstOrNew([
-                'user_id' =>  auth()->user()->id ,
+            // populate new data
+            $signer = PitchingSigner::firstOrNew([
+                'user_id' =>  $value ,
                 'tender_submission_id' => $tenderSubmission->id
             ]);
 
-            $signer->user_id = auth()->user()->id;
-            $signer->type = 'urusetia';
+            $signer->user_id = $value;
             $signer->tender_submission_id = $tenderSubmission->id;
+            $signer->added_by = auth()->user()->id;
             $signer->save();
-        }
+        });
+    }
+
+    public function storeUrusetia($request, $tenderSubmission){
+        // delete existing data in PitchingSigner
+        PitchingUrusetia::query()
+        ->where([
+            'tender_submission_id' =>  $tenderSubmission->id,
+        ])
+        ->delete();
+
+        // store signers
+        collect($request)
+        ->each( function($value , $key) use ($tenderSubmission){
+
+            // populate new data
+            $urusetia = PitchingUrusetia::firstOrNew([
+                'user_id' =>  $value ,
+                'tender_submission_id' => $tenderSubmission->id
+            ]);
+
+            $urusetia->user_id = $value;
+            $urusetia->tender_submission_id = $tenderSubmission->id;
+            $urusetia->added_by = auth()->user()->id;
+            $urusetia->save();
+        });
     }
 
     public function find($id){

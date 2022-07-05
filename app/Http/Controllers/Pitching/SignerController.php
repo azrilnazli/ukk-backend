@@ -2,15 +2,18 @@
 namespace App\Http\Controllers\Pitching;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\TenderSubmission;
 use App\Models\PitchingSigner;
+use App\Models\PitchingUrusetia;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\Scoring;
-use App\Models\User;
+
 use App\Services\Pitching\SignerService;
-use App\Http\Requests\PitchingSigner\StoreRequest;
+use App\Http\Requests\Pitching\Signer\StoreRequest;
 use Route;
 
 class SignerController extends Controller
@@ -52,7 +55,6 @@ class SignerController extends Controller
     // list all proposal for urusetia to assign
     public function index()
     {
-
         $proposals = $this->service->paginate();
         return view('pitching.signers.index')->with(compact('proposals'));
     }
@@ -71,22 +73,27 @@ class SignerController extends Controller
     public function show(TenderSubmission $tenderSubmission)
     {
 
-        $assigned_signers = PitchingSigner::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','signer')->get()->pluck('user_id')->toArray();
-        $assigned_admins = PitchingSigner::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','urusetia')->get()->pluck('user_id')->toArray();
-        $signers = User::role('jspd-penanda')->get(); // list all users in signers category
-        $admins = User::role('jspd-urusetia')->get(); // list all users in signers category
+        $assigned_signers = PitchingSigner::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->get()->pluck('user_id')->toArray();
+        $assigned_admins = PitchingUrusetia::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->get()->pluck('user_id')->toArray();
+        $signers = User::role('pitching-penanda')->get(); // list all users in signers category
+        $admins = User::role('pitching-urusetia')->get(); // list all users in urusetias category
         $fields = \App\Services\TenderSubmissionService::fields($tenderSubmission);
 
-        if($tenderSubmission->added_by == 0){ // 0 means not being assigned yet
-            return view('pitching.signers.show')->with(compact('tenderSubmission','fields','signers','admins','assigned_signers','assigned_admins'));
-        } else {
-            // only owner of the signers can edit
-            if($tenderSubmission->added_by == auth()->user()->id ){
+        //dd($signers);
+        // to check TenderSubmission ownership
+        if($tenderSubmission->pitching_owner){
+            // assigned , now check is logged user own the TenderSubmission
+            if($tenderSubmission->pitching_owner->user_id == auth()->user()->id){
                 return view('pitching.signers.show')->with(compact('tenderSubmission','fields','signers','admins','assigned_signers','assigned_admins'));
             } else {
+                // show disabled view
                 return view('pitching.signers.disabled')->with(compact('tenderSubmission','fields','signers','admins','assigned_signers','assigned_admins'));
             }
+        } else {
+            // not assigned yet
+            return view('pitching.signers.show')->with(compact('tenderSubmission','fields','signers','admins','assigned_signers','assigned_admins'));
         }
+
     }
 
     public function search(Request $request){
@@ -94,20 +101,20 @@ class SignerController extends Controller
         return view('pitching.signers.index')->with(compact('proposals'));
     }
 
-    /// scoring-create
+    // scoring-create
     public function create(){}
+
 
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
 
-        // update added_by in TenderSubmission table
-        $tenderSubmission->added_by = auth()->user()->id;
-        $tenderSubmission->save();
-
-        // store in signers table
-        $this->service->store($request->input('signers'),'signer',  $tenderSubmission);
-        $this->service->store($request->input('admins'),'urusetia', $tenderSubmission);
-
-        return redirect('signers')->with('success','Proposal '. $tenderSubmission->id .' successfully updated.');
+        // create ownership
+        $this->service->storeOwner($tenderSubmission);
+        // store in PitchingSigner
+        $this->service->storeSigner($request->input('signers'),  $tenderSubmission);
+        // store in PitchingUrusetia
+        $this->service->storeUrusetia($request->input('admins'), $tenderSubmission);
+        // redirect
+        return redirect(route('pitching-signers.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully updated.');
     }
 
     // scoring-edit
