@@ -58,6 +58,9 @@ Auth::routes();
 // Video
 \App\Http\Controllers\Video\VideoController::routes();
 
+// PitchingSigner
+\App\Http\Controllers\Pitching\SignerController::routes();
+
 
 
 

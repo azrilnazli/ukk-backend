@@ -27,13 +27,13 @@
     <div class="card-header">
         <div class="card-title">
           Proposal by {{ $tenderSubmission->user->company->name }}
-          @include('JSPD.scorings.modal_contents')
+          @include('JSPD.partials.modal')
         </div>
-        <div class="card-item text-right">
-          <span class="badge badge-warning text-uppercase">PROPOSAL ID</span> : {{ $tenderSubmission->id}}
-          <span class="badge badge-warning text-uppercase ">CATEGORY</span> : {{ $tenderSubmission->tender->type }} - {{ $tenderSubmission->tender->programme_category }}
-          <span class="badge badge-warning text-uppercase ">CODE</span> : {{ $tenderSubmission->tender->programme_code }}
-          <span class="badge badge-warning text-uppercase ">CHANNEL</span> : {{ $tenderSubmission->tender->channel }}
+        <div class="card-item text-right bg-dark p-2">
+          PROPOSAL ID : <span class="badge badge-warning text-uppercase">{{ $tenderSubmission->id}}</span>
+          TENDER : <span class="badge badge-warning text-uppercase">{{ $tenderSubmission->tender->tender_detail->title }}</span>
+          PROGRAMME :  <span class="badge badge-warning text-uppercase ">{{ $tenderSubmission->tender->programme_category }}  - {{ $tenderSubmission->tender->programme_code }}</span>
+          CHANNEL : <span class="badge badge-warning text-uppercase ">{{ $tenderSubmission->tender->channel }}</span>
         </div>
       </div>
 
