@@ -59,8 +59,13 @@
                       <td class="text-center">{{ optional($row->urusetias)->count() }}</td>
 
                       <td class="text-center">
+
                         <a class="btn btn-success btn-sm" href="{{ route('signers.show', $row->id) }}">
-                            <i class="fas fa-search"></i>
+                            @if($row->my_score)
+                                <i class="fas fa-search"></i>
+                            @else
+                                <i class="fas fa-pencil-alt"></i>
+                            @endif
                         </a>
                       </td>
                   </tr>

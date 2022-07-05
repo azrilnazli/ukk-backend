@@ -122,7 +122,11 @@
                         <form action="{{ route('jspd-admins.destroy', $row->id)}}" method="post">
                         @csrf @method('DELETE')
                           <a class="btn btn-success btn-sm" href="{{ route('jspd-admins.show', $row->id) }}">
+                            @if($row->my_approval)
+                            <i class="fas fa-search"></i>
+                            @else
                               <i class="fas fa-pencil-alt"></i>
+                            @endif
                           </a>
                           @hasrole('super-admin')
                           <button onclick="return confirm('Are you sure ?')" class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
