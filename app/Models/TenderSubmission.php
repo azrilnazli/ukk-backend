@@ -46,7 +46,7 @@ class TenderSubmission extends Model
 
     public function video()
     {
-        return $this->hasOne(Video::class);
+        return $this->hasOne(Video::class)->orderBy('id','DESC');
     }
 
     public function allowed_users(){
