@@ -93,9 +93,9 @@ class TenderSubmissionService {
         return TenderSubmission::where('id',$id)->delete();
     }
 
-    public function fields(){
+    public function fields($tenderSubmission){
         $unwanted = ['id','is_video','user_id','video_id','tender_id','company_id','tender_detail_id','created_at','updated_at','is_scoring_completed','is_verification_completed','is_pdf_cert_uploaded','added_by'];
-        $columns = TenderSubmission::getTableColumns();
+        $columns = $tenderSubmission->getTableColumns();
         return $fields = array_diff($columns,$unwanted);
     }
 
