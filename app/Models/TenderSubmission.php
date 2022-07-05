@@ -28,6 +28,11 @@ class TenderSubmission extends Model
         return $this->belongsTo(Company::class);
     }
 
+    // public function approved_company()
+    // {
+    //       return $this->belongsTo(Company::class)->where('is_approved', true);
+    //     //return $this->hasOne(Company::class);
+    // }
 
     public function tender_detail()
     {

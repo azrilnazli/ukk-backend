@@ -34,33 +34,33 @@ test
 
 
 
-        <div class="card-body">        
+        <div class="card-body">
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label text-md-right ">{{ __('Role') }} </label>
-                    
+
                     <div class="col-sm-10">
                         <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" >
                             <option value="">Choose a role</option>
                             @foreach($roles as $key => $name)
-                                <option  @if( old('role') == $name) {{ 'selected' }}  @endif value="{{ $name }}">{{ ucfirst($name) }}</option>
+                                <option  @if( old('role') == $name) {{ 'selected' }}  @endif value="{{ $name }}">{{ $name }}</option>
                             @endForeach
                         </select>
-                                 
+
                         @error('role')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                       
+
                     </div>
                 </div>
-    
+
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label text-md-right ">{{ __('Name') }} </label>
-    
+
                     <div class="col-sm-10">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="User Fullname" autofocus >
-    
+
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -71,25 +71,25 @@ test
 
                 <div class="form-group row">
                     <label for="occupation" class="col-sm-2 col-form-label text-md-right ">{{ __('Occupation') }} </label>
-    
+
                     <div class="col-sm-10">
                         <input id="occupation" type="occupation" class="form-control @error('occupation') is-invalid @enderror" name="occupation" value="{{ old('occupation') }}" placeholder="Occupation">
-    
+
                         @error('occupation')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
-                </div>                
-                
-    
+                </div>
+
+
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label text-md-right ">{{ __('E-Mail') }} </label>
-    
+
                     <div class="col-sm-10">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="User E-Mail">
-    
+
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -97,13 +97,13 @@ test
                         @enderror
                     </div>
                 </div>
-    
+
                 <div class="form-group row">
                     <label for="password" class="col-sm-2 col-form-label text-md-right">{{ __('Password') }}</label>
-    
+
                     <div class="col-sm-10">
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter a strong password">
-    
+
                         @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -111,29 +111,29 @@ test
                         @enderror
                     </div>
                 </div>
-    
+
                 <div class="form-group row">
                     <label for="password-confirm" class="col-sm-2 col-form-label text-md-right">{{ __('Confirm') }}</label>
-    
+
                     <div class="col-sm-10">
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Comfirn your password">
                         <div class="mt-3">
                             <button id="submit" class="btn btn-primary" >Submit</button>
                             <button type="button" class="btn btn-secondary" onclick="window.location.href='/users'">
-                                Cancel 
+                                Cancel
                             </button>
                           </div>
                     </div>
-                    
+
                 </div>
 
-                
-    
-        
-           
+
+
+
+
         </div>
     </div>
-</form>    
+</form>
 </div>
 
 <script>

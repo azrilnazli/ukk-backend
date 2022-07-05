@@ -14,7 +14,7 @@
                     {{ optional($comment->user)->name }}
             </span>
             <small><i>{{$comment->created_at->diffForHumans() }}</i></small>
-            {{ $comment->tender_detail->title}}
+
 
             <hr />
             <span class="lead"><strong><i>{{$comment->message}}</i></strong></span>
