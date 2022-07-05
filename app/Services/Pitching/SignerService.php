@@ -13,7 +13,9 @@ class SignerService {
 
     }
 
-
+    /* to list TenderSubmission
+        that passed Approval from ketua JSPD
+    */
     public function paginate($item = 50)
     {
         return TenderSubmission::query()
@@ -25,11 +27,11 @@ class SignerService {
              ->whereHas('user.company.company_approvals', fn($query) =>
                  $query->where('is_approved', true)
              )
-             // no signer(s) being assigned
-            ->doesntHave('signers')
+             // approved by JSPD
+             ->has('approval')
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('signers.index'));
+            ->setPath(route('pitching-signers.index'));
     }
 
     // find TenderSubmission that tasked to logged user ( urusetia-1)

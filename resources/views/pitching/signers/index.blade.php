@@ -14,5 +14,5 @@
 @stop
 
 @section('content')
-    @include('JSPD.partials.index')
+    @include('pitching.partials.index')
 @stop

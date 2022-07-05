@@ -107,4 +107,36 @@ class TenderSubmission extends Model
     public function my_approval(){
         return $this->hasOne(Approval::class)->where('user_id', Auth::user()->id);
     }
+
+    // hasOne PitchingOwner
+    public function pitching_owner(){
+        return $this->hasOne(PitchingOwner::class);
+    }
+
+    // hasMany PitchingSigner
+    public function pitching_signers(){
+        return $this->hasMany(PitchingSigner::class);
+    }
+
+    // hasMany PitchingUrusetia
+    public function pitching_urusetias(){
+        return $this->hasMany(PitchingUrusetia::class);
+    }
+
+    // hasMany PitchingScorings
+    public function pitching_scorings(){
+        return $this->hasMany(PitchingScoring::class);
+    }
+
+    // hasMany PitchingVerifications
+    public function pitching_verifications(){
+        return $this->hasMany(PitchingVerification::class);
+    }
+
+    // hasOne PitchingApproval
+    public function pitching_approval(){
+        return $this->hasOne(PitchingApproval::class);
+    }
+
+
 }
