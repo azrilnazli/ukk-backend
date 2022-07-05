@@ -22,7 +22,12 @@ return [
     'content',
     'company',
     'company-approval',
+
     'scoring',
     'signer',
-    'jspd-admin'
+    'jspd-admin',
+
+    'pitching-admin',
+    'pitching-signer',
+    'pitching-scoring',
 ];

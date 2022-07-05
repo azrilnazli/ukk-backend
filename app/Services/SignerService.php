@@ -18,9 +18,14 @@ class SignerService {
     {
         return TenderSubmission::query()
             ->sortable()
-            ->whereHas('user.company', fn($query) =>
-                $query->where('is_approved', true)
-            )
+
+            // check if this company approved for this TenderDetail
+            // TenderSubmission belongsTo TenderDetail
+            // CompanyApproval belongsTo Company
+             ->whereHas('user.company.company_approvals', fn($query) =>
+                 $query->where('is_approved', true)
+             )
+             // no signer(s) being assigned
             ->doesntHave('signers')
             ->orderBy('id','desc')
             ->paginate($item)
