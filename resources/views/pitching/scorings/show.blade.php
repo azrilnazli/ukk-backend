@@ -34,7 +34,6 @@
         <div class="card-footer">
             @include('pitching.partials.footer')
         </div>
-
     </div>
 </form>
 

@@ -3,6 +3,7 @@
         Proposal by {{ $tenderSubmission->user->company->name }}
         @include('pitching.partials.modal_tender_submission')
         @include('pitching.partials.modal_company')
+        @include('pitching.partials.modal_jspd_scorings')
     </div>
 
     <div class="ml-auto p-2">
