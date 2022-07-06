@@ -52,7 +52,7 @@
 
                       <td class="text-center">
                         <span class="badge badge-dark"> {{ optional($row->pitching_owner)->id}}</span>
-                        {{ optional($row->pitching_owner)->name }}
+                        {{ optional($row->pitching_owner)->user->name }}
                       </td>
                       <td class="text-center">{{ optional($row->pitching_signers)->count() }}</td>
                       <td class="text-center">{{ optional($row->pitching_urusetias)->count() }}</td>

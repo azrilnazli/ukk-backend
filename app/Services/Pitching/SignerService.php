@@ -103,6 +103,8 @@ class SignerService {
         $owner->user_id = auth()->user()->id ;
         $owner->tender_submission_id = $tenderSubmission->id;
         $owner->save();
+
+
     }
 
 

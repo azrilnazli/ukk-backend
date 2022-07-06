@@ -10,4 +10,14 @@ class PitchingVerification extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+
+    /**
+     * Company belongsTo User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 }
