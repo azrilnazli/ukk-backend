@@ -14,14 +14,13 @@ class Company extends Model
     use Sortable;
 
     protected $guarded = ['id'];
-    protected $appends = [ 'fields'];
+    protected $appends = [ 'documents'];
 
     public $sortable = ['id', 'name', 'email', 'status','created_at', 'updated_at'];
 
     public function getTableColumns() {
         return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
     }
-
 
     /**
      * Company belongsTo User
@@ -73,6 +72,27 @@ class Company extends Model
     public function getStatesAttribute()
     {
         return ucWords($this->attributes['states']);
+    }
+
+    // documents
+    public function getDocumentsAttribute(){
+        $documents = [
+            'ssm',
+            'mof',
+            'finas_fp',
+            'finas_fd',
+            'kkmm_swasta',
+            'kkmm_syndicated',
+            'bank',
+            'audit',
+            'credit',
+            'bumiputera',
+            'authorization_letter',
+            'official_company_letter'
+        ];
+
+        return $documents;
+
     }
 
 

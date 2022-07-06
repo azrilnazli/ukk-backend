@@ -58,7 +58,7 @@ class HomeController extends Controller
             // do something
             Auth::logout();
             Session::flush();
-            return redirect()->to('https://ukk.rtm.gov.my');
+            return redirect()->to(env('FRONTEND_URL'));
         }
 
         // JSPD
@@ -71,6 +71,12 @@ class HomeController extends Controller
         if(Auth::user()->hasAnyRole(['pitching-urusetia']))
         {
             return redirect()->to(route('pitching-signers.dashboard'));
+        }
+
+        // if role pitching-penanda
+        if(Auth::user()->hasAnyRole(['pitching-penanda']))
+        {
+            return redirect()->to(route('pitching-scorings.dashboard'));
         }
 
 

@@ -60,9 +60,7 @@
                       <td class="text-center">
 
                         <a class="btn btn-info btn-sm" href="{{ route('pitching-signers.show', $row->id) }}">
-
                                 <i class="fas fa-search"></i>
-
                         </a>
                       </td>
                   </tr>

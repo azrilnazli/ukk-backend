@@ -66,7 +66,11 @@ function active($menu){
     @endhasrole
 
     @hasrole('pitching-urusetia')
-        @include('partials.nav.pitching-urusetia')
+        @include('partials.nav.pitching.urusetia')
+    @endhasrole
+
+    @hasrole('pitching-penanda')
+        @include('partials.nav.pitching.penanda')
     @endhasrole
 
 </ul>

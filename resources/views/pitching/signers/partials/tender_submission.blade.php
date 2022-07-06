@@ -78,6 +78,6 @@ Duration : {{ $tenderSubmission->video->length  }}
     Updated at : <strong>{{ $tenderSubmission->updated_at }}</strong> around {{ $tenderSubmission->updated_at->diffForHumans() }}
 </div>
 
-
+</div>
 
 

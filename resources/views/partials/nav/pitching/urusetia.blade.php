@@ -8,7 +8,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('pitching-signers.index') }}" class="nav-link {{ active('pitching-signers.show') }}">
+    <a href="{{ route('pitching-signers.index') }}" class="nav-link {{ active('pitching-signers.index') }} {{ active('pitching-signers.show') }}">
       <i class="nav-icon fas fa-pencil-alt"></i>
       <small>
         Assign Proposal To Penanda

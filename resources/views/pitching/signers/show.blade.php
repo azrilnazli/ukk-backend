@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Proposal Signers for Pitching Session')
+@section('title', 'Penanda & Urusetia for Pitching Session')
 
 
 @section('head')
@@ -18,45 +18,22 @@
 </nav>
 @stop
 
-
-
 @section('content')
 <form id="store_signers" method="post" action="{{ route('pitching-signers.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
 @csrf
   <div class="card bg-secondary">
-    <div class="card-header">
+    <div class="card-body">
         <div class="card-title">
-          Proposal by {{ $tenderSubmission->user->company->name }}
-          @include('pitching.partials.modal')
+            @include('pitching.signers.partials.header')
         </div>
-        <div class="card-item text-right bg-dark p-2">
-          PROPOSAL ID : <span class="badge badge-warning text-uppercase">{{ $tenderSubmission->id}}</span>
-          TENDER : <span class="badge badge-warning text-uppercase">{{ $tenderSubmission->tender->tender_detail->title }}</span>
-          PROGRAMME :  <span class="badge badge-warning text-uppercase ">{{ $tenderSubmission->tender->programme_category }}  - {{ $tenderSubmission->tender->programme_code }}</span>
-          CHANNEL : <span class="badge badge-warning text-uppercase ">{{ $tenderSubmission->tender->channel }}</span>
+
+        <div class="p-3">
+            @include('pitching.signers.partials.form')
         </div>
-      </div>
 
-
-    <div class="card-body bg-light">@include('JSPD.signers.form')</div>
-
-    <div class="card-footer bg-light">
-
-        <button id="submit" class="btn btn-primary" >Submit</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('signers.tasks') }}'">
-            Cancel
-        </button>
-        <script>
-          $( document ).ready(function() {
-                $( "#submit" ).click(function() {
-                //alert( "Handler for .click() called." );
-                $("#store_signers").submit();
-              });
-          });
-          </script>
-
+        <div class="card-footer">
+            @include('pitching.signers.partials.footer')
+        </div>
     </div>
-  </div>
-
 </form>
 @stop

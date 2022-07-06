@@ -61,6 +61,9 @@ Auth::routes();
 // PitchingSigner
 \App\Http\Controllers\Pitching\SignerController::routes();
 
+// PitchingScoring
+\App\Http\Controllers\Pitching\ScoringController::routes();
+
 
 
 
