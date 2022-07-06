@@ -21,18 +21,19 @@
 @section('content')
 <form id="store_signers" method="post" action="{{ route('pitching-signers.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
 @csrf
-  <div class="card bg-secondary">
-    <div class="card-body">
-        <div class="card-title">
-            @include('pitching.signers.partials.header')
+
+    <div class="card bg-light">
+        <div class="card-title bg-dark rounded">
+             @include('pitching.partials.header')
         </div>
 
-        <div class="p-3">
+
+        <div class="card-body">
             @include('pitching.signers.partials.form')
         </div>
 
         <div class="card-footer">
-            @include('pitching.signers.partials.footer')
+            @include('pitching.partials.footer')
         </div>
     </div>
 </form>
