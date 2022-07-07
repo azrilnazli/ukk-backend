@@ -29,9 +29,8 @@
                   <th width="*">Type</th>
                   <th width="*">Tender</th>
 
-                  <th width="*" class="text-center">Owner</th>
-                  <th width="*" class="text-center">Penanda</th>
-                  <th width="*" class="text-center">Urusetia</th>
+                  <th width="*" class="text-center">Assigned By</th>
+
                   {{-- <th width="*">Added by</th> --}}
                   <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
               </thead>
@@ -54,13 +53,11 @@
                         <span class="badge badge-dark"> {{ optional($row->pitching_owner)->id}}</span>
                         {{ optional($row->pitching_owner)->user->name }}
                       </td>
-                      <td class="text-center">{{ optional($row->pitching_signers)->count() }}</td>
-                      <td class="text-center">{{ optional($row->pitching_urusetias)->count() }}</td>
 
                       <td class="text-center">
 
-                        <a class="btn btn-info btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}">
-                                <i class="fas fa-search"></i>
+                        <a class="btn btn-success btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}">
+                            <i class="fas fa-pencil-alt"></i>
                         </a>
                       </td>
                   </tr>

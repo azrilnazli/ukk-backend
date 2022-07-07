@@ -26,7 +26,6 @@
              @include('pitching.partials.header')
         </div>
 
-
         <div class="card-body">
             @include('pitching.scorings.partials.form')
         </div>
