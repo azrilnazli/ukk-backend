@@ -40,8 +40,8 @@
                         <div class="info-box bg-secondary">
                                 {{-- <span class="info-box-icon"><i class="far fa-user"></i></span> --}}
                                 <div class="info-box-content">
-                                        <span class="info-box-text">Proposal Apply/Approved</span>
-                                        <span class="info-box-number">0/0</span>
+                                        <span class="info-box-text">Proposals</span>
+                                        <span class="info-box-number">{{ $tender->tender_submissions->count() }}</span>
                                 </div>
                         </div>
                     </div>
