@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Scoring Proposal List')
+@section('title', 'JSPD - Assign Penanda / Urusetia')
 
 
 @section('head')
@@ -11,9 +11,9 @@
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ route('signers.index') }}">{{ __('Signers Index') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Proposal Scoring</li>
+        <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
     </ol>
 </nav>
 @stop
@@ -23,39 +23,17 @@
 @section('content')
 <form id="store_signers" method="post" action="{{ route('signers.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
 @csrf
-  <div class="card bg-secondary">
-    <div class="card-header">
-        <div class="card-title">
-          Proposal by {{ $tenderSubmission->user->company->name }}
-          @include('JSPD.partials.modal')
-        </div>
-        <div class="card-item text-right bg-dark p-2">
-          PROPOSAL ID : <span class="badge badge-warning text-uppercase">{{ $tenderSubmission->id}}</span>
-          TENDER : <span class="badge badge-warning text-uppercase">{{ $tenderSubmission->tender->tender_detail->title }}</span>
-          PROGRAMME :  <span class="badge badge-warning text-uppercase ">{{ $tenderSubmission->tender->programme_category }}  - {{ $tenderSubmission->tender->programme_code }}</span>
-          CHANNEL : <span class="badge badge-warning text-uppercase ">{{ $tenderSubmission->tender->channel }}</span>
-        </div>
-      </div>
+  <div class="card">
+    <div class="card-title bg-dark rounded">
+        @include('JSPD.partials.header')
+    </div>
 
-
-    <div class="card-body bg-light">@include('JSPD.signers.form')</div>
+    <div class="card-body">
+        @include('JSPD.signers.form')
+    </div>
     <div class="card-footer bg-light">
-
-        <button id="submit" class="btn btn-primary" >Submit</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('signers.tasks') }}'">
-            Cancel
-        </button>
-        <script>
-          $( document ).ready(function() {
-                $( "#submit" ).click(function() {
-                //alert( "Handler for .click() called." );
-                $("#store_signers").submit();
-              });
-          });
-          </script>
-
+        @include('JSPD.partials.footer')
     </div>
   </div>
-
 </form>
 @stop

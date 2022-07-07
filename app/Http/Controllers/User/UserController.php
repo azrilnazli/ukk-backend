@@ -11,6 +11,7 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Route;
+use Spatie\Activitylog\Contracts\Activity;
 
 class UserController extends Controller
 {
@@ -27,6 +28,7 @@ class UserController extends Controller
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
 
         $this->user = new UserService;
+
     }
 
     static function routes()
@@ -37,6 +39,8 @@ class UserController extends Controller
 
     public function index()
     {
+
+
         $data = $this->user->paginate(50);
         return view('users.index',compact(['data']));
     }
@@ -44,6 +48,11 @@ class UserController extends Controller
     public function search(Request $request){
 
         $data = $this->user->search($request);
+        activity()
+        // ->tap(function(Activity $activity) use ($request) {
+        //     $activity->query = $request->input('query');
+        //  })
+        ->log('User Search :' . $request->input('query') );
 
         return view('users.index')->with(compact('data'));
     }
@@ -59,6 +68,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $this->user->store($request);
+        activity()->log('User Create');
         return redirect('users')->with('success','User ' . $request['name'] . ' added.');
     }
 
@@ -72,6 +82,7 @@ class UserController extends Controller
     {
 
         $roles = $this->user->getRoles();
+        activity()->log('User Edit');
         return view('users.edit',compact(['user','roles']));
     }
 

@@ -22,7 +22,7 @@
     @csrf
     <div class="card bg-light">
         <div class="card-header bg-secondary">
-            @include('JSPD.scorings.header')
+            @include('JSPD.partials.header')
         </div>
 
         <div class="card-body">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="card-footer p-5">
-        @include('JSPD.scorings.footer')
+        @include('JSPD.partials.footer')
         </div>
     </div>
     </form>

@@ -1,14 +1,13 @@
 
 @extends('layouts.master')
 
-@section('title', 'Tender List')
+@section('title', 'JSPD - Proposal List')
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="route('signers.index')">{{ __('Proposal Signers') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Proposal List</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
     </ol>
 </nav>
 @stop

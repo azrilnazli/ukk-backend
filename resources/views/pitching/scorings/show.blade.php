@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Scoring for Pitching Session')
+@section('title', 'PITCHING - Scoring')
 
 
 @section('head')
@@ -11,9 +11,9 @@
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ route('scorings.index') }}">{{ __('Scoring Index') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Proposal Scorings</li>
+        <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
     </ol>
 </nav>
 @stop

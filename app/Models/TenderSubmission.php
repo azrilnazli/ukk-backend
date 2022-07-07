@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Auth;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class TenderSubmission extends Model
 {

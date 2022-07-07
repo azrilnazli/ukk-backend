@@ -19,8 +19,8 @@
 @section('content')
 
   <div class="card">
-      <div class="card-header bg-secondary">
-        @include('JSPD.scorings.header')
+      <div class="card-header bg-dark">
+        @include('JSPD.partials.header')
       </div>
 
       <div class="card-body">
@@ -29,7 +29,7 @@
 
 
 
-    <div class="row">
+    <div class="card-body">
 
 
             @if( count($tenderSubmission->verifications) == 0)

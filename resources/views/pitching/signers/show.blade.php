@@ -11,9 +11,9 @@
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="/home">{{ __('Home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('home')}}">{{ __('Home') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ route('signers.index') }}">{{ __('Signers Index') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Proposal Signers</li>
+        <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
     </ol>
 </nav>
 @stop
@@ -21,12 +21,10 @@
 @section('content')
 <form id="store_signers" method="post" action="{{ route('pitching-signers.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
 @csrf
-
-    <div class="card bg-light">
+    <div class="card">
         <div class="card-title bg-dark rounded">
              @include('pitching.partials.header')
         </div>
-
 
         <div class="card-body">
             @include('pitching.signers.partials.form')

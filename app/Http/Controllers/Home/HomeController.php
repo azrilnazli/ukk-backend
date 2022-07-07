@@ -18,6 +18,7 @@ use Hash;
 use Auth;
 use Session;
 use Route;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
