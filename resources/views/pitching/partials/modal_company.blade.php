@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#company">
+<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#company">
     <i class="fas fa-search"></i> Company
 </button>
 <!-- Modal -->
