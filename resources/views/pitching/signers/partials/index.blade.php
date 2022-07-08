@@ -51,17 +51,26 @@
                       </td>
 
                       <td class="text-center">
-                        <span class="badge badge-dark"> {{ optional($row->pitching_owner)->id}}</span>
-                        {{ optional($row->pitching_owner)->user->name }}
+                        @if($row->pitching_owner)
+                            <span class="badge badge-dark"> {{ $row->pitching_owner->id}}</span>
+                            {{ $row->pitching_owner->user->name }}
+                        @else
+                            Not Assigned
+                        @endif
                       </td>
                       <td class="text-center">{{ optional($row->pitching_signers)->count() }}</td>
                       <td class="text-center">{{ optional($row->pitching_urusetias)->count() }}</td>
 
                       <td class="text-center">
-
-                        <a class="btn btn-info btn-sm" href="{{ route('pitching-signers.show', $row->id) }}">
-                                <i class="fas fa-search"></i>
-                        </a>
+                            @if($row->pitching_owner)
+                                @if($row->pitching_owner->id == auth()->user()->id)
+                                    <a class="btn btn-su btn-sm" href="{{ route('pitching-signers.show', $row->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                 @else
+                                    <a class="btn btn-su btn-sm" href="{{ route('pitching-signers.show', $row->id) }}"><i class="fas fa-search"></i></a>
+                                @endif
+                            @else
+                               <a class="btn btn-su btn-sm" href="{{ route('pitching-signers.show', $row->id) }}"> <i class="fas fa-pencil-alt"></i></a>
+                            @endif
                       </td>
                   </tr>
                   @endforeach

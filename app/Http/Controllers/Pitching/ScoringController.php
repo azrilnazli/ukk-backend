@@ -56,6 +56,7 @@ class ScoringController extends Controller
     public function index()
     {
         $proposals = $this->service->paginate();
+        //dd($proposals);
         return view('pitching.scorings.index')->with(compact('proposals'));
     }
 

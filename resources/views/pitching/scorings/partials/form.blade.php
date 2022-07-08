@@ -4,7 +4,7 @@
 
 @include('pitching.scorings.partials.form_idea')
 @include('pitching.scorings.partials.form_kandungan')
-
+@include('pitching.scorings.partials.form_comment')
 <div class="col-6">
 <hr />
 </div>

@@ -33,7 +33,7 @@ class CreatePitchingScoringsTable extends Migration
             $table->text('comment')->nullable();
 
             $table->boolean('is_comply')->default(0);
-            $table->boolean('is_verified_by_urusetia')->default(0);
+
         });
     }
 

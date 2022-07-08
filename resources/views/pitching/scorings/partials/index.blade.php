@@ -50,15 +50,26 @@
                       </td>
 
                       <td class="text-center">
-                        <span class="badge badge-dark"> {{ optional($row->pitching_owner)->id}}</span>
-                        {{ optional($row->pitching_owner)->user->name }}
+                        @if($row->pitching_owner)
+                            <span class="badge badge-dark"> {{ $row->pitching_owner->id}}</span>
+                            {{ $row->pitching_owner->user->name }}
+                        @else
+                            Not Assigned
+                        @endif
                       </td>
 
                       <td class="text-center">
 
-                        <a class="btn btn-success btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
+
+                            @if($row->pitching_owner)
+                                <i class="fas fa-search"></i><a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"></a>
+                            @elseif($row->pitching_owner->id == auth()->user()->id)
+                                <i class="fas fa-pencil-alt"></i><a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"></a>
+                            @else
+                                <i class="fas fa-pencil-alt"></i><a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"></a>
+                            @endif
+
+
                       </td>
                   </tr>
                   @endforeach

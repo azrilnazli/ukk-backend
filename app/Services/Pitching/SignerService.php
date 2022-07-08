@@ -131,6 +131,8 @@ class SignerService {
             $signer->added_by = auth()->user()->id;
             $signer->save();
         });
+
+
     }
 
     public function storeUrusetia($request, $tenderSubmission){
@@ -143,6 +145,7 @@ class SignerService {
 
         // store signers
         collect($request)
+        ->prepend(auth()->user()->id) // add Owner as Urusetia
         ->each( function($value , $key) use ($tenderSubmission){
 
             // populate new data

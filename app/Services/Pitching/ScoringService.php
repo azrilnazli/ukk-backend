@@ -21,6 +21,7 @@ class ScoringService {
     {
         return TenderSubmission::query()
             ->sortable()
+            //->with('pitching_owner')
             // has, where, whereHas , doesntHave , whereDoesntHave, whereNot
             ->whereHas('pitching_signers', function(Builder $query){
                 $query->where('user_id', auth()->user()->id );
