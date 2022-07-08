@@ -12,7 +12,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('scorings.index') }}">{{ __('Scoring Index') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('pitching-scorings.index') }}">{{ __('Scoring Index') }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
     </ol>
 </nav>
@@ -32,8 +32,10 @@
 
         <div class="card-footer">
             @include('pitching.partials.footer')
+
         </div>
     </div>
 </form>
+@include('pitching.partials.modal_acknowledge')
 
 @stop

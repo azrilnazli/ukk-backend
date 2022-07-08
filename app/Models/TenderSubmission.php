@@ -128,6 +128,9 @@ class TenderSubmission extends Model
     public function pitching_scorings(){
         return $this->hasMany(PitchingScoring::class);
     }
+    public function pitching_scoring(){
+        return $this->hasOne(PitchingScoring::class)->where('user_id', Auth::user()->id);
+    }
 
     // hasMany PitchingVerifications
     public function pitching_verifications(){

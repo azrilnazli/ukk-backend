@@ -60,16 +60,11 @@
 
                       <td class="text-center">
 
-
-                            @if($row->pitching_owner)
-                                <i class="fas fa-search"></i><a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"></a>
-                            @elseif($row->pitching_owner->id == auth()->user()->id)
-                                <i class="fas fa-pencil-alt"></i><a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"></a>
-                            @else
-                                <i class="fas fa-pencil-alt"></i><a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"></a>
-                            @endif
-
-
+                        @if($row->pitching_scoring)
+                            <a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"><i class="fas fa-search"></i></a>
+                        @else
+                            <a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                        @endif
                       </td>
                   </tr>
                   @endforeach
