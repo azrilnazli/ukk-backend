@@ -56,18 +56,21 @@ class ScoringController extends Controller
     public function index()
     {
         $proposals = $this->service->paginate();
-        //dd($proposals);
         return view('pitching.scorings.index')->with(compact('proposals'));
     }
 
-    // tasks assigned to user()->id
-    public function tasks()
+    // list all proposal for urusetia to assign
+    public function pending_tasks()
     {
-        $proposals = $this->service->tasks();
+        $proposals = $this->service->pending_tasks();
+        return view('pitching.scorings.index')->with(compact('proposals'));
+    }
 
-        //dd($proposals);
-
-        return view('pitching.scorings.tasks')->with(compact('proposals'));
+    // list all proposal for urusetia to assign
+    public function finished_tasks()
+    {
+        $proposals = $this->service->finished_tasks();
+        return view('pitching.scorings.index')->with(compact('proposals'));
     }
 
 
@@ -91,10 +94,9 @@ class ScoringController extends Controller
 
 
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
-
-
+        $result = $this->service->store($request, $tenderSubmission);
         // redirect
-        return redirect(route('pitching-scorings.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully updated.');
+        return redirect(route('pitching-scorings.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully scored.');
     }
 
     // scoring-edit

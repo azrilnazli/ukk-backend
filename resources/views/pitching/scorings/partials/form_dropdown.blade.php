@@ -25,7 +25,7 @@
                 <option
                     value={{ $i }}
 
-                    @if ( old('storyline', !empty($pitchingScoring) ? $pitchingScoring->storyline : null ) == $i ) selected @endif
+                    @if ( old($name, !empty($pitchingScoring) ? $pitchingScoring->storyline : null ) == $i ) selected @endif
                 >{{ $i }}</option>
             @endfor
         </select>

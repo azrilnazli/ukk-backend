@@ -10,9 +10,12 @@
     <div class="p-2">
 
     </div>
+
+    @if(!empty($pitchingScoring))
     <div class="ml-auto p-2">
         <h1>JUMLAH : <span class="badge badge-dark">65%</span></h1>
     </div>
+    @endif
 </div>
 
 <div class="col-6"><hr /></div>
