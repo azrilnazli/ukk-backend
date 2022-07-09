@@ -11,6 +11,27 @@ class PitchingScoring extends Model
 
     protected $guarded = ['id'];
 
+    protected $appends = array('total_score');
+
+    public function getTotalScoreAttribute()
+    {
+        $score = (
+                    $this->storyline +
+                    $this->theme +
+                    $this->concept +
+                    $this->originality +
+                    $this->structure +
+                    $this->storytelling +
+                    $this->objective +
+                    $this->props +
+                    $this->impact +
+                    $this->value_added
+                );
+        $score = round(($score/100) * 100);
+        return $score;
+    }
+
+
     public function tender_submission()
     {
         return $this->belongsTo(TenderSubmission::class);
