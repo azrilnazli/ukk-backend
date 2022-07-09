@@ -1,6 +1,6 @@
-@include('pitching.scorings.partials.form_idea')
-@include('pitching.scorings.partials.form_kandungan')
-@include('pitching.scorings.partials.form_comment')
+@include('pitching.scorings.partials.form_idea', array('pitchingScoring' => $tenderSubmission->pitching_scoring ))
+@include('pitching.scorings.partials.form_kandungan', array('pitchingScoring' => $tenderSubmission->pitching_scoring ))
+@include('pitching.scorings.partials.form_comment', array('pitchingScoring' => $tenderSubmission->pitching_scoring ))
 <div class="col-6"><hr /></div>
 <div class="d-flex col-6">
 
@@ -19,37 +19,5 @@
 </div>
 
 <div class="col-6"><hr /></div>
-<div class="d-flex col-6">
-
-    <div class="p-3 d-flex align-items-center bg-warning">
-           <input
-              class=" @error('is_comply') is-invalid @enderror"
-              type="checkbox"
-              name="is_comply"
-              value=1
-              {{-- @if(old('is_comply',  optional($data)->is_comply) == 1) checked @endif  --}}
-              />
-              @error('is_comply')
-              <input  type="hidden" class="form-control @error('is_comply') is-invalid @enderror"  />
-              <span class="p-3 invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-              </span>
-              @enderror
-
-    </div>
-
-    <div class="ml-auto p-2 d-flex align-items-center bg-warning">
-            <span>Dengan ini saya mengaku keputusan pemarkahan yang telah dibuat adalah sahih dan muktamad</span>
-    </div>
-</div>
-
-<div class="d-flex col-6 ">
-    <div class="col bg-dark">
-        PENANDA :
-
-        <strong>{{ auth()->user()->name }}  ({{ auth()->user()->email }})<br /></strong>
-
-        {{-- {{ \Carbon\Carbon::parse( optional($data)->created_at ? optional($data)->created_at : date('Y-m-d H:i:s'))->format('d/m/Y H:i:s')}} --}}
-    </div>
-</div>
+@include('pitching.scorings.partials.form_comply', array('pitchingScoring' => $tenderSubmission->pitching_scoring ))
 

@@ -78,6 +78,7 @@ class ScoringController extends Controller
     {
         // show TenderSubmission data
         // with form
+        //dd($tenderSubmission->pitching_scoring);
         return view('pitching.scorings.show')->with(compact('tenderSubmission'));
 
     }

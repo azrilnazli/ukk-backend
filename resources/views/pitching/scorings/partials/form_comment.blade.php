@@ -3,7 +3,7 @@
     {{-- <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label> --}}
 
     <div class="col-md-6">
-       <textarea class="form-control @error('comment') is-invalid @enderror" rows="8" id="comment" name="comment" style="resize:none" autocomplete="comment">{{ old('comment') }}</textarea>
+       <textarea class="form-control @error('comment') is-invalid @enderror" rows="8" id="comment" name="comment" style="resize:none" autocomplete="comment">{{ old('comment', !empty($pitchingScoring) ? $pitchingScoring->comment : null ) }}</textarea>
         @error('comment')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

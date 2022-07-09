@@ -23,7 +23,6 @@
     @foreach($fields as $key => $value)
         @if($key == 'A') <h2 class="text-uppercase">idea (40%)</h2> @endif
         <div class="d-flex col-6">
-
         @include(
             'pitching.scorings.partials.form_dropdown',
             array(

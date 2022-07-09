@@ -1,5 +1,5 @@
-<button id="submit" class="btn btn-primary" >Submit</button>
-<button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('signers.tasks') }}'">
+<button  @if(!empty($tenderSubmission->pitching_scoring)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('signers.tasks') }}'">
     Cancel
 </button>
 
@@ -38,8 +38,8 @@ $( document ).ready(function() {
             </div>
 
             <div class="modal-footer">
-                <button id="agree" type="submit" class="btn btn-primary" data-dismiss="modal">SUBMIT</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                <button disabled="true"  id="agree" type="submit" class="btn btn-primary" data-dismiss="modal">SUBMIT</button>
+                <button class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
             </div>
 
       </div>
