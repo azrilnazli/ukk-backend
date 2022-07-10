@@ -38,7 +38,7 @@ $( document ).ready(function() {
             </div>
 
             <div class="modal-footer">
-                <button disabled="true"  id="agree" type="submit" class="btn btn-primary" data-dismiss="modal">SUBMIT</button>
+                <button id="agree" type="submit" class="btn btn-primary" data-dismiss="modal">SUBMIT</button>
                 <button class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
             </div>
 

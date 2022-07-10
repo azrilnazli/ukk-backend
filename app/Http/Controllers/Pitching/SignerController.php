@@ -60,9 +60,9 @@ class SignerController extends Controller
     }
 
     // tasks assigned to user()->id
-    public function tasks()
+    public function pending_tasks()
     {
-        $proposals = $this->service->tasks();
+        $proposals = $this->service->pending_tasks();
 
         //dd($proposals);
 
