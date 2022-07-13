@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 
-@section('title', 'Pitching Scoring')
+@section('title', 'Pitching Verification')
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
@@ -13,5 +13,5 @@
 @stop
 
 @section('content')
-    @include('pitching.scorings.partials.index')
+    @include('pitching.verifications.partials.index')
 @stop

@@ -1,4 +1,4 @@
-<div class="d-flex col-6 bg-warning ">
+<div class="d-flex col-8 bg-warning ">
     <div class="p-3 d-flex align-items-center bg-warning">
            <input
               class=" @error('is_comply') is-invalid @enderror"
@@ -22,7 +22,7 @@
 </div>
 
 
-        <div class="d-flex col-6 bg-dark">
+        <div class="d-flex col-8 bg-dark">
 
             <div class="col-2 p-2">
                 PENANDA :
@@ -31,7 +31,7 @@
                 <strong>{{ auth()->user()->name }}  ({{ auth()->user()->email }})</strong>
             </div>
         </div>
-        <div class="d-flex col-6 bg-dark">
+        <div class="d-flex col-8 bg-dark">
             <div class="col-2 p-2">
                 DITANDA :
             </div>

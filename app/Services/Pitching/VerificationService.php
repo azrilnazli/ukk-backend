@@ -38,7 +38,7 @@ class VerificationService {
             ->setPath(route('pitching-signers.index'));
     }
 
-    public function pending_tasks($item = 50)
+    public function pendingTasks($item = 50)
     {
 
             return TenderSubmission::query()

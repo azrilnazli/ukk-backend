@@ -31,8 +31,8 @@ class VerificationController extends Controller
         Route::get('/pitching-verifications', [VerificationController::class, 'index'])->name('pitching-verifications.index');
         Route::get('/pitching-verifications/dashboard', [VerificationController::class, 'tasks'])->name('pitching-verifications.dashboard');
         Route::get('/pitching-verifications/tasks', [VerificationController::class, 'tasks'])->name('pitching-verifications.tasks');
-        Route::get('/pitching-verifications/pending_tasks', [VerificationController::class, 'pending_tasks'])->name('pitching-verifications.pending_tasks');
-        Route::get('/pitching-verifications/finished_tasks', [VerificationController::class, 'finished_tasks'])->name('pitching-verifications.finished_tasks');
+        Route::get('/pitching-verifications/pending-tasks', [VerificationController::class, 'pendingTasks'])->name('pitching-verifications.pending-tasks');
+        Route::get('/pitching-verifications/finished-tasks', [VerificationController::class, 'finishedTasks'])->name('pitching-verifications.finished-tasks');
         Route::get('/pitching-verifications/search', [VerificationController::class, 'search'])->name('pitching-verifications.search');
         Route::get('/pitching-verifications/dashboard', [VerificationController::class, 'dashboard'])->name('pitching-verifications.dashboard');
         Route::get('/pitching-verifications/create', [VerificationController::class,'create'])->name('pitching-verifications.create');
@@ -57,16 +57,18 @@ class VerificationController extends Controller
     }
 
     // list all proposal for urusetia to assign
-    public function pending_tasks()
+    public function pendingTasks()
     {
-        $proposals = $this->service->pending_tasks();
+        // show owned proposal but not verify yet
+        $proposals = $this->service->pendingTasks();
         return view('pitching.verifications.index')->with(compact('proposals'));
     }
 
     // list all proposal for urusetia to assign
-    public function finished_tasks()
+    public function finishedTasks()
     {
-        $proposals = $this->service->finished_tasks();
+        // show verified proposal
+        $proposals = $this->service->finishedTasks();
         return view('pitching.verifications.index')->with(compact('proposals'));
     }
 

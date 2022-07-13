@@ -30,6 +30,9 @@
                   <th width="*">Tender</th>
 
                   <th width="*" class="text-center">Assigned By</th>
+                  @hasanyrole('pitching-urusetia|pitching-ketua')
+                  <th width="*">Scoring</th>
+                  @endhasanyrole
 
                   {{-- <th width="*">Added by</th> --}}
                   <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
@@ -57,6 +60,18 @@
                             Not Assigned
                         @endif
                       </td>
+
+                      @hasanyrole('pitching-urusetia|pitching-ketua')
+                      <td>
+                        @if($row->pitching_scorings)
+                            {{ $row->pitching_scorings->count() }}
+                        @endif
+                        /
+                        @if($row->pitching_signers)
+                        {{ $row->pitching_signers->count() }}
+                    @endif
+                      </td>
+                      @endhasanyrole
 
                       <td class="text-center">
 

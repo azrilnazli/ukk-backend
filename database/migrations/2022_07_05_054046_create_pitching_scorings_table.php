@@ -34,7 +34,7 @@ class CreatePitchingScoringsTable extends Migration
 
             $table->boolean('is_comply')->default(0);
 
-            $table->timestamps();
+            //$table->timestamps();
 
         });
     }

@@ -30,4 +30,5 @@ return [
     'pitching-admin',
     'pitching-signer',
     'pitching-scoring',
+    'pitching-verification',
 ];

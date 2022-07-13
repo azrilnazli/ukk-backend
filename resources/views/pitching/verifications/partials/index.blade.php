@@ -30,6 +30,9 @@
                   <th width="*">Tender</th>
 
                   <th width="*" class="text-center">Assigned By</th>
+                  @hasanyrole('pitching-urusetia|pitching-ketua')
+                  <th width="*">Scoring</th>
+                  @endhasanyrole
 
                   {{-- <th width="*">Added by</th> --}}
                   <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
@@ -58,12 +61,27 @@
                         @endif
                       </td>
 
-                      <td class="text-center">
+                      @hasanyrole('pitching-urusetia|pitching-ketua')
+                      <td>
+                        @if($row->pitching_scorings)
+                            {{ $row->pitching_scorings->count() }}
+                        @endif
+                        /
+                        @if($row->pitching_signers)
+                        {{ $row->pitching_signers->count() }}
+                    @endif
+                      </td>
+                      @endhasanyrole
 
-                        @if($row->pitching_scoring)
-                            <a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"><i class="fas fa-search"></i></a>
+                      <td class="text-center">
+                        @if($row->pitching_scorings)
+                            @if($row->pitching_scorings->count() == 3)
+                                <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-pencil-alt "></i></a>
+                            @else
+                                <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
+                            @endif
                         @else
-                            <a class="btn btn-su btn-sm" href="{{ route('pitching-scorings.show', $row->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
                         @endif
                       </td>
                   </tr>
