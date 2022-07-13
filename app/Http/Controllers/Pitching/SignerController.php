@@ -34,8 +34,8 @@ class SignerController extends Controller
         Route::get('/pitching-signers', [SignerController::class, 'index'])->name('pitching-signers.index');
         Route::get('/pitching-signers/dashboard', [SignerController::class, 'tasks'])->name('pitching-signers.dashboard');
         Route::get('/pitching-signers/tasks', [SignerController::class, 'tasks'])->name('pitching-signers.tasks');
-        Route::get('/pitching-signers/pending_tasks', [SignerController::class, 'pending_tasks'])->name('pitching-signers.pending_tasks');
-        Route::get('/pitching-signers/finished_tasks', [SignerController::class, 'finished_tasks'])->name('pitching-signers.finished_tasks');
+        Route::get('/pitching-signers/pending-tasks', [SignerController::class, 'pendingTasks'])->name('pitching-signers.pending-tasks');
+        Route::get('/pitching-signers/finished-tasks', [SignerController::class, 'finishedTasks'])->name('pitching-signers.finished-tasks');
         Route::get('/pitching-signers/search', [SignerController::class, 'search'])->name('pitching-signers.search');
         Route::get('/pitching-signers/dashboard', [SignerController::class, 'dashboard'])->name('pitching-signers.dashboard');
         Route::get('/pitching-signers/create', [SignerController::class,'create'])->name('pitching-signers.create');
@@ -60,13 +60,17 @@ class SignerController extends Controller
     }
 
     // tasks assigned to user()->id
-    public function pending_tasks()
+    public function pendingTasks()
     {
-        $proposals = $this->service->pending_tasks();
+        $proposals = $this->service->pendingTasks();
+        return view('pitching.signers.index')->with(compact('proposals'));
+    }
 
-        //dd($proposals);
-
-        return view('pitching.signers.tasks')->with(compact('proposals'));
+        // tasks assigned to user()->id
+    public function finishedTasks()
+    {
+        $proposals = $this->service->finishedTasks();
+        return view('pitching.signers.index')->with(compact('proposals'));
     }
 
 
