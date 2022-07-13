@@ -16,7 +16,7 @@ use App\Services\Pitching\ScoringService;
 use App\Http\Requests\Pitching\Scoring\StoreRequest;
 use Route;
 
-class ScoringController extends Controller
+class ApprovalController extends Controller
 {
     function __construct()
     {

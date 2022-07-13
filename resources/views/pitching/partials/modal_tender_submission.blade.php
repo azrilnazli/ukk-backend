@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#tenderSubmission">
+<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#tenderSubmission">
     <i class="fas fa-search"></i> Proposal
 </button>
 <!-- Modal -->

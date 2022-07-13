@@ -7,7 +7,7 @@ use App\Models\PitchingOwner;
 use App\Models\TenderSubmission;
 use Auth;
 
-class SignerService {
+class ApprovalService {
 
 
     // contstructor

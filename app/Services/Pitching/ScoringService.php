@@ -21,6 +21,7 @@ class ScoringService {
     {
         return TenderSubmission::query()
             ->sortable()
+            //->with('pitching_owner')
             // has, where, whereHas , doesntHave , whereDoesntHave, whereNot
             ->whereHas('pitching_signers', function(Builder $query){
                 $query->where('user_id', auth()->user()->id );
@@ -51,38 +52,39 @@ class ScoringService {
         ->setPath(route('scorings.tasks'));
     }
 
-    public function pending_tasks($relation_type,$score_type,$item = 50){
+    public function pending_tasks($item = 50)
+    {
         return TenderSubmission::query()
-        ->sortable()
-        // who is the owner of this TenderSubmission ?
-        ->whereHas(
-            $relation_type, // Relation type ( signers , urusetias, owner)
-            function($query)
-            {
+            ->sortable()
+            //->with('pitching_owner')
+            // has, where, whereHas , doesntHave , whereDoesntHave, whereNot
+            ->whereHas('pitching_signers', function(Builder $query){
                 $query->where('user_id', auth()->user()->id );
-            }
-        )
-        ->doesntHave($score_type) // yet to be signed
-        ->orderBy('id','desc')
-        ->paginate($item)
-        ->setPath(route('scorings.pending_tasks'));
+            })
+            ->whereDoesntHave('pitching_scorings', function(Builder $query){
+                $query->where('user_id', auth()->user()->id );
+            })
+            ->orderBy('id','desc')
+            ->paginate($item)
+            ->setPath(route('tender_submissions.index'));
     }
 
-    public function finished_tasks($relation_type,$score_type,$item = 50){
+
+    public function finished_tasks($item = 50)
+    {
         return TenderSubmission::query()
-        ->sortable()
-        // who is the owner of this TenderSubmission ?
-        ->whereHas(
-            $relation_type, // Relation type ( signers , urusetias, owner)
-            function($query)
-            {
+            ->sortable()
+            //->with('pitching_owner')
+            // has, where, whereHas , doesntHave , whereDoesntHave, whereNot
+            ->whereHas('pitching_signers', function(Builder $query){
                 $query->where('user_id', auth()->user()->id );
-            }
-        )
-        ->has($score_type) // yet to be signed
-        ->orderBy('id','desc')
-        ->paginate($item)
-        ->setPath(route('scorings.finished_tasks'));
+            })
+            ->whereHas('pitching_scorings', function(Builder $query){
+                $query->where('user_id', auth()->user()->id );
+            })
+            ->orderBy('id','desc')
+            ->paginate($item)
+            ->setPath(route('tender_submissions.index'));
     }
 
     public function search($type,$request)
@@ -122,65 +124,22 @@ class ScoringService {
     //     return PitchingScoring::create($request->except(['_token','_method']));
     // }
 
-    public function store_verification($request){
-        $verification = Verification::firstOrNew([
-            'user_id' =>  $request['user_id'] ,
-            'tender_submission_id' => $request['tender_submission_id']
-        ]);
 
-        $verification->user_id = $request['user_id'];
-        $verification->is_verified = $request['is_verified'];
-        $verification->save();
 
-        return $verification;
+    public function store($request, $tenderSubmission){
 
-    }
-
-    public function store($request){
+        $collection = collect($request)->except(['_token','_method']);
 
         $scoring = PitchingScoring::firstOrNew([
             'user_id' =>  $request['user_id'] ,
-            'tender_submission_id' => $request['tender_submission_id']
+            'tender_submission_id' => $tenderSubmission->id
         ]);
 
+        $collection
+        ->prepend(auth()->user()->id, 'user_id')
+        ->prepend($tenderSubmission->id, 'tender_submission_id');
 
-        $scoring->user_id = $request['user_id'];
-        $scoring->tender_submission_id = $request['tender_submission_id'];
-        $scoring->tender_id = $request['tender_id'];
-        $scoring->company_id = $request['company_id'];
-
-        $scoring->assessment = $request['assessment'];
-        $scoring->need_statement_comply = $request['need_statement_comply'];
-
-        $scoring->tajuk_status = $request['tajuk_status'];
-        $scoring->tajuk_message = $request['tajuk_message'];
-
-        $scoring->sinopsis_status = $request['sinopsis_status'];
-        $scoring->sinopsis_message = $request['sinopsis_message'];
-
-        $scoring->idea_dan_subjek_status = $request['idea_dan_subjek_status'];
-        $scoring->idea_dan_subjek_message = $request['idea_dan_subjek_message'];
-
-        $scoring->lengkap_status = $request['lengkap_status'];
-        $scoring->lengkap_message = $request['lengkap_message'];
-
-        // $scoring->menepati_keperluan_asas_status = $request['menepati_keperluan_asas_status'];
-        // $scoring->menepati_keperluan_asas_message = $request['menepati_keperluan_asas_message'];
-
-        $scoring->syor_status = $request['syor_status'];
-
-        if( $request['syor_status'] == 1 ){
-            $scoring->syor_message_true = $request['syor_message_true'];
-            $scoring->syor_message_false = null;
-        } else {
-            $scoring->syor_message_true = null;
-            $scoring->syor_message_false = $request['syor_message_false'];
-        }
-
-        $scoring->pengesahan_comply = $request['pengesahan_comply'];
-
-
-        $scoring->save($request->except(['_token','_method']));
+        $scoring->fill($collection->toArray())->save();
 
         return $scoring;
     }

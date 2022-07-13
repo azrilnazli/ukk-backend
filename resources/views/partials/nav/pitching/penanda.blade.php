@@ -6,7 +6,7 @@
       </p>
     </a>
 </li>
-
+{{--
 
 
   <li class="nav-item">
@@ -16,7 +16,7 @@
         My Proposal
       </small>
     </a>
-  </li>
+  </li> --}}
 
 
   <li class="nav-item">

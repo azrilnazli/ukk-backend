@@ -20,9 +20,6 @@ class PitchingSigner extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function urusetia()
-    {
-        return $this->belongsTo(User::class, 'added_by');
-    }
+
 
 }
