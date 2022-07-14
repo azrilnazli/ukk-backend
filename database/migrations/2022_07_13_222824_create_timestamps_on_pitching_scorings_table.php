@@ -15,7 +15,7 @@ class CreateTimestampsOnPitchingScoringsTable extends Migration
     {
         Schema::table('pitching_scorings', function (Blueprint $table) {
             //
-            $table->timestamps();
+            //$table->timestamps();
         });
     }
 

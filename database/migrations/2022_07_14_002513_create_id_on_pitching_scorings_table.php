@@ -15,7 +15,7 @@ class CreateIdOnPitchingScoringsTable extends Migration
     {
         Schema::table('pitching_scorings', function (Blueprint $table) {
             //
-            $table->id();
+            //$table->id();
         });
     }
 
