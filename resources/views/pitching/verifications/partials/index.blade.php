@@ -76,8 +76,13 @@
                       <td class="text-center">
                         @if($row->pitching_scorings)
                             @if($row->pitching_scorings->count() == 3)
-                                <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-pencil-alt "></i></a>
-                            @else
+                                @if($row->pitching_verification)
+                                    <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
+                                @else
+                                    <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-pencil-alt "></i></a>
+                                @endif
+
+                                @else
                                 <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
                             @endif
                         @else

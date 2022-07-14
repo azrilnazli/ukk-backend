@@ -19,8 +19,7 @@
 @stop
 
 @section('content')
-<form id="store_scorings" method="post" action="{{ route('pitching-scorings.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
-@csrf
+
     <div class="card bg-light">
         <div class="card-title bg-dark rounded">
              @include('pitching.partials.header')
@@ -50,11 +49,20 @@
             </div>
         </div>
 
-        <div class="card-footer">
-            @include('pitching.partials.footer')
+        <form id="store_verification" method="post" action="{{ route('pitching-verifications.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
+        @csrf
+        <div class="card-footer bg-dark">
+            @include('pitching.verifications.partials.form_comply')
         </div>
+
+        <div class="card-footer bg-dark">
+            @include('pitching.verifications.partials.footer')
+        </div>
+        </form>
+
+
     </div>
-</form>
+
 @include('pitching.partials.modal_acknowledge')
 
 @stop

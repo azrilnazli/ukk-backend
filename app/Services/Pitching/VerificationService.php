@@ -1,9 +1,7 @@
 <?php
 namespace App\Services\Pitching;
 
-use App\Models\PitchingSigner;
-use App\Models\PitchingUrusetia;
-use App\Models\PitchingOwner;
+use App\Models\PitchingVerification;
 use App\Models\TenderSubmission;
 use Auth;
 
@@ -57,6 +55,30 @@ class VerificationService {
             ->whereHas('pitching_urusetias', fn($query) =>
                  $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
              )
+            ->orderBy('id','desc')
+            ->paginate($item)
+            ->setPath(route('pitching-signers.index'));
+    }
+
+    public function finishedTasks($item = 50)
+    {
+
+            return TenderSubmission::query()
+            ->sortable()
+
+            // check if this company approved for this TenderDetail
+            // TenderSubmission belongsTo TenderDetail
+            // CompanyApproval belongsTo Company
+            // ->whereHas('user.company.company_approvals', fn($query) =>
+            //      $query->where('is_approved', true)
+            //  )
+            // approved by JSPD
+            ->has('pitching_verification')
+            // assigned to logged user via pitching_urusetias
+            //->doesntHave('pitching_owner')
+            // ->whereHas('pitching_urusetias', fn($query) =>
+            //      $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
+            //  )
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('pitching-signers.index'));
@@ -119,89 +141,23 @@ class VerificationService {
 
     }
 
-    public function storeOwner($tenderSubmission){
+    public function store($request,$tenderSubmission){
 
-        $owner = PitchingOwner::firstOrNew([
+        $verification = PitchingVerification::firstOrNew([
             'user_id' =>  auth()->user()->id ,
             'tender_submission_id' => $tenderSubmission->id
         ]);
 
-        $owner->user_id = auth()->user()->id ;
-        $owner->tender_submission_id = $tenderSubmission->id;
-        $owner->save();
+        $verification->user_id = auth()->user()->id ;
+        $verification->tender_submission_id = $tenderSubmission->id;
+        $verification->is_verified =  $request['is_verified'];
+        $verification->save();
 
-
-    }
-
-
-    public function storeSigner($request, $tenderSubmission){
-        // delete existing data in PitchingSigner
-        PitchingSigner::query()
-        ->where([
-            'tender_submission_id' =>  $tenderSubmission->id,
-        ])
-        ->delete();
-
-        // store signers
-        collect($request)
-        ->each( function($value , $key) use ($tenderSubmission){
-
-            // populate new data
-            $signer = PitchingSigner::firstOrNew([
-                'user_id' =>  $value ,
-                'tender_submission_id' => $tenderSubmission->id
-            ]);
-
-            $signer->user_id = $value;
-            $signer->tender_submission_id = $tenderSubmission->id;
-            $signer->added_by = auth()->user()->id;
-            $signer->save();
-        });
-
-
-    }
-
-    public function storeUrusetia($request, $tenderSubmission){
-        // delete existing data in PitchingSigner
-        PitchingUrusetia::query()
-        ->where([
-            'tender_submission_id' =>  $tenderSubmission->id,
-        ])
-        ->delete();
-
-        // store signers
-        collect($request)
-        ->prepend(auth()->user()->id) // add Owner as Urusetia
-        ->each( function($value , $key) use ($tenderSubmission){
-
-            // populate new data
-            $urusetia = PitchingUrusetia::firstOrNew([
-                'user_id' =>  $value ,
-                'tender_submission_id' => $tenderSubmission->id
-            ]);
-
-            $urusetia->user_id = $value;
-            $urusetia->tender_submission_id = $tenderSubmission->id;
-            $urusetia->added_by = auth()->user()->id;
-            $urusetia->save();
-        });
+        return $verification;
     }
 
     public function find($id){
         return TenderSubmission::find($id);
-    }
-
-    public function update($request, $id){
-        // return Tender::where('id',$id)->update([
-        //     'channel' => $request['channel'],
-        //     'language' => $request['language'],
-        //     'programme_code' => $request['programme_code'],
-        //     'programme_category' => $request['programme_category'],
-        //     'title' => $request['title'],
-        //     'description' => $request['description'],
-        // ]);
-
-        return TenderSubmission::where('id',$id)->update($request->except(['_token','_method']));
     }
 
     public function destroy($id){

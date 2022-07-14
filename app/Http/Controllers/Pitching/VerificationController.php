@@ -96,7 +96,7 @@ class VerificationController extends Controller
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
         $result = $this->service->store($request, $tenderSubmission);
         // redirect
-        return redirect(route('pitching-verifications.finished_tasks'))->with('success','Proposal '. $tenderSubmission->id .' successfully scored.');
+        return redirect(route('pitching-verifications.finished-tasks'))->with('success','Proposal '. $tenderSubmission->id .' successfully scored.');
     }
 
     // verification-edit
