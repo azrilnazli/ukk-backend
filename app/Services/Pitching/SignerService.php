@@ -51,7 +51,7 @@ class SignerService {
                  $query->whereIn('id', [1,2])
              )
             // approved by JSPD
-            ->has('approval')
+            //->has('approval')
             ->has('scorings','=', 3)
             ->has('verifications','=', 2)
             ->has('approved','=', 2)
