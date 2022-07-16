@@ -18,29 +18,9 @@ class SignerService {
     /* to list TenderSubmission
         that passed Approval from ketua JSPD
     */
-    // public function paginate($item = 50)
-    // {
-    //     return TenderSubmission::query()
-    //         ->sortable()
-
-    //         // check if this company approved for this TenderDetail
-    //         // TenderSubmission belongsTo TenderDetail
-    //         // CompanyApproval belongsTo Company
-    //         ->whereHas('user.company.company_approvals', fn($query) =>
-    //              $query->where('is_approved', true)
-    //          )
-    //         // approved by JSPD
-    //         ->has('approval')
-    //         // that doesn't have any PitchingOwner
-    //         ->doesntHave('pitching_owner')
-    //         ->orderBy('id','desc')
-    //         ->paginate($item)
-    //         ->setPath(route('pitching-signers.index'));
-    // }
-
-    public function pendingTasks($item = 50)
+    public function paginate($item = 50)
     {
-
+        // 1044 taken from JspdAdmin
         return TenderSubmission::query()
 
             ->has('approved','>=', 2)
@@ -57,6 +37,28 @@ class SignerService {
             ->paginate($item)
 
             ->setPath(route('pitching-signers.index'));
+    }
+
+    public function pendingTasks($item = 50)
+    {
+
+        // 1044 taken from JspdAdmin
+        return TenderSubmission::query()
+
+            ->has('approved','>=', 2)
+            ->has('scorings','=', 3)
+            ->has('verifications','=', 2)
+            ->whereHas('user.company.company_approvals', fn($query) =>
+                $query->where('is_approved', true)
+            )
+           // ->whereIn('tender_detail_id',[1,2])
+            ->whereHas('tender.tender_detail', fn($query) =>
+                $query->whereIn('id', [1,2])
+            )
+            ->orderBy('id','desc')
+            ->paginate($item)
+
+            ->setPath(route('pitching-signers.pending-tasks'));
     }
 
     // find TenderSubmission that tasked to logged user ( urusetia-1)
