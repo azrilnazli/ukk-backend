@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="col-6">
+    {{-- <div class="col-6">
         <h5>Assign Urusetia</h5>
         <div class="form-check">
             @foreach($admins as $admin)
@@ -57,7 +57,7 @@
             </span>
             @enderror
         </div>
-    </div>
+    </div> --}}
 
 </div>
 
