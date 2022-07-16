@@ -52,8 +52,8 @@ class SignerService {
              )
             // approved by JSPD
             //->has('approval')
-            ->has('scorings','=', 3)
-            ->has('verifications','=', 2)
+            //->has('scorings','=', 3)
+            //->has('verifications','=', 2)
             ->has('approved','=', 2)
             // assigned to logged user via pitching_urusetias
             ->doesntHave('pitching_owner')
