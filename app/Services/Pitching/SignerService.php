@@ -18,25 +18,25 @@ class SignerService {
     /* to list TenderSubmission
         that passed Approval from ketua JSPD
     */
-    public function paginate($item = 50)
-    {
-        return TenderSubmission::query()
-            ->sortable()
+    // public function paginate($item = 50)
+    // {
+    //     return TenderSubmission::query()
+    //         ->sortable()
 
-            // check if this company approved for this TenderDetail
-            // TenderSubmission belongsTo TenderDetail
-            // CompanyApproval belongsTo Company
-            ->whereHas('user.company.company_approvals', fn($query) =>
-                 $query->where('is_approved', true)
-             )
-            // approved by JSPD
-            ->has('approval')
-            // that doesn't have any PitchingOwner
-            ->doesntHave('pitching_owner')
-            ->orderBy('id','desc')
-            ->paginate($item)
-            ->setPath(route('pitching-signers.index'));
-    }
+    //         // check if this company approved for this TenderDetail
+    //         // TenderSubmission belongsTo TenderDetail
+    //         // CompanyApproval belongsTo Company
+    //         ->whereHas('user.company.company_approvals', fn($query) =>
+    //              $query->where('is_approved', true)
+    //          )
+    //         // approved by JSPD
+    //         ->has('approval')
+    //         // that doesn't have any PitchingOwner
+    //         ->doesntHave('pitching_owner')
+    //         ->orderBy('id','desc')
+    //         ->paginate($item)
+    //         ->setPath(route('pitching-signers.index'));
+    // }
 
     public function pendingTasks($item = 50)
     {
@@ -47,9 +47,9 @@ class SignerService {
             // check if this company approved for this TenderDetail
             // TenderSubmission belongsTo TenderDetail
             // CompanyApproval belongsTo Company
-            // ->whereHas('user.company.company_approvals', fn($query) =>
-            //      $query->where('is_approved', true)
-            //  )
+            ->whereHas('tender.tender_detail', fn($query) =>
+                 $query->whereIn('id', [1,2])
+             )
             // approved by JSPD
             //->has('approval')
             // assigned to logged user via pitching_urusetias
