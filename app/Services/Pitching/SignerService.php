@@ -51,7 +51,7 @@ class SignerService {
                  $query->whereIn('id', [1,2])
              )
             // approved by JSPD
-            //->has('approval')
+            ->has('approval')
             // assigned to logged user via pitching_urusetias
             ->doesntHave('pitching_owner')
             ->orderBy('id','desc')
