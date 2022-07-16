@@ -21,7 +21,7 @@
             class="custom-select  @error($name) is-invalid @enderror"
             >
             <option>Choose...</option>
-            @for($i=1; $i<=10; $i++)
+            @for($i=0; $i<=10; $i++)
                 <option
                     value={{ $i }}
 
