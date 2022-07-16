@@ -1,5 +1,5 @@
 <button  @if(!empty($tenderSubmission->pitching_scoring)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
-<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pitching-scorings.index) }}'">
+<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pitching-scorings.index') }}'">
     Cancel
 </button>
 
