@@ -49,16 +49,22 @@
             </div>
         </div>
 
+        @if($tenderSubmission->pitching_scorings->count() == 3 )
         <form id="store_verification" method="post" action="{{ route('pitching-verifications.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
-        @csrf
-        <div class="card-footer bg-dark">
-            @include('pitching.verifications.partials.form_comply')
-        </div>
+            @csrf
+            <div class="card-footer bg-dark">
+                @include('pitching.verifications.partials.form_comply')
+            </div>
 
-        <div class="card-footer bg-dark">
-            @include('pitching.verifications.partials.footer')
-        </div>
+            <div class="card-footer bg-dark">
+                @include('pitching.verifications.partials.footer')
+            </div>
         </form>
+        @else
+        <div class="card-footer bg-danger">
+            <h3><i class="fas fa-exclamation"></i> Penandaan tidak lengkap.</h3>
+        </div>
+        @endif
 
 
     </div>
