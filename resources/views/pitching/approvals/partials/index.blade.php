@@ -51,7 +51,7 @@
 
                       <td class="text-center">
                         @if($row->pitching_owner)
-                            <span class="badge badge-dark"> {{ $row->pitching_owner->id}}</span>
+                            <span class="badge badge-dark"> {{ $row->pitching_owner->user->id}}</span>
                             {{ $row->pitching_owner->user->name }}
                         @else
                             Not Assigned
