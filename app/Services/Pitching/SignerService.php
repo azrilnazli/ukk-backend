@@ -77,7 +77,10 @@ class SignerService {
         // approved by JSPD
         //->has('approval')
         // assigned to logged user via pitching_urusetias
-        ->has('pitching_owner')
+        //->has('pitching_owner')
+        ->whereHas('pitching_owner', fn($query) =>
+            $query->where('user_id', auth()->user()->id )
+        )
         ->orderBy('id','desc')
         ->paginate($item)
         ->setPath(route('pitching-signers.index'));
