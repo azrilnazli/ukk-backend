@@ -1415,9 +1415,9 @@ class CollectionsController extends Controller
 
         function proposal_new(){
             // date start = 2022-06-21
-            $result = tenderSubmission::query()
+            $result = \App\Models\Video::query()
             ->whereBetween('created_at', ['2022-06-21', now() ])
-            ->whereHas('tender.tender_detail', fn($query) =>
+            ->whereHas('tender_submission.tender.tender_detail', fn($query) =>
                 $query->whereIn('id', [3,4])
             )
             ->get()
