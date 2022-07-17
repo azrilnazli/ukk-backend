@@ -1413,5 +1413,15 @@ class CollectionsController extends Controller
             });
         }
 
+        function proposal_new(){
+            // date start = 2022-06-21
+            $result = tenderSubmission::query()
+            ->whereBetween('created_at', ['2022-06-21', now() ])
+            ->get()
+            ->count();
+
+            echo $result;
+        }
+
 
 }// class
