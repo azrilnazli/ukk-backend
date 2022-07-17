@@ -92,4 +92,10 @@ class CompanyService {
         return Company::where('id',$id)->delete();
     }
 
+    public function fields($tenderSubmission){
+        $unwanted = ['id','created_at','updated_at'];
+        $columns = $tenderSubmission->getTableColumns();
+        return $fields = array_diff($columns,$unwanted);
+    }
+
 }

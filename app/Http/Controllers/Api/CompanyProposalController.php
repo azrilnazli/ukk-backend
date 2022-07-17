@@ -90,21 +90,33 @@ class CompanyProposalController extends Controller
         if($proposal == null ) return response(['title' => 'System Error', 'message' => 'You can\'t delete this data.'],422);
 
         // destroy video DB
-        if($proposal->has('video')){
-            if($proposal->video){
-                $video = new VideoService;
-                $video->delete($proposal->video->id);
-            }
-        }
+        // if($proposal->has('video')){
+        //     if($proposal->video){
+        //         $video = new VideoService;
+        //         $video->delete($proposal->video->id);
+        //     }
+        // }
 
 
         // destroy folder
-        Storage::disk('proposals')->deleteDirectory( $request->proposal_id ); // proposal dir
-        $file = new Filesystem;
-        $file->cleanDirectory('storage/app/public/proposals/' . $request->proposal_id);
+        // Storage::disk('proposals')->deleteDirectory( $request->proposal_id ); // proposal dir
+        // $file = new Filesystem;
+        // $file->cleanDirectory('storage/app/public/proposals/' . $request->proposal_id);
 
         // destroy proposal
-        if( $proposal->delete() ){
+        //if( $proposal->delete() ){
+        if( true ){
+
+
+            // store delete activity
+            \App\Models\Activity::create([
+                'model' =>  get_class($proposal),
+                'action' => 'delete',
+                'method' => $request->method(),
+                'header' => $request->header(),
+                'request' => json_encode($request->all()),
+                'user_id' => auth()->user()->id
+            ]);
 
             return response([
                 'proposal_id' => $request->proposal_id,

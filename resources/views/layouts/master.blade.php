@@ -73,7 +73,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endif
         </div>
         <div class="info">
-          <a href="/profile" class="d-block">{{ Auth::user()->email ? Auth::user()->email : Auth::user()->name }}</a>
+            <small>
+          <a href="/profile" class="d-block">{{ Str::limit (Auth::user()->email, 25)  }}</a>
+            </small>
         </div>
       </div>
 
@@ -128,17 +130,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="container-fluid">
 
       <div class="row justify-content-center">
-        <div class="col-md-10">
-          @yield('breadcrumb')
-        </div>
-      </div>
+            <div class="col-5">
+                <h4><i class="fa fa-info-circle" aria-hidden="true"></i> <u>@yield('title')</u></h4>
+            </div>
 
+            <div class="col-5">
+                @yield('breadcrumb')
+            </div>
+      </div>
+      <hr class="col-10" />
     </div>
+
 
 
     <!-- Main content -->
       <div class="row justify-content-center">
         <div class="col-md-10">
+
           @yield('content')
         </div>
       </div>

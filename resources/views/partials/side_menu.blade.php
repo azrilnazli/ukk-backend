@@ -65,5 +65,13 @@ function active($menu){
         @include('partials.nav.scorings-penanda')
     @endhasrole
 
+    @hasrole('pitching-urusetia')
+        @include('partials.nav.pitching.urusetia')
+    @endhasrole
+
+    @hasrole('pitching-penanda')
+        @include('partials.nav.pitching.penanda')
+    @endhasrole
+
 </ul>
 </div>

@@ -10,10 +10,6 @@ class Signer extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function scoring()
-    {
-        return $this->belongsTo(Scoring::class);
-    }
 
     public function tender_submission()
     {

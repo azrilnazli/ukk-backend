@@ -47,6 +47,7 @@ class SignerController extends Controller
     // list all proposal for urusetia to assign
     public function index()
     {
+
         $proposals = $this->signer->paginate();
         return view('JSPD.signers.index')->with(compact('proposals'));
     }
@@ -54,16 +55,9 @@ class SignerController extends Controller
     // tasks assigned to user()->id
     public function tasks()
     {
-        $proposals = Signer::query()
-                        ->select('tender_submission_id')
-                        ->whereHas('tender_submission.user.company', fn($query) =>
-                            $query->where('is_approved', true)
-                        )
-                        // ->groupBy('tender_submission_id')
-                        // ->with('tender_submission.user','tender_submission.tender','user')
-                        ->where('user_id',auth()->user()->id) // assigned task to urusetia
-                        ->paginate(50)
-                        ->setPath(route('signers.tasks'));
+        $proposals = $this->signer->tasks();
+
+        //dd($proposals);
 
         return view('JSPD.signers.tasks')->with(compact('proposals'));
     }
@@ -75,8 +69,8 @@ class SignerController extends Controller
         $assigned_signers = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','signer')->get()->pluck('user_id')->toArray();
         $assigned_admins = Signer::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->where('type','urusetia')->get()->pluck('user_id')->toArray();
         $signers = User::role('jspd-penanda')->get(); // list all users in signers category
-        $admins = User::role('jspd-urusetia')->get(); // list all users in signers category
-        $fields = \App\Services\TenderSubmissionService::fields($tenderSubmission);
+        $admins  = User::role('jspd-urusetia')->get(); // list all users in signers category
+        $fields  = \App\Services\TenderSubmissionService::fields($tenderSubmission);
 
         if($tenderSubmission->added_by == 0){ // 0 means not being assigned yet
             return view('JSPD.signers.show')->with(compact('tenderSubmission','fields','signers','admins','assigned_signers','assigned_admins'));

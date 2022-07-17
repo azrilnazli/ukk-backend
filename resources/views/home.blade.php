@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('name', 'Dashboard')
+@section('title', 'Welcome to RTM e-TVCMS')
 
 
 @section('content')

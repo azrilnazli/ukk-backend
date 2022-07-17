@@ -58,6 +58,18 @@ Auth::routes();
 // Video
 \App\Http\Controllers\Video\VideoController::routes();
 
+// PitchingSigner
+\App\Http\Controllers\Pitching\SignerController::routes();
+
+// PitchingScoring
+\App\Http\Controllers\Pitching\ScoringController::routes();
+
+// PitchingVerification
+\App\Http\Controllers\Pitching\VerificationController::routes();
+
+// PitchingApproval
+\App\Http\Controllers\Pitching\ApprovalController::routes();
+
 
 
 

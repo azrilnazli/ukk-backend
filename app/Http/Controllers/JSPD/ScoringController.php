@@ -32,6 +32,8 @@ class ScoringController extends Controller
         // JSPD - scorings
         Route::get('/scorings', [ScoringController::class, 'index'])->name('scorings.index');
         Route::get('/scorings/tasks', [ScoringController::class, 'tasks'])->name('scorings.tasks');
+        Route::get('/scorings/pending_tasks', [ScoringController::class, 'pending_tasks'])->name('scorings.pending_tasks');
+        Route::get('/scorings/finished_tasks', [ScoringController::class, 'finished_tasks'])->name('scorings.finished_tasks');
         Route::get('/scorings/search', [ScoringController::class, 'search'])->name('scorings.search');
         Route::get('/scorings/dashboard', [ScoringController::class, 'dashboard'])->name('scorings.dashboard');
         Route::get('/scorings/create', [ScoringController::class,'create'])->name('scorings.create');
@@ -66,6 +68,36 @@ class ScoringController extends Controller
         if(Auth::user()->hasRole('jspd-urusetia')){
             // list proposal assigned to jspd-penanda
             $proposals = $this->scoring->tasks('urusetias', 50); // relation signers()
+        }
+
+        return view('JSPD.scorings.tasks')->with(compact('proposals'));
+    }
+
+    // list TenderSubmission yet to be signed
+    public function pending_tasks(){
+        if(Auth::user()->hasRole('jspd-penanda')){
+            // list proposal assigned to jspd-penanda
+            $proposals = $this->scoring->pending_tasks('signers','my_score', 50); // relation signers()
+        }
+
+        if(Auth::user()->hasRole('jspd-urusetia')){
+            // list proposal assigned to jspd-penanda
+            $proposals = $this->scoring->pending_tasks('urusetias','my_verification', 50); // relation urusetias()
+        }
+
+        return view('JSPD.scorings.tasks')->with(compact('proposals'));
+    }
+
+    // list of Signed  TenderSubmission
+    public function finished_tasks(){
+        if(Auth::user()->hasRole('jspd-penanda')){
+            // list proposal assigned to jspd-penanda
+            $proposals = $this->scoring->finished_tasks('signers','my_score', 50); // relation signers()
+        }
+
+        if(Auth::user()->hasRole('jspd-urusetia')){
+            // list proposal assigned to jspd-penanda
+            $proposals = $this->scoring->finished_tasks('urusetias','my_verification', 50); // relation urusetias()
         }
 
         return view('JSPD.scorings.tasks')->with(compact('proposals'));
