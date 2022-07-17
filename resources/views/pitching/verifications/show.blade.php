@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        @if($tenderSubmission->pitching_scorings->count() == 2 )
+        @if($tenderSubmission->pitching_scorings->count() == 3 )
             <form id="store_verification" method="post" action="{{ route('pitching-verifications.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
                 @csrf
                 <div class="card-footer bg-dark">
