@@ -55,6 +55,7 @@ class VerificationService {
             ->whereHas('pitching_urusetias', fn($query) =>
                  $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
              )
+            ->doesntHave('pitching_verification')
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('pitching-signers.index'));
@@ -73,12 +74,12 @@ class VerificationService {
             //      $query->where('is_approved', true)
             //  )
             // approved by JSPD
-            ->has('pitching_verification')
+            //->has('pitching_verification')
             // assigned to logged user via pitching_urusetias
             //->doesntHave('pitching_owner')
-            // ->whereHas('pitching_urusetias', fn($query) =>
-            //      $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
-            //  )
+            ->whereHas('pitching_verification', fn($query) =>
+                 $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
+             )
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('pitching-signers.index'));
