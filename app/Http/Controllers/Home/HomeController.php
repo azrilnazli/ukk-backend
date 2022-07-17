@@ -102,14 +102,14 @@ class HomeController extends Controller
         $tenderDetails = \App\Models\TenderDetail::all();
 
         // state related
-        $states = Company::distinct()
-                    ->get(['states'])
-                    ->map( function($val, $key)  {
-                        $val['count'] = Company::query()
-                        ->where('states', 'LIKE', '%'.$val->states.'%')
-                        ->count();
-                        return $val;
-                    });
+        // $states = Company::distinct()
+        //             ->get(['states'])
+        //             ->map( function($val, $key)  {
+        //                 $val['count'] = Company::query()
+        //                 ->where('states', 'LIKE', '%'.$val->states.'%')
+        //                 ->count();
+        //                 return $val;
+        //             });
 
         $video = $this->service->video();
         $proposal = $this->service->proposal();
@@ -128,7 +128,7 @@ class HomeController extends Controller
             'comment',
             'proposal',
             'video',
-            'states',
+            //'states',
             'roles',
 
         ));
