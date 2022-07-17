@@ -16,6 +16,7 @@
         <div class="input-group-prepend">
             <label class="input-group-text">SCORE</label>
         </div>
+
         <select
             name="{{ $name }}"
             class="custom-select  @error($name) is-invalid @enderror"
@@ -25,7 +26,7 @@
                 <option
                     value={{ $i }}
 
-                    @if ( old($name, !empty($pitchingScoring) ? $pitchingScoring->$name : null ) == $i ) selected @endif
+                    @if ( old($name, !empty($pitchingScoring) ? $pitchingScoring->$name : '-1' ) == $i ) selected @endif
                 >{{ $i }}</option>
             @endfor
         </select>

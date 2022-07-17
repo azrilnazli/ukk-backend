@@ -19,9 +19,13 @@
         <select
             name="{{ $name }}"
             class="custom-select  @error($name) is-invalid @enderror"
+            @if(!empty($pitchingScoring))
+                disabled
+            @endif
+
             >
             <option>Choose...</option>
-            @for($i=1; $i<=10; $i++)
+            @for($i=0; $i<=10; $i++)
                 <option
                     value={{ $i }}
 

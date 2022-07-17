@@ -9,6 +9,11 @@
             type="checkbox"
             name="is_verified"
             value=1
+
+            @if(!empty($tenderSubmission->pitching_verification))
+                disabled
+            @endif
+
             @if( old('is_verified',  !empty($tenderSubmission->pitching_verification) ? $tenderSubmission->pitching_verification->is_verified  : null) ) checked @endif
             />
         </div>

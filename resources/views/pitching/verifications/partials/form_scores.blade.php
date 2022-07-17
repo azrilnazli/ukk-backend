@@ -1,4 +1,4 @@
-<div class="d-flex col-6">
+<div class="d-flex col-8">
 
     <div class="p-2">
 
