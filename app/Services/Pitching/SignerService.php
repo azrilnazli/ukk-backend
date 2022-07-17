@@ -55,6 +55,8 @@ class SignerService {
             ->whereHas('tender.tender_detail', fn($query) =>
                 $query->whereIn('id', [1,2])
             )
+            // only list without owner
+            ->doesntHave('pitching_owner')
             ->orderBy('id','desc')
             ->paginate($item)
 
