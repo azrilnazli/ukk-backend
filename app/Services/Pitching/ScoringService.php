@@ -28,7 +28,7 @@ class ScoringService {
             })
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('tender_submissions.index'));
+            ->setPath(route('pitching-scorings.index'));
     }
 
 
@@ -66,7 +66,7 @@ class ScoringService {
             })
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('tender_submissions.index'));
+            ->setPath(route('pitching-scorings.pending_tasks'));
     }
 
 
@@ -84,13 +84,24 @@ class ScoringService {
             })
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('tender_submissions.index'));
+            ->setPath(route('pitching-scorings.finished_tasks'));
     }
 
     public function search($type,$request)
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
+
+                        ->has('approved','>=', 2)
+                        ->has('scorings','=', 3)
+                        ->has('verifications','=', 2)
+                        ->whereHas('user.company.company_approvals', fn($query) =>
+                            $query->where('is_approved', true)
+                        )
+                    // ->whereIn('tender_detail_id',[1,2])
+                        ->whereHas('tender.tender_detail', fn($query) =>
+                            $query->whereIn('id', [1,2])
+                        )
 
                         ->orWhereHas($type, fn($query) =>
                             $query->where('user_id', auth()->user()->id )
