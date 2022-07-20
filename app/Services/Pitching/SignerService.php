@@ -120,9 +120,6 @@ class SignerService {
 
                         })
 
-
-
-
                         ->paginate(50)
                         ->setPath(route('pitching-signers.search'));
 
