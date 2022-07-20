@@ -127,6 +127,9 @@ class ScoringService {
                             $query->whereHas('tender.tender_detail', function ($query) {
                                 $query->whereIn('id', [1,2]);
                             })
+                            ->whereHas('pitching_signers', fn($query) =>
+                                $query->where('user_id', auth()->user()->id )
+                             )
                             ->has('approved','>=', 2)
                             ->has('scorings','=', 3)
                             ->has('verifications','=', 2)
@@ -165,8 +168,8 @@ class ScoringService {
         ->prepend(auth()->user()->id, 'user_id')
         ->prepend($tenderSubmission->id, 'tender_submission_id');
 
-        $scoring->fill($collection->toArray())->save();
-        //$scoring->fill($collection->toArray())->insertOrIgnore();
+        //$scoring->fill($collection->toArray())->save();
+        $scoring->insertOrIgnore($collection->toArray());
 
         return $scoring;
     }
