@@ -87,7 +87,7 @@ class ScoringService {
             ->setPath(route('pitching-scorings.finished_tasks'));
     }
 
-    public function search($type,$request)
+    public function search($request)
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
@@ -95,34 +95,36 @@ class ScoringService {
                         ->has('approved','>=', 2)
                         ->has('scorings','=', 3)
                         ->has('verifications','=', 2)
+                        ->whereHas('pitching_signers', fn($query) =>
+                        $query->where('user_id', auth()->user()->id )
+                        )
                         ->whereHas('user.company.company_approvals', fn($query) =>
                             $query->where('is_approved', true)
                         )
-                    // ->whereIn('tender_detail_id',[1,2])
+                        // ->whereIn('tender_detail_id',[1,2])
                         ->whereHas('tender.tender_detail', fn($query) =>
                             $query->whereIn('id', [1,2])
                         )
 
-                        ->orWhereHas($type, fn($query) =>
-                            $query->where('user_id', auth()->user()->id )
-                        )
-                        ->orWhereHas('user.approved_company', fn($query) =>
+                        ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
                             ->orWhere('id', 'LIKE', '%' . $q . '%')
                             ->orWhere('phone', 'LIKE', '%' . $q . '%')
 
                         )
-                        ->orWhereHas('score.tender', fn($query) =>
-                            $query->where('programme_code', 'LIKE', '%' . $q . '%')
-                            // ->orWhere('type', 'LIKE', '%' . $q . '%')
-                            // ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                            // ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                            // ->orWhere('programme_category', 'LIKE', '%' . $q . '%')
+                        ->orWhereHas('tender', fn($query) =>
+                            $query->where('programme_category', 'LIKE', '%' . $q . '%')
+                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
+                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
+                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                        )
+                        ->orWhereHas('tender.tender_detail', fn($query) =>
+                            $query->where('title', 'LIKE', '%' . $q . '%')
                         )
 
                         ->paginate(50)
-                        ->setPath(route('scorings.search'));
+                        ->setPath(route('pitching-scorings.search'));
 
                         $tenders->appends([
                             'query' => $q
