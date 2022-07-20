@@ -1,5 +1,5 @@
 
-<form method="GET"  action="{{ route('pitching-signers.search') }}">
+<form method="GET"  action="{{ route('pitching-scorings.search') }}">
     @csrf
     <div class="row mt-5">
       <div class="col-6">
