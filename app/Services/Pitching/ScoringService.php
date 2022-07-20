@@ -106,22 +106,35 @@ class ScoringService {
                         //     $query->whereIn('id', [1,2])
                         // )
 
-                        ->orWhereHas('user.company', fn($query) =>
-                            $query->where('name', 'LIKE', '%' . $q . '%')
-                            ->orWhere('email', 'LIKE', '%' . $q . '%')
-                            ->orWhere('id', 'LIKE', '%' . $q . '%')
-                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
+                        // ->orWhereHas('user.company', fn($query) =>
+                        //     $query->where('name', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('email', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('id', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('phone', 'LIKE', '%' . $q . '%')
 
-                        )
-                        ->orWhereHas('tender', fn($query) =>
-                            $query->where('programme_category', 'LIKE', '%' . $q . '%')
-                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
-                        )
-                        ->orWhereHas('tender.tender_detail', fn($query) =>
-                            $query->where('title', 'LIKE', '%' . $q . '%')
-                        )
+                        // )
+                        // ->orWhereHas('tender', fn($query) =>
+                        //     $query->where('programme_category', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('duration', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('channel', 'LIKE', '%' . $q . '%')
+                        //     ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
+                        // )
+                        // ->orWhereHas('tender.tender_detail', fn($query) =>
+                        //     $query->where('title', 'LIKE', '%' . $q . '%')
+                        // )
+
+                        ->where(function ($query) use ($q)  {
+                            $query->whereHas('tender.tender_detail', function ($query) {
+                                $query->whereIn('id', [1,2]);
+                            })
+                            ->has('approved','>=', 2)
+                            ->has('scorings','=', 3)
+                            ->has('verifications','=', 2)
+                            ->whereHas('user.company', function ($query) use ($q) {
+                                $query->where('name', 'LIKE', '%' . $q . '%');
+                            });
+
+                        })
 
                         ->paginate(50)
                         ->setPath(route('pitching-scorings.search'));
