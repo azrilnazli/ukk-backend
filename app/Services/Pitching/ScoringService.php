@@ -139,7 +139,8 @@ class ScoringService {
         ->prepend(auth()->user()->id, 'user_id')
         ->prepend($tenderSubmission->id, 'tender_submission_id');
 
-        $scoring->fill($collection->toArray())->save();
+        //$scoring->fill($collection->toArray())->save();
+        $scoring->fill($collection->toArray())->insertOrIgnore();
 
         return $scoring;
     }
