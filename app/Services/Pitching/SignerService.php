@@ -97,7 +97,7 @@ class SignerService {
                         // ->whereHas('user.company.company_approvals', fn($query) =>
                         //     $query->where('is_approved', true)
                         // )
-                        // ->whereIn('tender_detail_id',[1,2])
+                        ->whereIn('tender.tender_detail_id',[1,2])
                         // ->orWhereHas('tender.tender_detail', fn($query) =>
                         //     $query->whereIn('id', [1,2])
                         // )
