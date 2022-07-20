@@ -62,6 +62,7 @@ class SignerController extends Controller
     // tasks assigned to user()->id
     public function pendingTasks()
     {
+        //dd('test');
         $proposals = $this->service->pendingTasks();
         return view('pitching.signers.index')->with(compact('proposals'));
     }
@@ -79,8 +80,8 @@ class SignerController extends Controller
 
         $assigned_signers = PitchingSigner::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->get()->pluck('user_id')->toArray();
         $assigned_admins = PitchingUrusetia::query()->select('user_id')->where('tender_submission_id', $tenderSubmission->id)->get()->pluck('user_id')->toArray();
-        $signers = User::role('pitching-penanda')->get(); // list all users in signers category
-        $admins = User::role('pitching-urusetia')->get(); // list all users in urusetias category
+        $signers = User::role('pitching-penanda')->orderBy('name','ASC')->get(); // list all users in signers category
+        $admins = User::role('pitching-urusetia')->orderBy('name','ASC')->get(); // list all users in urusetias category
         $fields = \App\Services\TenderSubmissionService::fields($tenderSubmission);
 
         //dd($signers);
