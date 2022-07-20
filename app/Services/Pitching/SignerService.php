@@ -91,9 +91,9 @@ class SignerService {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
-                        // ->has('approved','>=', 2)
-                        // ->has('scorings','=', 3)
-                        // ->has('verifications','=', 2)
+                         ->has('approved','>=', 2)
+                         ->has('scorings','=', 3)
+                         ->has('verifications','=', 2)
                         // ->whereHas('user.company.company_approvals', fn($query) =>
                         //     $query->where('is_approved', true)
                         // )
