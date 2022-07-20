@@ -102,6 +102,12 @@ class SignerService {
                         //      $query->whereIn('id', [1,2])
                         //  )
 
+                        // ->with('tender')
+                        // ->whereHas('tender.tender_detail', fn($query) =>
+                        //     $query->whereIn('id', [3,4])
+                        // )
+
+
                         ->orWhereHas('user.company', fn($query) =>
                             $query->where('name', 'LIKE', '%' . $q . '%')
                             ->orWhere('email', 'LIKE', '%' . $q . '%')
