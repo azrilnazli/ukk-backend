@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'tenderSubmission List')
+@section('title', 'Proposal List')
 
 
 @section('head')
