@@ -1426,5 +1426,33 @@ class CollectionsController extends Controller
             echo $result;
         }
 
+        function update_proposal(){
+
+            $query = \App\Models\TenderSubmissionBackup::query()->get();
+
+            $query->each( function($value, $key){
+                echo $key . "| Proposal ID - " . $value->id;
+                echo " is by User ID " . $value->user_id ;
+
+                // get CompanyID
+                $company = \App\Models\Company::query()
+                ->where('user_id', $value->user_id)
+                ->first();
+
+                echo " Company ID is " . $company->id . PHP_EOL;
+
+                // update TenderSubmission with Company ID
+                $proposal = TenderSubmission::find($value->id);
+                $proposal->company_id = $company->id;
+                if($proposal->save()){
+                    echo " updated" . $company->id . PHP_EOL;
+                }
+
+
+
+            });
+
+        }
+
 
 }// class
