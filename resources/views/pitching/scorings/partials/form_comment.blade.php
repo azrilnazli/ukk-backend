@@ -1,4 +1,4 @@
-<h2 class="text-uppercase">ulasan</h2>
+<h5 class="text-uppercase">ulasan</h5>
 <div class="form-group row">
     {{-- <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label> --}}
 

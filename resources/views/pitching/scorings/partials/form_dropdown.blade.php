@@ -18,6 +18,7 @@
         </div>
 
         <select
+            id="form_{{ $name }}"
             name="{{ $name }}"
             class="custom-select  @error($name) is-invalid @enderror"
             >
