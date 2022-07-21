@@ -5,7 +5,11 @@
       <div class="card-header bg-dark">
         <div class="card-title ">
           <label class="badge badge-warning p-2 text-uppercase ">
+            @if($tenderSubmission->company)
             {{$tenderSubmission->company->id}}</label> Proposal by {{ $tenderSubmission->company->name }}
+            @else
+            No Company ID
+            @endif
           </div>
 
       </div>
