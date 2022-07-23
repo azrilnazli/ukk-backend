@@ -65,10 +65,10 @@ class AdminService {
             // approved by JSPD
             ->has('approval')
             // that doesn't have any PitchingOwner
-            ->doesntHave('pitching_owner')
+            ->has('pitching_owner')
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('pitching-signers.index'));
+            ->setPath(route('pitching-admins.index'));
     }
 
     public function pendingTasks($item = 50)

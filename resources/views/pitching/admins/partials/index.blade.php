@@ -30,9 +30,10 @@
                   <th width="*">Tender</th>
 
                   <th width="*" class="text-center">Assigned By</th>
-                  @hasanyrole('pitching-urusetia|pitching-ketua')
+
                   <th width="*">Scoring</th>
-                  @endhasanyrole
+                  <th width="*">Score</th>
+
 
                   {{-- <th width="*">Added by</th> --}}
                   <th width="12%" class="text-center"><span class="badge badge-dark">Actions</span></th>
@@ -61,7 +62,7 @@
                         @endif
                       </td>
 
-                      @hasanyrole('pitching-urusetia|pitching-ketua')
+
                       <td>
                         @if($row->pitching_scorings)
                             {{ $row->pitching_scorings->count() }}
@@ -69,9 +70,21 @@
                         /
                         @if($row->pitching_signers)
                         {{ $row->pitching_signers->count() }}
-                    @endif
+                        @endif
                       </td>
-                      @endhasanyrole
+
+                      <td>
+                        @php
+                        foreach($row->pitching_scorings as $scoring){
+
+                                $score[] = $scoring->total_score;
+
+                        }
+                        $total = round((array_sum($score)/300)*100);
+                        @endphp
+                        {{ $total }}%
+                      </td>
+
 
                       <td class="text-center">
                         @if($row->pitching_scorings)
