@@ -27,7 +27,6 @@ class PitchingScoring extends Model
                     $this->impact +
                     $this->value_added
                 );
-        $score = round(($score/100) * 100);
         return $score;
     }
 

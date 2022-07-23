@@ -43,4 +43,6 @@
 </div>
 <!-- ./Horizontal Form -->
 
+@include('pitching.admins.partials.index')
+
 @stop

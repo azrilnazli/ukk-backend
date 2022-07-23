@@ -41,9 +41,11 @@ class AdminController extends Controller
 
     // signer-list
     public function dashboard(){
+        $proposals = $this->service->paginate();
+        //dd($proposals);
         $total['total_proposals'] = $this->service->totalProposals();
         $total['approved_proposals'] = $this->service->approvedProposals();
-        return view('pitching.admins.dashboard')->with(compact('total'));
+        return view('pitching.admins.dashboard')->with(compact('total','proposals'));
     }
 
     // list all proposal for urusetia to assign
@@ -56,6 +58,7 @@ class AdminController extends Controller
     // list all proposal for urusetia to assign
     public function pendingTasks()
     {
+
         $proposals = $this->service->pendingTasks();
         return view('pitching.admins.index')->with(compact('proposals'));
     }
