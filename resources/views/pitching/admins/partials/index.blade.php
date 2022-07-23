@@ -87,7 +87,7 @@
 
 
                       <td class="text-center">
-                        @if($row->pitching_scorings)
+                        {{-- @if($row->pitching_scorings)
                             @if($row->pitching_scorings->count() == 3)
                                 @if($row->pitching_verification)
                                     <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
@@ -100,7 +100,7 @@
                             @endif
                         @else
                             <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
-                        @endif
+                        @endif --}}
                       </td>
                   </tr>
                   @endforeach
