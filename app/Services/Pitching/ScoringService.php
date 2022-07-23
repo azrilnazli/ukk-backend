@@ -165,6 +165,7 @@ class ScoringService {
         ]);
 
         $collection
+        ->prepend(date('Y-m-d H:i'), 'created_at')
         ->prepend(auth()->user()->id, 'user_id')
         ->prepend($tenderSubmission->id, 'tender_submission_id');
 

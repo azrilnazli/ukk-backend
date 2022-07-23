@@ -80,7 +80,11 @@ class HomeController extends Controller
             return redirect()->to(route('pitching-scorings.dashboard'));
         }
 
-
+        // KETUA
+        // if(Auth::user()->hasAnyRole(['ketua-urusetia']))
+        // {
+        //     return redirect()->to(route('ketua-urusetia.dashboard'));
+        // }
 
         return redirect()->to(route('home.dashboard'));
 

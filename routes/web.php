@@ -70,6 +70,9 @@ Auth::routes();
 // PitchingApproval
 \App\Http\Controllers\Pitching\ApprovalController::routes();
 
+// PitchingAdmin
+\App\Http\Controllers\Pitching\AdminController::routes();
+
 
 
 
