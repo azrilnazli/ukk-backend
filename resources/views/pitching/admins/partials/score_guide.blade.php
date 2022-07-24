@@ -1,5 +1,5 @@
 
-<h5>PANDUAN PEMARKAHAN</h5>
+<h5>KEPUTUSAN PEMARKAHAN</h5>
 {{-- <table class="table table-bordered col mt-3 mb-3">
     <tr>
         <td class="bg-danger text-center">GAGAL</td>
@@ -38,10 +38,14 @@
         </tr>
     <tr>
     @foreach($scores as $index => $value)
-        <td  class="text-center text-uppercase">
+        <td  class="text-center text-uppercase lead">
+            <strong>
             @if(!empty($value['score']))
             {{ count($value['score']) }}
+            @else
+            0
             @endif
+            </strong>
         </td>
     @endforeach
     </tr>
