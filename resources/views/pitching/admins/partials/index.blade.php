@@ -84,7 +84,30 @@
                         }
                         $total = round((array_sum($score)/300)*100);
                         @endphp
-                        {{ $total }}%
+                        <style>
+                            .bg-yellow {
+                                background-color: yellow;
+                                }
+                        </style>
+
+                        @switch($total)
+                            @case( $total > 0 &&  $total <= 79 )
+                                <span class="badge bg-danger">{{ $total }}%</span>
+                            @break
+                            @case( $total > 80 &&  $total <= 85 )
+                                <span class="badge bg-warning">{{ $total }}%</span>
+                            @break
+                            @case( $total > 86 &&  $total <= 90 )
+                                <span class="badge bg-yellow">{{ $total }}%</span>
+                            @break
+                            @case( $total > 91 &&  $total <= 95 )
+                                <span class="badge bg-success">{{ $total }}%</span>
+                            @break
+                            @case( $total > 96 &&  $total <= 100 )
+                            <span class="badge bg-success">{{ $total }}%</span>
+                            @break
+                        @endswitch
+
                       </td>
 
 
