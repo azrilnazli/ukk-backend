@@ -54,6 +54,7 @@ class AdminService {
 
         //dd($ranges);
         $results = TenderSubmission::query()
+        ->has('pitching_owner')
         ->has('pitching_scorings','=', 3)
         ->has('pitching_verification','=', 1)
         ->get()
