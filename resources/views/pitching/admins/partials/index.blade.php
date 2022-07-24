@@ -32,7 +32,7 @@
                   <th width="*" class="text-center">Assigned By</th>
 
                   <th width="*" class="text-center">Scoring</th>
-                  <th width="*" class="text-center">Score</th>
+                  <th width="10%" class="text-center">Score</th>
                   <th width="*" class="text-center">Final</th>
 
 
