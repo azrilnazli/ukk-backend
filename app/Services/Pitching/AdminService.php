@@ -74,7 +74,7 @@ class AdminService {
             $max = $ranges['max'];
             foreach($results as $result){
                 //echo $result;
-                if($result > $min && $result <= $max){
+                if($result >= $min && $result <= $max){
                     $scores[$index]['score'][] = $result;
                 }
             }
