@@ -35,7 +35,7 @@ class AdminService {
     {
         // 1044 taken from JspdAdmin
         return TenderSubmission::query()
-
+            ->has('pitching_owner')
             ->has('pitching_scorings','=', 3)
             ->has('pitching_verification','=', 1)
             ->count();
@@ -101,6 +101,8 @@ class AdminService {
             // ->has('approval')
             // that doesn't have any PitchingOwner
             ->has('pitching_owner')
+            ->has('pitching_scorings','=', 3)
+            ->has('pitching_verification','=', 1)
             ->orderBy('id','desc')
             ->paginate($item)
             ->setPath(route('pitching-admins.dashboard'));

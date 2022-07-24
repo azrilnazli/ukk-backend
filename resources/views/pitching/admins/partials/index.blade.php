@@ -85,7 +85,7 @@
                         $total = round((array_sum($score)/300)*100);
                         @endphp
                         <style>
-                            .bg-yellow {
+                            .badge-yellow {
                                 background-color: yellow;
                                 }
                         </style>
@@ -98,7 +98,7 @@
                                 <span class="badge bg-warning">{{ $total }}%</span>
                             @break
                             @case( $total > 86 &&  $total <= 90 )
-                                <span class="badge bg-yellow">{{ $total }}%</span>
+                                <span class="badge badge-yellow">{{ $total }}%</span>
                             @break
                             @case( $total > 91 &&  $total <= 95 )
                                 <span class="badge bg-success">{{ $total }}%</span>
