@@ -35,17 +35,52 @@ class AdminService {
     {
         // 1044 taken from JspdAdmin
         return TenderSubmission::query()
-            ->has('approved','>=', 2)
-            ->has('scorings','=', 3)
-            ->has('verifications','=', 2)
-            ->whereHas('user.company.company_approvals', fn($query) =>
-                $query->where('is_approved', true)
-            )
-            // ->whereIn('tender_detail_id',[1,2])
-            ->whereHas('tender.tender_detail', fn($query) =>
-                $query->whereIn('id', [1,2])
-            )
+
+            ->has('pitching_scorings','=', 3)
+            ->has('pitching_verification','=', 1)
             ->count();
+    }
+
+    // scores
+
+    public function scores(){
+        $scores = [
+            'gagal' => ['bg' => 'danger','min' => 0,'max' => 79,],
+            'biasa' => ['bg' => 'warning','min' => 80,'max' => 85],
+            'sederhana_baik' => ['bg' => 'yellow','min' => 86,'max' => 90],
+            'baik' => ['bg' => 'success','min' => 91,'max' => 95],
+            'sangat_baik' => ['bg' => 'success','min' => 96,'max' => 100],
+        ];
+
+        //dd($ranges);
+        $results = TenderSubmission::query()
+        ->has('pitching_scorings','=', 3)
+        ->has('pitching_verification','=', 1)
+        ->get()
+        ->map( function($value, $key){
+            $total = null;
+            foreach($value->pitching_scorings as $score){
+                $total += $score->total_score;
+            }
+
+            //$proposal[$value->id] = $total;
+            //return $proposal;
+            return round(($total/300)*100);
+        })->toArray();
+
+        foreach($scores as $index => $ranges){
+            $min = $ranges['min'];
+            $max = $ranges['max'];
+            foreach($results as $result){
+                //echo $result;
+                if($result > $min && $result <= $max){
+                    $scores[$index]['score'][] = $result;
+                }
+            }
+        }
+
+        return $scores;
+
     }
 
     /* to list TenderSubmission
@@ -59,11 +94,11 @@ class AdminService {
             // check if this company approved for this TenderDetail
             // TenderSubmission belongsTo TenderDetail
             // CompanyApproval belongsTo Company
-            ->whereHas('user.company.company_approvals', fn($query) =>
-                 $query->where('is_approved', true)
-             )
-            // approved by JSPD
-            ->has('approval')
+            // ->whereHas('user.company.company_approvals', fn($query) =>
+            //      $query->where('is_approved', true)
+            //  )
+            // // approved by JSPD
+            // ->has('approval')
             // that doesn't have any PitchingOwner
             ->has('pitching_owner')
             ->orderBy('id','desc')
