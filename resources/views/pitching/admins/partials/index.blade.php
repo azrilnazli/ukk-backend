@@ -75,7 +75,8 @@
 
                       <td>
                         @php
-                        $score = null;
+                        unset($score);
+                        $score = [];
                         foreach($row->pitching_scorings as $scoring){
 
                                 $score[] = $scoring->total_score;
