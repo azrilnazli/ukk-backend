@@ -30,6 +30,13 @@
     @endforeach
     </tr>
     <tr>
+        @foreach($scores as $index => $value)
+            <td  class="text-center text-uppercase">
+             {{ $value['min'] }}-{{ $value['max'] }}
+            </td>
+        @endforeach
+        </tr>
+    <tr>
     @foreach($scores as $index => $value)
         <td  class="text-center text-uppercase">
             @if(!empty($value['score']))
