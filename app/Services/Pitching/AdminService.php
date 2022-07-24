@@ -103,7 +103,7 @@ class AdminService {
             ->has('pitching_owner')
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('pitching-admins.index'));
+            ->setPath(route('pitching-admins.dashboard'));
     }
 
     public function pendingTasks($item = 50)
