@@ -31,8 +31,9 @@
 
                   <th width="*" class="text-center">Assigned By</th>
 
-                  <th width="*">Scoring</th>
-                  <th width="*">Score</th>
+                  <th width="*" class="text-center">Scoring</th>
+                  <th width="*" class="text-center">Score</th>
+                  <th width="*" class="text-center">Final</th>
 
 
                   {{-- <th width="*">Added by</th> --}}
@@ -63,7 +64,7 @@
                       </td>
 
 
-                      <td>
+                      <td class="text-center">
                         @if($row->pitching_scorings)
                             {{ $row->pitching_scorings->count() }}
                         @endif
@@ -73,7 +74,19 @@
                         @endif
                       </td>
 
-                      <td>
+                      <td class="text-center">
+
+                        @php $i=0 @endphp
+                        @foreach($row->pitching_scorings as $key => $scoring)
+                            {{ $scoring->total_score }}
+                            @php $i++ @endphp
+                            @if( $i != count($row->pitching_scorings->toArray()))
+                            |
+                            @endif
+                        @endforeach
+
+                        </td>
+                        <td class="text-center">
                         @php
                         unset($score);
                         $score = [];
