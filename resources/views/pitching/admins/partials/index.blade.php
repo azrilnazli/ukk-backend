@@ -119,6 +119,10 @@
                             @case( $total > 96 &&  $total <= 100 )
                             <span class="badge bg-success">{{ $total }}%</span>
                             @break
+
+                            @default
+                            <span class="badge bg-dark">{{ $total }}%</span>
+                            @break
                         @endswitch
 
                       </td>
