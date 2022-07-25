@@ -97,6 +97,7 @@
                         }
                         $total = round((array_sum($score)/300)*100);
                         @endphp
+
                         <style>
                             .badge-yellow {
                                 background-color: yellow;
@@ -104,30 +105,32 @@
                         </style>
 
                         @switch($total)
-                            @case( $total >= 0 &&  $total <= 79 )
+                            @case( $total >= 0 && $total <= 79 )
                                 <span class="badge bg-danger">{{ $total }}%</span>
                             @break
-                            @case( $total >= 80 &&  $total <= 85 )
+
+                            @case( $total >= 80 && $total <= 85 )
                                 <span class="badge bg-warning">{{ $total }}%</span>
                             @break
-                            @case( $total >= 86 &&  $total <= 90 )
+
+                            @case( $total >= 86 && $total <= 90 )
                                 <span class="badge badge-yellow">{{ $total }}%</span>
                             @break
-                            @case( $total >= 91 &&  $total <= 95 )
+
+                            @case( $total >= 91 && $total <= 95 )
                                 <span class="badge bg-success">{{ $total }}%</span>
                             @break
-                            @case( $total >= 96 &&  $total <= 100 )
-                            <span class="badge bg-success">{{ $total }}%</span>
+
+                            @case( $total >= 96 && $total <= 100 )
+                              <span class="badge bg-success">{{ $total }}%</span>
                             @break
 
                             @default
-                            <span class="badge bg-dark">{{ $total }}%</span>
+                              <span class="badge bg-dark">{{ $total }}%</span>
                             @break
+
                         @endswitch
-
                       </td>
-
-
                       <td class="text-center">
                         {{-- @if($row->pitching_scorings)
                             @if($row->pitching_scorings->count() == 3)

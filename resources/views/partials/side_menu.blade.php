@@ -73,11 +73,20 @@ function active($menu){
         @include('partials.nav.pitching.penanda')
     @endhasrole
 
+    @hasrole('screening-urusetia')
+        @include('partials.nav.screening.urusetia')
+    @endhasrole
+
+    @hasrole('screening-penanda')
+        @include('partials.nav.screening.penanda')
+    @endhasrole
+
     @hasanyrole('ketua-urusetia')
         @include('partials.nav.home')
         @include('partials.nav.company_approvals')
         @include('partials.nav.jspd_admins')
         @include('partials.nav.pitching.ketua')
+        @include('partials.nav.screening.ketua')
         @include('partials.nav.videos')
     @endhasanyrole
 

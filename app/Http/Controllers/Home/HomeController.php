@@ -80,6 +80,19 @@ class HomeController extends Controller
             return redirect()->to(route('pitching-scorings.dashboard'));
         }
 
+
+        // if role screening-urusetia
+        if(Auth::user()->hasAnyRole(['screening-urusetia']))
+        {
+            return redirect()->to(route('screening-signers.dashboard'));
+        }
+
+        // if role screening-penanda
+        if(Auth::user()->hasAnyRole(['screening-penanda']))
+        {
+            return redirect()->to(route('screening-scorings.dashboard'));
+        }
+
         // KETUA
         // if(Auth::user()->hasAnyRole(['ketua-urusetia']))
         // {

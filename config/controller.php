@@ -31,4 +31,11 @@ return [
     'pitching-signer',
     'pitching-scoring',
     'pitching-verification',
+    'pitching-approval',
+
+    'screening-admin',
+    'screening-signer',
+    'screening-scoring',
+    'screening-verification',
+    'screening-approval',
 ];

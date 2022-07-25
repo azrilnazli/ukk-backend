@@ -73,6 +73,20 @@ Auth::routes();
 // PitchingAdmin
 \App\Http\Controllers\Pitching\AdminController::routes();
 
+// ScreeningSigner
+\App\Http\Controllers\Screening\SignerController::routes();
+
+// ScreeningScoring
+\App\Http\Controllers\Screening\ScoringController::routes();
+
+// ScreeningVerification
+\App\Http\Controllers\Screening\VerificationController::routes();
+
+// ScreeningApproval
+\App\Http\Controllers\Screening\ApprovalController::routes();
+
+// ScreeningAdmin
+\App\Http\Controllers\Screening\AdminController::routes();
 
 
 
