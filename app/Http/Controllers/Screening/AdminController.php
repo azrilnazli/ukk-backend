@@ -41,6 +41,7 @@ class AdminController extends Controller
 
     // signer-list
     public function dashboard(){
+
         $proposals = $this->service->paginate();
         $scores = $this->service->scores();
 

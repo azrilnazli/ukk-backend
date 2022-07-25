@@ -77,7 +77,7 @@ class VerificationController extends Controller
     {
         // show TenderSubmission data
         // with form
-        //dd($tenderSubmission->screening_verification);
+        //dd($tenderSubmission->screening_scorings);
         return view('screening.verifications.show')->with(compact('tenderSubmission'));
 
     }

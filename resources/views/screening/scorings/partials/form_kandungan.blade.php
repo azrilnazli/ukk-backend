@@ -1,35 +1,52 @@
 @php
         $fields =   [
                         'A' =>  [
-                                    'title' => 'Premis dan Struktur',
-                                    'name' => 'structure'
+                                    'title' => "
+                                                Cerita <br />
+                                                1) Premise/Storyline dan Struktur <br />
+                                                2) Jalinan Cerita ( Plot/ Pacing ) <br />
+                                                3) Tema / Mesej / Genre <br />
+                                                4) Objektif / Impak <br />
+
+
+                                                ",
+                                    'name' => 'storyline'
                                 ],
                         'B' =>  [
-                                    'title' => 'Penceritaan (Storytelling), Treatment/Style/Approach',
-                                    'name' => 'storytelling'
+                                    'title' => "
+                                                Pengarahan <br />
+                                                1) Idea/style/approach/visi <br />
+                                                2) Kreativiti / Mise en Scene <br />
+                                                3) Production / Art Design <br />
+                                                "
+                                                ,
+
+                                     'name' => 'creativity'
                                 ],
                         'C' =>  [
-                                    'title' => 'Objektif',
-                                    'name' => 'objective'
+                                    'title' => "
+                                                Technical <br />
+                                                1) Sinematografi / Camera works <br />
+                                                2) Pencahayaan <br />
+                                                3) Penataan Bunyi / Skor Muzik, Suntingan, Teknik & FX <br />
+                                                ",
+                                    'name' => 'technical'
                                 ],
                         'D' =>  [
-                                    'title' => 'Artis/Set/Lokasi/FX',
-                                    'name' => 'props'
+                                    'title' => "
+                                                Lakonan / Persembahan <br />
+                                                1) Artis / Personaliti / Karektor / Interprestasi / Improvisasi / Style / Tone <br />
+                                                ",
+                                    'name' => 'acting'
                                 ],
-                        'E' =>  [
-                                    'title' => 'Impak (Penonton Sasar)',
-                                    'name' => 'impact'
-                                ],
-                        'F' =>  [
-                                    'title' => 'Nilai Tambah',
-                                    'name' => 'value_added'
-                                ],
+
+
                     ]
     @endphp
 
 
     @foreach($fields as $key => $value)
-        @if($key == 'A') <h2 class="text-uppercase">kandungan (60%)</h2> @endif
+        @if($key == 'A') <h5 class="text-uppercase">kandungan (40%)</h5> @endif
         <div class="d-flex col-8">
 
         @include(
@@ -39,7 +56,9 @@
                     'title' => $value['title'],
                     'name' => $value['name'],
                     'message' => !empty($message) ? $message : null ,
-                    'screeningScoring' => !empty($screeningScoring) ? $screeningScoring : null
+                    'screeningScoring' => !empty($screeningScoring) ? $screeningScoring : null,
+                    'min' => 0,
+                    'max' => 10
                 )
         )
         </div>

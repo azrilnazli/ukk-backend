@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Services\Screening\ScoringService;
-use App\Http\Requests\Screening\Scoring\StoreRequest;
+use App\Http\Requests\Screening\Scoring\StoreScoreRequest;
 use Route;
 
 class ScoringController extends Controller
@@ -94,7 +94,8 @@ class ScoringController extends Controller
     }
 
 
-    public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
+    public function store(StoreScoreRequest $request, TenderSubmission $tenderSubmission){
+
         $result = $this->service->store($request, $tenderSubmission);
         // redirect
         return redirect(route('screening-scorings.finished_tasks'))->with('success','Proposal '. $tenderSubmission->id .' successfully scored.');

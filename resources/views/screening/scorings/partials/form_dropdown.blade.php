@@ -2,7 +2,7 @@
     {{ $key }}.
 </div>
 <div class="p-2">
-    {{ $title }}
+    {!! $title !!}
     @error($name)
         <input  type="hidden" class="form-control @error('storyline') is-invalid @enderror"  />
         <span class="invalid-feedback" role="alert">
@@ -23,10 +23,9 @@
             class="custom-select  @error($name) is-invalid @enderror"
             >
             <option>Choose...</option>
-            @for($i=0; $i<=10; $i++)
+            @for($i=$min; $i<=$max; $i++)
                 <option
                     value={{ $i }}
-
                     @if ( old($name, !empty($screeningScoring) ? $screeningScoring->$name : '-1' ) == $i ) selected @endif
                 >{{ $i }}</option>
             @endfor

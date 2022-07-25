@@ -14,16 +14,13 @@ class ScreeningScoring extends Model
     public function getTotalScoreAttribute()
     {
         $score = (
+                    $this->criteria +
                     $this->storyline +
-                    $this->theme +
-                    $this->concept +
-                    $this->originality +
-                    $this->structure +
-                    $this->storytelling +
-                    $this->objective +
-                    $this->props +
-                    $this->impact +
+                    $this->creativity +
+                    $this->technical +
+                    $this->acting +
                     $this->value_added
+
                 );
         return $score;
     }
