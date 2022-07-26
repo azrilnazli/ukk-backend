@@ -19,12 +19,12 @@ class StoreScoreRequest extends FormRequest
     {
         return [
 
-           'criteria' => ['required','integer','between:1,40'],
-           'storyline' => ['required','integer','between:1,10'],
-           'creativity' => ['required','integer','between:1,10'],
-           'technical' => ['required','integer','between:1,10'],
-           'acting' => ['required','integer','between:1,10'],
-           'value_added' => ['required','integer','between:1,20'],
+           'criteria' => ['required','integer','between:0,40'],
+           'storyline' => ['required','integer','between:0,10'],
+           'creativity' => ['required','integer','between:0,10'],
+           'technical' => ['required','integer','between:0,10'],
+           'acting' => ['required','integer','between:0,10'],
+           'value_added' => ['required','integer','between:0,20'],
 
            'comment' => ['required','string'],
 
