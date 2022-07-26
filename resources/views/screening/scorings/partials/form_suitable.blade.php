@@ -23,6 +23,7 @@
                 id="is_suitable"
                 name="is_suitable"
                 class="custom-select  @error('is_suitable') is-invalid @enderror"
+                @if(!empty($screeningScoring)) disabled @endif
                 >
                 <option value="-1">Choose...</option>
 

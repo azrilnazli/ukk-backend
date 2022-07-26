@@ -6,6 +6,7 @@
               type="checkbox"
               name="is_comply"
               value=1
+              @if(!empty($screeningScoring)) disabled @endif
               @if( old('is_comply',  $screeningScoring ? $screeningScoring->is_comply  : null) ) checked @endif
               />
               @error('is_comply')
@@ -29,7 +30,11 @@
                 PENANDA :
             </div>
             <div class="p-2">
+                @if(!empty($screeningScoring))
+                <strong>{{ $screeningScoring->user->name }}  ({{$screeningScoring->user->email }})</strong>
+                @else
                 <strong>{{ auth()->user()->name }}  ({{ auth()->user()->email }})</strong>
+                @endif
             </div>
         </div>
         <div class="d-flex col-8 bg-dark">
