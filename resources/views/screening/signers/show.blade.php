@@ -31,7 +31,7 @@
         </div>
 
         <div class="card-footer">
-            @include('screening.partials.footer')
+            @include('screening.signers.partials.footer')
         </div>
     </div>
 </form>
