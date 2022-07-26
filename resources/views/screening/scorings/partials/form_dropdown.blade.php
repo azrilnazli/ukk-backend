@@ -17,16 +17,17 @@
             <label class="input-group-text">SCORE</label>
         </div>
 
+
         <select
             id="form_{{ $name }}"
             name="{{ $name }}"
             class="custom-select  @error($name) is-invalid @enderror"
             >
-            <option>Choose...</option>
+
             @for($i=$min; $i<=$max; $i++)
                 <option
                     value={{ $i }}
-                    @if ( old($name, !empty($screeningScoring) ? $screeningScoring->$name : '-1' ) == $i ) selected @endif
+                    @if ( old($name) == $i ) selected @endif
                 >{{ $i }}</option>
             @endfor
         </select>

@@ -1,4 +1,4 @@
-<h5>KESEUAIAN</h5>
+<h5>KESESUAIAN</h5>
 <div class="d-flex col-8">
 
     <div class="p-2">
