@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'PITCHING - Scoring')
+@section('title', 'SCREENING - Scoring')
 
 
 @section('head')
