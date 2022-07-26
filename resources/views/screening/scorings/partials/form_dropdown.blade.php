@@ -23,7 +23,7 @@
             name="{{ $name }}"
             class="custom-select  @error($name) is-invalid @enderror"
             >
-
+            <option @if( old($name) == "-1" )) selected @endif value="-1">Choose...</option>
             @for($i=$min; $i<=$max; $i++)
                 <option
                     value={{ $i }}
