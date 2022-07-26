@@ -12,12 +12,10 @@ class PitchingUrusetia extends Model
 
 
     /**
-     * Company belongsTo User
+     * PitchingUrusetia belongsTo User
      */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-
 }

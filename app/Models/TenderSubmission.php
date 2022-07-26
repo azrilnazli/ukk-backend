@@ -151,4 +151,45 @@ class TenderSubmission extends Model
     }
 
 
+    ### SCREENING - start ###
+    // hasOne PitchingOwner
+    public function screening_owner(){
+        return $this->hasOne(ScreeningOwner::class);
+    }
+
+    // hasMany ScreeningSigner
+    public function screening_signers(){
+        return $this->hasMany(ScreeningSigner::class);
+    }
+
+    // hasMany ScreeningUrusetia
+    public function screening_urusetias(){
+        return $this->hasMany(ScreeningUrusetia::class);
+    }
+
+    // hasMany ScreeningScorings
+    public function screening_scorings(){
+        return $this->hasMany(ScreeningScoring::class);
+    }
+    public function screening_scoring(){
+        return $this->hasOne(ScreeningScoring::class)->where('user_id', Auth::user()->id);
+    }
+
+    // // hasMany ScreeningVerifications
+    // public function screening_verifications(){
+    //     return $this->hasMany(ScreeningVerification::class);
+    // }
+
+    // hasOne ScreeningVerification
+    public function screening_verification(){
+        return $this->hasOne(ScreeningVerification::class);
+    }
+
+    // hasOne ScreeningApproval
+    public function screening_approval(){
+        return $this->hasOne(ScreeningApproval::class);
+    }
+    ### SCREENING - end   ###
+
+
 }

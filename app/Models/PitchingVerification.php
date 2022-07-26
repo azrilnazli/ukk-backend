@@ -12,7 +12,7 @@ class PitchingVerification extends Model
 
 
     /**
-     * Company belongsTo User
+     * PitchingVerification belongsTo User
      */
     public function user()
     {

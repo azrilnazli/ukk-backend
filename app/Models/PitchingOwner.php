@@ -12,7 +12,7 @@ class PitchingOwner extends Model
 
 
     /**
-     * Company belongsTo User
+     * PitchingOwner belongsTo User
      */
     public function user()
     {
