@@ -23,6 +23,7 @@
                 id="need_statement_comply"
                 name="need_statement_comply"
                 class="custom-select  @error('need_statement_comply') is-invalid @enderror"
+                @if(!empty($screeningScoring)) disabled @endif
                 >
                 <option value="-1">Choose...</option>
 

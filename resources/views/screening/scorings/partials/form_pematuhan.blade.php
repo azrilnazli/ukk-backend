@@ -23,6 +23,7 @@
             id="pematuhan"
             name="pematuhan"
             class="custom-select  @error('pematuhan') is-invalid @enderror"
+            @if(!empty($screeningScoring)) disabled @endif
             >
             <option value="-1">Choose...</option>
 
