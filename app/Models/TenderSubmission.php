@@ -171,6 +171,7 @@ class TenderSubmission extends Model
     public function screening_scorings(){
         return $this->hasMany(ScreeningScoring::class);
     }
+
     public function screening_scoring(){
         return $this->hasOne(ScreeningScoring::class)->where('user_id', Auth::user()->id);
     }
