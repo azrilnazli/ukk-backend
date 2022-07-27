@@ -30,7 +30,7 @@
                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
                 {{-- <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab">SUMMARY</a> --}}
                 @foreach($tenderSubmission->screening_scorings as $key => $screeningScoring )
-                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $screeningScoring->user->id }}" role="tab">{{ $screeningScoring->user->name }}</a>
+                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $screeningScoring->id }}" role="tab">{{ $screeningScoring->user->name }}</a>
                 @endforeach
 
                 </div>
@@ -38,7 +38,7 @@
             <div class="tab-content" id="nav-tabContent">
 
                 @foreach($tenderSubmission->screening_scorings as $key => $screeningScoring )
-                <div  class="tab-pane fade p-2 @if($key ==0) show active @endif" id="scoring_{{ $screeningScoring->user->id }}" role="tabpanel">
+                <div  class="tab-pane fade p-2 @if($key ==0) show active @endif" id="scoring_{{ $screeningScoring->id }}" role="tabpanel">
                     @include('screening.verifications.partials.form', array('screeningScoring' => $screeningScoring ) )
                 </div>
 

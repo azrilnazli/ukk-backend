@@ -9,9 +9,10 @@
         </small></div>
         @endhasanyrole
         <div class="row mb-2 ml-1">
-            @hasanyrole('ketua-urusetia|screening-urusetia')
+
                 @include('screening.partials.modal_tender_submission')
                 &nbsp;
+            @hasanyrole('ketua-urusetia|screening-urusetia')
                 @include('screening.partials.modal_company')
                 &nbsp;
                 @include('screening.partials.modal_jspd_scorings')
