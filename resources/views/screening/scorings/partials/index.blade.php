@@ -25,7 +25,7 @@
 
                   <th width="5%">@sortablelink('id', 'ID')</th>
 
-                  <th width="*">Company</th>
+
                   <th width="*">Type</th>
                   <th width="*">Tender</th>
 
@@ -42,7 +42,7 @@
                   @foreach($proposals as $row)
                   <tr>
                       <td><h1 class="badge badge-dark">{{$row->id }}</h1></td>
-                      <td><span class="badge badge-dark">{{ $row->company->id }}</span> {{ $row->company->name }}</td>
+
                       <td>
                           <span class="badge badge-dark">{{ $row->tender->tender_detail->id}}</span>
                           {{ $row->tender->tender_detail->title}}
