@@ -9,7 +9,6 @@
             <span class="lead">{{ $tenderSubmission->$field }}</span>
             </div>
         </div>
-
         @endif
       @endforeach
 
@@ -66,6 +65,7 @@ Duration : {{ $tenderSubmission->video->length  }}
       @endif
 
       @if($tenderSubmission->is_pdf_cert_uploaded)
+      PDF : /storage/proposals/{{$tenderSubmission->id}}/proposal.pdf
       <div class="card-body">
         <span class="badge badge-dark">PDF</span>
         <div class="alert alert-light">
