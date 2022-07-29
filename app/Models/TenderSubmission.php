@@ -14,8 +14,6 @@ class TenderSubmission extends Model
     use Sortable;
     public $sortable = ['id', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
-    protected $appends = array('total_score');
-
 
 
     public function getTableColumns() {
