@@ -384,7 +384,7 @@
 <pre>
 List of documents
 -----------------
-@foreach($company->documents as $key => $document) - <i class="fa fa-paperclip" aria-hidden="true"></i> <a target="_blank" href="/storage/companies/{{$company->id}}/{{$document}}_cert.pdf">{{$document}}_cert.pdf</a>
+@foreach($company->documents as $key => $document)  <i class="fa fa-paperclip" aria-hidden="true"></i> <a target="_blank" href="/storage/companies/{{$company->id}}/{{$document}}_cert.pdf">{{$document}}_cert.pdf</a>
 @endforeach
 </pre>
 
