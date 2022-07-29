@@ -365,8 +365,8 @@
             </div>
             <div class="modal-body">
 
-                <div style="height:500px" id="{{$document}}_cert"></div>
-                <script>PDFObject.embed("/storage/companies/{{$company->id}}/{{$document}}_cert.pdf", "#{{$document}}_cert");</script>
+                <div style="height:500px" id="{{ $company->id }}_{{$document}}_cert"></div>
+                <script>PDFObject.embed("/storage/companies/{{$company->id}}/{{$document}}_cert.pdf", "#{{ $company->id }}_{{$document}}_cert");</script>
 
             </div>
             <div class="modal-footer">
