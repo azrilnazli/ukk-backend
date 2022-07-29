@@ -354,7 +354,7 @@
 
     @foreach($company->documents as $key => $document)
     <!-- Modal -->
-    <div class="modal fade" id="{{$document}}_modal" tabindex="-1">
+    <div class="modal fade" id="{{ $company->id }}_{{$document}}_modal" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
             <div class="modal-header">
@@ -366,7 +366,7 @@
             <div class="modal-body">
 
                 <div style="height:500px" id="{{$document}}_cert"></div>
-                <script>PDFObject.embed("/storage/companies/{{$company->id}}/{{$document}}_cert.pdf", "#{{ $company->id }}_{{$document}}_cert");</script>
+                <script>PDFObject.embed("/storage/companies/{{$company->id}}/{{$document}}_cert.pdf", "#{{$document}}_cert");</script>
 
             </div>
             <div class="modal-footer">
