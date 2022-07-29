@@ -80,7 +80,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_ssm_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_ssm_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#ssm_modal">
                         View Document
                     </button>'
 
@@ -118,7 +118,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_mof_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_mof_modal">
+                    '<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mof_modal">
                         View Document
                     </button>'
 
@@ -144,7 +144,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_finas_fp_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_finas_fp_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#finas_fp_modal">
                         View Document
                     </button>'
 
@@ -171,7 +171,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_finas_fd_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_finas_fd_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#finas_fd_modal">
                         View Document
                     </button>'
 
@@ -198,7 +198,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_kkmm_syndicated_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_kkmm_syndicated_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#kkmm_syndicated_modal">
                         View Document
                     </button>'
 
@@ -225,7 +225,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_kkmm_swasta_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_kkmm_swasta_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#kkmm_swasta_modal">
                         View Document
                     </button>'
 
@@ -252,7 +252,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_bumiputera_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_bumiputera_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#bumiputera_modal">
                         View Document
                     </button>'
 
@@ -283,7 +283,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_bank_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_bank_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#bank_modal">
                         View Document
                     </button>'
 
@@ -303,7 +303,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_credit_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_credit_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#credit_modal">
                         View Document
                     </button>'
 
@@ -323,7 +323,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_authorization_letter_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_authorization_letter_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#authorization_letter_modal">
                         View Document
                     </button>'
 
@@ -341,7 +341,7 @@
                 <dd class="col-sm-9">
                 {!!$company->is_official_company_letter_cert_uploaded ?
 
-                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#{{ $company->id }}_official_company_letter_modal">
+                    '<button type="button" class="btn btn-sm    btn-primary" data-toggle="modal" data-target="#official_company_letter_modal">
                         View Document
                     </button>'
 
@@ -354,19 +354,19 @@
 
     @foreach($company->documents as $key => $document)
     <!-- Modal -->
-    <div class="modal fade" id="{{ $company->id }}_{{$document}}_modal" tabindex="-1">
+    <div class="modal fade" id="{{$document}}_modal" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase">{{ str_replace('_',' ',$document) }} Document</h5>
+                <h5 class="modal-title text-uppercase">{{ $document }} Document</h5>
                 <button type="button" class="close" data-dismiss="modal">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <div style="height:500px" id="{{ $company->id }}_{{$document}}_cert"></div>
-                <script>PDFObject.embed("/storage/companies/{{$company->id}}/{{$document}}_cert.pdf", "#{{ $company->id }}_{{$document}}_cert");</script>
+                <div style="height:500px" id="{{$document}}_cert"></div>
+                <script>PDFObject.embed("/storage/companies/{{$company->id}}/{{$document}}_cert.pdf", "#{{$document}}_cert");</script>
 
             </div>
             <div class="modal-footer">
