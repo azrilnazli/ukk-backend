@@ -381,12 +381,12 @@
     @endforeach
 
 
-    <pre>
-        List of documents
-        -----------------
-        @foreach($company->documents as $key => $document) - <a target="_blank" href="/storage/companies/{{$company->id}}/{{$document}}_cert.pdf">{{$document}}_cert.pdf</a>
-        @endforeach
-    </pre>
+<pre>
+List of documents
+-----------------
+@foreach($company->documents as $key => $document) - <a target="_blank" href="/storage/companies/{{$company->id}}/{{$document}}_cert.pdf">{{$document}}_cert.pdf</a>
+@endforeach
+</pre>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js" integrity="sha512-g16L6hyoieygYYZrtuzScNFXrrbJo/lj9+1AYsw+0CYYYZ6lx5J3x9Yyzsm+D37/7jMIGh0fDqdvyYkNWbuYuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
