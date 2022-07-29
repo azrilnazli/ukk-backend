@@ -141,7 +141,7 @@ class CompanyProposalController extends Controller
 
              // list all proposals
              $proposals = TenderSubmission::query()
-                            ->with('tender.tender_detail','video')
+                            //->with('tender.tender_detail','video')
                             ->where('company_id' , $company->id) // use company id
                             ->orderBy('id','DESC')
                             ->get();
