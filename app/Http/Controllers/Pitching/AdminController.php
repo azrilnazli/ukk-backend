@@ -36,6 +36,8 @@ class AdminController extends Controller
         Route::get('/pitching-admins/pending-tasks', [AdminController::class, 'pendingTasks'])->name('pitching-admins.pending-tasks');
         Route::get('/pitching-admins/finished-tasks', [AdminController::class, 'finishedTasks'])->name('pitching-admins.finished-tasks');
         Route::get('/pitching-admins/search', [AdminController::class, 'search'])->name('pitching-admins.search');
+        Route::get('/pitching-admins/{tenderSubmission}', [AdminController::class, 'show'])->name('pitching-admins.show');
+        Route::post('/pitching-admins/{tenderSubmission}', [AdminController::class,'store'])->name('pitching-admins.store');
 
     }
 
@@ -92,7 +94,7 @@ class AdminController extends Controller
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
         $result = $this->service->store($request, $tenderSubmission);
         // redirect
-        return redirect(route('pitching-admins.finished_tasks'))->with('success','Proposal '. $tenderSubmission->id .' successfully scored.');
+        return redirect(route('pitching-admins.finished-tasks'))->with('success','Proposal '. $tenderSubmission->id .' successfully approved.');
     }
 
 

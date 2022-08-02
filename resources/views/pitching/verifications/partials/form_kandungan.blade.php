@@ -29,11 +29,11 @@
 
 
     @foreach($fields as $key => $value)
-        @if($key == 'A') <h2 class="text-uppercase">kandungan (60%)</h2> @endif
+        @if($key == 'A') <h5 class="text-uppercase">kandungan (60%)</h5> @endif
         <div class="d-flex col-8">
 
         @include(
-            'pitching.scorings.partials.form_dropdown',
+            'pitching.partials.form_dropdown',
             array(
                     'id' => $key,
                     'title' => $value['title'],

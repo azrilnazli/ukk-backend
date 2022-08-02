@@ -1,7 +1,7 @@
 <?php
 namespace App\Services\Pitching;
 
-use App\Models\PitchingVerification;
+use App\Models\PitchingApproval;
 use App\Models\TenderSubmission;
 use Auth;
 
@@ -111,27 +111,14 @@ class AdminService {
 
     public function pendingTasks($item = 50)
     {
-
             return TenderSubmission::query()
             ->sortable()
-
-            // check if this company approved for this TenderDetail
-            // TenderSubmission belongsTo TenderDetail
-            // CompanyApproval belongsTo Company
-            // ->whereHas('user.company.company_approvals', fn($query) =>
-            //      $query->where('is_approved', true)
-            //  )
-            // approved by JSPD
-            //->has('approval')
-            // assigned to logged user via pitching_urusetias
-            //->doesntHave('pitching_owner')
-            ->whereHas('pitching_urusetias', fn($query) =>
-                 $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
-             )
-            ->doesntHave('pitching_verification')
+            ->has('pitching_signers','=', 3) // must have 3 signer
+            ->has('pitching_urusetias','=', 1) // must have 1 urusetia
+            ->doesntHave('pitching_approval') // not yet approved by ketua
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('pitching-signers.index'));
+            ->setPath(route('pitching-admins.pending-tasks'));
     }
 
     public function finishedTasks($item = 50)
@@ -139,23 +126,12 @@ class AdminService {
 
             return TenderSubmission::query()
             ->sortable()
-
-            // check if this company approved for this TenderDetail
-            // TenderSubmission belongsTo TenderDetail
-            // CompanyApproval belongsTo Company
-            // ->whereHas('user.company.company_approvals', fn($query) =>
-            //      $query->where('is_approved', true)
-            //  )
-            // approved by JSPD
-            //->has('pitching_verification')
-            // assigned to logged user via pitching_urusetias
-            //->doesntHave('pitching_owner')
-            ->whereHas('pitching_verification', fn($query) =>
-                 $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
-             )
+            ->has('pitching_signers','=', 3) // must have 3 signer
+            ->has('pitching_urusetias','=', 1) // must have 1 urusetia
+            ->has('pitching_approval') // approved by ketua
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('pitching-signers.index'));
+            ->setPath(route('pitching-admins.finished-tasks'));
     }
 
 
@@ -193,17 +169,17 @@ class AdminService {
 
     public function store($request,$tenderSubmission){
 
-        $verification = PitchingVerification::firstOrNew([
+        $approval = PitchingApproval::firstOrNew([
             'user_id' =>  auth()->user()->id ,
             'tender_submission_id' => $tenderSubmission->id
         ]);
 
-        $verification->user_id = auth()->user()->id ;
-        $verification->tender_submission_id = $tenderSubmission->id;
-        $verification->is_verified =  $request['is_verified'];
-        $verification->save();
+        $approval->user_id = auth()->user()->id ;
+        $approval->tender_submission_id = $tenderSubmission->id;
+        $approval->is_approved =  $request['is_approved'];
+        $approval->save();
 
-        return $verification;
+        return $approval;
     }
 
     public function find($id){

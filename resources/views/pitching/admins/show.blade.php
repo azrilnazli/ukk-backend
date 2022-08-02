@@ -28,36 +28,49 @@
         <div class="card-body">
             <nav>
                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
-                {{-- <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab">SUMMARY</a> --}}
+                <!-- SIGNERS -->
                 @foreach($tenderSubmission->pitching_scorings as $key => $pitchingScoring )
                     <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $pitchingScoring->id }}" role="tab">{{ $pitchingScoring->user->name }}</a>
                 @endforeach
+                <!-- ./SIGNERS -->
+
+                <!-- URUSETIA -->
+                @foreach($tenderSubmission->pitching_verifications as $key => $pitchingVerification )
+                    <a class="nav-item nav-link text-uppercase id="nav-verification-tab" data-toggle="tab" href="#verification_{{ $pitchingVerification->id }}" role="tab">{{ $pitchingVerification->user->name }}</a>
+                @endforeach
+                <!-- ./URUSETIA -->
+
 
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                {{-- <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel">
-                    @include('JSPD.scorings.summary')
-                </div> --}}
+                <!-- SIGNERS -->
                 @foreach($tenderSubmission->pitching_scorings as $key => $pitchingScoring )
-
-                <div  class="tab-pane fade p-2 @if($key ==0) show active @endif" id="scoring_{{ $pitchingScoring->id }}" role="tabpanel">
-                    @include('pitching.verifications.partials.form', array('pitchingScoring' => $pitchingScoring ) )
-                    {{-- {{ $pitchingScoring->id }} --}}
-                </div>
+                    <div  class="tab-pane fade p-2 @if($key ==0) show active @endif" id="scoring_{{ $pitchingScoring->id }}" role="tabpanel">
+                        @include('pitching.admins.partials.form', array('pitchingScoring' => $pitchingScoring ) )
+                    </div>
                 @endforeach
+                <!-- ./SIGNERS -->
+
+                <!-- URUSETIA -->
+                @foreach($tenderSubmission->pitching_verifications as $key => $pitchingVerification )
+                    <div  class="tab-pane fade p-2" id="verification_{{ $pitchingVerification->id }}" role="tabpanel">
+                        @include('pitching.admins.partials.form_verification', array('pitchingVerification' => $pitchingVerification ))
+                    </div>
+                @endforeach
+                <!-- ./URUSETIA -->
             </div>
         </div>
 
-        @if($tenderSubmission->pitching_scorings->count() == 3 )
-            <form id="store_verification" method="post" action="{{ route('pitching-verifications.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
+        @if($tenderSubmission->pitching_scorings->count() == 3 &&  $tenderSubmission->pitching_urusetias->count() == 1 )
+            <form id="store_approval" method="post" action="{{ route('pitching-admins.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
                 @csrf
                 <div class="card-footer bg-dark">
-                    @include('pitching.verifications.partials.form_verification')
+                    @include('pitching.admins.partials.form_approval')
                 </div>
 
                 <div class="card-footer bg-dark">
-                    @include('pitching.verifications.partials.footer')
+                    @include('pitching.admins.partials.footer')
                 </div>
             </form>
         @else

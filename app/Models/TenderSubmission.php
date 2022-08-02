@@ -134,9 +134,9 @@ class TenderSubmission extends Model
     }
 
     // // hasMany PitchingVerifications
-    // public function pitching_verifications(){
-    //     return $this->hasMany(PitchingVerification::class);
-    // }
+    public function pitching_verifications(){
+        return $this->hasMany(PitchingVerification::class);
+    }
 
     // hasOne PitchingVerification
     public function pitching_verification(){

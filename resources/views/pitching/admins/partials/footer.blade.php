@@ -1,11 +1,11 @@
-<button  @if(!empty($tenderSubmission->pitching_verification)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+<button  @if(!empty($tenderSubmission->pitching_approval)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
 
-@if(!empty($tenderSubmission->pitching_verification))
-<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pitching-verifications.pending-tasks') }}'">
+@if(!empty($tenderSubmission->pitching_approval))
+<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pitching-admins.pending-tasks') }}'">
     Cancel
 </button>
 @else
-<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pitching-verifications.finished-tasks') }}'">
+<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pitching-admins.finished-tasks') }}'">
     Cancel
 </button>
 @endif
