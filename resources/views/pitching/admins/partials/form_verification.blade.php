@@ -1,7 +1,6 @@
 
 
-<h5>PENGESAHAN URUSETIA</h5>
-<div class="d-flex col-9  rounded align-items-center">
+<div class="d-flex col-9 bg-warning rounded align-items-center">
 
     <div class="col-1 p-2">
         <div class="p-3 col-1 d-flex align-items-center">
@@ -26,7 +25,7 @@
 </div>
 
 @error('is_verified')
-<div class="d-flex col  rounded align-items-center">
+<div class="d-flex col bg-secondary rounded align-items-center">
 <input  type="hidden" class="form-control @error('is_verified') is-invalid @enderror"  />
 <span class="p-3 invalid-feedback" role="alert">
     <strong>{{ $message }}</strong>
@@ -36,7 +35,7 @@
 
 
 
-    <div class="d-flex col-9 ">
+    <div class="d-flex col-9 bg-dark">
 
         <div class="col-2 p-2">
             PENANDA :
@@ -46,13 +45,13 @@
         </div>
     </div>
 
-    @if(!empty($pitchingVerification))
-    <div class="d-flex col-9 ">
+    @if(!empty($tenderSubmission->pitching_verification))
+    <div class="d-flex col-9 bg-dark">
         <div class="col-2 p-2">
             DITANDA :
         </div>
         <div class="p-2">
-            <strong>{{ \Carbon\Carbon::parse( $pitchingVerification->created_at  )->format('d/m/Y H:i:s') }}</strong>
+            <strong>{{ \Carbon\Carbon::parse( $tenderSubmission->pitching_verification->created_at  )->format('d/m/Y H:i:s') }}</strong>
         </div>
     </div>
     @endif
