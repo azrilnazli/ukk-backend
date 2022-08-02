@@ -30,15 +30,21 @@
                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
                 <!-- SIGNERS -->
                 @foreach($tenderSubmission->pitching_scorings as $key => $pitchingScoring )
-                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $pitchingScoring->id }}" role="tab">{{ $pitchingScoring->user->name }}</a>
+                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $pitchingScoring->id }}" role="tab">[P]-{{ $pitchingScoring->user->name }}</a>
                 @endforeach
                 <!-- ./SIGNERS -->
 
                 <!-- URUSETIA -->
                 @foreach($tenderSubmission->pitching_verifications as $key => $pitchingVerification )
-                    <a class="nav-item nav-link text-uppercase id="nav-verification-tab" data-toggle="tab" href="#verification_{{ $pitchingVerification->id }}" role="tab">{{ $pitchingVerification->user->name }}</a>
+                    <a class="nav-item nav-link text-uppercase id="nav-verification-tab" data-toggle="tab" href="#verification_{{ $pitchingVerification->id }}" role="tab">[U]-{{ $pitchingVerification->user->name }}</a>
                 @endforeach
                 <!-- ./URUSETIA -->
+
+                <!-- KETUA -->
+                @foreach($tenderSubmission->pitching_approvals as $key => $pitchingApproval )
+                    <a class="nav-item nav-link text-uppercase id="nav-approval-tab" data-toggle="tab" href="#approval_{{ $pitchingApproval->id }}" role="tab">[K]-{{ $pitchingApproval->user->name }}</a>
+                @endforeach
+                <!-- ./KETUA -->
 
 
                 </div>
@@ -59,10 +65,22 @@
                     </div>
                 @endforeach
                 <!-- ./URUSETIA -->
+
+                <!-- KETUA -->
+                @foreach($tenderSubmission->pitching_approvals as $key => $pitchingApproval )
+                <div  class="tab-pane fade p-2" id="approval_{{ $pitchingApproval->id }}" role="tabpanel">
+                    @include('pitching.admins.partials.form_approval', array('pitchingApproval' => $pitchingApproval ))
+                </div>
+                @endforeach
+                <!-- ./KETUA -->
             </div>
         </div>
 
         @if($tenderSubmission->pitching_scorings->count() == 3 &&  $tenderSubmission->pitching_urusetias->count() == 1 )
+
+            @if($tenderSubmission->has('pitching_approval'))
+
+            @else
             <form id="store_approval" method="post" action="{{ route('pitching-admins.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
                 @csrf
                 <div class="card-footer bg-dark">
@@ -73,6 +91,7 @@
                     @include('pitching.admins.partials.footer')
                 </div>
             </form>
+            @endif
         @else
             <div class="card-footer bg-danger">
                 <h5><i class="fas fa-exclamation"></i>
