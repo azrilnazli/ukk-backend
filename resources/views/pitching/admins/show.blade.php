@@ -78,7 +78,7 @@
 
         @if($tenderSubmission->pitching_scorings->count() == 3 &&  $tenderSubmission->pitching_urusetias->count() == 1 )
 
-            @if($tenderSubmission->has('pitching_approval'))
+            @if($tenderSubmission->pitching_approval)
 
             @else
             <form id="store_approval" method="post" action="{{ route('pitching-admins.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
