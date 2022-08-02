@@ -10,7 +10,7 @@
     <ul class="ml-1 nav nav-treeview">
       <li class="nav-item">
         <a href="{{ route('pitching-admins.dashboard') }}" class="nav-link {{ active('pitching-admins.dashboard') }}">
-          <i class="nav-icon fas fa-pencil-alt"></i>
+          <i class="nav-icon fas fa-home"></i>
           <small>
             Home
           </small>
