@@ -30,19 +30,19 @@
                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
                 <!-- SIGNERS -->
                 @foreach($tenderSubmission->pitching_scorings as $key => $pitchingScoring )
-                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $pitchingScoring->id }}" role="tab">[P]-{{ $pitchingScoring->user->name }}</a>
+                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $pitchingScoring->id }}" role="tab"><small>[P]-{{ $pitchingScoring->user->name }}</small></a>
                 @endforeach
                 <!-- ./SIGNERS -->
 
                 <!-- URUSETIA -->
                 @foreach($tenderSubmission->pitching_verifications as $key => $pitchingVerification )
-                    <a class="nav-item nav-link text-uppercase id="nav-verification-tab" data-toggle="tab" href="#verification_{{ $pitchingVerification->id }}" role="tab">[U]-{{ $pitchingVerification->user->name }}</a>
+                    <a class="nav-item nav-link text-uppercase id="nav-verification-tab" data-toggle="tab" href="#verification_{{ $pitchingVerification->id }}" role="tab"><small>[U]-{{ $pitchingVerification->user->name }}</small></a>
                 @endforeach
                 <!-- ./URUSETIA -->
 
                 <!-- KETUA -->
                 @foreach($tenderSubmission->pitching_approvals as $key => $pitchingApproval )
-                    <a class="nav-item nav-link text-uppercase id="nav-approval-tab" data-toggle="tab" href="#approval_{{ $pitchingApproval->id }}" role="tab">[K]-{{ $pitchingApproval->user->name }}</a>
+                    <a class="nav-item nav-link text-uppercase id="nav-approval-tab" data-toggle="tab" href="#approval_{{ $pitchingApproval->id }}" role="tab"><small>[K]-{{ $pitchingApproval->user->name }}</small></a>
                 @endforeach
                 <!-- ./KETUA -->
 
