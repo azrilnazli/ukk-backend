@@ -132,20 +132,11 @@
                         @endswitch
                       </td>
                       <td class="text-center">
-                        {{-- @if($row->pitching_scorings)
-                            @if($row->pitching_scorings->count() == 3)
-                                @if($row->pitching_verification)
-                                    <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
-                                @else
-                                    <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-pencil-alt "></i></a>
-                                @endif
-
-                                @else
-                                <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
-                            @endif
+                        @if($row->pitching_approval)
+                            <a class="btn btn-su btn-sm" href="{{ route('pitching-admins.show', $row->id) }}"><i class="fas fa-search"></i></a>
                         @else
-                            <a class="btn btn-su btn-sm" href="{{ route('pitching-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
-                        @endif --}}
+                            <a class="btn btn-su btn-sm" href="{{ route('pitching-admins.show', $row->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                        @endif
                       </td>
                   </tr>
                   @endforeach

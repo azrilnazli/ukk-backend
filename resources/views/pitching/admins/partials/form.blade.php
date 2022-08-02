@@ -4,6 +4,6 @@
 <div class="col-6"><hr /></div>
 @include('pitching.verifications.partials.form_scores', array('pitchingScoring' => $pitchingScoring ))
 <div class="col-6"><hr /></div>
-@include('pitching.verifications.partials.form_comply', array('pitchingScoring' => $pitchingScoring ))
+@include('pitching.admins.partials.form_comply', array('pitchingScoring' => $pitchingScoring ))
 
 

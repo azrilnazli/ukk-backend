@@ -13,5 +13,5 @@
 @stop
 
 @section('content')
-    @include('pitching.verifications.partials.index')
+    @include('pitching.admins.partials.index')
 @stop
