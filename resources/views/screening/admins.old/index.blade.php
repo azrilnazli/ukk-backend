@@ -13,5 +13,5 @@
 @stop
 
 @section('content')
-    @include('screening.admins.partials.index')
+    @include('screening.verifications.partials.index')
 @stop

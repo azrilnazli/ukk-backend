@@ -28,38 +28,70 @@
         <div class="card-body">
             <nav>
                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
-                {{-- <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab">SUMMARY</a> --}}
+                <!-- SIGNERS -->
                 @foreach($tenderSubmission->screening_scorings as $key => $screeningScoring )
-                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $screeningScoring->id }}" role="tab">{{ $screeningScoring->user->name }}</a>
+                    <a class="nav-item nav-link text-uppercase @if($key ==0) show active @endif" id="nav-scoring-tab" data-toggle="tab" href="#scoring_{{ $screeningScoring->id }}" role="tab"><small>[P]-{{ $screeningScoring->user->name }}</small></a>
                 @endforeach
+                <!-- ./SIGNERS -->
+
+                <!-- URUSETIA -->
+                @foreach($tenderSubmission->screening_verifications as $key => $screeningVerification )
+                    <a class="nav-item nav-link text-uppercase id="nav-verification-tab" data-toggle="tab" href="#verification_{{ $screeningVerification->id }}" role="tab"><small>[U]-{{ $screeningVerification->user->name }}</small></a>
+                @endforeach
+                <!-- ./URUSETIA -->
+
+                <!-- KETUA -->
+                @foreach($tenderSubmission->screening_approvals as $key => $screeningApproval )
+                    <a class="nav-item nav-link text-uppercase id="nav-approval-tab" data-toggle="tab" href="#approval_{{ $screeningApproval->id }}" role="tab"><small>[K]-{{ $screeningApproval->user->name }}</small></a>
+                @endforeach
+                <!-- ./KETUA -->
+
 
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                {{-- <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel">
-                    @include('JSPD.scorings.summary')
-                </div> --}}
+                <!-- SIGNERS -->
                 @foreach($tenderSubmission->screening_scorings as $key => $screeningScoring )
+                    <div  class="tab-pane fade p-2 @if($key ==0) show active @endif" id="scoring_{{ $screeningScoring->id }}" role="tabpanel">
+                        @include('screening.verifications.partials.form', array('screeningScoring' => $screeningScoring ) )
+                    </div>
+                @endforeach
+                <!-- ./SIGNERS -->
 
-                <div  class="tab-pane fade p-2 @if($key ==0) show active @endif" id="scoring_{{ $screeningScoring->id }}" role="tabpanel">
-                    @include('screening.verifications.partials.form', array('screeningScoring' => $screeningScoring ) )
-                    {{-- {{ $screeningScoring->id }} --}}
+                <!-- URUSETIA -->
+                @foreach($tenderSubmission->screening_verifications as $key => $screeningVerification )
+                    <div  class="tab-pane fade p-2" id="verification_{{ $screeningVerification->id }}" role="tabpanel">
+                        @include('screening.admins.partials.form_verification', array('screeningVerification' => $screeningVerification ))
+                    </div>
+                @endforeach
+                <!-- ./URUSETIA -->
+
+                <!-- KETUA -->
+                @foreach($tenderSubmission->screening_approvals as $key => $screeningApproval )
+                <div  class="tab-pane fade p-2" id="approval_{{ $screeningApproval->id }}" role="tabpanel">
+                    @include('screening.admins.partials.form_approval', array('screeningApproval' => $screeningApproval ))
                 </div>
                 @endforeach
+                <!-- ./KETUA -->
             </div>
         </div>
 
-        @if($tenderSubmission->screening_scorings->count() == 3 )
-            <form id="store_verification" method="post" action="{{ route('screening-verifications.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
+        @if($tenderSubmission->screening_scorings->count() == 3 &&  $tenderSubmission->screening_urusetias->count() == 1 )
+
+            @if($tenderSubmission->screening_approval)
+
+            @else
+            <form id="store_approval" method="post" action="{{ route('screening-admins.store',  ['tenderSubmission' => $tenderSubmission->id] ) }}" >
                 @csrf
                 <div class="card-footer bg-dark">
-                    @include('screening.verifications.partials.form_verification')
+                    @include('screening.admins.partials.form_approval')
                 </div>
 
                 <div class="card-footer bg-dark">
-                    @include('screening.verifications.partials.footer')
+                    @include('screening.admins.partials.footer')
                 </div>
             </form>
+            @endif
         @else
             <div class="card-footer bg-danger">
                 <h5><i class="fas fa-exclamation"></i>
