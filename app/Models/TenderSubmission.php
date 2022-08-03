@@ -180,10 +180,10 @@ class TenderSubmission extends Model
         return $this->hasOne(ScreeningScoring::class)->where('user_id', Auth::user()->id);
     }
 
-    // // hasMany ScreeningVerifications
-    // public function screening_verifications(){
-    //     return $this->hasMany(ScreeningVerification::class);
-    // }
+    // hasMany ScreeningVerifications
+    public function screening_verifications(){
+        return $this->hasMany(ScreeningVerification::class);
+    }
 
     // hasOne ScreeningVerification
     public function screening_verification(){
@@ -193,6 +193,11 @@ class TenderSubmission extends Model
     // hasOne ScreeningApproval
     public function screening_approval(){
         return $this->hasOne(ScreeningApproval::class);
+    }
+
+    // hasMany ScreeningApproval
+    public function screening_approvals(){
+        return $this->hasMany(ScreeningApproval::class);
     }
     ### SCREENING - end   ###
 

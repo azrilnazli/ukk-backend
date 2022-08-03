@@ -1,11 +1,11 @@
-<button  @if(!empty($tenderSubmission->screening_approval)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
+<button  @if(!empty($tenderSubmission->screening_verification)) disabled @endif id="submit" class="btn btn-primary" >Submit</button>
 
-@if(!empty($tenderSubmission->screening_approval))
-<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('screening-admins.pending-tasks') }}'">
+@if(!empty($tenderSubmission->screening_verification))
+<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('screening-verifications.pending-tasks') }}'">
     Cancel
 </button>
 @else
-<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('screening-admins.finished-tasks') }}'">
+<button  type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('screening-verifications.finished-tasks') }}'">
     Cancel
 </button>
 @endif

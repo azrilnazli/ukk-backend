@@ -5,16 +5,16 @@
     <div class="col-1 p-2">
         <div class="p-3 col-1 d-flex align-items-center">
             <input
-            class=" @error('is_verified') is-invalid @enderror"
+            class=" @error('is_approved') is-invalid @enderror"
             type="checkbox"
-            name="is_verified"
+            name="is_approved"
             value=1
 
-            @if(!empty($screeningVerification))
+            @if(!empty($tenderSubmission->screening_approval))
                 disabled
             @endif
 
-            @if( old('is_verified',  !empty($screeningVerification) ? $screeningVerification->is_verified  : null) ) checked @endif
+            @if( old('is_approved',  !empty($tenderSubmission->screening_approval) ? $tenderSubmission->screening_approval->is_approved  : null) ) checked @endif
             />
         </div>
     </div>
@@ -24,9 +24,9 @@
     </div>
 </div>
 
-@error('is_verified')
+@error('is_approved')
 <div class="d-flex col bg-secondary rounded align-items-center">
-<input  type="hidden" class="form-control @error('is_verified') is-invalid @enderror"  />
+<input  type="hidden" class="form-control @error('is_approved') is-invalid @enderror"  />
 <span class="p-3 invalid-feedback" role="alert">
     <strong>{{ $message }}</strong>
 </span>
@@ -41,17 +41,17 @@
             PENANDA :
         </div>
         <div class="p-2">
-            <strong>{{ $screeningVerification->user->name }}  ({{  $screeningVerification->user->email }})</strong>
+            <strong>{{ auth()->user()->name }}  ({{  auth()->user()->email }})</strong>
         </div>
     </div>
 
-    @if(!empty($tenderSubmission->screening_verification))
+    @if(!empty($tenderSubmission->screening_approval))
     <div class="d-flex col-9 bg-dark">
         <div class="col-2 p-2">
             DITANDA :
         </div>
         <div class="p-2">
-            <strong>{{ \Carbon\Carbon::parse( $tenderSubmission->screening_verification->created_at  )->format('d/m/Y H:i:s') }}</strong>
+            <strong>{{ \Carbon\Carbon::parse( $tenderSubmission->screening_approval->created_at  )->format('d/m/Y H:i:s') }}</strong>
         </div>
     </div>
     @endif
