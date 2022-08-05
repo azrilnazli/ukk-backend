@@ -13,9 +13,12 @@ $( document ).ready(function() {
             e.preventDefault();
             //$("#store_scorings").submit();
         });
+
         $( "#agree" ).click(function() {
-            $("#store_scorings").submit();
             $('#modal_submit').modal('hide');
+            $("#store_scorings").submit();
+
+            //$('#agree').prop('disabled', true);
             //alert( "Handler for .click() called." );
         });
 });
