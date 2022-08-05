@@ -1459,12 +1459,44 @@ class CollectionsController extends Controller
             //echo storage_path();
             $file = fopen( storage_path() . "/sql/pitching.csv","r");
 
+            $i=0;
+            $row = array();
             while(! feof($file))
             {
-                print_r(fgetcsv($file));
+                echo $i++;
+
+                //print_r(fgetcsv($file));
+                $data = fgetcsv($file);
+                print_r($data);
+
+                if(!empty($data)){
+                    $row['tender_submission_id'] = $data[1];
+                    $row['user_id'] = $data[3];
+                    $row['is_comply'] = 1;
+                    $row['storyline'] = $data[5];
+                    $row['theme'] = $data[6];
+                    $row['concept'] = $data[7];
+                    $row['originality'] = $data[8];
+                    $row['structure'] = $data[9];
+                    $row['storytelling'] = $data[10];
+                    $row['objective'] = $data[11];
+                    $row['props'] = $data[12];
+                    $row['impact'] = $data[13];
+                    $row['value_added'] = $data[14];
+                    $row['comment'] = addslashes(htmlspecialchars($data[15]));
+
+                    //dd($row);
+                    //die();
+                    // insert into database
+                    $pitching = new \App\Models\PitchingScoring;
+                    $pitching->fill($row)->save();
+                }
+
+
             }
 
             fclose($file);
+            //dd($row);
         }
 
 
