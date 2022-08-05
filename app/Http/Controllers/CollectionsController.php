@@ -1455,4 +1455,17 @@ class CollectionsController extends Controller
         }
 
 
+        function import_csv(){
+            //echo storage_path();
+            $file = fopen( storage_path() . "/sql/pitching.csv","r");
+
+            while(! feof($file))
+            {
+                print_r(fgetcsv($file));
+            }
+
+            fclose($file);
+        }
+
+
 }// class

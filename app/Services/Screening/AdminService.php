@@ -182,7 +182,7 @@ class AdminService {
                         )
 
                         ->paginate(50)
-                        ->setPath(route('screening-signers.search'));
+                        ->setPath(route('screening-admins.search'));
 
                         $tenders->appends([
                             'query' => $q
