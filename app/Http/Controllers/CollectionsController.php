@@ -1458,43 +1458,76 @@ class CollectionsController extends Controller
         function import_csv(){
             //echo storage_path();
             $file = fopen( storage_path() . "/sql/pitching.csv","r");
-
             $i=0;
-            $row = array();
-            while(! feof($file))
-            {
-                echo $i++;
 
-                //print_r(fgetcsv($file));
+            while(! feof($file)){
+
+                echo $i++;
+                echo PHP_EOL;
                 $data = fgetcsv($file);
-                print_r($data);
+                //print_r($data);
 
                 if(!empty($data)){
-                    $row['tender_submission_id'] = $data[1];
-                    $row['user_id'] = $data[3];
-                    $row['is_comply'] = 1;
-                    $row['storyline'] = $data[5];
-                    $row['theme'] = $data[6];
-                    $row['concept'] = $data[7];
-                    $row['originality'] = $data[8];
-                    $row['structure'] = $data[9];
-                    $row['storytelling'] = $data[10];
-                    $row['objective'] = $data[11];
-                    $row['props'] = $data[12];
-                    $row['impact'] = $data[13];
-                    $row['value_added'] = $data[14];
-                    $row['comment'] = addslashes(htmlspecialchars($data[15]));
 
-                    //dd($row);
-                    //die();
-                    // insert into database
-                    $pitching = new \App\Models\PitchingScoring;
-                    $pitching->fill($row)->save();
+                    // delete existing data from pitching_scorings
+                    // \App\Models\PitchingScoring::query()->where('tender_submission_id', $data[1])->delete();
+                    // \App\Models\PitchingUrusetia::query()->where('tender_submission_id', $data[1])->delete();
+                    // \App\Models\PitchingOwner::query()->where('tender_submission_id', $data[1])->delete();
+                    // \App\Models\PitchingSigner::query()->where('tender_submission_id', $data[1])->delete();
+                    // \App\Models\PitchingVerification::query()->where('tender_submission_id', $data[1])->delete();
+
+
+                    // create signers
+                    $signer['user_id'] = $data[3]; // signer id
+                    $signer['tender_submission_id'] = $data[1]; // proposal id
+                    $signer['added_by'] = $data[2]; // urusetia
+                    $query = \App\Models\PitchingSigner::firstOrNew($signer);
+                    $query->fill($signer)->save();
+                    unset($query);
+
+                    // create urusetias
+                    $urusetia['user_id'] = $data[2]; // urusetia id
+                    $urusetia['tender_submission_id'] = $data[1]; // proposal id
+                    $urusetia['added_by'] = $data[2]; // urusetia
+                    $query = \App\Models\PitchingUrusetia::firstOrNew($urusetia);
+                    $query->fill($urusetia)->save();
+                    unset($query);
+
+                    // create owners
+                    $owner['user_id'] = $data[2]; // urusetia id
+                    $owner['tender_submission_id'] = $data[1]; // proposal id
+                    $query = \App\Models\PitchingOwner::firstOrNew($owner);
+                    $query->fill($owner)->save();
+                    unset($query);
+
+                    // create score
+                    $scoring['tender_submission_id'] = $data[1];
+                    $scoring['user_id'] = $data[3];
+                    $scoring['is_comply'] = 1;
+                    $scoring['storyline'] = $data[5];
+                    $scoring['theme'] = $data[6];
+                    $scoring['concept'] = $data[7];
+                    $scoring['originality'] = $data[8];
+                    $scoring['structure'] = $data[9];
+                    $scoring['storytelling'] = $data[10];
+                    $scoring['objective'] = $data[11];
+                    $scoring['props'] = $data[12];
+                    $scoring['impact'] = $data[13];
+                    $scoring['value_added'] = $data[14];
+                    $scoring['comment'] = addslashes(htmlspecialchars($data[15]));
+                    $query = \App\Models\PitchingScoring::firstOrNew($scoring);
+                    $query->fill($scoring)->save();
+                    unset($query);
+
+                    // create verification
+                    $verification['user_id'] = $data[2]; // urusetia id
+                    $verification['tender_submission_id'] = $data[1]; // proposal id
+                    $verification['is_verified'] = 1; // proposal id
+                    $query = \App\Models\PitchingVerification::firstOrNew($verification);
+                    $query->fill($verification)->save();
+                    unset($query);
                 }
-
-
             }
-
             fclose($file);
             //dd($row);
         }
