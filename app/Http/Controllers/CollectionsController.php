@@ -1549,6 +1549,18 @@ class CollectionsController extends Controller
                     $signer_id = $data[3];
                     $user = \App\Models\User::find($urusetia_id);
                     if(!empty($user)){
+                        echo "Urusetia ID : ";
+                        echo $user->name;
+                        echo PHP_EOL;
+                    } else {
+                        echo "|Not registered in system";
+                        echo PHP_EOL;
+                    }
+
+                    echo $user_id = $data[3];
+                    $user = \App\Models\User::find($user_id);
+                    if(!empty($user)){
+                        echo "Penanda ID : ";
                         echo $user->name;
                         echo PHP_EOL;
                     } else {
