@@ -115,25 +115,20 @@ class VerificationService {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
-                        ->orWhereHas('user.company', fn($query) =>
-                            $query->where('name', 'LIKE', '%' . $q . '%')
-                            ->orWhere('email', 'LIKE', '%' . $q . '%')
-                            ->orWhere('id', 'LIKE', '%' . $q . '%')
-                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
 
-                        )
-                        ->orWhereHas('tender', fn($query) =>
-                            $query->where('programme_category', 'LIKE', '%' . $q . '%')
-                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
-                        )
-                        ->orWhereHas('tender.tender_detail', fn($query) =>
-                            $query->where('title', 'LIKE', '%' . $q . '%')
-                        )
+                        ->where(function ($query) use ($q)  {
+                            $query->whereHas('tender.tender_detail', function ($query) {
+                                $query->whereIn('id', [3,4]);
+                            })
+
+                            ->whereHas('user.company', function ($query) use ($q) {
+                                $query->where('name', 'LIKE', '%' . $q . '%');
+                            });
+
+                        })
 
                         ->paginate(50)
-                        ->setPath(route('screening-signers.search'));
+                        ->setPath(route('screening-verifications.search'));
 
                         $tenders->appends([
                             'query' => $q

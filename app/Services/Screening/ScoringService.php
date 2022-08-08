@@ -31,8 +31,6 @@ class ScoringService {
             ->setPath(route('screening-scorings.index'));
     }
 
-
-
     public function tasks($type,$item = 50){
         return TenderSubmission::query()
         ->sortable()
@@ -87,52 +85,18 @@ class ScoringService {
             ->setPath(route('screening-scorings.finished_tasks'));
     }
 
+
     public function search($request)
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
-                        // ->has('approved','>=', 2)
-                        // ->has('scorings','=', 3)
-                        // ->has('verifications','=', 2)
-                        // ->whereHas('screening_signers', fn($query) =>
-                        // $query->where('user_id', auth()->user()->id )
-                        // )
-                        // ->whereHas('user.company.company_approvals', fn($query) =>
-                        //     $query->where('is_approved', true)
-                        // )
-                        // // ->whereIn('tender_detail_id',[1,2])
-                        // ->whereHas('tender.tender_detail', fn($query) =>
-                        //     $query->whereIn('id', [1,2])
-                        // )
-
-                        // ->orWhereHas('user.company', fn($query) =>
-                        //     $query->where('name', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('email', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('id', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('phone', 'LIKE', '%' . $q . '%')
-
-                        // )
-                        // ->orWhereHas('tender', fn($query) =>
-                        //     $query->where('programme_category', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                        //     ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
-                        // )
-                        // ->orWhereHas('tender.tender_detail', fn($query) =>
-                        //     $query->where('title', 'LIKE', '%' . $q . '%')
-                        // )
 
                         ->where(function ($query) use ($q)  {
                             $query->whereHas('tender.tender_detail', function ($query) {
-                                $query->whereIn('id', [1,2]);
+                                $query->whereIn('id', [3,4]);
                             })
-                            ->whereHas('screening_signers', fn($query) =>
-                                $query->where('user_id', auth()->user()->id )
-                             )
-                            ->has('approved','>=', 2)
-                            ->has('scorings','=', 3)
-                            ->has('verifications','=', 2)
+
                             ->whereHas('user.company', function ($query) use ($q) {
                                 $query->where('name', 'LIKE', '%' . $q . '%');
                             });
@@ -148,10 +112,6 @@ class ScoringService {
         return $tenders;
 
     }
-
-    // public function store($request){
-    //     return ScreeningScoring::create($request->except(['_token','_method']));
-    // }
 
 
 
