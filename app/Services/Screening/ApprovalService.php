@@ -35,7 +35,7 @@ class ApprovalService {
             ->doesntHave('screening_owner')
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('screening-signers.index'));
+            ->setPath(route('screening-admins.index'));
     }
 
     public function pending_tasks($item = 50)

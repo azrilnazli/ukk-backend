@@ -110,7 +110,7 @@ class ApprovalService {
                         )
 
                         ->paginate(50)
-                        ->setPath(route('pitching-signers.search'));
+                        ->setPath(route('pitching-admins.search'));
 
                         $tenders->appends([
                             'query' => $q

@@ -33,7 +33,7 @@ class VerificationService {
             ->doesntHave('screening_owner')
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('screening-signers.index'));
+            ->setPath(route('screening-verifications.index'));
     }
 
     public function pendingTasks($item = 50)
