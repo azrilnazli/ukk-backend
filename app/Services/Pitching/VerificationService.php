@@ -133,7 +133,7 @@ class VerificationService {
                         )
 
                         ->paginate(50)
-                        ->setPath(route('pitching-signers.search'));
+                        ->setPath(route('pitching-verifications.search'));
 
                         $tenders->appends([
                             'query' => $q
