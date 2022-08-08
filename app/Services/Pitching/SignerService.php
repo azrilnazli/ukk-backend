@@ -90,30 +90,14 @@ class SignerService {
     {
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
-
-                        //  ->has('approved','>=', 2)
-                        //  ->has('scorings','=', 3)
-                        //  ->has('verifications','=', 2)
-                        // // ->whereHas('user.company.company_approvals', fn($query) =>
-                        //     $query->where('is_approved', true)
-                        // )
-                        //->whereIn('tender.tender_detail_id',[1,2])
-                        // ->whereHas('tender.tender_detail', fn($query) =>
-                        //      $query->whereIn('id', [1,2])
-                        //  )
-
-                        // ->with('tender')
-                        // ->orWhereHas('tender.tender_detail', fn($query) =>
-                        //     $query->where('id', 3)
-                        // )
+                        ->has('approved','>=', 2)
+                        ->has('scorings','=', 3)
+                        ->has('verifications','=', 2)
 
                         ->where(function ($query) use ($q)  {
                             $query->whereHas('tender.tender_detail', function ($query) {
                                 $query->whereIn('id', [1,2]);
                             })
-                            ->has('approved','>=', 2)
-                            ->has('scorings','=', 3)
-                            ->has('verifications','=', 2)
                             ->whereHas('user.company', function ($query) use ($q) {
                                 $query->where('name', 'LIKE', '%' . $q . '%');
                             });

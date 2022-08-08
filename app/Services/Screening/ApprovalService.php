@@ -87,37 +87,6 @@ class ApprovalService {
             ->setPath(route('screening-signers.tasks'));
     }
 
-    public function search($request)
-    {
-        $q = $request->input('query');
-        $tenders = TenderSubmission::query()
-
-                        ->orWhereHas('user.company', fn($query) =>
-                            $query->where('name', 'LIKE', '%' . $q . '%')
-                            ->orWhere('email', 'LIKE', '%' . $q . '%')
-                            ->orWhere('id', 'LIKE', '%' . $q . '%')
-                            ->orWhere('phone', 'LIKE', '%' . $q . '%')
-
-                        )
-                        ->orWhereHas('tender', fn($query) =>
-                            $query->where('programme_category', 'LIKE', '%' . $q . '%')
-                            ->orWhere('duration', 'LIKE', '%' . $q . '%')
-                            ->orWhere('channel', 'LIKE', '%' . $q . '%')
-                            ->orWhere('programme_code', 'LIKE', '%' . $q . '%')
-                        )
-                        ->orWhereHas('tender.tender_detail', fn($query) =>
-                            $query->where('title', 'LIKE', '%' . $q . '%')
-                        )
-
-                        ->paginate(50)
-                        ->setPath(route('screening-signers.search'));
-
-                        $tenders->appends([
-                            'query' => $q
-                            ]);
-        return $tenders;
-
-    }
 
     public function storeOwner($tenderSubmission){
 
