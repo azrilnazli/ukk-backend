@@ -1539,20 +1539,31 @@ class CollectionsController extends Controller
             while(! feof($file)){
 
                 echo $i++;
-                echo PHP_EOL;
+                echo "|";
+                //echo PHP_EOL;
                 $data = fgetcsv($file);
 
-                $urusetia_id = $data[2];
-                $signer_id = $data[3];
-
-                $user = \App\Models\User::find($urusetia_id)->first();
-                if(!empty($user)){
-                    echo $user->name;
-                    echo PHP_EOL;
-                } else {
-                    echo 0;
-                    echo PHP_EOL;
+                if(!empty($data)){
+                    echo $urusetia_id = $data[2];
+                    //echo PHP_EOL;
+                    $signer_id = $data[3];
+                    $user = \App\Models\User::find($urusetia_id);
+                    if(!empty($user)){
+                        echo $user->name;
+                        echo PHP_EOL;
+                    } else {
+                        echo "|Not registered in system";
+                        echo PHP_EOL;
+                    }
                 }
+                // $user = \App\Models\User::find($urusetia_id)->first();
+                // if(!empty($user)){
+                //     echo $user->name;
+                //     echo PHP_EOL;
+                // } else {
+                //     echo 0;
+                //     echo PHP_EOL;
+                // }
             }
         }
 
