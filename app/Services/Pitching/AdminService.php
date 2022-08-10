@@ -138,6 +138,7 @@ class AdminService {
 
     public function search($request)
     {
+        //dd($request);
         $q = $request->input('query');
         $tenders = TenderSubmission::query()
 
@@ -146,9 +147,10 @@ class AdminService {
                             $query->whereHas('tender.tender_detail', function ($query) {
                                 $query->whereIn('id', [1,2]);
                             })
-                            ->whereHas('pitching_signers', fn($query) =>
-                                $query->where('user_id', auth()->user()->id )
-                             )
+
+                            // ->whereHas('pitching_signers', fn($query) =>
+                            //     $query->where('user_id', auth()->user()->id )
+                            //  )
 
                              ->has('pitching_owner')
                              ->has('pitching_scorings','=', 3)

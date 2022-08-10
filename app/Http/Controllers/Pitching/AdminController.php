@@ -89,8 +89,6 @@ class AdminController extends Controller
         return view('pitching.admins.index')->with(compact('proposals'));
     }
 
-
-
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
         $result = $this->service->store($request, $tenderSubmission);
         // redirect
