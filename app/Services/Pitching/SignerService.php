@@ -101,7 +101,6 @@ class SignerService {
                             ->whereHas('user.company', function ($query) use ($q) {
                                 $query->where('name', 'LIKE', '%' . $q . '%');
                             });
-
                         })
 
                         ->paginate(50)
