@@ -42,7 +42,6 @@ class TenderLanguageController extends Controller
     }
 
     public function search(Request $request){
-
         $tenders =$this->service->search($request);
         return view('tender_languages.index')->with(compact('tenders'));
     }
