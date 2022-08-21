@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      VireServe SDN BHD
+     
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2014-2021 <a href="http://vireserve.com">Cloud Connect SDN BHD</a>.</strong> All rights reserved.
