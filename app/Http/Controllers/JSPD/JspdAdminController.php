@@ -41,6 +41,7 @@ class JspdAdminController extends Controller
     }
 
     public function dashboard(){}
+
     public function index(){
         // list all tender_submissions
         // count assigned signers
@@ -105,6 +106,7 @@ class JspdAdminController extends Controller
         return redirect(route('jspd-admins.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully approved.');
     }
     public function edit(){}
+
     public function update(){}
 
     // delete proposal
