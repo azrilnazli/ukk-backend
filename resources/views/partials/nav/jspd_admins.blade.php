@@ -45,7 +45,7 @@
 
 
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="{{ route('jspd-admins.pending_tasks') }}" class="nav-link {{ active('jspd-admins.pending_tasks') }}">
             <i class="nav-icon fas fa-search"></i>
             <small>
@@ -60,7 +60,7 @@
                 Approved Proposal
             </small>
             </a>
-        </li>
+        </li> --}}
 
     </ul>
   </li> <!-- ./treeview -->
