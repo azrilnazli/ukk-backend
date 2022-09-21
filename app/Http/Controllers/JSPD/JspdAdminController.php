@@ -24,13 +24,15 @@ class JspdAdminController extends Controller
 
     static function routes()
     {
+        Route::get('/jspd-admins', [JspdAdminController::class, 'index'])->name('jspd-admins.index');
+        Route::get('/jspd-admins/search', [JspdAdminController::class, 'search'])->name('jspd-admins.search');
+
         Route::get('/jspd-admins/pending_tasks', [JspdAdminController::class, 'pending_tasks'])->name('jspd-admins.pending_tasks');
         Route::get('/jspd-admins/finished_tasks', [JspdAdminController::class, 'finished_tasks'])->name('jspd-admins.finished_tasks');
-        Route::get('/jspd-admins', [JspdAdminController::class, 'index'])->name('jspd-admins.index');
         Route::get('/jspd-admins/approved', [JspdAdminController::class, 'approved'])->name('jspd-admins.approved');
         Route::get('/jspd-admins/failed', [JspdAdminController::class, 'failed'])->name('jspd-admins.failed');
         Route::get('/jspd-admins/awaiting', [JspdAdminController::class, 'awaiting'])->name('jspd-admins.awaiting');
-        Route::get('/jspd-admins/search', [JspdAdminController::class, 'search'])->name('jspd-admins.search');
+
         Route::get('/jspd-admins/dashboard', [JspdAdminController::class, 'dashboard'])->name('jspd-admins.dashboard');
         Route::get('/jspd-admins/create', [JspdAdminController::class,'create'])->name('jspd-admins.create');
         Route::get('/jspd-admins/{role}/edit', [JspdAdminController::class,'edit'])->name('jspd-admins.edit');
@@ -41,12 +43,18 @@ class JspdAdminController extends Controller
     }
 
     public function dashboard(){}
+
     public function index(){
         // list all tender_submissions
         // count assigned signers
         // count assigned urusetias
         // searchable by company name & id
         $proposals = $this->service->paginate(50);
+        return view('JSPD.admins.index', compact('proposals'));
+    }
+
+    public function search(Request $request){
+        $proposals = $this->service->search($request);
         return view('JSPD.admins.index', compact('proposals'));
     }
 
@@ -65,27 +73,18 @@ class JspdAdminController extends Controller
     }
 
     public function failed(){
-
         $proposals = $this->service->failed(50);
         return view('JSPD.admins.index', compact('proposals'));
-
     }
 
     public function awaiting(){
-
         $proposals = $this->service->awaiting(50);
         return view('JSPD.admins.index', compact('proposals'));
-
     }
 
-    public function search(Request $request){
-        $proposals = $this->service->search($request);
-        return view('JSPD.admins.index', compact('proposals'));
-    }
 
     public function show(TenderSubmission $tenderSubmission)
     {
-
         $scorings = Scoring::query()
                         ->with('user')
                         ->where('tender_submission_id', $tenderSubmission->id )
@@ -105,6 +104,7 @@ class JspdAdminController extends Controller
         return redirect(route('jspd-admins.index'))->with('success','Proposal '. $tenderSubmission->id .' successfully approved.');
     }
     public function edit(){}
+
     public function update(){}
 
     // delete proposal
