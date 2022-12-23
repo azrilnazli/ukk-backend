@@ -1,7 +1,7 @@
 <?php
 namespace App\Services\Screening;
 
-use App\Models\ScreeningVerification;
+use App\Models\ScreeningApproval;
 use App\Models\TenderSubmission;
 use Auth;
 
@@ -25,7 +25,7 @@ class AdminService {
             // )
             // ->whereIn('tender_detail_id',[1,2])
             ->whereHas('tender.tender_detail', fn($query) =>
-                $query->whereIn('id', [1,2])
+                $query->whereIn('id', [3,4])
             )
             ->count();
     }
@@ -111,27 +111,14 @@ class AdminService {
 
     public function pendingTasks($item = 50)
     {
-
             return TenderSubmission::query()
             ->sortable()
-
-            // check if this company approved for this TenderDetail
-            // TenderSubmission belongsTo TenderDetail
-            // CompanyApproval belongsTo Company
-            // ->whereHas('user.company.company_approvals', fn($query) =>
-            //      $query->where('is_approved', true)
-            //  )
-            // approved by JSPD
-            //->has('approval')
-            // assigned to logged user via screening_urusetias
-            //->doesntHave('screening_owner')
-            ->whereHas('screening_urusetias', fn($query) =>
-                 $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
-             )
-            ->doesntHave('screening_verification')
+            ->has('screening_signers','=', 3) // must have 3 signer
+            ->has('screening_urusetias','=', 1) // must have 1 urusetia
+            ->doesntHave('screening_approval') // not yet approved by ketua
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('screening-signers.index'));
+            ->setPath(route('screening-admins.pending-tasks'));
     }
 
     public function finishedTasks($item = 50)
@@ -139,23 +126,12 @@ class AdminService {
 
             return TenderSubmission::query()
             ->sortable()
-
-            // check if this company approved for this TenderDetail
-            // TenderSubmission belongsTo TenderDetail
-            // CompanyApproval belongsTo Company
-            // ->whereHas('user.company.company_approvals', fn($query) =>
-            //      $query->where('is_approved', true)
-            //  )
-            // approved by JSPD
-            //->has('screening_verification')
-            // assigned to logged user via screening_urusetias
-            //->doesntHave('screening_owner')
-            ->whereHas('screening_verification', fn($query) =>
-                 $query->where('user_id', auth()->user()->id ) // belongTo logged Urusetia
-             )
+            ->has('screening_signers','=', 3) // must have 3 signer
+            ->has('screening_urusetias','=', 1) // must have 1 urusetia
+            ->has('screening_approval') // approved by ketua
             ->orderBy('id','desc')
             ->paginate($item)
-            ->setPath(route('screening-signers.index'));
+            ->setPath(route('screening-admins.finished-tasks'));
     }
 
 
@@ -190,17 +166,17 @@ class AdminService {
 
     public function store($request,$tenderSubmission){
 
-        $verification = ScreeningVerification::firstOrNew([
+        $approval = ScreeningApproval::firstOrNew([
             'user_id' =>  auth()->user()->id ,
             'tender_submission_id' => $tenderSubmission->id
         ]);
 
-        $verification->user_id = auth()->user()->id ;
-        $verification->tender_submission_id = $tenderSubmission->id;
-        $verification->is_verified =  $request['is_verified'];
-        $verification->save();
+        $approval->user_id = auth()->user()->id ;
+        $approval->tender_submission_id = $tenderSubmission->id;
+        $approval->is_approved =  $request['is_approved'];
+        $approval->save();
 
-        return $verification;
+        return $approval;
     }
 
     public function find($id){

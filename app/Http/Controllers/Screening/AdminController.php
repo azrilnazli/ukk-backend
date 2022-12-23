@@ -36,12 +36,13 @@ class AdminController extends Controller
         Route::get('/screening-admins/pending-tasks', [AdminController::class, 'pendingTasks'])->name('screening-admins.pending-tasks');
         Route::get('/screening-admins/finished-tasks', [AdminController::class, 'finishedTasks'])->name('screening-admins.finished-tasks');
         Route::get('/screening-admins/search', [AdminController::class, 'search'])->name('screening-admins.search');
+        Route::get('/screening-admins/{tenderSubmission}', [AdminController::class, 'show'])->name('screening-admins.show');
+        Route::post('/screening-admins/{tenderSubmission}', [AdminController::class,'store'])->name('screening-admins.store');
 
     }
 
     // signer-list
     public function dashboard(){
-
         $proposals = $this->service->paginate();
         $scores = $this->service->scores();
 
@@ -93,7 +94,7 @@ class AdminController extends Controller
     public function store(StoreRequest $request, TenderSubmission $tenderSubmission){
         $result = $this->service->store($request, $tenderSubmission);
         // redirect
-        return redirect(route('screening-admins.finished_tasks'))->with('success','Proposal '. $tenderSubmission->id .' successfully scored.');
+        return redirect(route('screening-admins.finished-tasks'))->with('success','Proposal '. $tenderSubmission->id .' successfully approved.');
     }
 
 

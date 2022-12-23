@@ -132,20 +132,11 @@
                         @endswitch
                       </td>
                       <td class="text-center">
-                        {{-- @if($row->screening_scorings)
-                            @if($row->screening_scorings->count() == 3)
-                                @if($row->screening_verification)
-                                    <a class="btn btn-su btn-sm" href="{{ route('screening-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
-                                @else
-                                    <a class="btn btn-su btn-sm" href="{{ route('screening-verifications.show', $row->id) }}"><i class="fas fa-pencil-alt "></i></a>
-                                @endif
-
-                                @else
-                                <a class="btn btn-su btn-sm" href="{{ route('screening-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
-                            @endif
+                        @if($row->screening_approval)
+                            <a class="btn btn-su btn-sm" href="{{ route('screening-admins.show', $row->id) }}"><i class="fas fa-search"></i></a>
                         @else
-                            <a class="btn btn-su btn-sm" href="{{ route('screening-verifications.show', $row->id) }}"><i class="fas fa-search"></i></a>
-                        @endif --}}
+                            <a class="btn btn-su btn-sm" href="{{ route('screening-admins.show', $row->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                        @endif
                       </td>
                   </tr>
                   @endforeach

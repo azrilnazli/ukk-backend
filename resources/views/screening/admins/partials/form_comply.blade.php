@@ -1,6 +1,6 @@
 
 
-<div class="d-flex col-9 bg-secondary rounded align-items-center">
+<div class="d-flex col-8 bg-secondary rounded align-items-center">
 
     <div class="col-1 p-2">
         <div class="p-3 col-1 d-flex align-items-center">
@@ -34,7 +34,7 @@
 @enderror
 
 
-    <div class="d-flex col-9 bg-dark">
+    <div class="d-flex col-8 bg-dark">
 
         <div class="col-2 p-2">
             PENANDA :
@@ -45,7 +45,7 @@
     </div>
 
 
-    <div class="d-flex col-9 bg-dark">
+    <div class="d-flex col-8 bg-dark">
         <div class="col-2 p-2">
             DITANDA :
         </div>

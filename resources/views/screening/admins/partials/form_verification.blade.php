@@ -10,11 +10,11 @@
             name="is_verified"
             value=1
 
-            @if(!empty($tenderSubmission->screening_verification))
+            @if(!empty($screeningVerification))
                 disabled
             @endif
 
-            @if( old('is_verified',  !empty($tenderSubmission->screening_verification) ? $tenderSubmission->screening_verification->is_verified  : null) ) checked @endif
+            @if( old('is_verified',  !empty($screeningVerification) ? $screeningVerification->is_verified  : null) ) checked @endif
             />
         </div>
     </div>
@@ -41,7 +41,7 @@
             PENANDA :
         </div>
         <div class="p-2">
-            <strong>{{ auth()->user()->name }}  ({{  auth()->user()->email }})</strong>
+            <strong>{{ $screeningVerification->user->name }}  ({{  $screeningVerification->user->email }})</strong>
         </div>
     </div>
 
