@@ -29,6 +29,7 @@ class JspdAdminController extends Controller
 
         Route::get('/jspd-admins/pending_tasks', [JspdAdminController::class, 'pending_tasks'])->name('jspd-admins.pending_tasks');
         Route::get('/jspd-admins/finished_tasks', [JspdAdminController::class, 'finished_tasks'])->name('jspd-admins.finished_tasks');
+
         Route::get('/jspd-admins/approved', [JspdAdminController::class, 'approved'])->name('jspd-admins.approved');
         Route::get('/jspd-admins/failed', [JspdAdminController::class, 'failed'])->name('jspd-admins.failed');
         Route::get('/jspd-admins/awaiting', [JspdAdminController::class, 'awaiting'])->name('jspd-admins.awaiting');
