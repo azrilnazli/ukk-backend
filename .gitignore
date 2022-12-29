@@ -18,3 +18,4 @@ yarn-error.log
 /public/uploads
 /storage/logs/laravel.log
 /storage/app
+/storage/logs
