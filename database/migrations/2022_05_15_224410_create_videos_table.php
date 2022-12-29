@@ -17,6 +17,7 @@ class CreateVideosTable extends Migration
      */
     public function up()
     {
+	 Schema::create('videos', function (Blueprint $table) {
             $table->id();
 
             // relationship
@@ -43,11 +44,8 @@ class CreateVideosTable extends Migration
             $table->string('format')->nullable(); // original video format
             $table->integer('max_resolution')->nullable()->default(0); // video resoluti
 
-            $table->timestamps();
-        });
-
-
-
+	    $table->timestamps();
+	 });
     }
 
 
